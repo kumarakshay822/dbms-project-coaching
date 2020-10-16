@@ -8,7 +8,6 @@ public class Payroll {
     private int year;
     private double salaryCredited;
     private Date dateCredited;
-    private String paymentMode;
     private int EmployeeId;
 
     /**
@@ -79,20 +78,6 @@ public class Payroll {
      */
     public void setDateCredited(Date dateCredited) {
         this.dateCredited = dateCredited;
-    }
-
-    /**
-     * @return String return the paymentMode
-     */
-    public String getPaymentMode() {
-        return paymentMode;
-    }
-
-    /**
-     * @param paymentMode the paymentMode to set
-     */
-    public void setPaymentMode(String paymentMode) {
-        this.paymentMode = paymentMode;
     }
 
     /**

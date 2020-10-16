@@ -1,6 +1,6 @@
 package com.dbms.coaching.models;
 
-public class TeacherBatchClass {
+public class TeacherBatchDetails {
     private int teacherId;
     private int batchId;
     private int courseId;
