@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS User (
   isActive boolean DEFAULT false NOT NULL,
   lastLoginDate date DEFAULT NULL,
   lastLoginTime time DEFAULT NULL,
+  role varchar(255) NOT NULL,
   PRIMARY KEY (userId)
 );
 

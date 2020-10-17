@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
@@ -29,7 +30,7 @@
                 <div class="collapse navbar-collapse ml-2" id="navbarCollapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active mr-2">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item mr-2">
                             <a class="nav-link" href="#">Link</a>
@@ -50,10 +51,10 @@
                     <form class="form-inline mt-2 mt-md-0">
                         <ul class="navbar-nav mr-4">
                             <li class="nav-item mr-2">
-                                <a class="nav-link" href="#">Login</a>
+                                <a class="nav-link" href="/login">Login</a>
                             </li>
                             <li class="nav-item mr-2">
-                                <a class="nav-link" href="#">Register</a>
+                                <a class="nav-link" href="/register">Register</a>
                             </li>
                         </ul>
                         <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">

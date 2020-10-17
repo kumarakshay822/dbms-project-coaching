@@ -15,6 +15,7 @@ public class User {
     private Boolean isActive;
     private Date lastLoginDate;
     private Time lastLoginTime;
+    private String role;
 
     /**
      * @return int return the userId
@@ -169,4 +170,37 @@ public class User {
     public void setLastLoginTime(Time lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
+
+    /**
+     * @return String return the role
+     */
+    public String getRole() {
+        return role;
+    }
+
+    /**
+     * @param role the role to set
+     */
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " userId='" + getUserId() + "'" +
+            ", username='" + getUsername() + "'" +
+            ", password='" + getPassword() + "'" +
+            ", firstName='" + getFirstName() + "'" +
+            ", middleName='" + getMiddleName() + "'" +
+            ", lastName='" + getLastName() + "'" +
+            ", emailAddress='" + getEmailAddress() + "'" +
+            ", dateCreated='" + getDateCreated() + "'" +
+            ", isActive='" + isIsActive() + "'" +
+            ", lastLoginDate='" + getLastLoginDate() + "'" +
+            ", lastLoginTime='" + getLastLoginTime() + "'" +
+            ", role='" + getRole() + "'" +
+            "}";
+    }
+
 }
