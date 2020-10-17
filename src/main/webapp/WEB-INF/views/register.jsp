@@ -13,7 +13,7 @@
                             REGISTER
                         </div>
                         <div class="card-body">
-                            <form:form class="form-horizontal" action="register" method="post" modelAttribute="userForm">
+                            <form:form class="form-horizontal" action="/register" method="post" modelAttribute="user">
                                 <div class="form-group row">
                                     <label class="col-3 control-label">Username:</label>
                                     <div class="col-9">

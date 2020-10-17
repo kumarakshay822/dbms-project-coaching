@@ -22,7 +22,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.findByUsername(username);
-        System.out.println(user);
+        if (user == null) {
+            throw new UsernameNotFoundException("Invalid username");
+        }
         List<GrantedAuthority> grantList = new ArrayList<>();
 
         GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());

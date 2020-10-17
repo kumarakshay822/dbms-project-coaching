@@ -13,7 +13,7 @@
                             LOGIN
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal" action="login" method="post">
+                            <form class="form-horizontal" action="/login" method="post">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <c:if test="${not empty message}">

@@ -31,16 +31,16 @@ public class UserValidator implements Validator {
         // Validate username
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
         if (user.getUsername().length() < 4 || user.getUsername().length() > 32) {
-            errors.rejectValue("username", "Size.userForm.username");
+            errors.rejectValue("username", "Size.user.username");
         }
         if (userService.findByUsername(user.getUsername()) != null) {
-            errors.rejectValue("username", "Duplicate.userForm.username");
+            errors.rejectValue("username", "Duplicate.user.username");
         }
         
         // Validate password
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
         if (user.getPassword().length() < 4 || user.getPassword().length() > 32) {
-            errors.rejectValue("password", "Size.userForm.password");
+            errors.rejectValue("password", "Size.user.password");
         }
         
         // Validate firstName
@@ -49,7 +49,7 @@ public class UserValidator implements Validator {
         // Validate emailAddress
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "emailAddress", "NotEmpty");
         if (!isValidEmailAddress(user.getEmailAddress())) {
-            errors.rejectValue("emailAddress", "Invalid.userForm.emailAddress");
+            errors.rejectValue("emailAddress", "Invalid.user.emailAddress");
         }
     }
 }

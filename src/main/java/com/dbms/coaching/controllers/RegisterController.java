@@ -26,22 +26,22 @@ public class RegisterController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("userForm", new User());
+        model.addAttribute("user", new User());
 
         return "register";
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
-        userValidator.validate(userForm, bindingResult);
+    public String register(@ModelAttribute("user") User user, BindingResult bindingResult) {
+        userValidator.validate(user, bindingResult);
         
         if (bindingResult.hasErrors()) {
             return "register";
         }
-        userService.save(userForm);
+        userService.save(user);
 
-        securityService.autoLogin(userForm.getUsername(), userForm.getPassword());
-
+        // TODO: Redirecting to login page
+        securityService.autoLogin(user.getUsername(), user.getPassword());
         return "redirect:/welcome";
     }
     
