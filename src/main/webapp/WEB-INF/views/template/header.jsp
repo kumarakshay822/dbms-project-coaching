@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html lang="en">
 
@@ -49,14 +51,31 @@
                         </li>
                     </ul>
                     <form class="form-inline mt-2 mt-md-0">
-                        <ul class="navbar-nav mr-4">
-                            <li class="nav-item mr-2">
-                                <a class="nav-link" href="/login">Login</a>
-                            </li>
-                            <li class="nav-item mr-2">
-                                <a class="nav-link" href="/register">Register</a>
-                            </li>
-                        </ul>
+                        <c:choose>
+                            <c:when test="${not empty pageContext.request.userPrincipal}">
+                                <ul class="navbar-nav mr-2">
+                                    <li class="nav-item dropdown mr-2">
+                                        <a class="nav-link dropdown-toggle" href="#" id="userdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            User: <c:out value="${pageContext.request.userPrincipal.name}" />
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="userdropdown">
+                                            <a class="dropdown-item" href="#">View Profile</a>
+                                            <a class="dropdown-item" href="/logout">Logout</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </c:when>
+                            <c:otherwise>
+                                <ul class="navbar-nav mr-4">
+                                    <li class="nav-item mr-2">
+                                        <a class="nav-link" href="/login">Login</a>
+                                    </li>
+                                    <li class="nav-item mr-2">
+                                        <a class="nav-link" href="/register">Register</a>
+                                    </li>
+                                </ul>
+                            </c:otherwise>
+                        </c:choose>
                         <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
