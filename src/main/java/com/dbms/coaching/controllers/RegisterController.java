@@ -38,10 +38,10 @@ public class RegisterController {
         if (bindingResult.hasErrors()) {
             return "register";
         }
+        String originalPassword = user.getPassword();
         userService.save(user);
 
-        // TODO: Redirecting to login page
-        securityService.autoLogin(user.getUsername(), user.getPassword());
+        securityService.autoLogin(user.getUsername(), originalPassword);
         return "redirect:/welcome";
     }
     
