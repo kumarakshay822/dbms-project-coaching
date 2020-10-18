@@ -65,6 +65,7 @@
                                             <form:option value="ROLE_STUDENT">Student</form:option>
                                             <form:option value="ROLE_STAFF">Staff</form:option>
                                             <form:option value="ROLE_TEACHER">Teacher</form:option>
+                                            <form:option value="ROLE_ADMIN">Admin</form:option>
                                         </form:select>
                                     </div>
                                 </div>
@@ -101,8 +102,8 @@
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="js/jquery.slim.min.js"><\/script>')</script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
 <script>
     $(".toggle-password").click(function () {
         $(this).toggleClass("fa-eye fa-eye-slash");

@@ -11,7 +11,7 @@ public class Transaction {
     private Time time;
     private String transactionMode;
     private String remarks;
-    private Boolean isVerified;
+    private boolean isVerified;
 
     /**
      * @return int return the transactionId
@@ -112,16 +112,16 @@ public class Transaction {
     }
 
     /**
-     * @return Boolean return the isVerified
+     * @return boolean return the isVerified
      */
-    public Boolean isIsVerified() {
+    public boolean isIsVerified() {
         return isVerified;
     }
 
     /**
      * @param isVerified the isVerified to set
      */
-    public void setIsVerified(Boolean isVerified) {
+    public void setIsVerified(boolean isVerified) {
         this.isVerified = isVerified;
     }
 

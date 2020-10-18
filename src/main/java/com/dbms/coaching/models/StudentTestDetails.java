@@ -4,8 +4,8 @@ public class StudentTestDetails {
     private int studentId;
     private int testId;
     private int marksScored;
-    private Boolean hasAppliedRecheck;
-    private Boolean isDoneRecheck;
+    private boolean hasAppliedRecheck;
+    private boolean isDoneRecheck;
     private String recheckComments;
 
     /**
@@ -51,30 +51,30 @@ public class StudentTestDetails {
     }
 
     /**
-     * @return Boolean return the hasAppliedRecheck
+     * @return boolean return the hasAppliedRecheck
      */
-    public Boolean isHasAppliedRecheck() {
+    public boolean isHasAppliedRecheck() {
         return hasAppliedRecheck;
     }
 
     /**
      * @param hasAppliedRecheck the hasAppliedRecheck to set
      */
-    public void setHasAppliedRecheck(Boolean hasAppliedRecheck) {
+    public void setHasAppliedRecheck(boolean hasAppliedRecheck) {
         this.hasAppliedRecheck = hasAppliedRecheck;
     }
 
     /**
-     * @return Boolean return the isDoneRecheck
+     * @return boolean return the isDoneRecheck
      */
-    public Boolean isIsDoneRecheck() {
+    public boolean isIsDoneRecheck() {
         return isDoneRecheck;
     }
 
     /**
      * @param isDoneRecheck the isDoneRecheck to set
      */
-    public void setIsDoneRecheck(Boolean isDoneRecheck) {
+    public void setIsDoneRecheck(boolean isDoneRecheck) {
         this.isDoneRecheck = isDoneRecheck;
     }
 

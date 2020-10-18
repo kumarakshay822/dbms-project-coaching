@@ -12,10 +12,28 @@ public class User {
     private String lastName;
     private String emailAddress;
     private Date dateCreated;
-    private Boolean isActive;
+    private boolean isActive;
     private Date lastLoginDate;
     private Time lastLoginTime;
     private String role;
+
+    public User() {
+    }
+
+    public User(int userId, String username, String password, String firstName, String middleName, String lastName, String emailAddress, Date dateCreated, boolean isActive, Date lastLoginDate, Time lastLoginTime, String role) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.dateCreated = dateCreated;
+        this.isActive = isActive;
+        this.lastLoginDate = lastLoginDate;
+        this.lastLoginTime = lastLoginTime;
+        this.role = role;
+    }
 
     /**
      * @return int return the userId
@@ -130,16 +148,16 @@ public class User {
     }
 
     /**
-     * @return Boolean return the isActive
+     * @return boolean return the isActive
      */
-    public Boolean isIsActive() {
+    public boolean isIsActive() {
         return isActive;
     }
 
     /**
      * @param isActive the isActive to set
      */
-    public void setIsActive(Boolean isActive) {
+    public void setIsActive(boolean isActive) {
         this.isActive = isActive;
     }
 

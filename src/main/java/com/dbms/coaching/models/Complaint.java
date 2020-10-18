@@ -10,7 +10,7 @@ public class Complaint {
     private String subject;
     private String description;
     private String response;
-    private Boolean isResolved;
+    private boolean isResolved;
     private int studentId;
 
     /**
@@ -98,16 +98,16 @@ public class Complaint {
     }
 
     /**
-     * @return Boolean return the isResolved
+     * @return boolean return the isResolved
      */
-    public Boolean isIsResolved() {
+    public boolean isIsResolved() {
         return isResolved;
     }
 
     /**
      * @param isResolved the isResolved to set
      */
-    public void setIsResolved(Boolean isResolved) {
+    public void setIsResolved(boolean isResolved) {
         this.isResolved = isResolved;
     }
 

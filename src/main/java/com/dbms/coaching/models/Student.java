@@ -11,9 +11,26 @@ public class Student {
     private String city;
     private int pinCode;
     private String schoolAttending;
-    private double pencentage10th;
-    private double pencentage12th;
-    private int userId;
+    private double percentage10th;
+    private double percentage12th;
+    private User user;
+
+    public Student() {
+    }
+
+    public Student(int studentId, String gender, Date dateOfBirth, int houseNumber, String street, String city, int pinCode, String schoolAttending, double percentage10th, double percentage12th, User user) {
+        this.studentId = studentId;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.houseNumber = houseNumber;
+        this.street = street;
+        this.city = city;
+        this.pinCode = pinCode;
+        this.schoolAttending = schoolAttending;
+        this.percentage10th = percentage10th;
+        this.percentage12th = percentage12th;
+        this.user = user;
+    }
 
     /**
      * @return int return the studentId
@@ -128,45 +145,62 @@ public class Student {
     }
 
     /**
-     * @return double return the pencentage10th
+     * @return double return the percentage10th
      */
-    public double getPencentage10th() {
-        return pencentage10th;
+    public double getPercentage10th() {
+        return percentage10th;
     }
 
     /**
-     * @param pencentage10th the pencentage10th to set
+     * @param percentage10th the percentage10th to set
      */
-    public void setPencentage10th(double pencentage10th) {
-        this.pencentage10th = pencentage10th;
+    public void setPercentage10th(double percentage10th) {
+        this.percentage10th = percentage10th;
     }
 
     /**
-     * @return double return the pencentage12th
+     * @return double return the percentage12th
      */
-    public double getPencentage12th() {
-        return pencentage12th;
+    public double getPercentage12th() {
+        return percentage12th;
     }
 
     /**
-     * @param pencentage12th the pencentage12th to set
+     * @param percentage12th the percentage12th to set
      */
-    public void setPencentage12th(double pencentage12th) {
-        this.pencentage12th = pencentage12th;
+    public void setPercentage12th(double percentage12th) {
+        this.percentage12th = percentage12th;
     }
 
     /**
-     * @return int return the userId
+     * @return User return the user
      */
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
     /**
-     * @param userId the userId to set
+     * @param user the user to set
      */
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " studentId='" + getStudentId() + "'" +
+            ", gender='" + getGender() + "'" +
+            ", dateOfBirth='" + getDateOfBirth() + "'" +
+            ", houseNumber='" + getHouseNumber() + "'" +
+            ", street='" + getStreet() + "'" +
+            ", city='" + getCity() + "'" +
+            ", pinCode='" + getPinCode() + "'" +
+            ", schoolAttending='" + getSchoolAttending() + "'" +
+            ", percentage10th='" + getPercentage10th() + "'" +
+            ", percentage12th='" + getPercentage12th() + "'" +
+            ", user='" + getUser() + "'" +
+            "}";
     }
 
 }

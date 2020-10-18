@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Attendance {
     private Date date;
     private int employeeId;
-    private Boolean isPresent;
+    private boolean isPresent;
     private String remarks;
 
     /**
@@ -37,16 +37,16 @@ public class Attendance {
     }
 
     /**
-     * @return Boolean return the isPresent
+     * @return boolean return the isPresent
      */
-    public Boolean isIsPresent() {
+    public boolean isIsPresent() {
         return isPresent;
     }
 
     /**
      * @param isPresent the isPresent to set
      */
-    public void setIsPresent(Boolean isPresent) {
+    public void setIsPresent(boolean isPresent) {
         this.isPresent = isPresent;
     }
 

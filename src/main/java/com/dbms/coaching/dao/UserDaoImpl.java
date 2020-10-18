@@ -19,9 +19,8 @@ public class UserDaoImpl implements UserDao {
     JdbcTemplate template;
 
     /**
-     * Get datetime in specified format
-     * e.g: yyyy-MM-dd HH:mm:ss
-     * 
+     * Get datetime in specified format e.g: yyyy-MM-dd HH:mm:ss
+     *
      * @param format
      * @return String datetime
      */
@@ -34,45 +33,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void save(User user) {
-        String sql = "INSERT INTO User (username, password, firstName, middleName, lastName, emailAddress, dateCreated, role) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        template.update(sql, user.getUsername(), user.getPassword(), user.getFirstName(), user.getMiddleName(),
+        String sql = "INSERT INTO User (userId, username, password, firstName, middleName, lastName, emailAddress, dateCreated, role) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        template.update(sql, user.getUserId(), user.getUsername(), user.getPassword(), user.getFirstName(), user.getMiddleName(),
                 user.getLastName(), user.getEmailAddress(), getCurrentDatetime("yyyy-MM-dd"), user.getRole());
-    }
-
-    @Override
-    public User findByEmailAddress(String emailAddress) {
-        String sql = "SELECT * FROM User WHERE emailAddress = ?";
-        return (User) template.queryForObject(sql, new Object[] { emailAddress }, new BeanPropertyRowMapper<>(User.class));
-    }
-
-    @Override
-    public User findByUsername(String username) {
-        try {
-            String sql = "SELECT * FROM User WHERE username = ?";
-            return (User) template.queryForObject(sql, new Object[] { username }, new BeanPropertyRowMapper<>(User.class));
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
-
-    @Override
-    public void activateUser(User user) {
-        String sql = "UPDATE User SET isActive = 'true' WHERE userId = ?";
-        template.update(sql, user.getUserId());
-    }
-
-    @Override
-    public void setLoginTimestamp(User user) {
-        String sql = "UPDATE User SET lastLoginDate = ? AND lastLoginTime = ? WHERE userId = ?";
-        template.update(sql, getCurrentDatetime("yyyy-MM-dd"), 
-                getCurrentDatetime("HH:mm:ss"), user.getUserId());
-    }
-
-    @Override
-    public void setRole(User user, String role) {
-        String sql = "UPDATE User SET role = ? WHERE userId = ?";
-        template.update(sql, role, user.getUserId());
     }
 
     @Override
@@ -88,5 +52,41 @@ public class UserDaoImpl implements UserDao {
         int count = template.queryForObject(sql, Integer.class);
         return (count > 0);
     }
-    
+
+    @Override
+    public User findByEmailAddress(String emailAddress) {
+        String sql = "SELECT * FROM User WHERE emailAddress = ?";
+        return (User) template.queryForObject(sql, new Object[] { emailAddress },
+                new BeanPropertyRowMapper<>(User.class));
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        try {
+            String sql = "SELECT * FROM User WHERE username = ?";
+            return (User) template.queryForObject(sql, new Object[] { username },
+                    new BeanPropertyRowMapper<>(User.class));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public void activateUser(User user) {
+        String sql = "UPDATE User SET isActive = 'true' WHERE userId = ?";
+        template.update(sql, user.getUserId());
+    }
+
+    @Override
+    public void setLoginTimestamp(User user) {
+        String sql = "UPDATE User SET lastLoginDate = ? AND lastLoginTime = ? WHERE userId = ?";
+        template.update(sql, getCurrentDatetime("yyyy-MM-dd"), getCurrentDatetime("HH:mm:ss"), user.getUserId());
+    }
+
+    @Override
+    public void setRole(User user, String role) {
+        String sql = "UPDATE User SET role = ? WHERE userId = ?";
+        template.update(sql, role, user.getUserId());
+    }
+
 }

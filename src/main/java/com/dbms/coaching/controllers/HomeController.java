@@ -9,6 +9,7 @@ public class HomeController {
     
     @RequestMapping("/")
     public String home(Model model) {
+        model.addAttribute("title", "Home Page");
         return "home";
     }
 }
