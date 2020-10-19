@@ -3,20 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/views/template/header.jsp" %>
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb" style="margin-bottom: 0;">
-        <li class="breadcrumb-item active"><a href="/admin">Admin</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Users Portal</li>
-    </ol>
-</nav>
-
-<div class="jumbotron">
-    <div class="container">
-        <h4>${title}</h4>
-        ${message}
-    </div>
-</div>
-
 <div class="container">
     <ul>
         <li><a href="/admin/students">Student Portal</a></li>

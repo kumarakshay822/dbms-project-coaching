@@ -38,7 +38,7 @@ public class AdminController {
 
     @GetMapping("/admin/students")
     public String studentsPortal(Model model) {
-        model.addAttribute("title", "Students Portal");
+        model.addAttribute("title", "Student Portal");
         model.addAttribute("message", "View all the students");
         List<Student> students = studentDao.getAll();
         model.addAttribute("students", students);
@@ -47,21 +47,21 @@ public class AdminController {
 
     @GetMapping("/admin/students/add")
     public String addStudent(Model model) {
-        model.addAttribute("title", "Students Portal");
+        model.addAttribute("title", "Student Portal");
         model.addAttribute("message", "Add a student");
         return "admin/addStudent";
     }
 
     @GetMapping("/admin/students/ST{studentId}")
     public String viewStudent(@PathVariable("studentId") int studentId, Model model) {
-        model.addAttribute("title", "Students Portal");
+        model.addAttribute("title", "Student Portal");
         model.addAttribute("message", "View Student's profile");
         return "admin/viewStudent";
     }
 
     @GetMapping("/admin/students/ST{studentId}/edit")
     public String editStudent(@PathVariable("studentId") int studentId, Model model) {
-        model.addAttribute("title", "Students Portal");
+        model.addAttribute("title", "Student Portal");
         model.addAttribute("message", "Edit Student's profile");
         return "admin/editStudent";
     }

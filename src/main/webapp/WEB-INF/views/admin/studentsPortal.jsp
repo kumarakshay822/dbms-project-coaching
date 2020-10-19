@@ -4,20 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/views/template/header.jsp" %>
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb" style="margin-bottom: 0;">
-        <li class="breadcrumb-item active"><a href="/admin">Admin</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Students Portal</li>
-    </ol>
-</nav>
-
-<div class="jumbotron">
-    <div class="container">
-        <h4>${title}</h4>
-        ${message}
-    </div>
-</div>
-
 <div class="container-fluid custom-container">
     <div class="div text-right">
         <a class="btn btn-primary" href="/admin/students/create" role="button" >Add Student</a>
@@ -39,7 +25,7 @@
             </thead>
             <c:forEach items="${students}" var="student">
                 <tr>
-                    <td><a href="/admin/students/ST${student.studentId}/">ST${student.studentId}</a></td>
+                    <td><a href="/admin/students/ST${student.studentId}">ST${student.studentId}</a></td>
                     <td>${student.user.firstName} ${student.user.middleName} ${student.user.lastName}</td>
                     <td>${student.gender}</td>
                     <td>

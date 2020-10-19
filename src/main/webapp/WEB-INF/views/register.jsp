@@ -27,8 +27,8 @@
                                     <label class="col-3 control-label">Password:</label>
                                     <div class="col-9">
                                         <form:input type="password" path="password" class="form-control" placeholder="Enter the password" required="true"></form:input>
-                                        <span toggle="#password-field" class="fa fa-fw fa-eye toggle-password mr-2"
-                                            style="float: right; margin-top: -25px; cursor: pointer;"></span>
+                                        <span toggle="#password-field" class="fa fa-lg fa-eye toggle-password mr-2"
+                                            style="float: right; margin-top: -25px; cursor: pointer;" onclick="passwordToggleClick()"></span>
                                         <div class="ml-2" style="text-align: left;">
                                             <form:errors path="password" style="color: red;"></form:errors>
                                         </div>
@@ -91,30 +91,4 @@
     </div>
 </div>
 
-<hr class="featurette-divider">
-
-<!-- FOOTER -->
-<footer class="container">
-    <p class="float-right"><a href="#">Back to top</a></p>
-    <p>&copy; 2017-2020 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-</footer>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="js/jquery.slim.min.js"><\/script>')</script>
-<script src="/js/popper.min.js"></script>
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script>
-    $(".toggle-password").click(function () {
-        $(this).toggleClass("fa-eye fa-eye-slash");
-        var input = $('input[name = "password"]');
-        if (input.attr("type") == "password") {
-            input.attr("type", "text");
-        } else {
-            input.attr("type", "password");
-        }
-    });
-</script>
-</body>
-
-</html>
+<%@ include file="/WEB-INF/views/template/footer.jsp" %>

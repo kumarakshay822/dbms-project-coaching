@@ -89,3 +89,14 @@
             </div>
         </nav>
     </header>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="margin-bottom: 0;">
+        </ol>
+    </nav>
+
+    <div class="jumbotron">
+        <div class="container">
+            <h4>${title}</h4>
+            ${message}
+        </div>
+    </div>
