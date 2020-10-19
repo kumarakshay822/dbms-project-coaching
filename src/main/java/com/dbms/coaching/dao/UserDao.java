@@ -7,17 +7,21 @@ import com.dbms.coaching.models.User;
 public interface UserDao {
     public void save(User user);
 
-    public List<User> getAllUsers();
+    public List<User> getAll();
 
-    public boolean userExists(String emailAddress);
+    public User get(int userId);
+
+    public boolean exists(String emailAddress);
 
     public User findByEmailAddress(String emailAddress);
 
     public User findByUsername(String username);
 
-    public void activateUser(User user);
+    public void activate(int userId);
 
     public void setLoginTimestamp(User user);
 
     public void setRole(User user, String role);
+
+    public void delete(int userId);
 }

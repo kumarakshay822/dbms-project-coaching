@@ -40,14 +40,25 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> getAll() {
         String sql = "SELECT * FROM User";
         List<User> users = template.query(sql, new BeanPropertyRowMapper<>(User.class));
         return users;
     }
 
     @Override
-    public boolean userExists(String emailAddress) {
+    public User get(int userId) {
+        try {
+            String sql = "SELECT * FROM User WHERE userId = ?";
+            return (User) template.queryForObject(sql, new Object[] { userId },
+                    new BeanPropertyRowMapper<>(User.class));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean exists(String emailAddress) {
         String sql = "SELECT COUNT(*) FROM User WHERE emailAddress = ?";
         int count = template.queryForObject(sql, Integer.class);
         return (count > 0);
@@ -72,9 +83,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void activateUser(User user) {
-        String sql = "UPDATE User SET isActive = 'true' WHERE userId = ?";
-        template.update(sql, user.getUserId());
+    public void activate(int userId) {
+        String sql = "UPDATE User SET isActive = true WHERE userId = ?";
+        template.update(sql, userId);
     }
 
     @Override
@@ -87,6 +98,12 @@ public class UserDaoImpl implements UserDao {
     public void setRole(User user, String role) {
         String sql = "UPDATE User SET role = ? WHERE userId = ?";
         template.update(sql, role, user.getUserId());
+    }
+
+    @Override
+    public void delete(int userId) {
+        String sql = "DELETE FROM User WHERE userId = ?";
+        template.update(sql, userId);
     }
 
 }

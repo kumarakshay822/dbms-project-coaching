@@ -25,14 +25,14 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public List<Student> getAllStudents() {
+    public List<Student> getAll() {
         String sql = "SELECT * FROM Student NATURAL JOIN User";
         List<Student> students = template.query(sql, new StudentRowMapper());
         return students;
     }
 
     @Override
-    public Student findByStudentId(int studentId) {
+    public Student get(int studentId) {
         try {
             String sql = "SELECT * FROM Student NATURAL JOIN User WHERE studentId = ?";
             return (Student) template.queryForObject(sql, new Object[] {
@@ -44,13 +44,13 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public Student updateByStudentId(int studentId) {
+    public Student update(int studentId) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Student deleteByStudentId(int studentId) {
+    public Student delete(int studentId) {
         // TODO Auto-generated method stub
         return null;
     }

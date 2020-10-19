@@ -8,11 +8,11 @@ import com.dbms.coaching.models.User;
 public interface StudentDao {
     public void save(Student student, User user);
 
-    public List<Student> getAllStudents();
+    public List<Student> getAll();
 
-    public Student findByStudentId(int studentId);
+    public Student get(int studentId);
 
-    public Student updateByStudentId(int studentId);
+    public Student update(int studentId);
 
-    public Student deleteByStudentId(int studentId);
+    public Student delete(int studentId);
 }

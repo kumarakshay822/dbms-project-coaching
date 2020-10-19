@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html lang="en">
@@ -34,6 +35,11 @@
                         <li class="nav-item active mr-2">
                             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                         </li>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <li class="nav-item mr-2">
+                                <a class="nav-link" href="/admin">Admin</a>
+                            </li>
+                        </sec:authorize>
                         <li class="nav-item mr-2">
                             <a class="nav-link" href="#">Link</a>
                         </li>

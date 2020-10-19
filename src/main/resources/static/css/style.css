@@ -12,3 +12,8 @@
             font-size: 3.5rem;
     }
 }
+
+.container-fluid.custom-container {
+    padding-right: 10vw;
+    padding-left: 10vw;
+}
