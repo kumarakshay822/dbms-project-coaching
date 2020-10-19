@@ -6,9 +6,10 @@ public class Student {
     private int studentId;
     private String gender;
     private Date dateOfBirth;
-    private int houseNumber;
+    private String houseNumber;
     private String street;
     private String city;
+    private String state;
     private int pinCode;
     private String schoolAttending;
     private double percentage10th;
@@ -18,13 +19,14 @@ public class Student {
     public Student() {
     }
 
-    public Student(int studentId, String gender, Date dateOfBirth, int houseNumber, String street, String city, int pinCode, String schoolAttending, double percentage10th, double percentage12th, User user) {
+    public Student(int studentId, String gender, Date dateOfBirth, String houseNumber, String street, String city, String state, int pinCode, String schoolAttending, double percentage10th, double percentage12th, User user) {
         this.studentId = studentId;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.houseNumber = houseNumber;
         this.street = street;
         this.city = city;
+        this.state = state;
         this.pinCode = pinCode;
         this.schoolAttending = schoolAttending;
         this.percentage10th = percentage10th;
@@ -75,16 +77,16 @@ public class Student {
     }
 
     /**
-     * @return int return the houseNumber
+     * @return String return the houseNumber
      */
-    public int getHouseNumber() {
+    public String getHouseNumber() {
         return houseNumber;
     }
 
     /**
      * @param houseNumber the houseNumber to set
      */
-    public void setHouseNumber(int houseNumber) {
+    public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
 
@@ -114,6 +116,20 @@ public class Student {
      */
     public void setCity(String city) {
         this.city = city;
+    }
+
+    /**
+     * @return String return the state
+     */
+    public String getState() {
+        return state;
+    }
+
+    /**
+     * @param state the state to set
+     */
+    public void setState(String state) {
+        this.state = state;
     }
 
     /**
@@ -195,6 +211,7 @@ public class Student {
             ", houseNumber='" + getHouseNumber() + "'" +
             ", street='" + getStreet() + "'" +
             ", city='" + getCity() + "'" +
+            ", state='" + getState() + "'" +
             ", pinCode='" + getPinCode() + "'" +
             ", schoolAttending='" + getSchoolAttending() + "'" +
             ", percentage10th='" + getPercentage10th() + "'" +

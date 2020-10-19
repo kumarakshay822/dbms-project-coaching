@@ -26,7 +26,7 @@ public class RegisterController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("title", "Register");
+        model.addAttribute("title", "Register Page");
         model.addAttribute("user", new User());
         return "register";
     }
@@ -34,7 +34,7 @@ public class RegisterController {
     @PostMapping("/register")
     public String register(@ModelAttribute("user") User user, BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
-        
+
         if (bindingResult.hasErrors()) {
             return "register";
         }
@@ -44,5 +44,5 @@ public class RegisterController {
         securityService.autoLogin(user.getUsername(), originalPassword);
         return "redirect:/welcome";
     }
-    
+
 }

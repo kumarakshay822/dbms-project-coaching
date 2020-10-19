@@ -12,7 +12,23 @@ public class Employee {
     private String bankName;
     private String bankBranch;
     private String ifscCode;
-    private int userId;
+    private User user;
+
+    public Employee() {
+    }
+
+    public Employee(int employeeId, int basicSalary, Date joinDate, Date endDate, String panNumber, String accountNumber, String bankName, String bankBranch, String ifscCode, User user) {
+        this.employeeId = employeeId;
+        this.basicSalary = basicSalary;
+        this.joinDate = joinDate;
+        this.endDate = endDate;
+        this.panNumber = panNumber;
+        this.accountNumber = accountNumber;
+        this.bankName = bankName;
+        this.bankBranch = bankBranch;
+        this.ifscCode = ifscCode;
+        this.user = user;
+    }
 
     /**
      * @return int return the employeeId
@@ -141,17 +157,33 @@ public class Employee {
     }
 
     /**
-     * @return int return the userId
+     * @return User return the user
      */
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
     /**
-     * @param userId the userId to set
+     * @param userId the user to set
      */
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " employeeId='" + getEmployeeId() + "'" +
+            ", basicSalary='" + getBasicSalary() + "'" +
+            ", joinDate='" + getJoinDate() + "'" +
+            ", endDate='" + getEndDate() + "'" +
+            ", panNumber='" + getPanNumber() + "'" +
+            ", accountNumber='" + getAccountNumber() + "'" +
+            ", bankName='" + getBankName() + "'" +
+            ", bankBranch='" + getBankBranch() + "'" +
+            ", ifscCode='" + getIfscCode() + "'" +
+            ", user='" + getUser() + "'" +
+            "}";
     }
 
 }

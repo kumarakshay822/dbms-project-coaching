@@ -4,12 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.dbms.coaching.models.Student;
-import com.dbms.coaching.models.User;
 
 @Repository
 public class StudentDaoImpl implements StudentDao {
@@ -17,11 +15,13 @@ public class StudentDaoImpl implements StudentDao {
     JdbcTemplate template;
 
     @Override
-    public void save(Student student, User user) {
-        String sql = "INSERT INTO Student (studentId, gender, dateOfBirth, houseNumber, street, city, pincode, schoolAttending, percentage10th, "
+    public void save(Student student) {
+        String sql = "INSERT INTO Student (studentId, gender, dateOfBirth, houseNumber, street, city, state, pincode, schoolAttending, percentage10th, "
                 + "percentage12th, userId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        template.update(sql, student.getStudentId(), student.getGender(), student.getDateOfBirth(), student.getHouseNumber(), student.getStreet(),
-                student.getCity(), student.getPinCode(), student.getSchoolAttending(), student.getPercentage10th(), student.getPercentage12th(), user.getUserId());
+        template.update(sql, student.getStudentId(), student.getGender(), student.getDateOfBirth(),
+                student.getHouseNumber(), student.getStreet(), student.getCity(), student.getState(),
+                student.getPinCode(), student.getSchoolAttending(), student.getPercentage10th(),
+                student.getPercentage12th(), student.getUser().getUserId());
     }
 
     @Override
@@ -37,21 +37,29 @@ public class StudentDaoImpl implements StudentDao {
             String sql = "SELECT * FROM Student NATURAL JOIN User WHERE studentId = ?";
             return (Student) template.queryForObject(sql, new Object[] {
                     studentId },
-                    new BeanPropertyRowMapper<>(Student.class));
+                    new StudentRowMapper());
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }
 
+    /**
+     * Update all attributes except studentId and userId
+     */
     @Override
-    public Student update(int studentId) {
-        // TODO Auto-generated method stub
-        return null;
+    public void update(Student student) {
+        String sql = "UPDATE Student SET gender = ?, dateOfBirth = ?, houseNumber = ?, street = ?, city = ?, state = ?, pinCode = ?, "
+                + "schoolAttending = ?, percentage10th = ?, percentage12th = ? WHERE studentId = ?";
+        template.update(sql, student.getGender(), student.getDateOfBirth(), student.getHouseNumber(),
+                student.getStreet(), student.getCity(), student.getState(), student.getPinCode(),
+                student.getSchoolAttending(), student.getPercentage10th(), student.getPercentage12th(),
+                student.getStudentId());
     }
 
     @Override
-    public Student delete(int studentId) {
-        // TODO Auto-generated method stub
-        return null;
+    public void delete(int studentId) {
+        String sql = "DELETE FROM STudent WHERE studentId = ?";
+        template.update(sql, studentId);
     }
+
 }

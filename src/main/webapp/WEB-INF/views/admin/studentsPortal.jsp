@@ -40,14 +40,15 @@
                         <c:choose>
                             <c:when test="${student.user.isActive == true}">Yes</c:when>
                             <c:otherwise><a class="btn btn-outline-success btn-sm"
-                                    onclick="javascript:activateUser('/admin/users/${student.user.userId}/activate')" role="button">Activate</a>
+                                    onclick="getRequest('/admin/users/${student.user.userId}/activate')" role="button">Activate</a>
                             </c:otherwise>
                         </c:choose>
                     </td>
                     <td>
-                        <a class="btn btn-outline-primary btn-sm" href="/admin/students/ST${student.studentId}/edit"
+                        <a class="btn btn-outline-primary btn-sm" href="/admin/students/ST${student.studentId}/edit-student"
                             role="button">Edit</a>
-                        <a class="btn btn-outline-danger btn-sm" onclick="javascript:deleteUser('/admin/users/${student.user.userId}/delete')"
+                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/users/${student.user.userId}/delete',
+                        'Do you want to delete this User? \nWarning! This action is destructible!')"
                             role="button">Delete</a>
                     </td>
                 </tr>

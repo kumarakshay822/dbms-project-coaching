@@ -101,6 +101,18 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    /**
+     * Update all attributes except userId, password, dateCreated, lastLoginDate,
+     * lastLoginTime, role
+     */
+    public void update(User user) {
+        String sql = "UPDATE User SET username = ?, firstName = ?, middleName = ?, lastName = ?, emailAddress = ?, "
+                + "isActive = ? WHERE userId = ?";
+        template.update(sql, user.getUsername(), user.getFirstName(), user.getMiddleName(), user.getLastName(),
+                user.getEmailAddress(), user.isIsActive(), user.getUserId());
+    }
+
+    @Override
     public void delete(int userId) {
         String sql = "DELETE FROM User WHERE userId = ?";
         template.update(sql, userId);

@@ -23,5 +23,7 @@ public interface UserDao {
 
     public void setRole(User user, String role);
 
+    public void update(User user);
+
     public void delete(int userId);
 }

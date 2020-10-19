@@ -6,15 +6,35 @@ public class Teacher {
     private int teacherId;
     private String gender;
     private Date dateOfBirth;
-    private int houseNumber;
+    private String houseNumber;
     private String street;
     private String city;
+    private String state;
     private int pinCode;
     private String bachelorsDegree;
     private String mastersDegree;
     private String doctoralDegree;
-    private int employeeId;
-    private int subjectId;
+    private Employee employee;
+    private Subject subject;
+
+    public Teacher() {
+    }
+
+    public Teacher(int teacherId, String gender, Date dateOfBirth, String houseNumber, String street, String city, String state, int pinCode, String bachelorsDegree, String mastersDegree, String doctoralDegree, Employee employee, Subject subject) {
+        this.teacherId = teacherId;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.houseNumber = houseNumber;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.pinCode = pinCode;
+        this.bachelorsDegree = bachelorsDegree;
+        this.mastersDegree = mastersDegree;
+        this.doctoralDegree = doctoralDegree;
+        this.employee = employee;
+        this.subject = subject;
+    }
 
     /**
      * @return int return the teacherId
@@ -59,16 +79,16 @@ public class Teacher {
     }
 
     /**
-     * @return int return the houseNumber
+     * @return String return the houseNumber
      */
-    public int getHouseNumber() {
+    public String getHouseNumber() {
         return houseNumber;
     }
 
     /**
      * @param houseNumber the houseNumber to set
      */
-    public void setHouseNumber(int houseNumber) {
+    public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
 
@@ -98,6 +118,20 @@ public class Teacher {
      */
     public void setCity(String city) {
         this.city = city;
+    }
+
+    /**
+     * @return String return the state
+     */
+    public String getState() {
+        return state;
+    }
+
+    /**
+     * @param state the state to set
+     */
+    public void setState(String state) {
+        this.state = state;
     }
 
     /**
@@ -157,31 +191,50 @@ public class Teacher {
     }
 
     /**
-     * @return int return the employeeId
+     * @return Employee return the employee
      */
-    public int getEmployeeId() {
-        return employeeId;
+    public Employee getEmployee() {
+        return employee;
     }
 
     /**
-     * @param employeeId the employeeId to set
+     * @param employeeId the employee to set
      */
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     /**
-     * @return int return the subjectId
+     * @return Subject return the subjectId
      */
-    public int getSubjectId() {
-        return subjectId;
+    public Subject getSubject() {
+        return subject;
     }
 
     /**
      * @param subjectId the subjectId to set
      */
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " teacherId='" + getTeacherId() + "'" +
+            ", gender='" + getGender() + "'" +
+            ", dateOfBirth='" + getDateOfBirth() + "'" +
+            ", houseNumber='" + getHouseNumber() + "'" +
+            ", street='" + getStreet() + "'" +
+            ", city='" + getCity() + "'" +
+            ", state='" + getState() + "'" +
+            ", pinCode='" + getPinCode() + "'" +
+            ", bachelorsDegree='" + getBachelorsDegree() + "'" +
+            ", mastersDegree='" + getMastersDegree() + "'" +
+            ", doctoralDegree='" + getDoctoralDegree() + "'" +
+            ", employee='" + getEmployee() + "'" +
+            ", subject='" + getSubject() + "'" +
+            "}";
     }
 
 }

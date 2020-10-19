@@ -5,6 +5,15 @@ public class Subject {
     private String name;
     private String description;
 
+    public Subject() {
+    }
+
+    public Subject(int subjectId, String name, String description) {
+        this.subjectId = subjectId;
+        this.name = name;
+        this.description = description;
+    }
+
     /**
      * @return int return the subjectId
      */
@@ -45,6 +54,15 @@ public class Subject {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " subjectId='" + getSubjectId() + "'" +
+            ", name='" + getName() + "'" +
+            ", description='" + getDescription() + "'" +
+            "}";
     }
 
 }

@@ -13,10 +13,28 @@ public class UserPhoneNumberDaoImpl implements UserPhoneNumberDao {
     JdbcTemplate template;
 
     @Override
-    public List<UserPhoneNumber> getPhoneNumberByUserId(int userId) {
+    public void save(UserPhoneNumber userPhoneNumber) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public List<UserPhoneNumber> getByUserId(int userId) {
         String sql = "SELECT * FROM UserPhoneNumber WHERE userId = ?";
         List<UserPhoneNumber> phoneNumbers = template.query(sql, new BeanPropertyRowMapper<>(UserPhoneNumber.class));
         return phoneNumbers;
+    }
+
+    @Override
+    public void update(UserPhoneNumber userPhoneNumber) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void delete(int studentId) {
+        // TODO Auto-generated method stub
+
     }
 
 }

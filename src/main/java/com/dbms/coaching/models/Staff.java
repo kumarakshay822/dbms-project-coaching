@@ -6,11 +6,27 @@ public class Staff {
     private int staffId;
     private String gender;
     private Date dateOfBirth;
-    private int houseNumber;
+    private String houseNumber;
     private String street;
     private String city;
+    private String state;
     private int pinCode;
-    private int employeeId;
+    private Employee employee;
+
+    public Staff() {
+    }
+
+    public Staff(int staffId, String gender, Date dateOfBirth, String houseNumber, String street, String city, String state, int pinCode, Employee employee) {
+        this.staffId = staffId;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.houseNumber = houseNumber;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.pinCode = pinCode;
+        this.employee = employee;
+    }
 
     /**
      * @return int return the staffId
@@ -55,16 +71,16 @@ public class Staff {
     }
 
     /**
-     * @return int return the houseNumber
+     * @return String return the houseNumber
      */
-    public int getHouseNumber() {
+    public String getHouseNumber() {
         return houseNumber;
     }
 
     /**
      * @param houseNumber the houseNumber to set
      */
-    public void setHouseNumber(int houseNumber) {
+    public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
 
@@ -97,6 +113,20 @@ public class Staff {
     }
 
     /**
+     * @return String return the state
+     */
+    public String getState() {
+        return state;
+    }
+
+    /**
+     * @param state the state to set
+     */
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    /**
      * @return int return the pinCode
      */
     public int getPinCode() {
@@ -111,17 +141,32 @@ public class Staff {
     }
 
     /**
-     * @return int return the employeeId
+     * @return Employee return the employeeId
      */
-    public int getEmployeeId() {
-        return employeeId;
+    public Employee getEmployee() {
+        return employee;
     }
 
     /**
-     * @param employeeId the employeeId to set
+     * @param employee the employee to set
      */
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " staffId='" + getStaffId() + "'" +
+            ", gender='" + getGender() + "'" +
+            ", dateOfBirth='" + getDateOfBirth() + "'" +
+            ", houseNumber='" + getHouseNumber() + "'" +
+            ", street='" + getStreet() + "'" +
+            ", city='" + getCity() + "'" +
+            ", state='" + getState() + "'" +
+            ", pinCode='" + getPinCode() + "'" +
+            ", employee='" + getEmployee() + "'" +
+            "}";
     }
 
 }

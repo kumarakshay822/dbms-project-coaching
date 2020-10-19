@@ -3,15 +3,16 @@ package com.dbms.coaching.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.dbms.coaching.models.Student;
+import com.dbms.coaching.models.Employee;
+import com.dbms.coaching.models.Staff;
 import com.dbms.coaching.models.User;
 
 import org.springframework.jdbc.core.RowMapper;
 
-public class StudentRowMapper implements RowMapper<Student> {
+public class StaffRowMapper implements RowMapper<Staff> {
 
     @Override
-    public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Staff mapRow(ResultSet rs, int rowNum) throws SQLException {
         User user = new User(
             rs.getInt("userId"),
             rs.getString("username"),
@@ -27,8 +28,21 @@ public class StudentRowMapper implements RowMapper<Student> {
             rs.getString("role")
         );
 
-        Student student = new Student(
-            rs.getInt("studentId"),
+        Employee employee = new Employee(
+            rs.getInt("employeeId"),
+            rs.getInt("basicSalary"),
+            rs.getDate("joinDate"),
+            rs.getDate("endDate"),
+            rs.getString("panNumber"),
+            rs.getString("accountNumber"),
+            rs.getString("bankName"),
+            rs.getString("bankBranch"),
+            rs.getString("ifscCode"),
+            user
+        );
+
+        Staff staff = new Staff(
+            rs.getInt("staffId"),
             rs.getString("gender"),
             rs.getDate("dateOfBirth"),
             rs.getString("houseNumber"),
@@ -36,13 +50,10 @@ public class StudentRowMapper implements RowMapper<Student> {
             rs.getString("city"),
             rs.getString("state"),
             rs.getInt("pinCode"),
-            rs.getString("schoolAttending"),
-            rs.getDouble("percentage10th"),
-            rs.getDouble("percentage12th"),
-            user
+            employee
         );
 
-        return student;
+        return staff;
 
     }
 }

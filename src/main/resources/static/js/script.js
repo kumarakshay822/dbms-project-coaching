@@ -1,26 +1,43 @@
-function deleteUser(url){
-    if (confirm('Do you want to delete this User? \nWarning! This action is destructible!')){
+function getRequestWithConfirmation(url, confirmText){
+    if (confirm(confirmText)){
         $.ajax({
             url: url,
             type: "get",
-            success: function (data, status, xhr){
-                location.reload();
+            success: function(data, status, xhr){
+                // location.reload();
+                location = location.pathname;
             },
-            error:function (error){
+            error: function(error){
                 alert(error);
             }
         });
     }
 }
 
-function activateUser(url) {
+function getRequest(url) {
     $.ajax({
         url: url,
         type: "get",
-        success: function (data, status, xhr){
-            location.reload();
+        success: function(data, status, xhr){
+            // location.reload();
+            location = location.pathname;
         },
-        error:function (error){
+        error: function(error){
+            alert(error);
+        }
+    });
+}
+
+function postRequest(url, data) {
+    $.ajax({
+        url: url,
+        type: "post",
+        data: data,
+        success: function(data, status, xhr){
+            // location.reload();
+            location = location.pathname;
+        },
+        error: function(error){
             alert(error);
         }
     });

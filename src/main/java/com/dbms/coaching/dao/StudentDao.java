@@ -3,16 +3,15 @@ package com.dbms.coaching.dao;
 import java.util.List;
 
 import com.dbms.coaching.models.Student;
-import com.dbms.coaching.models.User;
 
 public interface StudentDao {
-    public void save(Student student, User user);
+    public void save(Student student);
 
     public List<Student> getAll();
 
     public Student get(int studentId);
 
-    public Student update(int studentId);
+    public void update(Student student);
 
-    public Student delete(int studentId);
+    public void delete(int studentId);
 }

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class LoginController {
-    
+
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
         if (error != null)
@@ -14,7 +14,7 @@ public class LoginController {
 
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
-        model.addAttribute("title", "Login");
+        model.addAttribute("title", "Login Page");
         return "login";
     }
 
