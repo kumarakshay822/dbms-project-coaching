@@ -47,6 +47,8 @@
                                     </div>
                                     <div class="col-9 offset-3 ml-2">
                                         <form:errors path="firstName" style="color: red;"></form:errors>
+                                        <form:errors path="middleName" style="color: red;"></form:errors>
+                                        <form:errors path="lastName" style="color: red;"></form:errors>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -67,6 +69,7 @@
                                             <form:option value="ROLE_TEACHER">Teacher</form:option>
                                             <form:option value="ROLE_ADMIN">Admin</form:option>
                                         </form:select>
+                                        <form:errors path="role" style="color: red;"></form:errors>
                                     </div>
                                 </div>
                                 <div class="form-group">

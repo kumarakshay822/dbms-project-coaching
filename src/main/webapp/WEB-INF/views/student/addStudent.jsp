@@ -28,8 +28,11 @@
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="user.firstName" class="form-control" required="true"></form:input>
+                        <form:errors path="user.firstName" style="color: red;"></form:errors>
                         <form:input type="text" path="user.middleName" class="form-control"></form:input>
+                        <form:errors path="user.middleName" style="color: red;"></form:errors>
                         <form:input type="text" path="user.lastName" class="form-control"></form:input>
+                        <form:errors path="user.lastName" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
@@ -37,6 +40,7 @@
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="user.username" class="form-control" required="true"></form:input>
+                        <form:errors path="user.username" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
@@ -44,6 +48,7 @@
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="email" path="user.emailAddress" class="form-control" required="true"></form:input>
+                        <form:errors path="user.emailAddress" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
@@ -55,6 +60,7 @@
                             <form:option value="Female">Female</form:option>
                             <form:option value="Not Specified">Not Specified</form:option>
                         </form:select>
+                        <form:errors path="gender" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
@@ -62,6 +68,7 @@
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="date" path="dateOfBirth" class="form-control" required="true"></form:input>
+                        <form:errors path="dateOfBirth" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
@@ -69,10 +76,15 @@
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="houseNumber" class="form-control"></form:input>
+                        <form:errors path="houseNumber" style="color: red;"></form:errors>
                         <form:input type="text" path="street" class="form-control" required="true"></form:input>
+                        <form:errors path="street" style="color: red;"></form:errors>
                         <form:input type="text" path="city" class="form-control" required="true"></form:input>
+                        <form:errors path="city" style="color: red;"></form:errors>
                         <form:input type="text" path="state" class="form-control" required="true"></form:input>
-                        <form:input type="text" path="pinCode" class="form-control" required="true"></form:input>
+                        <form:errors path="state" style="color: red;"></form:errors>
+                        <form:input type="number" path="pinCode" class="form-control" required="true"></form:input>
+                        <form:errors path="pinCode" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
@@ -80,6 +92,7 @@
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="schoolAttending" class="form-control" required="true"></form:input>
+                        <form:errors path="schoolAttending" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
@@ -87,6 +100,7 @@
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="percentage10th" class="form-control" required="true"></form:input>
+                        <form:errors path="percentage10th" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
@@ -94,6 +108,7 @@
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="percentage12th" class="form-control" required="true"></form:input>
+                        <form:errors path="percentage12th" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
@@ -104,6 +119,7 @@
                             <form:option value="1">Yes</form:option>
                             <form:option value="0">No</form:option>
                         </form:select>
+                        <form:errors path="isActive" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>

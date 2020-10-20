@@ -34,6 +34,7 @@
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="name" class="form-control" required="true"></form:input>
+                        <form:errors path="name" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
@@ -41,6 +42,7 @@
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="occupation" class="form-control"></form:input>
+                        <form:errors path="occupation" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
@@ -48,6 +50,7 @@
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="address" class="form-control" required="true"></form:input>
+                        <form:errors path="address" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
@@ -55,6 +58,7 @@
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="email" path="emailAddress" class="form-control"></form:input>
+                        <form:errors path="emailAddress" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
@@ -66,6 +70,7 @@
                             <form:option value="Mother">Mother</form:option>
                             <form:option value="Other">Other</form:option>
                         </form:select>
+                        <form:errors path="relationWithStudent" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
