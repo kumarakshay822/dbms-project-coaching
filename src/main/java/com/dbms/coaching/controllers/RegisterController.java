@@ -28,15 +28,15 @@ public class RegisterController {
     public String register(Model model) {
         model.addAttribute("title", "Register Page");
         model.addAttribute("user", new User());
-        return "register";
+        return "user/register";
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("user") User user, BindingResult bindingResult) {
+    public String register(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
         userValidator.validate(user, bindingResult);
-
         if (bindingResult.hasErrors()) {
-            return "register";
+            model.addAttribute("title", "Register Page");
+            return "user/register";
         }
         String originalPassword = user.getPassword();
         userService.save(user);

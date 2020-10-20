@@ -80,7 +80,7 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public void delete(int studentId) {
-        String sql = "DELETE FROM STudent WHERE studentId = ?";
+        String sql = "DELETE FROM Student WHERE studentId = ?";
         template.update(sql, studentId);
     }
 

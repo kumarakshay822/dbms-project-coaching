@@ -53,14 +53,14 @@ public class AdminController {
     public String adminPage(Model model) {
         model.addAttribute("title", "Admin Page");
         model.addAttribute("message", "Welcome, Admin!");
-        return "admin/admin";
+        return "home/admin";
     }
 
     @GetMapping("/admin/users")
     public String usersPortal(Model model) {
         model.addAttribute("title", "Users Portal");
         model.addAttribute("message", "View all the users");
-        return "admin/usersPortal";
+        return "user/usersPortal";
     }
 
     @GetMapping("/admin/students")
@@ -69,11 +69,12 @@ public class AdminController {
         model.addAttribute("message", "View all the students");
         List<Student> students = studentDao.getAll();
         model.addAttribute("students", students);
-        return "admin/studentsPortal";
+        return "student/studentsPortal";
     }
 
     @GetMapping("/admin/students/add")
     public String addStudent(Model model) {
+        // TODO: Create student and guardian together
         model.addAttribute("title", "Student Portal");
         model.addAttribute("message", "Create Student's profile");
         model.addAttribute("submessage1", "Add Student Details");
@@ -81,14 +82,19 @@ public class AdminController {
         model.addAttribute("buttonmessage", "Proceed to Step 2");
         Student student = new Student();
         model.addAttribute("student", student);
-        return "admin/addStudent";
+        return "student/addStudent";
     }
 
     @PostMapping("/admin/students/add")
-    public String addStudent(@ModelAttribute("student") Student student, BindingResult bindingResult) {
+    public String addStudent(@ModelAttribute("student") Student student, BindingResult bindingResult, Model model) {
         // TODO: Validate here
         if (bindingResult.hasErrors()) {
-            return "addStudent";
+            model.addAttribute("title", "Student Portal");
+            model.addAttribute("message", "Create Student's profile");
+            model.addAttribute("submessage1", "Add Student Details");
+            model.addAttribute("submessage2", "Step 1: Student Details");
+            model.addAttribute("buttonmessage", "Proceed to Step 2");
+            return "student/addStudent";
         }
 
         User user = student.getUser();
@@ -115,7 +121,7 @@ public class AdminController {
         model.addAttribute("guardian", guardian);
         model.addAttribute("userPhoneNumbers", userPhoneNumbers);
         model.addAttribute("guardianPhoneNumbers", guardianPhoneNumbers);
-        return "admin/viewStudent";
+        return "student/viewStudent";
     }
 
     @GetMapping("/admin/students/ST{studentId}/edit-student")
@@ -127,15 +133,20 @@ public class AdminController {
         model.addAttribute("buttonmessage", "Proceed to Step 2");
         Student student = studentDao.get(studentId);
         model.addAttribute("student", student);
-        return "admin/editStudent";
+        return "student/editStudent";
     }
 
     @PostMapping("/admin/students/ST{studentId}/edit-student")
     public String editStudent(@PathVariable("studentId") int studentId, @ModelAttribute("student") Student student,
-    BindingResult bindingResult) {
+    BindingResult bindingResult, Model model) {
         // TODO: Validate here
         if (bindingResult.hasErrors()) {
-            return "editStudent";
+            model.addAttribute("title", "Student Portal");
+            model.addAttribute("message", "Edit Student's profile");
+            model.addAttribute("submessage1", "Edit Student Details");
+            model.addAttribute("submessage2", "Step 1: Student Details");
+            model.addAttribute("buttonmessage", "Proceed to Step 2");
+            return "student/editStudent";
         }
         Student oldStudent = studentDao.get(studentId);
 
@@ -159,7 +170,7 @@ public class AdminController {
         List<UserPhoneNumber> phoneNumbers = userPhoneNumberDao.getByUserId(userId);
         model.addAttribute("phoneNumbers", phoneNumbers);
         model.addAttribute("userId", userId);
-        return "admin/editStudentPhone";
+        return "student/addEditStudentPhone";
     }
 
     @GetMapping("/admin/students/ST{studentId}/edit-student-phone")
@@ -174,7 +185,7 @@ public class AdminController {
         List<UserPhoneNumber> phoneNumbers = userPhoneNumberDao.getByUserId(userId);
         model.addAttribute("phoneNumbers", phoneNumbers);
         model.addAttribute("userId", userId);
-        return "admin/editStudentPhone";
+        return "student/addEditStudentPhone";
     }
 
     // @RequestMapping("/username")

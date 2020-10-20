@@ -39,15 +39,20 @@ public class GuardianController {
             return "redirect:/admin/students/ST{studentId}/add-guardian";
         }
         model.addAttribute("guardian", guardian);
-        return "admin/editGuardian";
+        return "guardian/editGuardian";
     }
 
     @PostMapping("/admin/students/ST{studentId}/edit-guardian")
     public String editGuardian(@PathVariable("studentId") int studentId, @ModelAttribute("guardian") Guardian guardian,
-            BindingResult bindingResult) {
+            BindingResult bindingResult, Model model) {
                 // TODO: Validate here
         if (bindingResult.hasErrors()) {
-            return "editGuardian";
+            model.addAttribute("title", "Student Portal");
+            model.addAttribute("message", "Edit Student's profile");
+            model.addAttribute("submessage1", "Edit Student Details");
+            model.addAttribute("submessage2", "Step 3: Guardian Details");
+            model.addAttribute("buttonmessage", "Proceed to Step 4");
+            return "guardian/editGuardian";
         }
         guardianDao.update(guardian);
         return "redirect:/admin/students/ST{studentId}/edit-guardian-phone";
@@ -63,15 +68,20 @@ public class GuardianController {
         Guardian guardian = new Guardian();
         model.addAttribute("guardian", guardian);
         guardian.setStudentId(studentId);
-        return "admin/addGuardian";
+        return "guardian/addGuardian";
     }
 
     @PostMapping("/admin/students/ST{studentId}/add-guardian")
     public String addGuardian(@PathVariable("studentId") int studentId, @ModelAttribute("guardian") Guardian guardian,
-            BindingResult bindingResult) {
+            BindingResult bindingResult, Model model) {
         // TODO: Validate here
         if (bindingResult.hasErrors()) {
-            return "editGuardian";
+            model.addAttribute("title", "Student Portal");
+            model.addAttribute("message", "Create Student's profile");
+            model.addAttribute("submessage1", "Add Student Details");
+            model.addAttribute("submessage2", "Step 3: Guardian Details");
+            model.addAttribute("buttonmessage", "Proceed to Step 4");
+            return "guardian/addGuardian";
         }
         guardianDao.save(guardian);
         return "redirect:/admin/students/ST{studentId}/add-guardian-phone";
@@ -88,7 +98,7 @@ public class GuardianController {
         Guardian guardian = guardianDao.getByStudentId(studentId);
         model.addAttribute("phoneNumbers", phoneNumbers);
         model.addAttribute("guardian", guardian);
-        return "admin/editGuardianPhone";
+        return "guardian/addEditGuardianPhone";
     }
 
     @GetMapping("/admin/students/ST{studentId}/add-guardian-phone")
@@ -102,7 +112,7 @@ public class GuardianController {
         Guardian guardian = guardianDao.getByStudentId(studentId);
         model.addAttribute("phoneNumbers", phoneNumbers);
         model.addAttribute("guardian", guardian);
-        return "admin/editGuardianPhone";
+        return "guardian/addEditGuardianPhone";
     }
 
     @PostMapping("/admin/students/ST{studentId}/add-guardian-phone")

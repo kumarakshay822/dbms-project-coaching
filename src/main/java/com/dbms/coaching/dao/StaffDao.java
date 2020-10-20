@@ -3,16 +3,15 @@ package com.dbms.coaching.dao;
 import java.util.List;
 
 import com.dbms.coaching.models.Staff;
-import com.dbms.coaching.models.User;
 
 public interface StaffDao {
-    public void save(Staff staff, User user);
+    public Staff save(Staff staff);
 
     public List<Staff> getAll();
 
-    public Staff get(int staffId);
+    public Staff getByEmployeeId(int employeeId);
 
-    public Staff update(int staffId);
+    public void update(Staff staff);
 
-    public Staff delete(int staffId);
+    public void delete(int staffId);
 }
