@@ -9,7 +9,7 @@ public interface UserPhoneNumberDao {
 
     public List<UserPhoneNumber> getByUserId(int userId);
 
-    public void update(UserPhoneNumber userPhoneNumber);
+    public void update(UserPhoneNumber userPhoneNumber, int oldPhoneNumber);
 
-    public void delete(int studentId);
+    public void delete(int phoneNumber, int userId);
 }

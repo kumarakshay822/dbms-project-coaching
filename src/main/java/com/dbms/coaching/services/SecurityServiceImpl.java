@@ -40,5 +40,5 @@ public class SecurityServiceImpl implements SecurityService {
     public void autoLogout() {
         SecurityContextHolder.clearContext();
     }
-    
+
 }

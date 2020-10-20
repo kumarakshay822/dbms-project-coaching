@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -31,5 +31,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         grantList.add(authority);
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantList);
     }
-    
+
 }

@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.dbms.coaching.dao.StudentDao;
 import com.dbms.coaching.dao.UserDao;
+import com.dbms.coaching.dao.UserPhoneNumberDao;
 import com.dbms.coaching.models.Student;
 import com.dbms.coaching.models.User;
+import com.dbms.coaching.models.UserPhoneNumber;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,14 +19,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+// import org.springframework.security.core.Authentication;
+// import org.springframework.security.core.context.SecurityContextHolder;
+// import org.springframework.security.core.userdetails.UserDetails;
 
 @Controller
 public class AdminController {
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
 
     @Autowired
-    StudentDao studentDao;
+    private StudentDao studentDao;
+
+    @Autowired
+    private UserPhoneNumberDao userPhoneNumberDao;
 
     @GetMapping("/admin")
     public String adminPage(Model model) {
@@ -106,7 +118,21 @@ public class AdminController {
         model.addAttribute("buttonmessage", "Proceed to Step 3");
         Student student = studentDao.get(studentId);
         int userId = student.getUser().getUserId();
+        List<UserPhoneNumber> phoneNumbers = userPhoneNumberDao.getByUserId(userId);
+        model.addAttribute("phoneNumbers", phoneNumbers);
+        return "admin/editStudentPhone";
+    }
 
+    @PostMapping("/admin/students/ST{studentId}/edit-student-phone")
+    public ResponseEntity<Integer> editStudentPhone(@PathVariable("studentId") int studentId,
+            @RequestParam int phoneNumber, @RequestParam int userId, BindingResult bindingResult) {
+        Student oldStudent = studentDao.get(studentId);
+
+        User user = student.getUser();
+        user.setUserId(oldStudent.getUser().getUserId());
+        userDao.update(student.getUser());
+
+        studentDao.update(student);
         return "admin/editStudentPhone";
     }
 
@@ -127,5 +153,16 @@ public class AdminController {
         userDao.delete(userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    // @RequestMapping("/username")
+    // @ResponseBody
+    // public void currentUserName() {
+    //     Authentication auth = (Authentication) SecurityContextHolder.getContext().getAuthentication();
+    //     UserDetails userPrincipal = (UserDetails) auth.getPrincipal();
+    //     System.out.println(userPrincipal.getAuthorities());
+    //     System.out.println(userPrincipal.getUsername());
+    //     System.out.println(userPrincipal.getPassword());
+
+    // }
 
 }

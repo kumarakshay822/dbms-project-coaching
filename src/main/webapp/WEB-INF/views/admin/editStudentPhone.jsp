@@ -19,10 +19,26 @@
                 </td>
             </tr>
             <tr>
+                <th style="width: 40%; text-align: center;">Phone Numbers</th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%">
+                    <c:forEach var="phoneNumber" items="${phoneNumbers}" varStatus="loop">
+                        <li><a onclick="getCategoryIndex(${loop.index})" href="#">${phoneNumber}</a></li>
+                    </c:forEach>
+                </td>
+            </tr>
+            <tr>
                 <th style="width: 40%; text-align: center;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%">
-                    <button class="btn btn-primary" type="submit">${buttonmessage}</button>
+
+                </td>
+            </tr>
+            <tr>
+                <th style="width: 40%; text-align: center;"></th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%">
+                    <a class="btn btn-primary" type="button" href="/admin/students/ST100003/edit-guardian">${buttonmessage}</button>
                 </td>
             </tr>
         </table>

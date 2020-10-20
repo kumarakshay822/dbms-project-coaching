@@ -2,7 +2,15 @@ package com.dbms.coaching.models;
 
 public class UserPhoneNumber {
     private String phoneNumber;
-    private User user;
+    private int userId;
+
+    public UserPhoneNumber() {
+    }
+
+    public UserPhoneNumber(String phoneNumber, int userId) {
+        this.phoneNumber = phoneNumber;
+        this.userId = userId;
+    }
 
     /**
      * @return String return the phoneNumber
@@ -19,17 +27,25 @@ public class UserPhoneNumber {
     }
 
     /**
-     * @return User return the user
+     * @return int return the userId
      */
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
     /**
-     * @param user the user to set
+     * @param userId the userId to set
      */
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " phoneNumber='" + getPhoneNumber() + "'" +
+            ", userId='" + getUserId() + "'" +
+            "}";
     }
 
 }
