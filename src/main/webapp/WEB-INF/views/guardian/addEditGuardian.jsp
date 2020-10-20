@@ -22,7 +22,7 @@
             </tr>
         </table>
         <table class="table table-borderless">
-            <form:form class="form-horizontal" action="/admin/students/ST${guardian.studentId}/edit-guardian"
+            <form:form class="form-horizontal" action="${submiturl}"
                 method="post" modelAttribute="guardian">
                 <tr>
                     <th style="width: 40%; text-align: center;">Student ID</th>

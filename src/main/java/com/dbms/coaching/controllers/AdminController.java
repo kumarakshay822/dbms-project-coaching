@@ -80,9 +80,10 @@ public class AdminController {
         model.addAttribute("submessage1", "Add Student Details");
         model.addAttribute("submessage2", "Step 1: Student Details");
         model.addAttribute("buttonmessage", "Proceed to Step 2");
+        model.addAttribute("submiturl", "/admin/students/add");
         Student student = new Student();
         model.addAttribute("student", student);
-        return "student/addStudent";
+        return "student/addEditStudent";
     }
 
     @PostMapping("/admin/students/add")
@@ -94,7 +95,8 @@ public class AdminController {
             model.addAttribute("submessage1", "Add Student Details");
             model.addAttribute("submessage2", "Step 1: Student Details");
             model.addAttribute("buttonmessage", "Proceed to Step 2");
-            return "student/addStudent";
+            model.addAttribute("submiturl", "/admin/students/add");
+            return "student/addEditStudent";
         }
 
         User user = student.getUser();
@@ -131,9 +133,11 @@ public class AdminController {
         model.addAttribute("submessage1", "Edit Student Details");
         model.addAttribute("submessage2", "Step 1: Student Details");
         model.addAttribute("buttonmessage", "Proceed to Step 2");
+        model.addAttribute("submiturl", "/admin/students/ST" + studentId + "/edit-student");
+        model.addAttribute("edit", "true");
         Student student = studentDao.get(studentId);
         model.addAttribute("student", student);
-        return "student/editStudent";
+        return "student/addEditStudent";
     }
 
     @PostMapping("/admin/students/ST{studentId}/edit-student")
@@ -146,7 +150,9 @@ public class AdminController {
             model.addAttribute("submessage1", "Edit Student Details");
             model.addAttribute("submessage2", "Step 1: Student Details");
             model.addAttribute("buttonmessage", "Proceed to Step 2");
-            return "student/editStudent";
+            model.addAttribute("submiturl", "/admin/students/ST" + studentId + "/edit-student");
+            model.addAttribute("edit", "true");
+            return "student/addEditStudent";
         }
         Student oldStudent = studentDao.get(studentId);
 

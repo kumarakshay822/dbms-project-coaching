@@ -34,25 +34,29 @@ public class GuardianController {
         model.addAttribute("submessage1", "Edit Student Details");
         model.addAttribute("submessage2", "Step 3: Guardian Details");
         model.addAttribute("buttonmessage", "Proceed to Step 4");
+        model.addAttribute("submiturl", "/admin/students/ST" + studentId + "/edit-guardian");
+        model.addAttribute("edit", "true");
         Guardian guardian = guardianDao.getByStudentId(studentId);
         if (guardian == null) {
             return "redirect:/admin/students/ST{studentId}/add-guardian";
         }
         model.addAttribute("guardian", guardian);
-        return "guardian/editGuardian";
+        return "guardian/addEditGuardian";
     }
 
     @PostMapping("/admin/students/ST{studentId}/edit-guardian")
     public String editGuardian(@PathVariable("studentId") int studentId, @ModelAttribute("guardian") Guardian guardian,
-            BindingResult bindingResult, Model model) {
-                // TODO: Validate here
+    BindingResult bindingResult, Model model) {
+        // TODO: Validate here
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Student Portal");
             model.addAttribute("message", "Edit Student's profile");
             model.addAttribute("submessage1", "Edit Student Details");
             model.addAttribute("submessage2", "Step 3: Guardian Details");
             model.addAttribute("buttonmessage", "Proceed to Step 4");
-            return "guardian/editGuardian";
+            model.addAttribute("submiturl", "/admin/students/ST" + studentId + "/edit-guardian");
+            model.addAttribute("edit", "true");
+            return "guardian/addEditGuardian";
         }
         guardianDao.update(guardian);
         return "redirect:/admin/students/ST{studentId}/edit-guardian-phone";
@@ -65,15 +69,16 @@ public class GuardianController {
         model.addAttribute("submessage1", "Add Student Details");
         model.addAttribute("submessage2", "Step 3: Guardian Details");
         model.addAttribute("buttonmessage", "Proceed to Step 4");
+        model.addAttribute("submiturl", "/admin/students/ST" + studentId +"/add-guardian");
         Guardian guardian = new Guardian();
         model.addAttribute("guardian", guardian);
         guardian.setStudentId(studentId);
-        return "guardian/addGuardian";
+        return "guardian/addEditGuardian";
     }
 
     @PostMapping("/admin/students/ST{studentId}/add-guardian")
     public String addGuardian(@PathVariable("studentId") int studentId, @ModelAttribute("guardian") Guardian guardian,
-            BindingResult bindingResult, Model model) {
+    BindingResult bindingResult, Model model) {
         // TODO: Validate here
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Student Portal");
@@ -81,7 +86,8 @@ public class GuardianController {
             model.addAttribute("submessage1", "Add Student Details");
             model.addAttribute("submessage2", "Step 3: Guardian Details");
             model.addAttribute("buttonmessage", "Proceed to Step 4");
-            return "guardian/addGuardian";
+            model.addAttribute("submiturl", "/admin/students/ST" + studentId +"/add-guardian");
+            return "guardian/addEditGuardian";
         }
         guardianDao.save(guardian);
         return "redirect:/admin/students/ST{studentId}/add-guardian-phone";

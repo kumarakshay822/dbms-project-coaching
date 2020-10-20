@@ -11,7 +11,7 @@
     </div>
     <div class="row shadow bg-white rounded" style="border: 1px solid whitesmoke; padding: 0 40px;">
         <table class="table table-borderless mt-4">
-            <form:form class="form-horizontal" action="/admin/students/ST${student.studentId}/edit-student"
+            <form:form class="form-horizontal" action="${submiturl}"
                 method="post" modelAttribute="student">
                 <tr>
                     <th style="width: 40%;">
@@ -23,11 +23,13 @@
                                 aria-hidden="true"></i></a>
                     </td>
                 </tr>
+                <c:if test="${edit == true}">
                 <tr>
                     <th style="width: 40%; text-align: center;">Student ID</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">ST${student.studentId}</td>
                 </tr>
+                </c:if>
                 <tr>
                     <th style="width: 40%; text-align: center;">Name</th>
                     <th style="width: 10%;"></th>
@@ -124,7 +126,7 @@
                             <form:option value="1">Yes</form:option>
                             <form:option value="0">No</form:option>
                         </form:select>
-                        <form:errors path="isActive" style="color: red;"></form:errors>
+                        <form:errors path="user.isActive" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
