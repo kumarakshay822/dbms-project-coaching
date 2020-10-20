@@ -37,7 +37,6 @@ public class UserController {
     @PostMapping("/admin/users/{userId}/phoneNumber/add")
     public ResponseEntity<Integer> addUserPhoneNumber(@PathVariable("userId") int userId,
             @RequestParam String phoneNumber, Model model) {
-        System.out.println("here");
         UserPhoneNumber userPhoneNumber = new UserPhoneNumber(phoneNumber, userId);
         userPhoneNumberDao.save(userPhoneNumber);
         return new ResponseEntity<>(HttpStatus.OK);

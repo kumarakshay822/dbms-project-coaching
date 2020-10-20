@@ -39,7 +39,6 @@ public class GuardianController {
             return "redirect:/admin/students/ST{studentId}/add-guardian";
         }
         model.addAttribute("guardian", guardian);
-        System.out.println(guardian);
         return "admin/editGuardian";
     }
 
@@ -50,7 +49,6 @@ public class GuardianController {
         if (bindingResult.hasErrors()) {
             return "editGuardian";
         }
-        System.out.println(guardian);
         guardianDao.update(guardian);
         return "redirect:/admin/students/ST{studentId}/edit-guardian-phone";
     }
@@ -65,7 +63,6 @@ public class GuardianController {
         Guardian guardian = new Guardian();
         model.addAttribute("guardian", guardian);
         guardian.setStudentId(studentId);
-        System.out.println(guardian);
         return "admin/addGuardian";
     }
 
@@ -76,7 +73,6 @@ public class GuardianController {
         if (bindingResult.hasErrors()) {
             return "editGuardian";
         }
-        System.out.println(guardian);
         guardianDao.save(guardian);
         return "redirect:/admin/students/ST{studentId}/add-guardian-phone";
     }
@@ -112,7 +108,6 @@ public class GuardianController {
     @PostMapping("/admin/students/ST{studentId}/add-guardian-phone")
     public ResponseEntity<Integer> addGuardianPhoneNumber(@PathVariable("studentId") int studentId,
             @RequestParam String phoneNumber, @RequestParam String name, Model model) {
-        System.out.println("Add Guardian Phone");
         GuardianPhoneNumber guardianPhoneNumber = new GuardianPhoneNumber(phoneNumber, name, studentId);
         guardianPhoneNumberDao.save(guardianPhoneNumber);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -121,7 +116,6 @@ public class GuardianController {
     @PostMapping("/admin/students/ST{studentId}/delete-guardian-phone")
     public ResponseEntity<Integer> deleteGuardianPhoneNumber(@PathVariable("studentId") int studentId,
             @RequestParam String phoneNumber, @RequestParam String name, Model model) {
-        System.out.println("Delete Guardian Phone");
         GuardianPhoneNumber guardianPhoneNumber = new GuardianPhoneNumber(phoneNumber, name, studentId);
         guardianPhoneNumberDao.delete(guardianPhoneNumber);
         return new ResponseEntity<>(HttpStatus.OK);

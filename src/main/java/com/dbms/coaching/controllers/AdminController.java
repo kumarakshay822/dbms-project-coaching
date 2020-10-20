@@ -68,7 +68,6 @@ public class AdminController {
         model.addAttribute("title", "Student Portal");
         model.addAttribute("message", "View all the students");
         List<Student> students = studentDao.getAll();
-        System.out.println(students);
         model.addAttribute("students", students);
         return "admin/studentsPortal";
     }
@@ -82,7 +81,6 @@ public class AdminController {
         model.addAttribute("buttonmessage", "Proceed to Step 2");
         Student student = new Student();
         model.addAttribute("student", student);
-        System.out.println(student);
         return "admin/addStudent";
     }
 
@@ -129,7 +127,6 @@ public class AdminController {
         model.addAttribute("buttonmessage", "Proceed to Step 2");
         Student student = studentDao.get(studentId);
         model.addAttribute("student", student);
-        System.out.println(student);
         return "admin/editStudent";
     }
 
@@ -140,7 +137,6 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "editStudent";
         }
-        System.out.println(student);
         Student oldStudent = studentDao.get(studentId);
 
         User user = student.getUser();
