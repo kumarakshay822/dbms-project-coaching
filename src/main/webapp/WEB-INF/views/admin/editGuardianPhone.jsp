@@ -16,7 +16,8 @@
                     <h4>${submessage2}</h4>
                 </th>
                 <td style="width: 40%; text-align: right;">
-                    <a href="#" onclick="window.location.reload();">Reset <i class="fa fa-refresh" aria-hidden="true"></i></a>
+                    <a href="#" onclick="window.location.reload();">Reset <i class="fa fa-refresh"
+                            aria-hidden="true"></i></a>
                 </td>
             </tr>
         </table>
@@ -29,23 +30,24 @@
                 <div class="col-sm-7">
                     <c:forEach var="phoneNumber" items="${phoneNumbers}">
                         <div>${phoneNumber.phoneNumber} &emsp;
-                            <a href="#" onclick="postRequest('/admin/users/${userId}/phoneNumber/delete',
-                            {'phoneNumber': '${phoneNumber.phoneNumber}'})"> Remove
+                            <a href="#" onclick="postRequest('/admin/students/ST${studentId}/delete-guardian-phone',
+                            {'phoneNumber': '${phoneNumber.phoneNumber}','name': '${phoneNumber.name}'})"> Remove
                             </a>
                         </div>
                     </c:forEach>
 
                     <input type="text" id="phoneNumber">
-                    <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/admin/users/${userId}/phoneNumber/add',
-                    {'phoneNumber': $('#phoneNumber').val()})" role="button">Add</a>
+                    <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/admin/students/ST${studentId}/add-guardian-phone',
+                    {'phoneNumber': $('#phoneNumber').val(), 'name': '${guardian.name}'})" role="button">Add</a>
+                </div>
+            </div>
+            <div class="row mt-4 mb-4">
+                <div class="col-sm-7 offset-sm-5">
+                    <a class="btn btn-primary" type="button"
+                        href="/admin/students/ST${guardian.studentId}">${buttonmessage}</a>
+                </div>
             </div>
         </div>
-        <div class="row mt-4 mb-4">
-            <div class="col-sm-7 offset-sm-5">
-                <a class="btn btn-primary" type="button" href="/admin/students/ST${studentId}/edit-guardian">${buttonmessage}</a>
-            </div>
-        </div>
-    </div>
     </div>
 </div>
 

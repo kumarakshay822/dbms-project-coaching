@@ -11,5 +11,5 @@ public interface UserPhoneNumberDao {
 
     public void update(UserPhoneNumber userPhoneNumber, int oldPhoneNumber);
 
-    public void delete(int phoneNumber, int userId);
+    public void delete(UserPhoneNumber userPhoneNumber);
 }

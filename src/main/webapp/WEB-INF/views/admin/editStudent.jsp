@@ -11,109 +11,113 @@
     </div>
     <div class="row shadow bg-white rounded" style="border: 1px solid whitesmoke; padding: 0 40px;">
         <table class="table table-borderless mt-4">
-            <form:form class="form-horizontal" action="/admin/students/ST${student.studentId}/edit-student" method="post" modelAttribute="student">
-            <tr>
-                <th style="width: 40%;"><h4>${submessage2}</h4></th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%; text-align: right;">
-                    <a href="#" onclick="window.location.reload();">Reset <i class="fa fa-refresh" aria-hidden="true"></i></a>
-                </td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;">Student ID</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">ST${student.studentId}</td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;">Name</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">
-                    <form:input type="text" path="user.firstName" class="form-control" required="true"></form:input>
-                    <form:input type="text" path="user.middleName" class="form-control"></form:input>
-                    <form:input type="text" path="user.lastName" class="form-control"></form:input>
-                </td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;">Username</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">
-                    <form:input type="text" path="user.username" class="form-control" required="true"></form:input>
-                </td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;">Email Address</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">
-                    <form:input type="email" path="user.emailAddress" class="form-control" required="true"></form:input>
-                </td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;">Gender</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">
-                    <form:select class="form-control" path="gender" required="true">
-                        <form:option value="Male">Male</form:option>
-                        <form:option value="Female">Female</form:option>
-                        <form:option value="Not Specified">Not Specified</form:option>
-                    </form:select>
-                </td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;">Date of Birth</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">
-                    <form:input type="date" path="dateOfBirth" class="form-control" required="true"></form:input>
-                </td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;">Address</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">
-                    <form:input type="text" path="houseNumber" class="form-control"></form:input>
-                    <form:input type="text" path="street" class="form-control" required="true"></form:input>
-                    <form:input type="text" path="city" class="form-control" required="true"></form:input>
-                    <form:input type="text" path="state" class="form-control" required="true"></form:input>
-                    <form:input type="text" path="pinCode" class="form-control" required="true"></form:input>
-                </td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;">School Attending</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">
-                    <form:input type="text" path="schoolAttending" class="form-control" required="true"></form:input>
-                </td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;">10th Percentage</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">
-                    <form:input type="text" path="percentage10th" class="form-control" required="true"></form:input>
-                </td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;">12th Percentage</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">
-                    <form:input type="text" path="percentage12th" class="form-control" required="true"></form:input>
-                </td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;">Activated?</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">
-                    <form:select class="form-control" path="user.isActive" required="true">
-                        <form:option value="1">Yes</form:option>
-                        <form:option value="0">No</form:option>
-                    </form:select>
-                </td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;"></th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">
-                    <button class="btn btn-primary" type="submit">${buttonmessage}</button>
-                </td>
-            </tr>
+            <form:form class="form-horizontal" action="/admin/students/ST${student.studentId}/edit-student"
+                method="post" modelAttribute="student">
+                <tr>
+                    <th style="width: 40%;">
+                        <h4>${submessage2}</h4>
+                    </th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%; text-align: right;">
+                        <a href="#" onclick="window.location.reload();">Reset <i class="fa fa-refresh"
+                                aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">Student ID</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">ST${student.studentId}</td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">Name</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:input type="text" path="user.firstName" class="form-control" required="true"></form:input>
+                        <form:input type="text" path="user.middleName" class="form-control"></form:input>
+                        <form:input type="text" path="user.lastName" class="form-control"></form:input>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">Username</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:input type="text" path="user.username" class="form-control" required="true"></form:input>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">Email Address</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:input type="email" path="user.emailAddress" class="form-control" required="true"></form:input>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">Gender</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:select class="form-control" path="gender" required="true">
+                            <form:option value="Male">Male</form:option>
+                            <form:option value="Female">Female</form:option>
+                            <form:option value="Not Specified">Not Specified</form:option>
+                        </form:select>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">Date of Birth</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:input type="date" path="dateOfBirth" class="form-control" required="true"></form:input>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">Address</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:input type="text" path="houseNumber" class="form-control"></form:input>
+                        <form:input type="text" path="street" class="form-control" required="true"></form:input>
+                        <form:input type="text" path="city" class="form-control" required="true"></form:input>
+                        <form:input type="text" path="state" class="form-control" required="true"></form:input>
+                        <form:input type="text" path="pinCode" class="form-control" required="true"></form:input>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">School Attending</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:input type="text" path="schoolAttending" class="form-control" required="true"></form:input>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">10th Percentage</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:input type="text" path="percentage10th" class="form-control" required="true"></form:input>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">12th Percentage</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:input type="text" path="percentage12th" class="form-control" required="true"></form:input>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">Activated?</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:select class="form-control" path="user.isActive" required="true">
+                            <form:option value="1">Yes</form:option>
+                            <form:option value="0">No</form:option>
+                        </form:select>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;"></th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <button class="btn btn-primary" type="submit">${buttonmessage}</button>
+                    </td>
+                </tr>
             </form:form>
 
         </table>

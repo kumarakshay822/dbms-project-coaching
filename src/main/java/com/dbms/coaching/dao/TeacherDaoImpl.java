@@ -7,12 +7,13 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.dbms.coaching.dao.rowmappers.TeacherRowMapper;
 import com.dbms.coaching.models.Teacher;
 
 @Repository
 public class TeacherDaoImpl implements TeacherDao {
     @Autowired
-    JdbcTemplate template;
+    private JdbcTemplate template;
 
     // @Override
     // public void save(Teacher teacher, User user) {

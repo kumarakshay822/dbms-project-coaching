@@ -8,6 +8,18 @@ public class Guardian {
     private String emailAddress;
     private String relationWithStudent;
 
+    public Guardian() {
+    }
+
+    public Guardian(String name, int studentId, String occupation, String address, String emailAddress, String relationWithStudent) {
+        this.name = name;
+        this.studentId = studentId;
+        this.occupation = occupation;
+        this.address = address;
+        this.emailAddress = emailAddress;
+        this.relationWithStudent = relationWithStudent;
+    }
+
     /**
      * @return String return the name
      */
@@ -90,6 +102,18 @@ public class Guardian {
      */
     public void setRelationWithStudent(String relationWithStudent) {
         this.relationWithStudent = relationWithStudent;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " name='" + getName() + "'" +
+            ", studentId='" + getStudentId() + "'" +
+            ", occupation='" + getOccupation() + "'" +
+            ", address='" + getAddress() + "'" +
+            ", emailAddress='" + getEmailAddress() + "'" +
+            ", relationWithStudent='" + getRelationWithStudent() + "'" +
+            "}";
     }
 
 }

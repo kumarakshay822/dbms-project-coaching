@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserPhoneNumberDaoImpl implements UserPhoneNumberDao {
     @Autowired
-    JdbcTemplate template;
+    private JdbcTemplate template;
 
     @Override
     public void save(UserPhoneNumber userPhoneNumber) {
@@ -28,6 +28,9 @@ public class UserPhoneNumberDaoImpl implements UserPhoneNumberDao {
         return phoneNumbers;
     }
 
+    /**
+     * Update only the phoneNumber attribute
+     */
     @Override
     public void update(UserPhoneNumber userPhoneNumber, int oldPhoneNumber) {
         String sql = "UPDATE UserPhoneNumber SET phoneNumber = ? WHERE phoneNumber = ? AND userId = ?";
@@ -35,9 +38,9 @@ public class UserPhoneNumberDaoImpl implements UserPhoneNumberDao {
     }
 
     @Override
-    public void delete(int phoneNumber, int userId) {
+    public void delete(UserPhoneNumber userPhoneNumber) {
         String sql = "DELETE FROM UserPhoneNumber WHERE phoneNumber = ? AND userId = ?";
-        template.update(sql, phoneNumber, userId);
+        template.update(sql, userPhoneNumber.getPhoneNumber(), userPhoneNumber.getUserId());
     }
 
 }

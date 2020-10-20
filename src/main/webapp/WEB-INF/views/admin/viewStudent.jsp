@@ -82,6 +82,53 @@
                 <th style="width: 10%;"></th>
                 <td style="width: 50%">${student.user.lastLoginDate} ${student.user.lastLoginTime}</td>
             </tr>
+            <tr>
+                <th style="width: 40%; text-align: center;">Phone Numbers</th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%"><c:forEach var="userPhoneNumber" items="${userPhoneNumbers}">
+                    <div>${userPhoneNumber.phoneNumber}</div>
+                </c:forEach></td>
+            </tr>
+        </table>
+        <div class="col-12" style="text-align: center;">
+            <hr>
+            <h5>Guardian Details</h5>
+        </div>
+        <table class="table table-borderless mt-4">
+            <tr>
+                <th style="width: 40%; text-align: center;">Name</th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%">${guardian.name}</td>
+            </tr>
+            <tr>
+                <th style="width: 40%; text-align: center;">Occupation</th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%">${guardian.occupation}</td>
+            </tr>
+            <tr>
+                <th style="width: 40%; text-align: center;">Address</th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%">${guardian.address}</td>
+            </tr>
+            <tr>
+                <th style="width: 40%; text-align: center;">Email Address</th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%">${guardian.emailAddress}</td>
+            </tr>
+            <tr>
+                <th style="width: 40%; text-align: center;">Relation With Student</th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%">${guardian.relationWithStudent}</td>
+            </tr>
+            <tr>
+                <th style="width: 40%; text-align: center;">Phone Numbers</th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%">
+                    <c:forEach var="guardianPhoneNumber" items="${guardianPhoneNumbers}">
+                        <div>${guardianPhoneNumber.phoneNumber}</div>
+                    </c:forEach>
+                </td>
+            </tr>
         </table>
     </div>
 </div>

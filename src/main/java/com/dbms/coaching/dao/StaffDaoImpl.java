@@ -9,11 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import com.dbms.coaching.models.Staff;
 import com.dbms.coaching.models.User;
+import com.dbms.coaching.dao.rowmappers.StaffRowMapper;
 
 @Repository
 public class StaffDaoImpl implements StaffDao {
     @Autowired
-    JdbcTemplate template;
+    private JdbcTemplate template;
 
     // @Override
     // public void save(Staff staff, User user) {

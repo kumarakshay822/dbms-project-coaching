@@ -1,42 +1,52 @@
 package com.dbms.coaching.dao;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
-import java.util.TimeZone;
 
 import com.dbms.coaching.models.User;
+import com.dbms.coaching.utils.DateTimeUtil;
+import com.dbms.coaching.utils.PreparedStatementUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserDaoImpl implements UserDao {
     @Autowired
-    JdbcTemplate template;
+    private JdbcTemplate template;
 
-    /**
-     * Get datetime in specified format e.g: yyyy-MM-dd HH:mm:ss
-     *
-     * @param format
-     * @return String datetime
-     */
-    public String getCurrentDatetime(String format) {
-        SimpleDateFormat localDatetimeFormat = new SimpleDateFormat(format);
-        localDatetimeFormat.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
-        String datetime = localDatetimeFormat.format(new Date());
-        return datetime;
-    }
+    @Autowired
+    private DateTimeUtil dateTimeUtil;
+
+    @Autowired
+    private PreparedStatementUtil preparedStatementUtil;
 
     @Override
-    public void save(User user) {
-        String sql = "INSERT INTO User (userId, username, password, firstName, middleName, lastName, emailAddress, dateCreated, role) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        template.update(sql, user.getUserId(), user.getUsername(), user.getPassword(), user.getFirstName(), user.getMiddleName(),
-                user.getLastName(), user.getEmailAddress(), getCurrentDatetime("yyyy-MM-dd"), user.getRole());
+    public User save(User user) {
+        String sql = "INSERT INTO User (username, password, firstName, middleName, lastName, emailAddress, dateCreated, role) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        template.update(new PreparedStatementCreator(){
+            @Override
+            public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
+                PreparedStatement preparedStatement = conn.prepareStatement(sql, new String[] { "studentId" });
+                preparedStatementUtil.setParameters(preparedStatement, user.getUsername(), user.getPassword(), user.getFirstName(),
+                        user.getMiddleName(), user.getLastName(), user.getEmailAddress(), dateTimeUtil.getCurrentDateTime("yyyy-MM-dd"),
+                        user.getRole());
+                return preparedStatement;
+            }
+        }, keyHolder);
+        int userId = keyHolder.getKey().intValue();
+        user.setUserId(userId);
+        return user;
     }
 
     @Override
@@ -91,7 +101,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void setLoginTimestamp(User user) {
         String sql = "UPDATE User SET lastLoginDate = ? AND lastLoginTime = ? WHERE userId = ?";
-        template.update(sql, getCurrentDatetime("yyyy-MM-dd"), getCurrentDatetime("HH:mm:ss"), user.getUserId());
+        template.update(sql, dateTimeUtil.getCurrentDateTime("yyyy-MM-dd"),
+                dateTimeUtil.getCurrentDateTime("HH:mm:ss"), user.getUserId());
     }
 
     @Override

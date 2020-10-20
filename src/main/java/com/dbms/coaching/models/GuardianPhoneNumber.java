@@ -5,6 +5,15 @@ public class GuardianPhoneNumber {
     private String name;
     private int studentId;
 
+    public GuardianPhoneNumber() {
+    }
+
+    public GuardianPhoneNumber(String phoneNumber, String name, int studentId) {
+        this.phoneNumber = phoneNumber;
+        this.name = name;
+        this.studentId = studentId;
+    }
+
     /**
      * @return String return the phoneNumber
      */
@@ -45,6 +54,15 @@ public class GuardianPhoneNumber {
      */
     public void setStudentId(int studentId) {
         this.studentId = studentId;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " phoneNumber='" + getPhoneNumber() + "'" +
+            ", name='" + getName() + "'" +
+            ", studentId='" + getStudentId() + "'" +
+            "}";
     }
 
 }
