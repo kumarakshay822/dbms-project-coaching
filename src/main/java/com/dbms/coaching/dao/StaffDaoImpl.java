@@ -27,8 +27,8 @@ public class StaffDaoImpl implements StaffDao {
 
     @Override
     public Staff save(Staff staff) {
-    String sql = "INSERT INTO Staff (gender, dateOfBirth, houseNumber, street, city, state, pincode, employeeId "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Staff (gender, dateOfBirth, houseNumber, street, city, state, pincode, employeeId) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(new PreparedStatementCreator(){
             @Override
@@ -67,7 +67,7 @@ public class StaffDaoImpl implements StaffDao {
      */
     @Override
     public void update(Staff staff) {
-        String sql = "UPDATE staff SET gender = ?, dateOfBirth = ?, houseNumber = ?, street = ?, city = ?, state = ?, pinCode = ? "
+        String sql = "UPDATE Staff SET gender = ?, dateOfBirth = ?, houseNumber = ?, street = ?, city = ?, state = ?, pinCode = ? "
                 + "WHERE staffId = ?";
         template.update(sql, staff.getGender(), staff.getDateOfBirth(), staff.getHouseNumber(),
                 staff.getStreet(), staff.getCity(), staff.getState(), staff.getPinCode(),

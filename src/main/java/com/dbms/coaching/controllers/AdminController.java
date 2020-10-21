@@ -158,8 +158,10 @@ public class AdminController {
 
         User user = student.getUser();
         user.setUserId(oldStudent.getUser().getUserId());
-        userDao.update(student.getUser());
 
+        student.setUser(user);
+
+        userDao.update(user);
         studentDao.update(student);
         return "redirect:/admin/students/ST{studentId}/edit-student-phone";
     }

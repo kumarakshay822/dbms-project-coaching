@@ -84,8 +84,8 @@ CREATE TABLE IF NOT EXISTS GuardianPhoneNumber (
 
 CREATE TABLE IF NOT EXISTS Employee (
   employeeId int NOT NULL AUTO_INCREMENT,
-  basicSalary int NOT NULL,
-  joinDate date NOT NULL,
+  basicSalary int DEFAULT NULL,
+  joinDate date DEFAULT NULL,
   endDate date DEFAULT NULL,
   panNumber varchar(255) NOT NULL,
   accountNumber varchar(255) NOT NULL,
@@ -97,6 +97,7 @@ CREATE TABLE IF NOT EXISTS Employee (
   FOREIGN KEY (userId) REFERENCES User(userId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+ALTER TABLE Employee AUTO_INCREMENT = 100001;
 
 CREATE TABLE IF NOT EXISTS Payroll (
   paymentRefNo varchar(255) NOT NULL,
@@ -134,7 +135,6 @@ CREATE TABLE IF NOT EXISTS Staff (
   FOREIGN KEY (employeeId) REFERENCES Employee(employeeId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-ALTER TABLE Staff AUTO_INCREMENT = 100001;
 
 CREATE TABLE IF NOT EXISTS Course (
   courseId varchar(255) NOT NULL,
@@ -214,7 +214,6 @@ CREATE TABLE IF NOT EXISTS Teacher (
   FOREIGN KEY (subjectId) REFERENCES Subject(subjectId) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-ALTER TABLE Teacher AUTO_INCREMENT = 100001;
 
 CREATE TABLE IF NOT EXISTS StudentTeacherFeedback (
   studentId int NOT NULL,
