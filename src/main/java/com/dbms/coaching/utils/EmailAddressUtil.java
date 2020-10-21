@@ -1,8 +1,8 @@
 package com.dbms.coaching.utils;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 public class EmailAddressUtil {
 
     public boolean isValidEmailAddress(String emailAddress) {

@@ -49,7 +49,6 @@ public class StaffController {
         model.addAttribute("title", "Staff Portal");
         model.addAttribute("message", "View all the staffs");
         List<Staff> staffs = staffDao.getAll();
-        System.out.println(staffs);
         model.addAttribute("staffs", staffs);
         return "staff/staffsPortal";
     }
@@ -64,7 +63,6 @@ public class StaffController {
         model.addAttribute("submiturl", "/admin/staffs/add");
         Staff staff = new Staff();
         model.addAttribute("staff", staff);
-        System.out.println(staff);
         // TODO: Fix basic salary, join date and end date to be null.
         return "staff/addEditStaff";
     }
@@ -93,7 +91,7 @@ public class StaffController {
         staff.setEmployee(employee);
         staff = staffDao.save(staff);
 
-        return "redirect:/admin/staffs/ES" + staff.getStaffId() + "/add-staff-phone";
+        return "redirect:/admin/staffs/ES" + staff.getEmployee().getEmployeeId() + "/add-staff-phone";
     }
 
     @GetMapping("/admin/staffs/ES{employeeId}")

@@ -30,46 +30,46 @@ public class SubjectController {
         return "subject/listSubjects";
     }
 
-    @GetMapping("/admin/subjects/add")
+    @GetMapping("/admin/academics/subjects/add")
     public String addSubject(Model model) {
         model.addAttribute("title", "Academic Portal - Subjects");
         model.addAttribute("message", "Add Subject");
         model.addAttribute("submessage1", "Add Subject");
         model.addAttribute("buttonmessage", "Finish");
-        model.addAttribute("submiturl", "/admin/subjects/add");
+        model.addAttribute("submiturl", "/admin/academics/subjects/add");
         Subject subject = new Subject();
         model.addAttribute("subject", subject);
         return "subject/addEditSubject";
     }
 
-    @PostMapping("/admin/subjects/add")
+    @PostMapping("/admin/academics/subjects/add")
     public String addSubject(@ModelAttribute("subject") Subject subject, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Subjects");
             model.addAttribute("message", "Add Subject");
             model.addAttribute("submessage1", "Add Subject");
             model.addAttribute("buttonmessage", "Finish");
-            model.addAttribute("submiturl", "/admin/subjects/add");
+            model.addAttribute("submiturl", "/admin/academics/subjects/add");
             return "subject/addEditSubject";
         }
         subjectDao.save(subject);
         return "redirect:/admin/academics/subjects";
     }
 
-    @GetMapping("/admin/subjects/{subjectId}/edit")
+    @GetMapping("/admin/academics/subjects/{subjectId}/edit")
     public String editSubject(@PathVariable("subjectId") String subjectId, Model model) {
         model.addAttribute("title", "Academic Portal - Subjects");
         model.addAttribute("message", "Edit Subject");
         model.addAttribute("submessage1", "Edit Subject");
         model.addAttribute("buttonmessage", "Finish");
-        model.addAttribute("submiturl", "/admin/subjects/" + subjectId + "/edit");
+        model.addAttribute("submiturl", "/admin/academics/subjects/" + subjectId + "/edit");
         model.addAttribute("edit", "true");
         Subject subject = subjectDao.get(subjectId);
         model.addAttribute("subject", subject);
         return "subject/addEditSubject";
     }
 
-    @PostMapping("/admin/subjects/{subjectId}/edit")
+    @PostMapping("/admin/academics/subjects/{subjectId}/edit")
     public String editSubject(@PathVariable("subjectId") String subjectId, @ModelAttribute("subject") Subject subject,
             BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -77,7 +77,7 @@ public class SubjectController {
             model.addAttribute("message", "Edit Subject");
             model.addAttribute("submessage1", "Edit Subject");
             model.addAttribute("buttonmessage", "Finish");
-            model.addAttribute("submiturl", "/admin/subjects/" + subjectId + "/edit");
+            model.addAttribute("submiturl", "/admin/academics/subjects/" + subjectId + "/edit");
             model.addAttribute("edit", "true");
             return "subject/addEditSubject";
         }
@@ -85,7 +85,7 @@ public class SubjectController {
         return "redirect:/admin/academics/subjects";
     }
 
-    @GetMapping("/admin/subjects/{subjectId}/delete")
+    @GetMapping("/admin/academics/subjects/{subjectId}/delete")
     public ResponseEntity<Integer> deleteSubject(@PathVariable("subjectId") String subjectId, Model model) {
         subjectDao.delete(subjectId);
         return new ResponseEntity<>(HttpStatus.OK);

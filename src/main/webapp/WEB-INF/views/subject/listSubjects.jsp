@@ -6,7 +6,7 @@
 
 <div class="container-fluid custom-container">
     <div class="div text-right">
-        <a class="btn btn-primary" href="/admin/subjects/add" role="button" >Add Subject</a>
+        <a class="btn btn-primary" href="/admin/academics/subjects/add" role="button" >Add Subject</a>
     </div>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
@@ -24,9 +24,9 @@
                     <td>${subject.name}</td>
                     <td>${subject.description}</td>
                     <td>
-                        <a class="btn btn-outline-primary btn-sm" href="/admin/subjects/${subject.subjectId}/edit"
+                        <a class="btn btn-outline-primary btn-sm" href="/admin/academics/subjects/${subject.subjectId}/edit"
                             role="button">Edit</a>
-                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/subjects/${subject.subjectId}/delete',
+                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/academics/subjects/${subject.subjectId}/delete',
                         'Do you want to delete this Subject? \nWarning! This action is destructible!')"
                             role="button">Delete</a>
                     </td>

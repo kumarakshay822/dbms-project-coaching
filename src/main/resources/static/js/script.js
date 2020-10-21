@@ -56,8 +56,10 @@ var linkToText = {
     admin: "Admin",
     users: "All Users",
     students: "Student Portal",
-    staff: "Staff Portal",
-    teacher: "Teacher Portal"
+    staffs: "Staff Portal",
+    teachers: "Teacher Portal",
+    academics: "Academic Portal",
+    subjects: "Subjects"
 };
 
 function getBreadcrumb(url, currentLink, isLast) {

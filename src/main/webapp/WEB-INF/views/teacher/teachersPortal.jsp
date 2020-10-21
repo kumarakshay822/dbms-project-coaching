@@ -6,7 +6,7 @@
 
 <div class="container-fluid custom-container">
     <div class="div text-right">
-        <a class="btn btn-primary" href="/admin/staffs/add" role="button" >Add Staff</a>
+        <a class="btn btn-primary" href="/admin/teachers/add" role="button" >Add Teacher</a>
     </div>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
@@ -15,7 +15,7 @@
                     <th>Employee ID</th>
                     <th>Name</th>
                     <th>Gender</th>
-                    <th>Date of Birth</th>
+                    <th>Subject</th>
                     <th>Username</th>
                     <th>Email Address</th>
                     <th>Date Created</th>
@@ -23,31 +23,29 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <c:forEach items="${staffs}" var="staff">
+            <c:forEach items="${teachers}" var="teacher">
                 <tr>
-                    <td><a href="/admin/staffs/ES${staff.employee.employeeId}">ES${staff.employee.employeeId}</a></td>
-                    <td>${staff.employee.user.firstName} ${staff.employee.user.middleName} ${staff.employee.user.lastName}</td>
-                    <td>${staff.gender}</td>
+                    <td><a href="/admin/teachers/ET${teacher.employee.employeeId}">ET${teacher.employee.employeeId}</a></td>
+                    <td>${teacher.employee.user.firstName} ${teacher.employee.user.middleName} ${teacher.employee.user.lastName}</td>
+                    <td>${teacher.gender}</td>
+                    <td>${teacher.subject.name}</td>
+                    <td>${teacher.employee.user.username}</td>
+                    <td>${teacher.employee.user.emailAddress}</td>
                     <td>
-                        <fmt:formatDate pattern="dd-MM-yyyy" value="${staff.dateOfBirth}" />
-                    </td>
-                    <td>${staff.employee.user.username}</td>
-                    <td>${staff.employee.user.emailAddress}</td>
-                    <td>
-                        <fmt:formatDate pattern="dd-MM-yyyy" value="${staff.employee.user.dateCreated}" />
+                        <fmt:formatDate pattern="dd-MM-yyyy" value="${teacher.employee.user.dateCreated}" />
                     </td>
                     <td>
                         <c:choose>
-                            <c:when test="${staff.employee.user.isActive == true}">Yes</c:when>
+                            <c:when test="${teacher.employee.user.isActive == true}">Yes</c:when>
                             <c:otherwise><a class="btn btn-outline-success btn-sm"
-                                    onclick="getRequest('/admin/users/${staff.employee.user.userId}/activate')" role="button">Activate</a>
+                                    onclick="getRequest('/admin/users/${teacher.employee.user.userId}/activate')" role="button">Activate</a>
                             </c:otherwise>
                         </c:choose>
                     </td>
                     <td>
-                        <a class="btn btn-outline-primary btn-sm" href="/admin/staffs/ES${staff.employee.employeeId}/edit-staff"
+                        <a class="btn btn-outline-primary btn-sm" href="/admin/teachers/ET${teacher.employee.employeeId}/edit-teacher"
                             role="button">Edit</a>
-                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/users/${staff.employee.user.userId}/delete',
+                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/users/${teacher.employee.user.userId}/delete',
                         'Do you want to delete this User? \nWarning! This action is destructible!')"
                             role="button">Delete</a>
                     </td>

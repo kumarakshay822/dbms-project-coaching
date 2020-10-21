@@ -1,64 +1,85 @@
 package com.dbms.coaching.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.dbms.coaching.dao.rowmappers.TeacherRowMapper;
 import com.dbms.coaching.models.Teacher;
+import com.dbms.coaching.utils.PreparedStatementUtil;
+import com.dbms.coaching.dao.rowmappers.TeacherRowMapper;
 
 @Repository
 public class TeacherDaoImpl implements TeacherDao {
     @Autowired
     private JdbcTemplate template;
 
-    // @Override
-    // public void save(Teacher teacher, User user) {
-    //     String sql = "INSERT INTO Teacher (teacherId, gender, dateOfBirth, houseNumber, street, city, state, pincode, schoolAttending, percentage10th, "
-    //             + "percentage12th, userId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    //     template.update(sql, teacher.getTeacherId(), teacher.getGender(), teacher.getDateOfBirth(),
-    //             teacher.getHouseNumber(), teacher.getStreet(), teacher.getCity(), teacher.getState(),
-    //             teacher.getPinCode(), teacher.getSchoolAttending(), teacher.getPercentage10th(),
-    //             teacher.getPercentage12th(), user.getUserId());
-    // }
+    @Autowired
+    private PreparedStatementUtil preparedStatementUtil;
+
+    @Override
+    public Teacher save(Teacher teacher) {
+        String sql = "INSERT INTO Teacher (gender, dateOfBirth, houseNumber, street, city, state, pincode, bachelorsDegree, mastersDegree, "
+                + "doctoralDegree, employeeId, subjectId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        template.update(new PreparedStatementCreator(){
+            @Override
+            public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
+                PreparedStatement preparedStatement = conn.prepareStatement(sql, new String[] {"teacherId"});
+                preparedStatementUtil.setParameters(preparedStatement, teacher.getGender(), teacher.getDateOfBirth(),
+                        teacher.getHouseNumber(), teacher.getStreet(), teacher.getCity(), teacher.getState(),
+                        teacher.getPinCode(), teacher.getBachelorsDegree(), teacher.getMastersDegree(),
+                        teacher.getDoctoralDegree(), teacher.getEmployee().getEmployeeId(), teacher.getSubject().getSubjectId());
+                return preparedStatement;
+            }
+        }, keyHolder);
+        int teacherId = keyHolder.getKey().intValue();
+        teacher.setTeacherId(teacherId);
+        return teacher;
+    }
 
     @Override
     public List<Teacher> getAll() {
-        String sql = "SELECT * FROM Teacher NATURAL JOIN User";
+        String sql = "SELECT * FROM Teacher NATURAL JOIN Employee NATURAL JOIN User NATURAL JOIN Subject";
         List<Teacher> teachers = template.query(sql, new TeacherRowMapper());
         return teachers;
     }
 
     @Override
-    public Teacher get(int teacherId) {
+    public Teacher getByEmployeeId(int employeeId) {
         try {
-            String sql = "SELECT * FROM Teacher NATURAL JOIN User WHERE teacherId = ?";
-            return (Teacher) template.queryForObject(sql, new Object[] {
-                    teacherId },
-                    new TeacherRowMapper());
+            String sql = "SELECT * FROM Teacher NATURAL JOIN Employee NATURAL JOIN User NATURAL JOIN Subject WHERE employeeId = ?";
+            return (Teacher) template.queryForObject(sql, new Object[] { employeeId }, new TeacherRowMapper());
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }
 
+    /**
+     * Update all attributes except teacherId and employeeId
+     */
     @Override
-    public Teacher update(int teacherId) {
-        // TODO Auto-generated method stub
-        return null;
+    public void update(Teacher teacher) {
+        String sql = "UPDATE Teacher SET gender = ?, dateOfBirth = ?, houseNumber = ?, street = ?, city = ?, state = ?, pinCode = ?, "
+                + "bachelorsDegree = ?, mastersDegree = ?, doctoralDegree = ?, subjectId = ? WHERE teacherId = ?";
+        template.update(sql, teacher.getGender(), teacher.getDateOfBirth(), teacher.getHouseNumber(),
+                teacher.getStreet(), teacher.getCity(), teacher.getState(), teacher.getPinCode(),
+                teacher.getBachelorsDegree(), teacher.getMastersDegree(), teacher.getDoctoralDegree(),
+                teacher.getSubject().getSubjectId(), teacher.getTeacherId());
     }
 
     @Override
-    public Teacher delete(int teacherId) {
-        // TODO Auto-generated method stub
-        return null;
+    public void delete(int teacherId) {
+        String sql = "DELETE FROM Teacher WHERE teacherId = ?";
+        template.update(sql, teacherId);
     }
 
-    @Override
-    public void save(Teacher teacher) {
-        // TODO Auto-generated method stub
-
-    }
 }

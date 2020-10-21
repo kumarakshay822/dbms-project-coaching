@@ -31,8 +31,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User save(User user) {
-        String sql = "INSERT INTO User (username, password, firstName, middleName, lastName, emailAddress, dateCreated, role) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO User (username, password, firstName, middleName, lastName, emailAddress, dateCreated, isActive, role) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(new PreparedStatementCreator(){
             @Override
@@ -40,7 +40,7 @@ public class UserDaoImpl implements UserDao {
                 PreparedStatement preparedStatement = conn.prepareStatement(sql, new String[] { "studentId" });
                 preparedStatementUtil.setParameters(preparedStatement, user.getUsername(), user.getPassword(), user.getFirstName(),
                         user.getMiddleName(), user.getLastName(), user.getEmailAddress(), dateTimeUtil.getCurrentDateTime("yyyy-MM-dd"),
-                        user.getRole());
+                        user.isIsActive(), user.getRole());
                 return preparedStatement;
             }
         }, keyHolder);

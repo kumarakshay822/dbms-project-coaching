@@ -3,9 +3,9 @@ package com.dbms.coaching.utils;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 public class PreparedStatementUtil {
     public void setParameters(PreparedStatement preparedStatement, Object... parameters) throws SQLException {
         for (int i = 0; i < parameters.length; i++) {
