@@ -1,30 +1,30 @@
 package com.dbms.coaching.models;
 
 public class Subject {
-    private int subjectId;
+    private String subjectId;
     private String name;
     private String description;
 
     public Subject() {
     }
 
-    public Subject(int subjectId, String name, String description) {
+    public Subject(String subjectId, String name, String description) {
         this.subjectId = subjectId;
         this.name = name;
         this.description = description;
     }
 
     /**
-     * @return int return the subjectId
+     * @return String return the subjectId
      */
-    public int getSubjectId() {
+    public String getSubjectId() {
         return subjectId;
     }
 
     /**
      * @param subjectId the subjectId to set
      */
-    public void setSubjectId(int subjectId) {
+    public void setSubjectId(String subjectId) {
         this.subjectId = subjectId;
     }
 

@@ -4,8 +4,7 @@ function getRequestWithConfirmation(url, confirmText){
             url: url,
             type: "get",
             success: function(data, status, xhr){
-                // location.reload();
-                location = location.pathname;
+                location.reload();
             },
             error: function(error){
                 alert(error);
@@ -19,8 +18,7 @@ function getRequest(url) {
         url: url,
         type: "get",
         success: function(data, status, xhr){
-            // location.reload();
-            location = location.pathname;
+            location.reload();
         },
         error: function(error){
             alert(error);
@@ -34,8 +32,7 @@ function postRequest(url, data) {
         type: "post",
         data: data,
         success: function(data, status, xhr){
-            // location.reload();
-            location = location.pathname;
+            location.reload();
         },
         error: function(error){
             alert(error);

@@ -3,14 +3,10 @@ package com.dbms.coaching.controllers;
 import java.util.List;
 
 import com.dbms.coaching.dao.EmployeeDao;
-import com.dbms.coaching.dao.GuardianDao;
-import com.dbms.coaching.dao.GuardianPhoneNumberDao;
 import com.dbms.coaching.dao.StaffDao;
 import com.dbms.coaching.dao.UserDao;
 import com.dbms.coaching.dao.UserPhoneNumberDao;
 import com.dbms.coaching.models.Employee;
-import com.dbms.coaching.models.Guardian;
-import com.dbms.coaching.models.GuardianPhoneNumber;
 import com.dbms.coaching.models.Staff;
 import com.dbms.coaching.models.User;
 import com.dbms.coaching.models.UserPhoneNumber;
@@ -44,9 +40,6 @@ public class StaffController {
 
     @Autowired
     private UserPhoneNumberDao userPhoneNumberDao;
-
-    @Autowired
-    private GuardianPhoneNumberDao guardianPhoneNumberDao;
 
     @Autowired
     private UserService userService;

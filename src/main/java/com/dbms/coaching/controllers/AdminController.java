@@ -56,6 +56,13 @@ public class AdminController {
         return "home/admin";
     }
 
+    @GetMapping("/admin/academics")
+    public String academicPortal(Model model) {
+        model.addAttribute("title", "Academic Portal");
+        model.addAttribute("message", "Manage all academic stuff");
+        return "home/academic";
+    }
+
     @GetMapping("/admin/users")
     public String usersPortal(Model model) {
         model.addAttribute("title", "Users Portal");

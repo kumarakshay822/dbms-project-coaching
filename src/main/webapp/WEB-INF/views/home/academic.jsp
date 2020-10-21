@@ -5,11 +5,7 @@
 
 <div class="container">
     <ul>
-        <li><a href="/admin/users">All Users</a></li>
-        <li><a href="/admin/academics">Academic Portal</a></li>
-        <li><a href="/admin/students">Student Portal</a></li>
-        <li><a href="/admin/staffs">Staff Portal</a></li>
-        <li><a href="/admin/teachers">Teacher Portal</a></li>
+        <li><a href="/admin/academics/subjects">Subjects</a></li>
     </ul>
 </div>
 
