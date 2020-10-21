@@ -51,21 +51,28 @@ function passwordToggleClick() {
 };
 
 var linkToText = {
-    login: "Login",
-    register: "Register",
-    admin: "Admin",
     users: "All Users",
     students: "Student Portal",
     staffs: "Staff Portal",
     teachers: "Teacher Portal",
-    academics: "Academic Portal",
-    subjects: "Subjects"
+    academics: "Academic Portal"
 };
+
+function titleCase(text) {
+    var words = text.split("-");
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i][0].toUpperCase() + words[i].slice(1);
+    }
+    return words.join(" ");
+}
 
 function getBreadcrumb(url, currentLink, isLast) {
     var text = currentLink;
     if (currentLink in linkToText) {
         text = linkToText[currentLink];
+    }
+    else {
+        text = titleCase(text);
     }
     if (!isLast) {
         return '\n<li class="breadcrumb-item active"><a href="' + url + '">' + text + '</a></li>'

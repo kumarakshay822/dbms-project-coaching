@@ -6,6 +6,7 @@
 <div class="container">
     <ul>
         <li><a href="/admin/academics/subjects">Subjects</a></li>
+        <li><a href="/admin/academics/courses">Courses</a></li>
     </ul>
 </div>
 

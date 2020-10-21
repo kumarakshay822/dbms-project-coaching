@@ -1,22 +1,33 @@
 package com.dbms.coaching.models;
 
 public class Course {
-    private int courseId;
+    private String courseId;
     private String name;
     private int fee;
     private String description;
 
+
+    public Course() {
+    }
+
+    public Course(String courseId, String name, int fee, String description) {
+        this.courseId = courseId;
+        this.name = name;
+        this.fee = fee;
+        this.description = description;
+    }
+
     /**
-     * @return int return the courseId
+     * @return String return the courseId
      */
-    public int getCourseId() {
+    public String getCourseId() {
         return courseId;
     }
 
     /**
      * @param courseId the courseId to set
      */
-    public void setCourseId(int courseId) {
+    public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
 
@@ -60,6 +71,16 @@ public class Course {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " courseId='" + getCourseId() + "'" +
+            ", name='" + getName() + "'" +
+            ", fee='" + getFee() + "'" +
+            ", description='" + getDescription() + "'" +
+            "}";
     }
 
 }
