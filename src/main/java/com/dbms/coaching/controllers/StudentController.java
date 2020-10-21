@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 // import org.springframework.security.core.userdetails.UserDetails;
 
 @Controller
-public class AdminController {
+public class StudentController {
     @Autowired
     private UserDao userDao;
 
@@ -48,27 +48,6 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
-
-    @GetMapping("/admin")
-    public String adminPage(Model model) {
-        model.addAttribute("title", "Admin Page");
-        model.addAttribute("message", "Welcome, Admin!");
-        return "home/admin";
-    }
-
-    @GetMapping("/admin/academics")
-    public String academicPortal(Model model) {
-        model.addAttribute("title", "Academic Portal");
-        model.addAttribute("message", "Manage all academic stuff");
-        return "home/academic";
-    }
-
-    @GetMapping("/admin/users")
-    public String usersPortal(Model model) {
-        model.addAttribute("title", "Users Portal");
-        model.addAttribute("message", "View all the users");
-        return "user/usersPortal";
-    }
 
     @GetMapping("/admin/students")
     public String studentsPortal(Model model) {

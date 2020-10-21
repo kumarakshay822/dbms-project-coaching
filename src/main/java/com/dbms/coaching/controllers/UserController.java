@@ -22,6 +22,13 @@ public class UserController {
     @Autowired
     private UserPhoneNumberDao userPhoneNumberDao;
 
+    @GetMapping("/admin/users")
+    public String usersPortal(Model model) {
+        model.addAttribute("title", "Users Portal");
+        model.addAttribute("message", "View all the users");
+        return "user/usersPortal";
+    }
+
     @GetMapping("/admin/users/{userId}/activate")
     public ResponseEntity<Integer> activateUser(@PathVariable("userId") int userId, Model model) {
         userDao.activate(userId);
