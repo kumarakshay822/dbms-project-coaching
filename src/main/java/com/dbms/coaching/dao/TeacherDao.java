@@ -9,6 +9,12 @@ public interface TeacherDao {
 
     public List<Teacher> getAll();
 
+    public List<Teacher> getAllByBatch(String batchId, String courseId);
+
+    public List<Teacher> getTeachersInBatch(String batchId, String courseId);
+
+    public List<Teacher> getTeachersNotInBatch(String batchId, String courseId);
+
     public Teacher getByEmployeeId(int employeeId);
 
     public void update(Teacher teacher);

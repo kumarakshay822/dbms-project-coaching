@@ -53,6 +53,31 @@ public class StaffDaoImpl implements StaffDao {
     }
 
     @Override
+    public List<Staff> getAllByBatch(String batchId, String courseId) {
+        // TODO: Project the query to get only some attributes - queryForList(), queryForMap()
+        // TODO: NATURAL JOIN / USING / ON / INNER JOIN / Normal Cross Product / Multiple Query instead of Join
+        String sql = "SELECT * FROM Staff NATURAL JOIN StaffBatchDetails NATURAL JOIN Employee NATURAL JOIN User WHERE batchId = ? AND courseId = ?";
+        List<Staff> teachers = template.query(sql, new Object[] { batchId, courseId }, new StaffRowMapper());
+        return teachers;
+    }
+
+    @Override
+    public List<Staff> getStaffsInBatch(String batchId, String courseId) {
+        String sql = "SELECT * FROM Staff NATURAL JOIN Employee NATURAL JOIN User NATURAL JOIN StaffBatchDetails WHERE batchId = ? AND courseId = ?";
+        List<Staff> subjects = template.query(sql, new Object[] { batchId, courseId },
+                new StaffRowMapper());
+        return subjects;
+    }
+
+    @Override
+    public List<Staff> getStaffsNotInBatch(String batchId, String courseId) {
+        String sql = "SELECT * FROM Staff NATURAL JOIN Employee NATURAL JOIN User WHERE staffId NOT IN (SELECT staffId FROM StaffBatchDetails WHERE batchId = ? AND courseId = ?)";
+        List<Staff> subjects = template.query(sql, new Object[] { batchId, courseId },
+                new StaffRowMapper());
+        return subjects;
+    }
+
+    @Override
     public Staff getByEmployeeId(int employeeId) {
         try {
             String sql = "SELECT * FROM Staff NATURAL JOIN Employee NATURAL JOIN User WHERE employeeId = ?";

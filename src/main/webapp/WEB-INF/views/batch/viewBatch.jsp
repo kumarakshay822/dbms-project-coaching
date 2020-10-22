@@ -48,6 +48,54 @@
                 <td style="width: 50%">${batch.endTime}</td>
             </tr>
         </table>
+        <div class="col-12" style="text-align: center;">
+            <hr>
+            <h5>Staffs</h5>
+        </div>
+        <div class="col-12" style="text-align: right;">
+            <a class="btn btn-primary" href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/add-staff"
+                role="button">Add / Edit Staff</a>
+        </div>
+        <table class="table table-hover mt-4">
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <c:forEach items="${staffs}" var="staff">
+                <tr>
+                    <td><a href="/admin/staffs/ES${staff.employee.employeeId}">ES${staff.employee.employeeId}</a></td>
+                    <td>${staff.employee.user.firstName} ${staff.employee.user.middleName} ${staff.employee.user.lastName}</td>
+                </tr>
+            </c:forEach>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="col-12" style="text-align: center;">
+            <hr>
+            <h5>Teachers</h5>
+        </div>
+        <div class="col-12" style="text-align: right;">
+            <a class="btn btn-primary" href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/add-teacher"
+                role="button">Add / Edit Teacher</a>
+        </div>
+        <table class="table table-hover mt-4">
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <c:forEach items="${teachers}" var="teacher">
+                <tr>
+                    <td><a href="/admin/teachers/ET${teacher.employee.employeeId}">ET${teacher.employee.employeeId}</a></td>
+                    <td>${teacher.employee.user.firstName} ${teacher.employee.user.middleName} ${teacher.employee.user.lastName}</td>
+                </tr>
+            </c:forEach>
+            <tbody>
+            </tbody>
+        </table>
     </div>
 </div>
 

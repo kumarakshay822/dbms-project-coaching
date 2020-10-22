@@ -134,7 +134,7 @@ public class CourseController {
     }
 
     @GetMapping("/admin/academics/courses/{courseId}/add-subject")
-    public String addCourseSubject(@PathVariable("courseId") String courseId, Model model) {
+    public String addSubjectToCourse(@PathVariable("courseId") String courseId, Model model) {
         model.addAttribute("title", "Academic Portal - Courses");
         model.addAttribute("message", "Add Subject");
         model.addAttribute("submessage1", "Add Subject - " + courseId);
@@ -148,14 +148,14 @@ public class CourseController {
     }
 
     @PostMapping("/admin/academics/courses/{courseId}/add-subject")
-    public ResponseEntity<String> addCourseSubject(@PathVariable("courseId") String courseId,
+    public ResponseEntity<String> addSubjectToCourse(@PathVariable("courseId") String courseId,
             @RequestParam String subjectId, Model model) {
         courseSubjectDao.save(courseId, subjectId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/admin/academics/courses/{courseId}/delete-subject")
-    public ResponseEntity<Integer> deleteCourseSubject(@PathVariable("courseId") String courseId,
+    public ResponseEntity<Integer> deleteSubjectFromCourse(@PathVariable("courseId") String courseId,
             @RequestParam String subjectId, Model model) {
         courseSubjectDao.delete(courseId, subjectId);
         return new ResponseEntity<>(HttpStatus.OK);

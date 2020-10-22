@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -51,6 +52,27 @@ public class TeacherDaoImpl implements TeacherDao {
         String sql = "SELECT * FROM Teacher NATURAL JOIN Employee NATURAL JOIN User NATURAL JOIN Subject";
         List<Teacher> teachers = template.query(sql, new TeacherRowMapper());
         return teachers;
+    }
+
+    @Override
+    public List<Teacher> getAllByBatch(String batchId, String courseId) {
+        String sql = "SELECT * FROM Teacher NATURAL JOIN TeacherBatchDetails NATURAL JOIN Employee NATURAL JOIN User WHERE batchId = ? AND courseId = ?";
+        List<Teacher> teachers = template.query(sql, new Object[] { batchId, courseId }, new TeacherRowMapper());
+        return teachers;
+    }
+
+    @Override
+    public List<Teacher> getTeachersInBatch(String batchId, String courseId) {
+        String sql = "SELECT * FROM Teacher NATURAL JOIN Employee NATURAL JOIN User NATURAL JOIN TeacherBatchDetails WHERE batchId = ? AND courseId = ?";
+        List<Teacher> subjects = template.query(sql, new Object[] { batchId, courseId }, new TeacherRowMapper());
+        return subjects;
+    }
+
+    @Override
+    public List<Teacher> getTeachersNotInBatch(String batchId, String courseId) {
+        String sql = "SELECT * FROM Teacher NATURAL JOIN Employee NATURAL JOIN User WHERE teacherId NOT IN (SELECT teacherId FROM TeacherBatchDetails WHERE batchId = ? AND courseId = ?)";
+        List<Teacher> subjects = template.query(sql, new Object[] { batchId, courseId }, new TeacherRowMapper());
+        return subjects;
     }
 
     @Override

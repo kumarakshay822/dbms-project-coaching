@@ -4,8 +4,14 @@ import java.util.List;
 
 import com.dbms.coaching.dao.BatchDao;
 import com.dbms.coaching.dao.CourseDao;
+import com.dbms.coaching.dao.StaffBatchDao;
+import com.dbms.coaching.dao.StaffDao;
+import com.dbms.coaching.dao.TeacherBatchDao;
+import com.dbms.coaching.dao.TeacherDao;
 import com.dbms.coaching.models.Batch;
 import com.dbms.coaching.models.Course;
+import com.dbms.coaching.models.Staff;
+import com.dbms.coaching.models.Teacher;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BatchController {
@@ -25,6 +32,18 @@ public class BatchController {
 
     @Autowired
     private CourseDao courseDao;
+
+    @Autowired
+    private StaffDao staffDao;
+
+    @Autowired
+    private TeacherDao teacherDao;
+
+    @Autowired
+    private StaffBatchDao staffBatchDao;
+
+    @Autowired
+    private TeacherBatchDao teacherBatchDao;
 
     @GetMapping("/admin/academics/batches")
     public String listBatches(Model model) {
@@ -96,7 +115,11 @@ public class BatchController {
         model.addAttribute("message", "View Batch");
         model.addAttribute("submessage1", "Batch Details");
         Batch batch = batchDao.get(batchId, courseId);
+        List<Staff> staffs = staffDao.getAllByBatch(batchId, courseId);
+        List<Teacher> teachers = teacherDao.getAllByBatch(batchId, courseId);
         model.addAttribute("batch", batch);
+        model.addAttribute("staffs", staffs);
+        model.addAttribute("teachers", teachers);
         return "batch/viewBatch";
     }
 
@@ -142,6 +165,64 @@ public class BatchController {
     public ResponseEntity<Integer> deleteBatch(@PathVariable("courseId") String courseId,
             @PathVariable("batchId") String batchId, Model model) {
         batchDao.delete(batchId, courseId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/admin/academics/courses/{courseId}/{batchId}/add-staff")
+    public String addStaffToBatch(@PathVariable("courseId") String courseId, @PathVariable("batchId") String batchId,
+            Model model) {
+        model.addAttribute("title", "Academic Portal - Batches");
+        model.addAttribute("message", "Add Staff to Batch");
+        model.addAttribute("submessage1", "Add Staff - " + batchId + " (" + courseId + ")");
+        model.addAttribute("buttonmessage", "Finish");
+        model.addAttribute("submiturl", "/admin/academics/courses/" + courseId + "/" + batchId + "/add-staff");
+        List<Staff> staffsPresent = staffDao.getStaffsInBatch(batchId, courseId);
+        List<Staff> staffsNotPresent = staffDao.getStaffsNotInBatch(batchId, courseId);
+        model.addAttribute("staffsPresent", staffsPresent);
+        model.addAttribute("staffsNotPresent", staffsNotPresent);
+        return "staff/addStaffBatch";
+    }
+
+    @PostMapping("/admin/academics/courses/{courseId}/{batchId}/add-staff")
+    public ResponseEntity<String> addStaffToBatch(@PathVariable("courseId") String courseId,
+            @PathVariable("batchId") String batchId, @RequestParam String staffId, Model model) {
+        staffBatchDao.save(staffId, batchId, courseId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/admin/academics/courses/{courseId}/{batchId}/delete-staff")
+    public ResponseEntity<Integer> deleteStaffFromBatch(@PathVariable("courseId") String courseId,
+            @PathVariable("batchId") String batchId, @RequestParam String staffId, Model model) {
+        staffBatchDao.delete(staffId, batchId, courseId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/admin/academics/courses/{courseId}/{batchId}/add-teacher")
+    public String addTeacherToBatch(@PathVariable("courseId") String courseId, @PathVariable("batchId") String batchId,
+            Model model) {
+        model.addAttribute("title", "Academic Portal - Batches");
+        model.addAttribute("message", "Add Teacher to Batch");
+        model.addAttribute("submessage1", "Add Teacher - " + batchId + " (" + courseId + ")");
+        model.addAttribute("buttonmessage", "Finish");
+        model.addAttribute("submiturl", "/admin/academics/courses/" + courseId + "/" + batchId + "/add-teacher");
+        List<Teacher> teachersPresent = teacherDao.getTeachersInBatch(batchId, courseId);
+        List<Teacher> teachersNotPresent = teacherDao.getTeachersNotInBatch(batchId, courseId);
+        model.addAttribute("teachersPresent", teachersPresent);
+        model.addAttribute("teachersNotPresent", teachersNotPresent);
+        return "teacher/addTeacherBatch";
+    }
+
+    @PostMapping("/admin/academics/courses/{courseId}/{batchId}/add-teacher")
+    public ResponseEntity<String> addTeacherToBatch(@PathVariable("courseId") String courseId,
+            @PathVariable("batchId") String batchId, @RequestParam String teacherId, Model model) {
+        teacherBatchDao.save(teacherId, batchId, courseId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/admin/academics/courses/{courseId}/{batchId}/delete-teacher")
+    public ResponseEntity<Integer> deleteTeacherFromBatch(@PathVariable("courseId") String courseId,
+            @PathVariable("batchId") String batchId, @RequestParam String teacherId, Model model) {
+        teacherBatchDao.delete(teacherId, batchId, courseId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

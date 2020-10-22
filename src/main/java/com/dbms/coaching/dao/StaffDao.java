@@ -9,6 +9,12 @@ public interface StaffDao {
 
     public List<Staff> getAll();
 
+    public List<Staff> getAllByBatch(String batchId, String courseId);
+
+    public List<Staff> getStaffsInBatch(String batchId, String courseId);
+
+    public List<Staff> getStaffsNotInBatch(String batchId, String courseId);
+
     public Staff getByEmployeeId(int employeeId);
 
     public void update(Staff staff);

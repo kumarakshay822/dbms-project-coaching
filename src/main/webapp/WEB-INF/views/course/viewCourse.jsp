@@ -14,8 +14,7 @@
                 <th style="width: 40%;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%; text-align: right;">
-                    <a class="btn btn-primary" href="/admin/academics/courses/${course.courseId}/add-batch" role="button">Add Batch</a>
-                    <a class="btn btn-primary" href="/admin/academics/courses/${course.courseId}/add-subject" role="button">Add Subject</a>
+                    <a class="btn btn-primary" href="/admin/academics/courses/${course.courseId}/add-subject" role="button">Add / Edit Subject</a>
                     <a class="btn btn-primary" href="/admin/academics/courses/${course.courseId}/edit" role="button">Edit Course</a>
                 </td>
             </tr>
@@ -50,7 +49,11 @@
             </tr>
         </table>
         <div class="col-12 mt-4" style="text-align: center;">
+            <hr>
             <h5>Batches</h5>
+        </div>
+        <div class="col-12" style="text-align: right;">
+            <a class="btn btn-primary" href="/admin/academics/courses/${course.courseId}/add-batch" role="button">Add Batch</a>
         </div>
         <table class="table table-hover mt-4">
             <thead>

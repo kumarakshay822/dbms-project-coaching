@@ -30,6 +30,7 @@ public class UserController {
         model.addAttribute("title", "Users Portal");
         model.addAttribute("message", "View all the users");
         List<User> users = userDao.getAll();
+        // TODO: Prevent deleting self user
         model.addAttribute("users", users);
         return "user/usersPortal";
     }
@@ -51,7 +52,6 @@ public class UserController {
             @RequestParam String phoneNumber, Model model) {
         UserPhoneNumber userPhoneNumber = new UserPhoneNumber(phoneNumber, userId);
         userPhoneNumberDao.save(userPhoneNumber);
-        System.out.println(userPhoneNumber);
         // TODO: Check for Validation
         // if (false) {
         //     return new ResponseEntity<>("Wrong Phone Number", HttpStatus.BAD_REQUEST);

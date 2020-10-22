@@ -2,8 +2,16 @@ package com.dbms.coaching.models;
 
 public class StaffBatchDetails {
     private int staffId;
-    private int batchId;
-    private int courseId;
+    private Batch batch;
+
+    public StaffBatchDetails() {
+        batch = new Batch();
+    }
+
+    public StaffBatchDetails(int staffId, Batch batch) {
+        this.staffId = staffId;
+        this.batch = batch;
+    }
 
     /**
      * @return int return the staffId
@@ -20,31 +28,25 @@ public class StaffBatchDetails {
     }
 
     /**
-     * @return int return the batchId
+     * @return Batch return the batch
      */
-    public int getBatchId() {
-        return batchId;
+    public Batch getBatch() {
+        return batch;
     }
 
     /**
-     * @param batchId the batchId to set
+     * @param batch the batch to set
      */
-    public void setBatchId(int batchId) {
-        this.batchId = batchId;
+    public void setBatch(Batch batch) {
+        this.batch = batch;
     }
 
-    /**
-     * @return int return the courseId
-     */
-    public int getCourseId() {
-        return courseId;
-    }
-
-    /**
-     * @param courseId the courseId to set
-     */
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    @Override
+    public String toString() {
+        return "{" +
+            " staffId='" + getStaffId() + "'" +
+            ", batch='" + getBatch() + "'" +
+            "}";
     }
 
 }
