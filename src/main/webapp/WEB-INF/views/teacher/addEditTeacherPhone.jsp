@@ -38,6 +38,7 @@
                     <input type="text" id="phoneNumber">
                     <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/admin/users/${userId}/phoneNumber/add',
                     {'phoneNumber': $('#phoneNumber').val()})" role="button">Add</a>
+                    <div id="error" style="color: red;"></div>
             </div>
         </div>
         <div class="row mt-4 mb-4">

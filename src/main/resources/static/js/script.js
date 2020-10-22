@@ -34,8 +34,9 @@ function postRequest(url, data) {
         success: function(data, status, xhr){
             location.reload();
         },
-        error: function(error){
-            alert(error);
+        error: function(xhr, status, err){
+            document.getElementById("error").innerHTML = xhr.responseText;
+            alert(status);
         }
     });
 }

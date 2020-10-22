@@ -16,6 +16,8 @@
                     <th>Name</th>
                     <th>Description</th>
                     <th>Fee</th>
+                    <th>Subjects</th>
+                    <th>Add Subject</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -26,8 +28,16 @@
                     <td>${course.description}</td>
                     <td>${course.fee}</td>
                     <td>
-                        <a class="btn btn-outline-primary btn-sm" href="/admin/academics/courses/${course.courseId}/edit"
-                            role="button">Edit</a>
+                        <c:forEach var="subject" items="${course.subjects}">
+                            <div>${subject.name} - ${subject.subjectId}</div>
+                        </c:forEach>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-success btn-sm" href="/admin/academics/courses/${course.courseId}/add-subject"
+                            role="button">Add Subject</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-primary btn-sm" href="/admin/academics/courses/${course.courseId}/edit" role="button">Edit</a>
                         <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/academics/courses/${course.courseId}/delete',
                         'Do you want to delete this Course? \nWarning! This action is destructible!')"
                             role="button">Delete</a>

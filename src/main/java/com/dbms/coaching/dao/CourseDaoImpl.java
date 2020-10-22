@@ -1,6 +1,7 @@
 package com.dbms.coaching.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.dbms.coaching.models.Course;
 
@@ -22,9 +23,9 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
-    public List<Course> getAll() {
+    public List<Map<String, Object>> getAll() {
         String sql = "SELECT * FROM Course";
-        List<Course> courses = template.query(sql, new BeanPropertyRowMapper<>(Course.class));
+        List<Map<String, Object>> courses = template.queryForList(sql);
         return courses;
     }
 

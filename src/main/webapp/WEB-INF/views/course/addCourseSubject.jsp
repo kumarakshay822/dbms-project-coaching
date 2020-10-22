@@ -16,7 +16,8 @@
                     <h4>${submessage2}</h4>
                 </th>
                 <td style="width: 40%; text-align: right;">
-                    <a href="#" onclick="window.location.reload();">Reset <i class="fa fa-refresh" aria-hidden="true"></i></a>
+                    <a href="#" onclick="window.location.reload();">Reset <i class="fa fa-refresh"
+                            aria-hidden="true"></i></a>
                 </td>
             </tr>
         </table>
@@ -24,29 +25,37 @@
 
             <div class="row">
                 <div class="col-sm-5" style="text-align: center;">
-                    Phone Numbers:
+                    Subjects:
                 </div>
                 <div class="col-sm-7">
-                    <c:forEach var="phoneNumber" items="${phoneNumbers}">
-                        <div>${phoneNumber.phoneNumber} &emsp;
-                            <a href="#" onclick="postRequest('/admin/users/${userId}/phoneNumber/delete',
-                            {'phoneNumber': '${phoneNumber.phoneNumber}'})"> Remove
+                    <c:forEach var="subject" items="${subjectsPresent}">
+                        <div>${subject.name} - ${subject.subjectId} &emsp;
+                            <a href="#" onclick="postRequest('/admin/academics/courses/${courseId}/delete-subject',
+                            {'subjectId': '${subject.subjectId}'})"> Remove
                             </a>
                         </div>
                     </c:forEach>
 
-                    <input type="text" id="phoneNumber">
-                    <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/admin/users/${userId}/phoneNumber/add',
-                    {'phoneNumber': $('#phoneNumber').val()})" role="button">Add</a>
+                    <c:if test="${not empty subjectsNotPresent}">
+                    <select>
+                        <c:forEach var="subject" items="${subjectsNotPresent}">
+                            <option id="subjectId" value="${subject.subjectId}">${subject.name} - ${subject.subjectId}</option>
+                        </c:forEach>
+                    </select>
+                    <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/admin/academics/courses/${courseId}/add-subject',
+                    {'subjectId': $('#subjectId').val()})" role="button">Add</a>
+                    </c:if>
+
                     <div id="error" style="color: red;"></div>
+                </div>
+            </div>
+            <div class="row mt-4 mb-4">
+                <div class="col-sm-7 offset-sm-5">
+                    <a class="btn btn-primary" type="button"
+                        href="/admin/academics/courses">${buttonmessage}</a>
+                </div>
             </div>
         </div>
-        <div class="row mt-4 mb-4">
-            <div class="col-sm-7 offset-sm-5">
-                <a class="btn btn-primary" type="button" href="/admin/students/ST${studentId}/edit-guardian">${buttonmessage}</a>
-            </div>
-        </div>
-    </div>
     </div>
 </div>
 

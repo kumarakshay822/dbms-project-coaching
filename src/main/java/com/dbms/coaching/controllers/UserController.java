@@ -42,10 +42,15 @@ public class UserController {
     }
 
     @PostMapping("/admin/users/{userId}/phoneNumber/add")
-    public ResponseEntity<Integer> addUserPhoneNumber(@PathVariable("userId") int userId,
+    public ResponseEntity<String> addUserPhoneNumber(@PathVariable("userId") int userId,
             @RequestParam String phoneNumber, Model model) {
         UserPhoneNumber userPhoneNumber = new UserPhoneNumber(phoneNumber, userId);
         userPhoneNumberDao.save(userPhoneNumber);
+        System.out.println(userPhoneNumber);
+        // TODO: Check for Validation
+        // if (false) {
+        //     return new ResponseEntity<>("Wrong Phone Number", HttpStatus.BAD_REQUEST);
+        // }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

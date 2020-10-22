@@ -1,35 +1,51 @@
 package com.dbms.coaching.models;
 
 public class CourseSubjectDetails {
-    private int courseId;
-    private int subjectId;
+    private String courseId;
+    private Subject subject;
+
+    public CourseSubjectDetails() {
+    }
+
+    public CourseSubjectDetails(String courseId, Subject subject) {
+        this.courseId = courseId;
+        this.subject = subject;
+    }
 
     /**
-     * @return int return the courseId
+     * @return String return the courseId
      */
-    public int getCourseId() {
+    public String getCourseId() {
         return courseId;
     }
 
     /**
      * @param courseId the courseId to set
      */
-    public void setCourseId(int courseId) {
+    public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
 
     /**
-     * @return int return the subjectId
+     * @return Subject return the subject
      */
-    public int getSubjectId() {
-        return subjectId;
+    public Subject getSubject() {
+        return subject;
     }
 
     /**
-     * @param subjectId the subjectId to set
+     * @param subject the subject to set
      */
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " courseId='" + getCourseId() + "'" +
+            ", subject='" + getSubject() + "'" +
+            "}";
     }
 
 }

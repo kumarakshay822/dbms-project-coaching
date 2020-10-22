@@ -40,6 +40,22 @@ public class SubjectDaoImpl implements SubjectDao {
         }
     }
 
+    @Override
+    public List<Subject> getSubjectsInCourse(String courseId) {
+        String sql = "SELECT * FROM Subject NATURAL JOIN CourseSubjectDetails WHERE courseId = ?";
+        List<Subject> subjects = template.query(sql, new Object[] { courseId },
+                new BeanPropertyRowMapper<>(Subject.class));
+        return subjects;
+    }
+
+    @Override
+    public List<Subject> getSubjectsNotInCourse(String courseId) {
+        String sql = "SELECT * FROM Subject WHERE subjectId NOT IN (SELECT subjectId FROM CourseSubjectDetails WHERE courseId = ?)";
+        List<Subject> subjects = template.query(sql, new Object[] { courseId },
+                new BeanPropertyRowMapper<>(Subject.class));
+        return subjects;
+    }
+
     /**
      * Update all attributes except subjectId
      */

@@ -11,6 +11,10 @@ public interface SubjectDao {
 
     public Subject get(String subjectId);
 
+    public List<Subject> getSubjectsInCourse(String courseId);
+
+    public List<Subject> getSubjectsNotInCourse(String courseId);
+
     public void update(Subject subject);
 
     public void delete(String subjectId);
