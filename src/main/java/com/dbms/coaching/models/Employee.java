@@ -15,6 +15,7 @@ public class Employee {
     private User user;
 
     public Employee() {
+        user = new User();
     }
 
     public Employee(int employeeId, int basicSalary, Date joinDate, Date endDate, String panNumber, String accountNumber, String bankName, String bankBranch, String ifscCode, User user) {

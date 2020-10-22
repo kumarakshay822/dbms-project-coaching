@@ -18,6 +18,8 @@ public class Teacher {
     private Subject subject;
 
     public Teacher() {
+        employee = new Employee();
+        subject = new Subject();
     }
 
     public Teacher(int teacherId, String gender, Date dateOfBirth, String houseNumber, String street, String city, String state, int pinCode, String bachelorsDegree, String mastersDegree, String doctoralDegree, Employee employee, Subject subject) {

@@ -5,6 +5,7 @@ public class CourseSubjectDetails {
     private Subject subject;
 
     public CourseSubjectDetails() {
+        subject = new Subject();
     }
 
     public CourseSubjectDetails(String courseId, Subject subject) {

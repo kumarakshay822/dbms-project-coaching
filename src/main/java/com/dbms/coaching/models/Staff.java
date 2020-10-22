@@ -14,6 +14,7 @@ public class Staff {
     private Employee employee;
 
     public Staff() {
+        employee = new Employee();
     }
 
     public Staff(int staffId, String gender, Date dateOfBirth, String houseNumber, String street, String city, String state, int pinCode, Employee employee) {

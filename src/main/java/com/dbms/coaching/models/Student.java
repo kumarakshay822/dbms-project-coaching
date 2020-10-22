@@ -17,6 +17,7 @@ public class Student {
     private User user;
 
     public Student() {
+        user = new User();
     }
 
     public Student(int studentId, String gender, Date dateOfBirth, String houseNumber, String street, String city, String state, int pinCode, String schoolAttending, double percentage10th, double percentage12th, User user) {
