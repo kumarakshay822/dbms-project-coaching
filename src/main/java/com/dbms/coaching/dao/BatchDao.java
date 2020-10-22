@@ -9,7 +9,7 @@ public interface BatchDao {
 
     public List<Batch> getAll();
 
-    // TODO: Add getAllBatchByCourseId()
+    public List<Batch> getAllByCourseId(String courseId);
 
     public Batch get(String batchId, String courseId);
 

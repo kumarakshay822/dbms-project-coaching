@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.dbms.coaching.dao.BatchDao;
 import com.dbms.coaching.dao.CourseDao;
 import com.dbms.coaching.dao.CourseSubjectDao;
 import com.dbms.coaching.dao.SubjectDao;
+import com.dbms.coaching.models.Batch;
 import com.dbms.coaching.models.Course;
 import com.dbms.coaching.models.CourseSubjectDetails;
 import com.dbms.coaching.models.Subject;
@@ -27,6 +29,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class CourseController {
     @Autowired
     private CourseDao courseDao;
+
+    @Autowired
+    private BatchDao batchDao;
 
     @Autowired
     private SubjectDao subjectDao;
@@ -80,14 +85,16 @@ public class CourseController {
     }
 
     @GetMapping("/admin/academics/courses/{courseId}")
-    public String viewBatch(@PathVariable("courseId") String courseId, Model model) {
+    public String viewCourse(@PathVariable("courseId") String courseId, Model model) {
         model.addAttribute("title", "Academic Portal - Courses");
         model.addAttribute("message", "View Course");
         model.addAttribute("submessage1", "Course Details");
         Course course = courseDao.get(courseId);
         List<Subject> subjects = subjectDao.getSubjectsInCourse(courseId);
+        List<Batch> batches = batchDao.getAllByCourseId(courseId);
         model.addAttribute("course", course);
         model.addAttribute("subjects", subjects);
+        model.addAttribute("batches", batches);
         return "course/viewCourse";
     }
 

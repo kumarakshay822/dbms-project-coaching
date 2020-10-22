@@ -57,7 +57,7 @@ public class SubjectController {
     }
 
     @GetMapping("/admin/academics/subjects/{subjectId}")
-    public String viewBatch(@PathVariable("subjectId") String subjectId, Model model) {
+    public String viewSubject(@PathVariable("subjectId") String subjectId, Model model) {
         model.addAttribute("title", "Academic Portal - Courses");
         model.addAttribute("message", "View Subject");
         model.addAttribute("submessage1", "Subject Details");

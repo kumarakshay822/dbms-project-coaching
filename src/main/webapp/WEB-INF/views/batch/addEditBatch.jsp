@@ -55,6 +55,9 @@
                             <c:when test="${edit == true}">
                                 ${batch.course.courseId} - ${batch.course.courseName}
                             </c:when>
+                            <c:when test="${not empty courseId}">
+                                ${courseId}
+                            </c:when>
                             <c:otherwise>
                                 <form:select class="form-control" path="course.courseId" required="true">
                                     <c:forEach var="course" items="${courses}">

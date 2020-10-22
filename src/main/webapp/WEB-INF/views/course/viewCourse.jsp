@@ -14,6 +14,7 @@
                 <th style="width: 40%;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%; text-align: right;">
+                    <a class="btn btn-primary" href="/admin/academics/courses/${course.courseId}/add-batch" role="button">Add Batch</a>
                     <a class="btn btn-primary" href="/admin/academics/courses/${course.courseId}/add-subject" role="button">Add Subject</a>
                     <a class="btn btn-primary" href="/admin/academics/courses/${course.courseId}/edit" role="button">Edit Course</a>
                 </td>
@@ -47,6 +48,35 @@
                     </c:forEach>
                 </td>
             </tr>
+        </table>
+        <div class="col-12 mt-4" style="text-align: center;">
+            <h5>Batches</h5>
+        </div>
+        <table class="table table-hover mt-4">
+            <thead>
+                <tr>
+                    <th>Batch ID</th>
+                    <th>Batch Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <c:forEach items="${batches}" var="batch">
+                <tr>
+                    <td>${batch.batchId}</td>
+                    <td>${batch.batchName}</td>
+                    <td>
+                        <a class="btn btn-outline-success btn-sm"
+                            href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}" role="button">View</a>
+                        <a class="btn btn-outline-primary btn-sm" href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/edit"
+                            role="button">Edit</a>
+                        <a class="btn btn-outline-danger btn-sm"
+                            onclick="getRequestWithConfirmation('/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/delete',
+                                'Do you want to delete this Batch? \nWarning! This action is destructible!')" role="button">Delete</a>
+                    </td>
+                </tr>
+            </c:forEach>
+            <tbody>
+            </tbody>
         </table>
     </div>
 </div>
