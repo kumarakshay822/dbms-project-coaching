@@ -30,8 +30,11 @@
                     <td>${batch.startTime}</td>
                     <td>${batch.endTime}</td>
                     <td>
-                        <a class="btn btn-outline-primary btn-sm" href="/admin/academics/batches/${batch.course.courseId}-${batch.batchId}/edit" role="button">Edit</a>
-                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/academics/batches/${batch.course.courseId}-${batch.batchId}/delete',
+                        <a class="btn btn-outline-success btn-sm" href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}"
+                            role="button">View</a>
+                        <a class="btn btn-outline-primary btn-sm" href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/edit"
+                            role="button">Edit</a>
+                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/delete',
                         'Do you want to delete this Batch? \nWarning! This action is destructible!')"
                             role="button">Delete</a>
                     </td>

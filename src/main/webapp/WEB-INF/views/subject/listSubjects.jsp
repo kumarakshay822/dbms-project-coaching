@@ -24,6 +24,8 @@
                     <td>${subject.subjectName}</td>
                     <td>${subject.description}</td>
                     <td>
+                        <a class="btn btn-outline-success btn-sm" href="/admin/academics/subjects/${subject.subjectId}"
+                            role="button">View</a>
                         <a class="btn btn-outline-primary btn-sm" href="/admin/academics/subjects/${subject.subjectId}/edit"
                             role="button">Edit</a>
                         <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/academics/subjects/${subject.subjectId}/delete',

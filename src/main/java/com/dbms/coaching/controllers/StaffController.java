@@ -83,6 +83,7 @@ public class StaffController {
         Employee employee = staff.getEmployee();
         User user = employee.getUser();
         user.setPassword("password");
+        user.setRole("ROLE_STAFF");
         user = userService.save(user);
 
         employee.setUser(user);

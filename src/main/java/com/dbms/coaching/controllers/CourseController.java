@@ -79,6 +79,18 @@ public class CourseController {
         return "redirect:/admin/academics/courses";
     }
 
+    @GetMapping("/admin/academics/courses/{courseId}")
+    public String viewBatch(@PathVariable("courseId") String courseId, Model model) {
+        model.addAttribute("title", "Academic Portal - Courses");
+        model.addAttribute("message", "View Course");
+        model.addAttribute("submessage1", "Course Details");
+        Course course = courseDao.get(courseId);
+        List<Subject> subjects = subjectDao.getSubjectsInCourse(courseId);
+        model.addAttribute("course", course);
+        model.addAttribute("subjects", subjects);
+        return "course/viewCourse";
+    }
+
     @GetMapping("/admin/academics/courses/{courseId}/edit")
     public String editCourse(@PathVariable("courseId") String courseId, Model model) {
         model.addAttribute("title", "Academic Portal - Courses");

@@ -1,7 +1,10 @@
 package com.dbms.coaching.controllers;
 
+import java.util.List;
+
 import com.dbms.coaching.dao.UserDao;
 import com.dbms.coaching.dao.UserPhoneNumberDao;
+import com.dbms.coaching.models.User;
 import com.dbms.coaching.models.UserPhoneNumber;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,8 @@ public class UserController {
     public String usersPortal(Model model) {
         model.addAttribute("title", "Users Portal");
         model.addAttribute("message", "View all the users");
+        List<User> users = userDao.getAll();
+        model.addAttribute("users", users);
         return "user/usersPortal";
     }
 

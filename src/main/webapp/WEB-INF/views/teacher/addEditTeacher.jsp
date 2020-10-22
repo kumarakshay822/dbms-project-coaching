@@ -47,7 +47,7 @@
                     <td style="width: 50%">
                         <form:select class="form-control" path="subject.subjectId" required="true">
                             <c:forEach var="subject" items="${subjects}">
-                                <form:option value="${subject.subjectId}">${subject.name} - ${subject.subjectId}</form:option>
+                                <form:option value="${subject.subjectId}">${subject.subjectName} - ${subject.subjectId}</form:option>
                             </c:forEach>
                         </form:select>
                         <form:errors path="gender" style="color: red;"></form:errors>

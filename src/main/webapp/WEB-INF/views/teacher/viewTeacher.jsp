@@ -30,7 +30,7 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Subject</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${teacher.subject.name} - ${teacher.subject.subjectId}</td>
+                <td style="width: 50%">${teacher.subject.subjectName} - ${teacher.subject.subjectId}</td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Username</th>

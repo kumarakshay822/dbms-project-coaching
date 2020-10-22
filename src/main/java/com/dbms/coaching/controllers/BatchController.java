@@ -65,7 +65,17 @@ public class BatchController {
         return "redirect:/admin/academics/batches";
     }
 
-    @GetMapping("/admin/academics/batches/{courseId}-{batchId}/edit")
+    @GetMapping("/admin/academics/courses/{courseId}/{batchId}")
+    public String viewBatch(@PathVariable("courseId") String courseId, @PathVariable("batchId") String batchId, Model model) {
+        model.addAttribute("title", "Academic Portal - Batches");
+        model.addAttribute("message", "View Batch");
+        model.addAttribute("submessage1", "Batch Details");
+        Batch batch = batchDao.get(batchId, courseId);
+        model.addAttribute("batch", batch);
+        return "batch/viewBatch";
+    }
+
+    @GetMapping("/admin/academics/courses/{courseId}/{batchId}/edit")
     public String editBatch(@PathVariable("courseId") String courseId, @PathVariable("batchId") String batchId,
             Model model) {
         model.addAttribute("title", "Academic Portal - Batches");
@@ -81,7 +91,7 @@ public class BatchController {
         return "batch/addEditBatch";
     }
 
-    @PostMapping("/admin/academics/batches/{courseId}-{batchId}/edit")
+    @PostMapping("/admin/academics/courses/{courseId}/{batchId}/edit")
     public String editBatch(@PathVariable("courseId") String courseId, @PathVariable("batchId") String batchId,
             @ModelAttribute("batch") Batch batch, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -103,7 +113,7 @@ public class BatchController {
         return "redirect:/admin/academics/batches";
     }
 
-    @GetMapping("/admin/academics/batches/{courseId}-{batchId}/delete")
+    @GetMapping("/admin/academics/courses/{courseId}/{batchId}/delete")
     public ResponseEntity<Integer> deleteBatch(@PathVariable("courseId") String courseId,
             @PathVariable("batchId") String batchId, Model model) {
         batchDao.delete(batchId, courseId);

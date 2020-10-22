@@ -9,6 +9,8 @@ public interface BatchDao {
 
     public List<Batch> getAll();
 
+    // TODO: Add getAllBatchByCourseId()
+
     public Batch get(String batchId, String courseId);
 
     public void update(Batch batch);

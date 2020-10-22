@@ -37,6 +37,7 @@
                             role="button">Add Subject</a>
                     </td>
                     <td>
+                        <a class="btn btn-outline-success btn-sm" href="/admin/academics/courses/${course.courseId}" role="button">View</a>
                         <a class="btn btn-outline-primary btn-sm" href="/admin/academics/courses/${course.courseId}/edit" role="button">Edit</a>
                         <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/academics/courses/${course.courseId}/delete',
                         'Do you want to delete this Course? \nWarning! This action is destructible!')"

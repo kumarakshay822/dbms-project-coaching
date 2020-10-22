@@ -87,6 +87,7 @@ public class StudentController {
 
         User user = student.getUser();
         user.setPassword("password");
+        user.setRole("ROLE_STUDENT");
         user = userService.save(user);
 
         student.setUser(user);

@@ -28,7 +28,7 @@
                     <td><a href="/admin/teachers/ET${teacher.employee.employeeId}">ET${teacher.employee.employeeId}</a></td>
                     <td>${teacher.employee.user.firstName} ${teacher.employee.user.middleName} ${teacher.employee.user.lastName}</td>
                     <td>${teacher.gender}</td>
-                    <td>${teacher.subject.name}</td>
+                    <td>${teacher.subject.subjectName}</td>
                     <td>${teacher.employee.user.username}</td>
                     <td>${teacher.employee.user.emailAddress}</td>
                     <td>

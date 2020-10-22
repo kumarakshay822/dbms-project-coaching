@@ -56,6 +56,16 @@ public class SubjectController {
         return "redirect:/admin/academics/subjects";
     }
 
+    @GetMapping("/admin/academics/subjects/{subjectId}")
+    public String viewBatch(@PathVariable("subjectId") String subjectId, Model model) {
+        model.addAttribute("title", "Academic Portal - Courses");
+        model.addAttribute("message", "View Subject");
+        model.addAttribute("submessage1", "Subject Details");
+        Subject subject = subjectDao.get(subjectId);
+        model.addAttribute("subject", subject);
+        return "subject/viewSubject";
+    }
+
     @GetMapping("/admin/academics/subjects/{subjectId}/edit")
     public String editSubject(@PathVariable("subjectId") String subjectId, Model model) {
         model.addAttribute("title", "Academic Portal - Subjects");
