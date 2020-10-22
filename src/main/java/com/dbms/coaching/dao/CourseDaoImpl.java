@@ -18,12 +18,19 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public void save(Course course) {
-        String sql = "INSERT INTO Course (courseId, name, fee, description) VALUES (?, ?, ?, ?)";
-        template.update(sql, course.getCourseId(), course.getName(), course.getFee(), course.getDescription());
+        String sql = "INSERT INTO Course (courseId, courseName, fee, description) VALUES (?, ?, ?, ?)";
+        template.update(sql, course.getCourseId(), course.getCourseName(), course.getFee(), course.getDescription());
     }
 
     @Override
-    public List<Map<String, Object>> getAll() {
+    public List<Course> getAll() {
+        String sql = "SELECT * FROM Course";
+        List<Course> courses = template.query(sql, new BeanPropertyRowMapper<>(Course.class));
+        return courses;
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllList() {
         String sql = "SELECT * FROM Course";
         List<Map<String, Object>> courses = template.queryForList(sql);
         return courses;
@@ -46,8 +53,8 @@ public class CourseDaoImpl implements CourseDao {
      */
     @Override
     public void update(Course course) {
-        String sql = "UPDATE Course SET name = ?, description = ?, fee = ? WHERE courseId = ?";
-        template.update(sql, course.getName(), course.getDescription(), course.getFee(), course.getCourseId());
+        String sql = "UPDATE Course SET courseName = ?, description = ?, fee = ? WHERE courseId = ?";
+        template.update(sql, course.getCourseName(), course.getDescription(), course.getFee(), course.getCourseId());
     }
 
     @Override

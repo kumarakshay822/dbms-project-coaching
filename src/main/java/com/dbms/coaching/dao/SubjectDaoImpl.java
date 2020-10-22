@@ -17,8 +17,8 @@ public class SubjectDaoImpl implements SubjectDao {
 
     @Override
     public void save(Subject subject) {
-        String sql = "INSERT INTO Subject (subjectId, name, description) VALUES (?, ?, ?)";
-        template.update(sql, subject.getSubjectId(), subject.getName(), subject.getDescription());
+        String sql = "INSERT INTO Subject (subjectId, subjectName, description) VALUES (?, ?, ?)";
+        template.update(sql, subject.getSubjectId(), subject.getSubjectName(), subject.getDescription());
     }
 
     @Override
@@ -61,8 +61,8 @@ public class SubjectDaoImpl implements SubjectDao {
      */
     @Override
     public void update(Subject subject) {
-        String sql = "UPDATE Subject SET name = ?, description = ? WHERE subjectId = ?";
-        template.update(sql, subject.getName(), subject.getDescription(), subject.getSubjectId());
+        String sql = "UPDATE Subject SET subjectName = ?, description = ? WHERE subjectId = ?";
+        template.update(sql, subject.getSubjectName(), subject.getDescription(), subject.getSubjectId());
     }
 
     @Override

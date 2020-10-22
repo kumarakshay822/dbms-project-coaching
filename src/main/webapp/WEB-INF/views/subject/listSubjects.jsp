@@ -13,7 +13,7 @@
             <thead>
                 <tr>
                     <th>Subject ID</th>
-                    <th>Name</th>
+                    <th>Subject Name</th>
                     <th>Description</th>
                     <th>Action</th>
                 </tr>
@@ -21,7 +21,7 @@
             <c:forEach items="${subjects}" var="subject">
                 <tr>
                     <td>${subject.subjectId}</td>
-                    <td>${subject.name}</td>
+                    <td>${subject.subjectName}</td>
                     <td>${subject.description}</td>
                     <td>
                         <a class="btn btn-outline-primary btn-sm" href="/admin/academics/subjects/${subject.subjectId}/edit"

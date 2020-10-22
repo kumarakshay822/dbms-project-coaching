@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-sm-7">
                     <c:forEach var="subject" items="${subjectsPresent}">
-                        <div>${subject.name} - ${subject.subjectId} &emsp;
+                        <div>${subject.subjectName} - ${subject.subjectId} &emsp;
                             <a href="#" onclick="postRequest('/admin/academics/courses/${courseId}/delete-subject',
                             {'subjectId': '${subject.subjectId}'})"> Remove
                             </a>
@@ -39,7 +39,7 @@
                     <c:if test="${not empty subjectsNotPresent}">
                     <select>
                         <c:forEach var="subject" items="${subjectsNotPresent}">
-                            <option id="subjectId" value="${subject.subjectId}">${subject.name} - ${subject.subjectId}</option>
+                            <option id="subjectId" value="${subject.subjectId}">${subject.subjectName} - ${subject.subjectId}</option>
                         </c:forEach>
                     </select>
                     <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/admin/academics/courses/${courseId}/add-subject',

@@ -13,7 +13,7 @@
             <thead>
                 <tr>
                     <th>Course ID</th>
-                    <th>Name</th>
+                    <th>Course Name</th>
                     <th>Description</th>
                     <th>Fee</th>
                     <th>Subjects</th>
@@ -24,12 +24,12 @@
             <c:forEach items="${courses}" var="course">
                 <tr>
                     <td>${course.courseId}</td>
-                    <td>${course.name}</td>
+                    <td>${course.courseName}</td>
                     <td>${course.description}</td>
                     <td>${course.fee}</td>
                     <td>
                         <c:forEach var="subject" items="${course.subjects}">
-                            <div>${subject.name} - ${subject.subjectId}</div>
+                            <div>${subject.subjectName} - ${subject.subjectId}</div>
                         </c:forEach>
                     </td>
                     <td>

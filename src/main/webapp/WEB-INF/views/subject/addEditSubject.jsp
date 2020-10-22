@@ -40,11 +40,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Name</th>
+                    <th style="width: 40%; text-align: center;">Subject Name</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
-                        <form:input type="text" path="name" class="form-control" required="true"></form:input>
-                        <form:errors path="name" style="color: red;"></form:errors>
+                        <form:input type="text" path="subjectName" class="form-control" required="true"></form:input>
+                        <form:errors path="subjectName" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>

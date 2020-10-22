@@ -2,15 +2,15 @@ package com.dbms.coaching.models;
 
 public class Subject {
     private String subjectId;
-    private String name;
+    private String subjectName;
     private String description;
 
     public Subject() {
     }
 
-    public Subject(String subjectId, String name, String description) {
+    public Subject(String subjectId, String subjectName, String description) {
         this.subjectId = subjectId;
-        this.name = name;
+        this.subjectName = subjectName;
         this.description = description;
     }
 
@@ -29,17 +29,17 @@ public class Subject {
     }
 
     /**
-     * @return String return the name
+     * @return String return the subjectName
      */
-    public String getName() {
-        return name;
+    public String getSubjectName() {
+        return subjectName;
     }
 
     /**
-     * @param name the name to set
+     * @param subjectName the subjectName to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
     /**
@@ -60,7 +60,7 @@ public class Subject {
     public String toString() {
         return "{" +
             " subjectId='" + getSubjectId() + "'" +
-            ", name='" + getName() + "'" +
+            ", subjectName='" + getSubjectName() + "'" +
             ", description='" + getDescription() + "'" +
             "}";
     }

@@ -8,7 +8,9 @@ import com.dbms.coaching.models.Course;
 public interface CourseDao {
     public void save(Course course);
 
-    public List<Map<String, Object>> getAll();
+    public List<Course> getAll();
+
+    public List<Map<String, Object>> getAllList();
 
     public Course get(String courseId);
 

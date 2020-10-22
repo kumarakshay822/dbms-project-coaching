@@ -3,53 +3,66 @@ package com.dbms.coaching.models;
 import java.sql.Time;
 
 public class Batch {
-    private int batchId;
-    private int courseId;
-    private String name;
+    private String batchId;
+    private Course course;
+    private String batchName;
     private int roomNumber;
     private Time startTime;
     private Time endTime;
 
+    public Batch() {
+        course = new Course();
+    }
+
+    public Batch(String batchId, Course course, String batchName, int roomNumber, Time startTime, Time endTime) {
+        this.batchId = batchId;
+        this.course = course;
+        this.batchName = batchName;
+        this.roomNumber = roomNumber;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     /**
-     * @return int return the batchId
+     * @return String return the batchId
      */
-    public int getBatchId() {
+    public String getBatchId() {
         return batchId;
     }
 
     /**
      * @param batchId the batchId to set
      */
-    public void setBatchId(int batchId) {
+    public void setBatchId(String batchId) {
         this.batchId = batchId;
     }
 
     /**
-     * @return int return the courseId
+     * @return Course return the course
      */
-    public int getCourseId() {
-        return courseId;
+    public Course getCourse() {
+        return course;
     }
 
     /**
-     * @param courseId the courseId to set
+     * @param course the course to set
      */
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     /**
-     * @return String return the name
+     * @return String return the batchName
      */
-    public String getName() {
-        return name;
+    public String getBatchName() {
+        return batchName;
     }
 
     /**
-     * @param name the name to set
+     * @param batchName the batchName to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setBatchName(String batchName) {
+        this.batchName = batchName;
     }
 
     /**
@@ -92,6 +105,18 @@ public class Batch {
      */
     public void setEndTime(Time endTime) {
         this.endTime = endTime;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " batchId='" + getBatchId() + "'" +
+            ", course='" + getCourse() + "'" +
+            ", batchName='" + getBatchName() + "'" +
+            ", roomNumber='" + getRoomNumber() + "'" +
+            ", startTime='" + getStartTime() + "'" +
+            ", endTime='" + getEndTime() + "'" +
+            "}";
     }
 
 }

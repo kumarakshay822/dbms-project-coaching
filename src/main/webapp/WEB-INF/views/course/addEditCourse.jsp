@@ -36,15 +36,14 @@
                                 <form:errors path="courseId" style="color: red;"></form:errors>
                             </c:otherwise>
                         </c:choose>
-
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Name</th>
+                    <th style="width: 40%; text-align: center;">Course Name</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
-                        <form:input type="text" path="name" class="form-control" required="true"></form:input>
-                        <form:errors path="name" style="color: red;"></form:errors>
+                        <form:input type="text" path="courseName" class="form-control" required="true"></form:input>
+                        <form:errors path="courseName" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>

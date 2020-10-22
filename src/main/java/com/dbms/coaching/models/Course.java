@@ -2,19 +2,23 @@ package com.dbms.coaching.models;
 
 public class Course {
     private String courseId;
-    private String name;
+    private String courseName;
     private int fee;
     private String description;
-
 
     public Course() {
     }
 
-    public Course(String courseId, String name, int fee, String description) {
+    public Course(String courseId, String courseName, int fee, String description) {
         this.courseId = courseId;
-        this.name = name;
+        this.courseName = courseName;
         this.fee = fee;
         this.description = description;
+    }
+
+    public Course courseId(String courseId) {
+        this.courseId = courseId;
+        return this;
     }
 
     /**
@@ -32,17 +36,17 @@ public class Course {
     }
 
     /**
-     * @return String return the name
+     * @return String return the courseName
      */
-    public String getName() {
-        return name;
+    public String getCourseName() {
+        return courseName;
     }
 
     /**
-     * @param name the name to set
+     * @param courseName the courseName to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     /**
@@ -77,7 +81,7 @@ public class Course {
     public String toString() {
         return "{" +
             " courseId='" + getCourseId() + "'" +
-            ", name='" + getName() + "'" +
+            ", courseName='" + getCourseName() + "'" +
             ", fee='" + getFee() + "'" +
             ", description='" + getDescription() + "'" +
             "}";

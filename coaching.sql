@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS Staff (
 
 CREATE TABLE IF NOT EXISTS Course (
   courseId varchar(255) NOT NULL,
-  name varchar(255) NOT NULL,
+  courseName varchar(255) NOT NULL,
   fee int NOT NULL,
   description varchar(255) DEFAULT NULL,
   PRIMARY KEY (courseId)
@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS Course (
 
 CREATE TABLE IF NOT EXISTS Subject (
   subjectId varchar(255) NOT NULL,
-  name varchar(255) NOT NULL,
+  subjectName varchar(255) NOT NULL,
   description varchar(255) DEFAULT NULL,
   PRIMARY KEY (subjectId)
 );
@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS CourseSubjectDetails (
 CREATE TABLE IF NOT EXISTS Batch (
   batchId varchar(255) NOT NULL,
   courseId varchar(255) NOT NULL,
-  name varchar(255) NOT NULL,
+  batchName varchar(255) NOT NULL,
   roomNumber int NOT NULL,
   startTime time DEFAULT NULL,
   endTime time DEFAULT NULL,

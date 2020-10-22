@@ -38,7 +38,7 @@ public class CourseController {
     public String listCourses(Model model) {
         model.addAttribute("title", "Academic Portal - Courses");
         model.addAttribute("message", "View all the courses");
-        List<Map<String, Object>> courses = courseDao.getAll();
+        List<Map<String, Object>> courses = courseDao.getAllList();
         List<CourseSubjectDetails> courseSubjects = courseSubjectDao.getAll();
         for (Map<String, Object> course : courses) {
             List<Subject> subjects = new ArrayList<>();
