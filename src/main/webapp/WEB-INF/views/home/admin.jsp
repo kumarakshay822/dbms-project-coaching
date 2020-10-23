@@ -10,6 +10,11 @@
         <li><a href="/admin/students">Student Portal</a></li>
         <li><a href="/admin/staffs">Staff Portal</a></li>
         <li><a href="/admin/teachers">Teacher Portal</a></li>
+        <li><a href="/admin/payroll">Payroll Management</a></li>
+        <li><a href="/admin/attendance">Attendance Management</a></li>
+        <li><a href="/admin/tests">Tests and Result Portal</a></li>
+        <li><a href="/admin/complaints">Complaints Portal</a></li>
+        <li><a href="/admin/feedback">Feedback Portal</a></li>
     </ul>
 </div>
 

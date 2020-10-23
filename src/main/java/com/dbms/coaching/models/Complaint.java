@@ -13,6 +13,20 @@ public class Complaint {
     private boolean isResolved;
     private int studentId;
 
+    public Complaint() {
+    }
+
+    public Complaint(int complaintId, Date date, Time time, String subject, String description, String response, boolean isResolved, int studentId) {
+        this.complaintId = complaintId;
+        this.date = date;
+        this.time = time;
+        this.subject = subject;
+        this.description = description;
+        this.response = response;
+        this.isResolved = isResolved;
+        this.studentId = studentId;
+    }
+
     /**
      * @return int return the complaintId
      */
@@ -123,6 +137,20 @@ public class Complaint {
      */
     public void setStudentId(int studentId) {
         this.studentId = studentId;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " complaintId='" + getComplaintId() + "'" +
+            ", date='" + getDate() + "'" +
+            ", time='" + getTime() + "'" +
+            ", subject='" + getSubject() + "'" +
+            ", description='" + getDescription() + "'" +
+            ", response='" + getResponse() + "'" +
+            ", isResolved='" + isIsResolved() + "'" +
+            ", studentId='" + getStudentId() + "'" +
+            "}";
     }
 
 }
