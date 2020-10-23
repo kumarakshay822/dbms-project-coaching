@@ -14,7 +14,7 @@
         <li><a href="/admin/attendance">Attendance Management</a></li>
         <li><a href="/admin/tests">Tests and Result Portal</a></li>
         <li><a href="/admin/complaints">Complaints Portal</a></li>
-        <li><a href="/admin/feedback">Feedback Portal</a></li>
+        <li><a href="/admin/feedbacks">Feedback Portal</a></li>
     </ul>
 </div>
 

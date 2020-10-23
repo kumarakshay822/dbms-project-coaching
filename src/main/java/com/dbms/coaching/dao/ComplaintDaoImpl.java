@@ -21,9 +21,10 @@ public class ComplaintDaoImpl implements ComplaintDao {
 
     @Override
     public void save(Complaint complaint) {
-        String sql = "INSERT INTO Complaint (date, time, subject, description, isResolved, studentId) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Complaint (date, time, subject, description, response, isResolved, studentId) VALUES (?, ?, ?, ?, ?, ?, ?)";
         template.update(sql, dateTimeUtil.getCurrentDateTime("yyyy-MM-dd"), dateTimeUtil.getCurrentDateTime("HH:mm:ss"),
-                complaint.getSubject(), complaint.getDescription(), complaint.isIsResolved(), complaint.getStudentId());
+                complaint.getSubject(), complaint.getDescription(), complaint.getResponse(), complaint.isIsResolved(),
+                complaint.getStudentId());
     }
 
     @Override

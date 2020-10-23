@@ -3,14 +3,27 @@ package com.dbms.coaching.models;
 import java.sql.Date;
 import java.sql.Time;
 
-public class StudentTeacherFeedback {
+public class Feedback {
     private int studentId;
-    private int teacherId;
+    private int employeeId;
     private Date date;
     private Time time;
     private String subject;
     private String message;
     private String response;
+
+    public Feedback() {
+    }
+
+    public Feedback(int studentId, int employeeId, Date date, Time time, String subject, String message, String response) {
+        this.studentId = studentId;
+        this.employeeId = employeeId;
+        this.date = date;
+        this.time = time;
+        this.subject = subject;
+        this.message = message;
+        this.response = response;
+    }
 
     /**
      * @return int return the studentId
@@ -27,17 +40,17 @@ public class StudentTeacherFeedback {
     }
 
     /**
-     * @return int return the teacherId
+     * @return int return the employeeId
      */
-    public int getTeacherId() {
-        return teacherId;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
     /**
-     * @param teacherId the teacherId to set
+     * @param employeeId the employeeId to set
      */
-    public void setTeacherId(int teacherId) {
-        this.teacherId = teacherId;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     /**
@@ -108,6 +121,19 @@ public class StudentTeacherFeedback {
      */
     public void setResponse(String response) {
         this.response = response;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " studentId='" + getStudentId() + "'" +
+            ", employeeId='" + getEmployeeId() + "'" +
+            ", date='" + getDate() + "'" +
+            ", time='" + getTime() + "'" +
+            ", subject='" + getSubject() + "'" +
+            ", message='" + getMessage() + "'" +
+            ", response='" + getResponse() + "'" +
+            "}";
     }
 
 }

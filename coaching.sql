@@ -215,17 +215,17 @@ CREATE TABLE IF NOT EXISTS Teacher (
 );
 
 
-CREATE TABLE IF NOT EXISTS StudentTeacherFeedback (
+CREATE TABLE IF NOT EXISTS Feedback (
   studentId int NOT NULL,
-  teacherId int NOT NULL,
+  employeeId int NOT NULL,
   date date NOT NULL,
   time time NOT NULL,
   subject varchar(255) NOT NULL,
   message varchar(255) NOT NULL,
   response varchar(255) DEFAULT NULL,
-  PRIMARY KEY (studentId, teacherId),
+  PRIMARY KEY (studentId, employeeId),
   FOREIGN KEY (studentId) REFERENCES Student(studentId) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (teacherId) REFERENCES Teacher(teacherId) ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY (employeeId) REFERENCES Employee(employeeId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
