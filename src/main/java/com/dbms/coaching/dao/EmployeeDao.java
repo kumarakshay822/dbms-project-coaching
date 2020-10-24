@@ -11,6 +11,8 @@ public interface EmployeeDao {
 
     public Employee get(int employeeId);
 
+    public String getRole(int employeeId);
+
     public void update(Employee employee);
 
     public void delete(int employeeId);

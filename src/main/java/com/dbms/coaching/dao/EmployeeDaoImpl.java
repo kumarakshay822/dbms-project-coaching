@@ -62,6 +62,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
         }
     }
 
+    @Override
+    public String getRole(int employeeId) {
+        try {
+            String sql = "SELECT role FROM Employee NATURAL JOIN User WHERE employeeId = ?";
+            return template.queryForObject(sql, new Object[] { employeeId }, String.class);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
     /**
      * Update all attributes except employeeId and userId
      */

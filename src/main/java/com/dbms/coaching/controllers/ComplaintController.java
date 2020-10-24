@@ -29,7 +29,7 @@ public class ComplaintController {
 
     @GetMapping("/admin/complaints")
     public String listComplaints(Model model) {
-        model.addAttribute("title", "Academic Portal - Complaints");
+        model.addAttribute("title", "Complaint Portal");
         model.addAttribute("message", "View all the complaints");
         List<Complaint> complaints = complaintDao.getAll();
         model.addAttribute("complaints", complaints);
@@ -38,7 +38,7 @@ public class ComplaintController {
 
     @GetMapping("/admin/complaints/add")
     public String addComplaint(Model model) {
-        model.addAttribute("title", "Academic Portal - Complaints");
+        model.addAttribute("title", "Complaint Portal");
         model.addAttribute("message", "Add Complaint");
         model.addAttribute("submessage1", "Add Complaint");
         model.addAttribute("buttonmessage", "Finish");
@@ -53,7 +53,7 @@ public class ComplaintController {
     @PostMapping("/admin/complaints/add")
     public String addComplaint(@ModelAttribute("complaint") Complaint complaint, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("title", "Academic Portal - Complaints");
+            model.addAttribute("title", "Complaint Portal");
             model.addAttribute("message", "Add Complaint");
             model.addAttribute("submessage1", "Add Complaint");
             model.addAttribute("buttonmessage", "Finish");
@@ -68,7 +68,7 @@ public class ComplaintController {
 
     @GetMapping("/admin/complaints/{complaintId}")
     public String viewComplaint(@PathVariable("complaintId") int complaintId, Model model) {
-        model.addAttribute("title", "Academic Portal - Courses");
+        model.addAttribute("title", "Complaint Portal");
         model.addAttribute("message", "View Complaint");
         model.addAttribute("submessage1", "Complaint Details");
         Complaint complaint = complaintDao.get(complaintId);
@@ -78,7 +78,7 @@ public class ComplaintController {
 
     @GetMapping("/admin/complaints/{complaintId}/edit")
     public String editComplaint(@PathVariable("complaintId") int complaintId, Model model) {
-        model.addAttribute("title", "Academic Portal - Complaints");
+        model.addAttribute("title", "Complaint Portal");
         model.addAttribute("message", "Edit Complaint");
         model.addAttribute("submessage1", "Edit Complaint");
         model.addAttribute("buttonmessage", "Finish");
@@ -95,7 +95,7 @@ public class ComplaintController {
     public String editComplaint(@PathVariable("complaintId") int complaintId, @ModelAttribute("complaint") Complaint complaint,
             BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("title", "Academic Portal - Complaints");
+            model.addAttribute("title", "Complaint Portal");
             model.addAttribute("message", "Edit Complaint");
             model.addAttribute("submessage1", "Edit Complaint");
             model.addAttribute("buttonmessage", "Finish");

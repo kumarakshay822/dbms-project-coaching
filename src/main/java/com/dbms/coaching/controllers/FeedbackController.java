@@ -34,7 +34,7 @@ public class FeedbackController {
 
     @GetMapping("/admin/feedbacks")
     public String listFeedbacks(Model model) {
-        model.addAttribute("title", "Academic Portal - Feedbacks");
+        model.addAttribute("title", "Feedback Portal");
         model.addAttribute("message", "View all the feedbacks");
         List<Feedback> feedbacks = feedbackDao.getAll();
         model.addAttribute("feedbacks", feedbacks);
@@ -43,7 +43,7 @@ public class FeedbackController {
 
     @GetMapping("/admin/feedbacks/add")
     public String addFeedback(Model model) {
-        model.addAttribute("title", "Academic Portal - Feedbacks");
+        model.addAttribute("title", "Feedback Portal");
         model.addAttribute("message", "Add Feedback");
         model.addAttribute("submessage1", "Add Feedback");
         model.addAttribute("buttonmessage", "Finish");
@@ -60,7 +60,7 @@ public class FeedbackController {
     @PostMapping("/admin/feedbacks/add")
     public String addFeedback(@ModelAttribute("feedback") Feedback feedback, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("title", "Academic Portal - Feedbacks");
+            model.addAttribute("title", "Feedback Portal");
             model.addAttribute("message", "Add Feedback");
             model.addAttribute("submessage1", "Add Feedback");
             model.addAttribute("buttonmessage", "Finish");
@@ -78,7 +78,7 @@ public class FeedbackController {
     @GetMapping("/admin/feedbacks/ST{studentId}/ET{employeeId}")
     public String viewFeedback(@PathVariable("studentId") int studentId, @PathVariable("employeeId") int employeeId,
             Model model) {
-        model.addAttribute("title", "Academic Portal - Feedbacks");
+        model.addAttribute("title", "Feedback Portal");
         model.addAttribute("message", "View Feedback");
         model.addAttribute("submessage1", "Feedback Details");
         Feedback feedback = feedbackDao.get(studentId, employeeId);
@@ -89,7 +89,7 @@ public class FeedbackController {
     @GetMapping("/admin/feedbacks/ST{studentId}/ET{employeeId}/edit")
     public String editFeedback(@PathVariable("studentId") int studentId, @PathVariable("employeeId") int employeeId,
             Model model) {
-        model.addAttribute("title", "Academic Portal - Feedbacks");
+        model.addAttribute("title", "Feedback Portal");
         model.addAttribute("message", "Edit Feedback");
         model.addAttribute("submessage1", "Edit Feedback");
         model.addAttribute("buttonmessage", "Finish");
@@ -108,7 +108,7 @@ public class FeedbackController {
     public String editFeedback(@PathVariable("studentId") int studentId, @PathVariable("employeeId") int employeeId,
             @ModelAttribute("feedback") Feedback feedback, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("title", "Academic Portal - Feedbacks");
+            model.addAttribute("title", "Feedback Portal");
             model.addAttribute("message", "Edit Feedback");
             model.addAttribute("submessage1", "Edit Feedback");
             model.addAttribute("buttonmessage", "Finish");

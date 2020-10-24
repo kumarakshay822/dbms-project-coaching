@@ -4,11 +4,23 @@ import java.sql.Date;
 
 public class Payroll {
     private String paymentRefNo;
-    private String month;
+    private int month;
     private int year;
     private double salaryCredited;
     private Date dateCredited;
-    private int EmployeeId;
+    private Employee Employee;
+
+    public Payroll() {
+    }
+
+    public Payroll(String paymentRefNo, int month, int year, double salaryCredited, Date dateCredited, Employee Employee) {
+        this.paymentRefNo = paymentRefNo;
+        this.month = month;
+        this.year = year;
+        this.salaryCredited = salaryCredited;
+        this.dateCredited = dateCredited;
+        this.Employee = Employee;
+    }
 
     /**
      * @return String return the paymentRefNo
@@ -25,16 +37,16 @@ public class Payroll {
     }
 
     /**
-     * @return String return the month
+     * @return int return the month
      */
-    public String getMonth() {
+    public int getMonth() {
         return month;
     }
 
     /**
      * @param month the month to set
      */
-    public void setMonth(String month) {
+    public void setMonth(int month) {
         this.month = month;
     }
 
@@ -81,17 +93,29 @@ public class Payroll {
     }
 
     /**
-     * @return int return the EmployeeId
+     * @return Employee return the Employee
      */
-    public int getEmployeeId() {
-        return EmployeeId;
+    public Employee getEmployee() {
+        return Employee;
     }
 
     /**
-     * @param EmployeeId the EmployeeId to set
+     * @param Employee the Employee to set
      */
-    public void setEmployeeId(int EmployeeId) {
-        this.EmployeeId = EmployeeId;
+    public void setEmployee(Employee Employee) {
+        this.Employee = Employee;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " paymentRefNo='" + getPaymentRefNo() + "'" +
+            ", month='" + getMonth() + "'" +
+            ", year='" + getYear() + "'" +
+            ", salaryCredited='" + getSalaryCredited() + "'" +
+            ", dateCredited='" + getDateCredited() + "'" +
+            ", Employee='" + getEmployee() + "'" +
+            "}";
     }
 
 }
