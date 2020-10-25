@@ -12,7 +12,22 @@ public class Test {
     private Time endTime;
     private int maximumMarks;
     private String difficulty;
-    private int courseId;
+    private Course course;
+
+    public Test() {
+    }
+
+    public Test(int testId, String testName, int roomNumber, Date testDate, Time startTime, Time endTime, int maximumMarks, String difficulty, Course course) {
+        this.testId = testId;
+        this.testName = testName;
+        this.roomNumber = roomNumber;
+        this.testDate = testDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.maximumMarks = maximumMarks;
+        this.difficulty = difficulty;
+        this.course = course;
+    }
 
     /**
      * @return int return the testId
@@ -127,17 +142,32 @@ public class Test {
     }
 
     /**
-     * @return int return the courseId
+     * @return Course return the course
      */
-    public int getCourseId() {
-        return courseId;
+    public Course getCourse() {
+        return course;
     }
 
     /**
-     * @param courseId the courseId to set
+     * @param course the course to set
      */
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " testId='" + getTestId() + "'" +
+            ", testName='" + getTestName() + "'" +
+            ", roomNumber='" + getRoomNumber() + "'" +
+            ", testDate='" + getTestDate() + "'" +
+            ", startTime='" + getStartTime() + "'" +
+            ", endTime='" + getEndTime() + "'" +
+            ", maximumMarks='" + getMaximumMarks() + "'" +
+            ", difficulty='" + getDifficulty() + "'" +
+            ", course='" + getCourse() + "'" +
+            "}";
     }
 
 }

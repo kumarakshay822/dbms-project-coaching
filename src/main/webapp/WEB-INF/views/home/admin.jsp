@@ -12,7 +12,6 @@
         <li><a href="/admin/teachers">Teacher Portal</a></li>
         <li><a href="/admin/payroll">Payroll Management</a></li>
         <li><a href="/admin/attendance">Attendance Management</a></li>
-        <li><a href="/admin/tests">Tests and Result Portal</a></li>
         <li><a href="/admin/complaints">Complaints Portal</a></li>
         <li><a href="/admin/feedbacks">Feedback Portal</a></li>
     </ul>

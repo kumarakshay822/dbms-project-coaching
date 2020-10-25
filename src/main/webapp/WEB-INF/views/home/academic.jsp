@@ -8,6 +8,7 @@
         <li><a href="/admin/academics/subjects">Subjects</a></li>
         <li><a href="/admin/academics/courses">Courses</a></li>
         <li><a href="/admin/academics/batches">Batches</a></li>
+        <li><a href="/admin/academics/tests">Tests and Result Portal</a></li>
     </ul>
 </div>
 

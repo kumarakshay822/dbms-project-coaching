@@ -54,59 +54,68 @@ public class BatchController {
         return "batch/listBatches";
     }
 
-    @GetMapping({"/admin/academics/batches/add",
-                "/admin/academics/courses/{courseId}/add-batch"})
-    public String addBatch(@PathVariable(value="courseId", required=false) String courseId, Model model) {
+    @GetMapping("/admin/academics/batches/add")
+    public String addBatch1(Model model) {
         model.addAttribute("title", "Academic Portal - Batches");
         model.addAttribute("message", "Add Batch");
         model.addAttribute("submessage1", "Add Batch");
         model.addAttribute("buttonmessage", "Finish");
-        if (courseId != null) {
-            model.addAttribute("submiturl", "/admin/academics/courses/" + courseId + "/add-batch");
-            Course course = courseDao.get(courseId);
-            model.addAttribute("course", course);
-        }
-        else {
-            model.addAttribute("submiturl", "/admin/academics/batches/add");
-            List<Course> courses = courseDao.getAll();
-            model.addAttribute("courses", courses);
-        }
+        model.addAttribute("submiturl", "/admin/academics/batches/add");
+        List<Course> courses = courseDao.getAll();
+        model.addAttribute("courses", courses);
         Batch batch = new Batch();
         model.addAttribute("batch", batch);
         return "batch/addEditBatch";
     }
 
-    @PostMapping({"/admin/academics/batches/add",
-                "/admin/academics/courses/{courseId}/add-batch"})
-    public String addBatch(@PathVariable(value = "courseId", required = false) String courseId,
+    @GetMapping("/admin/academics/courses/{courseId}/add-batch")
+    public String addBatch2(@PathVariable(value = "courseId") String courseId, Model model) {
+        model.addAttribute("title", "Academic Portal - Batches");
+        model.addAttribute("message", "Add Batch");
+        model.addAttribute("submessage1", "Add Batch");
+        model.addAttribute("buttonmessage", "Finish");
+        model.addAttribute("submiturl", "/admin/academics/courses/" + courseId + "/add-batch");
+        Course course = courseDao.get(courseId);
+        model.addAttribute("course", course);
+        Batch batch = new Batch();
+        model.addAttribute("batch", batch);
+        return "batch/addEditBatch";
+    }
+
+    @PostMapping("/admin/academics/batches/add")
+    public String addBatch1(@ModelAttribute("batch") Batch batch, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("title", "Academic Portal - Batches");
+            model.addAttribute("message", "Add Batch");
+            model.addAttribute("submessage1", "Add Batch");
+            model.addAttribute("buttonmessage", "Finish");
+            model.addAttribute("submiturl", "/admin/academics/batches/add");
+            List<Course> courses = courseDao.getAll();
+            model.addAttribute("courses", courses);
+            return "batch/addEditBatch";
+        }
+        batchDao.save(batch);
+        return "redirect:/admin/academics/batches";
+    }
+
+    @PostMapping("/admin/academics/courses/{courseId}/add-batch")
+    public String addBatch2(@PathVariable(value = "courseId") String courseId,
             @ModelAttribute("batch") Batch batch, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Batches");
             model.addAttribute("message", "Add Batch");
             model.addAttribute("submessage1", "Add Batch");
             model.addAttribute("buttonmessage", "Finish");
-            if (courseId != null) {
-                model.addAttribute("submiturl", "/admin/academics/courses/" + courseId);
-                Course course = courseDao.get(courseId);
-                model.addAttribute("course", course);
-            } else {
-                model.addAttribute("submiturl", "/admin/academics/batches/add");
-                List<Course> courses = courseDao.getAll();
-                model.addAttribute("courses", courses);
-            }
+            model.addAttribute("submiturl", "/admin/academics/courses/" + courseId);
+            Course course = courseDao.get(courseId);
+            model.addAttribute("course", course);
             return "batch/addEditBatch";
         }
-        if (courseId != null) {
-            Course course = batch.getCourse();
-            course.setCourseId(courseId);
-            batch.setCourse(course);
-            batchDao.save(batch);
-            return "redirect:/admin/academics/courses/" + courseId;
-        }
-        else {
-            batchDao.save(batch);
-            return "redirect:/admin/academics/batches";
-        }
+        Course course = batch.getCourse();
+        course.setCourseId(courseId);
+        batch.setCourse(course);
+        batchDao.save(batch);
+        return "redirect:/admin/academics/courses/" + courseId;
     }
 
     @GetMapping("/admin/academics/courses/{courseId}/{batchId}")
