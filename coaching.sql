@@ -154,10 +154,11 @@ CREATE TABLE IF NOT EXISTS Subject (
 
 
 CREATE TABLE IF NOT EXISTS StudyMaterial (
-  materialId int NOT NULL AUTO_INCREMENT,
+  materialId varchar(255) NOT NULL,
   subjectId varchar(255) NOT NULL,
   topicName varchar(255) NOT NULL,
   difficulty enum ('Easy','Medium', 'Hard') DEFAULT 'Easy' NOT NULL,
+  filename varchar(255) NOT NULL,
   description varchar(255) DEFAULT NULL,
   PRIMARY KEY (materialId, subjectId),
   FOREIGN KEY (subjectId) REFERENCES Subject(subjectId) ON DELETE CASCADE ON UPDATE CASCADE

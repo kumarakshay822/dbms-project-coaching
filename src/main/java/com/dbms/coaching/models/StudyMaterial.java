@@ -1,38 +1,51 @@
 package com.dbms.coaching.models;
 
 public class StudyMaterial {
-    private int materialId;
-    private int subjectId;
+    private String subjectId;
+    private String materialId;
     private String topicName;
     private String difficulty;
     private String description;
+    private String filename;
 
-    /**
-     * @return int return the materialId
-     */
-    public int getMaterialId() {
-        return materialId;
+    public StudyMaterial() {
     }
 
-    /**
-     * @param materialId the materialId to set
-     */
-    public void setMaterialId(int materialId) {
+    public StudyMaterial(String subjectId, String materialId, String topicName, String difficulty, String description, String filename) {
+        this.subjectId = subjectId;
         this.materialId = materialId;
+        this.topicName = topicName;
+        this.difficulty = difficulty;
+        this.description = description;
+        this.filename = filename;
     }
 
     /**
-     * @return int return the subjectId
+     * @return String return the subjectId
      */
-    public int getSubjectId() {
+    public String getSubjectId() {
         return subjectId;
     }
 
     /**
      * @param subjectId the subjectId to set
      */
-    public void setSubjectId(int subjectId) {
+    public void setSubjectId(String subjectId) {
         this.subjectId = subjectId;
+    }
+
+    /**
+     * @return String return the materialId
+     */
+    public String getMaterialId() {
+        return materialId;
+    }
+
+    /**
+     * @param materialId the materialId to set
+     */
+    public void setMaterialId(String materialId) {
+        this.materialId = materialId;
     }
 
     /**
@@ -75,6 +88,32 @@ public class StudyMaterial {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return String return the filename
+     */
+    public String getFilename() {
+        return filename;
+    }
+
+    /**
+     * @param filename the filename to set
+     */
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " subjectId='" + getSubjectId() + "'" +
+            ", materialId='" + getMaterialId() + "'" +
+            ", topicName='" + getTopicName() + "'" +
+            ", difficulty='" + getDifficulty() + "'" +
+            ", description='" + getDescription() + "'" +
+            ", filename='" + getFilename() + "'" +
+            "}";
     }
 
 }

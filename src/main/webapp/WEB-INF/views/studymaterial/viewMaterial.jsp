@@ -14,24 +14,39 @@
                 <th style="width: 40%;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%; text-align: right;">
-                    <a class="btn btn-success" href="/admin/academics/subjects/${subject.subjectId}/materials" role="button">Study Materials</a>
-                    <a class="btn btn-primary" href="/admin/academics/subjects/${subject.subjectId}/edit" role="button">Edit Subject</a>
+                    <a class="btn btn-primary" href="/admin/academics/subjects/${material.subjectId}/materials/${material.materialId}/edit"
+                        role="button">Edit Study Material</a>
                 </td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Subject ID</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${subject.subjectId}</td>
+                <td style="width: 50%">${material.subjectId}</td>
             </tr>
             <tr>
-                <th style="width: 40%; text-align: center;">Subject Name</th>
+                <th style="width: 40%; text-align: center;">Material ID</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${subject.subjectName}</td>
+                <td style="width: 50%">${material.materialId}</td>
+            </tr>
+            <tr>
+                <th style="width: 40%; text-align: center;">Topic Name</th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%">${material.topicName}</td>
+            </tr>
+            <tr>
+                <th style="width: 40%; text-align: center;">Difficulty</th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%">${material.difficulty}</td>
+            </tr>
+            <tr>
+                <th style="width: 40%; text-align: center;">File</th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%"><a href="/${url}" target="_blank">${material.filename}</a></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Description</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${subject.description}</td>
+                <td style="width: 50%">${material.description}</td>
             </tr>
         </table>
     </div>

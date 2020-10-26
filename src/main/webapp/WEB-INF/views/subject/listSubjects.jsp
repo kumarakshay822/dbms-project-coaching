@@ -15,6 +15,7 @@
                     <th>Subject ID</th>
                     <th>Subject Name</th>
                     <th>Description</th>
+                    <th>Study Materials</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -23,6 +24,7 @@
                     <td>${subject.subjectId}</td>
                     <td>${subject.subjectName}</td>
                     <td>${subject.description}</td>
+                    <td><a class="btn btn-success" href="/admin/academics/subjects/${subject.subjectId}/materials" role="button">View</a></td>
                     <td>
                         <a class="btn btn-outline-success btn-sm" href="/admin/academics/subjects/${subject.subjectId}"
                             role="button">View</a>
