@@ -4,9 +4,20 @@ import java.sql.Date;
 
 public class Attendance {
     private Date date;
-    private int employeeId;
+    private Employee employee;
     private boolean isPresent;
     private String remarks;
+
+    public Attendance() {
+        employee = new Employee();
+    }
+
+    public Attendance(Date date, Employee employee, boolean isPresent, String remarks) {
+        this.date = date;
+        this.employee = employee;
+        this.isPresent = isPresent;
+        this.remarks = remarks;
+    }
 
     /**
      * @return Date return the date
@@ -23,17 +34,17 @@ public class Attendance {
     }
 
     /**
-     * @return int return the employeeId
+     * @return Employee return the employee
      */
-    public int getEmployeeId() {
-        return employeeId;
+    public Employee getEmployee() {
+        return employee;
     }
 
     /**
-     * @param employeeId the employeeId to set
+     * @param employee the employee to set
      */
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     /**
@@ -62,6 +73,16 @@ public class Attendance {
      */
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " date='" + getDate() + "'" +
+            ", employee='" + getEmployee() + "'" +
+            ", isPresent='" + isIsPresent() + "'" +
+            ", remarks='" + getRemarks() + "'" +
+            "}";
     }
 
 }

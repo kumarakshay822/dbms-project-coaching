@@ -35,25 +35,16 @@ public class PayrollController {
         return "payroll/listPayrolls";
     }
 
-    @GetMapping("/admin/payroll/ET{employeeId}")
-    public String listPayrollsByEmployeeIdTeacher(int employeeId, Model model) {
+    @GetMapping("/admin/payroll/{employeecode}")
+    public String listPayrollsByEmployeeId(@PathVariable("employeecode") String employeecode, Model model) {
+        String code = employeecode.substring(0, 2);
+        int employeeId = Integer.parseInt(employeecode.substring(2));
+        String role = employeeDao.getRole(employeeId);
+        if (!(code == "ES" && role == "ROLE_STAFF") && (code == "ET" && role == "ROLE_TEACHER")) {
+            return "redirect:/admin/payroll";
+        }
         model.addAttribute("title", "Payroll Management");
         model.addAttribute("message", "View all the payroll");
-        String role = employeeDao.getRole(employeeId);
-        if (role != "ROLE_TEACHER")
-            return "payroll/listPayrolls";
-        List<Payroll> payroll = payrollDao.getAllByEmployeeId(employeeId);
-        model.addAttribute("payroll", payroll);
-        return "payroll/listPayrolls";
-    }
-
-    @GetMapping("/admin/payroll/ES{employeeId}")
-    public String listPayrollsByEmployeeIdStaff(int employeeId, Model model) {
-        model.addAttribute("title", "Payroll Management");
-        model.addAttribute("message", "View all the payroll");
-        String role = employeeDao.getRole(employeeId);
-        if (role != "ROLE_STAFF")
-            return "payroll/listPayrolls";
         List<Payroll> payroll = payrollDao.getAllByEmployeeId(employeeId);
         model.addAttribute("payroll", payroll);
         return "payroll/listPayrolls";

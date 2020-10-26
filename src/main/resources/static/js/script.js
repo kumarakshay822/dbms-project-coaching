@@ -59,7 +59,19 @@ var linkToText = {
     academics: "Academic Portal"
 };
 
+function checkValidDate(dateString) {
+    // Format: yyyy-mm-dd
+    var regex_date = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
+    if (!regex_date.test(dateString)) {
+        return false;
+    }
+    return true;
+}
+
 function titleCase(text) {
+    if (checkValidDate(text)) {
+        return text;
+    }
     var words = text.split("-");
     for (let i = 0; i < words.length; i++) {
         words[i] = words[i][0].toUpperCase() + words[i].slice(1);
