@@ -69,7 +69,7 @@ public class BatchController {
     }
 
     @GetMapping("/admin/academics/courses/{courseId}/add-batch")
-    public String addBatch2(@PathVariable(value = "courseId") String courseId, Model model) {
+    public String addBatch2(@PathVariable("courseId") String courseId, Model model) {
         model.addAttribute("title", "Academic Portal - Batches");
         model.addAttribute("message", "Add Batch");
         model.addAttribute("submessage1", "Add Batch");
@@ -99,7 +99,7 @@ public class BatchController {
     }
 
     @PostMapping("/admin/academics/courses/{courseId}/add-batch")
-    public String addBatch2(@PathVariable(value = "courseId") String courseId,
+    public String addBatch2(@PathVariable("courseId") String courseId,
             @ModelAttribute("batch") Batch batch, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Batches");

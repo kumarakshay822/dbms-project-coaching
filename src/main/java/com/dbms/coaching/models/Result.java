@@ -1,25 +1,38 @@
 package com.dbms.coaching.models;
 
-public class StudentTestDetails {
-    private int studentId;
+public class Result {
+    private Student student;
     private int testId;
     private int marksScored;
     private boolean hasAppliedRecheck;
     private boolean isDoneRecheck;
     private String recheckComments;
 
-    /**
-     * @return int return the studentId
-     */
-    public int getStudentId() {
-        return studentId;
+    public Result() {
+        student = new Student();
+    }
+
+    public Result(Student student, int testId, int marksScored, boolean hasAppliedRecheck, boolean isDoneRecheck, String recheckComments) {
+        this.student = student;
+        this.testId = testId;
+        this.marksScored = marksScored;
+        this.hasAppliedRecheck = hasAppliedRecheck;
+        this.isDoneRecheck = isDoneRecheck;
+        this.recheckComments = recheckComments;
     }
 
     /**
-     * @param studentId the studentId to set
+     * @return Student return the student
      */
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
+    public Student getStudent() {
+        return student;
+    }
+
+    /**
+     * @param student the student to set
+     */
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     /**
@@ -90,6 +103,18 @@ public class StudentTestDetails {
      */
     public void setRecheckComments(String recheckComments) {
         this.recheckComments = recheckComments;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " student='" + getStudent() + "'" +
+            ", testId='" + getTestId() + "'" +
+            ", marksScored='" + getMarksScored() + "'" +
+            ", hasAppliedRecheck='" + isHasAppliedRecheck() + "'" +
+            ", isDoneRecheck='" + isIsDoneRecheck() + "'" +
+            ", recheckComments='" + getRecheckComments() + "'" +
+            "}";
     }
 
 }

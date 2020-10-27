@@ -50,7 +50,7 @@ public class TestController {
     }
 
     @GetMapping("/admin/academics/courses/{courseId}/add-test")
-    public String addTest2(@PathVariable(value = "courseId") String courseId, Model model) {
+    public String addTest2(@PathVariable("courseId") String courseId, Model model) {
         model.addAttribute("title", "Academic Portal - Tests");
         model.addAttribute("message", "Add Test");
         model.addAttribute("submessage1", "Add Test");
@@ -80,7 +80,7 @@ public class TestController {
     }
 
     @PostMapping("/admin/academics/courses/{courseId}/add-test")
-    public String addTest2(@PathVariable(value = "courseId") String courseId, @ModelAttribute("test") Test test,
+    public String addTest2(@PathVariable("courseId") String courseId, @ModelAttribute("test") Test test,
             BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Tests");

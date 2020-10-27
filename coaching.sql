@@ -285,7 +285,7 @@ CREATE TABLE IF NOT EXISTS Test (
 );
 
 
-CREATE TABLE IF NOT EXISTS StudentTestDetails (
+CREATE TABLE IF NOT EXISTS Result (
   studentId int NOT NULL AUTO_INCREMENT,
   testId int NOT NULL,
   marksScored int NOT NULL,

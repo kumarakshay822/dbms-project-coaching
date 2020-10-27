@@ -21,6 +21,7 @@
                     <th>End Time</th>
                     <th>Maximum Marks</th>
                     <th>Difficulty</th>
+                    <th>Result</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -35,6 +36,7 @@
                     <td>${test.endTime}</td>
                     <td>${test.maximumMarks}</td>
                     <td>${test.difficulty}</td>
+                    <td><a class="btn btn-success" href="/admin/academics/tests/${test.testId}/results" role="button">View</a></td>
                     <td>
                         <a class="btn btn-outline-success btn-sm" href="/admin/academics/tests/${test.testId}"
                             role="button">View</a>
