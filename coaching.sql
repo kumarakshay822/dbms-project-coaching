@@ -139,7 +139,6 @@ CREATE TABLE IF NOT EXISTS Staff (
 CREATE TABLE IF NOT EXISTS Course (
   courseId varchar(255) NOT NULL,
   courseName varchar(255) NOT NULL,
-  fee int NOT NULL,
   description varchar(255) DEFAULT NULL,
   PRIMARY KEY (courseId)
 );
@@ -178,9 +177,11 @@ CREATE TABLE IF NOT EXISTS Batch (
   batchId varchar(255) NOT NULL,
   courseId varchar(255) NOT NULL,
   batchName varchar(255) NOT NULL,
+  fee int NOT NULL,
   roomNumber int NOT NULL,
   startTime time DEFAULT NULL,
   endTime time DEFAULT NULL,
+  isEnrollmentAllowed boolean DEFAULT true NOT NULL,
   PRIMARY KEY (batchId, courseId),
   FOREIGN KEY (courseId) REFERENCES Course(courseId) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -242,13 +243,10 @@ CREATE TABLE IF NOT EXISTS TeacherBatchDetails (
 
 CREATE TABLE IF NOT EXISTS Transaction (
   transactionId int NOT NULL AUTO_INCREMENT,
-  accountName varchar(255) NOT NULL,
   amount decimal(10,2) NOT NULL,
   date date NOT NULL,
   time time NOT NULL,
   transactionMode enum ('Offline', 'Online') DEFAULT 'Online' NOT NULL,
-  remarks varchar(255) DEFAULT NULL,
-  isVerified boolean DEFAULT false NOT NULL,
   PRIMARY KEY (transactionId)
 );
 
@@ -259,8 +257,6 @@ CREATE TABLE IF NOT EXISTS Enrollment (
   batchId varchar(255) DEFAULT NULL,
   courseId varchar(255) DEFAULT NULL,
   transactionId int NOT NULL,
-  testScore int DEFAULT NULL,
-  percentageScholarship int DEFAULT NULL,
   joinDate date DEFAULT NULL,
   endDate date DEFAULT NULL,
   PRIMARY KEY (enrollmentId),

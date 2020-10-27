@@ -5,13 +5,21 @@ import java.sql.Time;
 
 public class Transaction {
     private int transactionId;
-    private String accountName;
     private int amount;
     private Date date;
     private Time time;
     private String transactionMode;
-    private String remarks;
-    private boolean isVerified;
+
+    public Transaction() {
+    }
+
+    public Transaction(int transactionId, int amount, Date date, Time time, String transactionMode) {
+        this.transactionId = transactionId;
+        this.amount = amount;
+        this.date = date;
+        this.time = time;
+        this.transactionMode = transactionMode;
+    }
 
     /**
      * @return int return the transactionId
@@ -25,20 +33,6 @@ public class Transaction {
      */
     public void setTransactionId(int transactionId) {
         this.transactionId = transactionId;
-    }
-
-    /**
-     * @return String return the accountName
-     */
-    public String getAccountName() {
-        return accountName;
-    }
-
-    /**
-     * @param accountName the accountName to set
-     */
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
     }
 
     /**
@@ -97,32 +91,15 @@ public class Transaction {
         this.transactionMode = transactionMode;
     }
 
-    /**
-     * @return String return the remarks
-     */
-    public String getRemarks() {
-        return remarks;
-    }
-
-    /**
-     * @param remarks the remarks to set
-     */
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    /**
-     * @return boolean return the isVerified
-     */
-    public boolean isIsVerified() {
-        return isVerified;
-    }
-
-    /**
-     * @param isVerified the isVerified to set
-     */
-    public void setIsVerified(boolean isVerified) {
-        this.isVerified = isVerified;
+    @Override
+    public String toString() {
+        return "{" +
+            " transactionId='" + getTransactionId() + "'" +
+            ", amount='" + getAmount() + "'" +
+            ", date='" + getDate() + "'" +
+            ", time='" + getTime() + "'" +
+            ", transactionMode='" + getTransactionMode() + "'" +
+            "}";
     }
 
 }

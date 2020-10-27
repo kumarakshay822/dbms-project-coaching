@@ -70,6 +70,14 @@
                     </td>
                 </tr>
                 <tr>
+                    <th style="width: 40%; text-align: center;">Fee</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:input type="number" path="fee" class="form-control" required="true"></form:input>
+                        <form:errors path="fee" style="color: red;"></form:errors>
+                    </td>
+                </tr>
+                <tr>
                     <th style="width: 40%; text-align: center;">Room Number</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">

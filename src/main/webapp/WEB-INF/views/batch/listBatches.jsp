@@ -15,6 +15,7 @@
                     <th>Batch ID</th>
                     <th>Batch Name</th>
                     <th>Course</th>
+                    <th>Fee</th>
                     <th>Room Number</th>
                     <th>Start Time</th>
                     <th>End Time</th>
@@ -26,6 +27,7 @@
                     <td>${batch.batchId}</td>
                     <td>${batch.batchName}</td>
                     <td>${batch.course.courseName} - ${batch.course.courseId}</td>
+                    <td>${batch.fee}</td>
                     <td>${batch.roomNumber}</td>
                     <td>${batch.startTime}</td>
                     <td>${batch.endTime}</td>

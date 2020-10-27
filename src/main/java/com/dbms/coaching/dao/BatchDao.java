@@ -13,6 +13,8 @@ public interface BatchDao {
 
     public Batch get(String batchId, String courseId);
 
+    public int getFee(String batchId, String courseId);
+
     public void update(Batch batch);
 
     public void delete(String batchId, String courseId);

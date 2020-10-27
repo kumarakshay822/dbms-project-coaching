@@ -5,13 +5,25 @@ import java.sql.Date;
 public class Enrollment {
     private int enrollmentId;
     private int studentId;
-    private int batchId;
-    private int courseId;
-    private int transactionId;
-    private int testScore;
-    private int percentageScholarship;
+    private String batchId;
+    private String courseId;
+    private Transaction transaction;
     private Date joinDate;
     private Date endDate;
+
+    public Enrollment() {
+        transaction = new Transaction();
+    }
+
+    public Enrollment(int enrollmentId, int studentId, String batchId, String courseId, Transaction transaction, Date joinDate, Date endDate) {
+        this.enrollmentId = enrollmentId;
+        this.studentId = studentId;
+        this.batchId = batchId;
+        this.courseId = courseId;
+        this.transaction = transaction;
+        this.joinDate = joinDate;
+        this.endDate = endDate;
+    }
 
     /**
      * @return int return the enrollmentId
@@ -42,73 +54,45 @@ public class Enrollment {
     }
 
     /**
-     * @return int return the batchId
+     * @return String return the batchId
      */
-    public int getBatchId() {
+    public String getBatchId() {
         return batchId;
     }
 
     /**
      * @param batchId the batchId to set
      */
-    public void setBatchId(int batchId) {
+    public void setBatchId(String batchId) {
         this.batchId = batchId;
     }
 
     /**
-     * @return int return the courseId
+     * @return String return the courseId
      */
-    public int getCourseId() {
+    public String getCourseId() {
         return courseId;
     }
 
     /**
      * @param courseId the courseId to set
      */
-    public void setCourseId(int courseId) {
+    public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
 
     /**
-     * @return int return the transactionId
+     * @return Transaction return the transaction
      */
-    public int getTransactionId() {
-        return transactionId;
+    public Transaction getTransaction() {
+        return transaction;
     }
 
     /**
-     * @param transactionId the transactionId to set
+     * @param transaction the transaction to set
      */
-    public void setTransactionId(int transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    /**
-     * @return int return the testScore
-     */
-    public int getTestScore() {
-        return testScore;
-    }
-
-    /**
-     * @param testScore the testScore to set
-     */
-    public void setTestScore(int testScore) {
-        this.testScore = testScore;
-    }
-
-    /**
-     * @return int return the percentageScholarship
-     */
-    public int getPercentageScholarship() {
-        return percentageScholarship;
-    }
-
-    /**
-     * @param percentageScholarship the percentageScholarship to set
-     */
-    public void setPercentageScholarship(int percentageScholarship) {
-        this.percentageScholarship = percentageScholarship;
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
     }
 
     /**
@@ -137,6 +121,19 @@ public class Enrollment {
      */
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " enrollmentId='" + getEnrollmentId() + "'" +
+            ", studentId='" + getStudentId() + "'" +
+            ", batchId='" + getBatchId() + "'" +
+            ", courseId='" + getCourseId() + "'" +
+            ", transaction='" + getTransaction() + "'" +
+            ", joinDate='" + getJoinDate() + "'" +
+            ", endDate='" + getEndDate() + "'" +
+            "}";
     }
 
 }

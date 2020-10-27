@@ -14,7 +14,10 @@
                 <th style="width: 40%;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%; text-align: right;">
-                    <a class="btn btn-primary" href="/admin/academics/courses/${course.courseId}/add-subject" role="button">Add / Edit Subject</a>
+                    <a class="btn btn-primary" href="/admin/academics/courses/${course.courseId}/enrollments" role="button">View
+                        Students</a>
+                    <a class="btn btn-primary" href="/admin/academics/courses/${course.courseId}/add-subject" role="button">
+                        Add / Edit Subject</a>
                     <a class="btn btn-primary" href="/admin/academics/courses/${course.courseId}/edit" role="button">Edit Course</a>
                 </td>
             </tr>
@@ -32,11 +35,6 @@
                 <th style="width: 40%; text-align: center;">Description</th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%">${course.description}</td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;">Fee</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">${course.fee}</td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Subjects</th>

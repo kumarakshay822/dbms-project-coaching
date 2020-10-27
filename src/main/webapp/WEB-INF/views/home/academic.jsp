@@ -9,6 +9,7 @@
         <li><a href="/admin/academics/courses">Courses</a></li>
         <li><a href="/admin/academics/batches">Batches</a></li>
         <li><a href="/admin/academics/tests">Tests and Result Portal</a></li>
+        <li><a href="/admin/academics/enrollments">Enrollment Portal</a></li>
     </ul>
 </div>
 

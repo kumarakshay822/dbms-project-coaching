@@ -14,7 +14,12 @@
                 <th style="width: 40%;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%; text-align: right;">
-                    <a class="btn btn-primary" href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/edit" role="button">Edit Batch</a>
+                    <a class="btn btn-success" href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/enrollments/add"
+                        role="button">Enroll</a>
+                    <a class="btn btn-primary" href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/enrollments"
+                        role="button">View Students</a>
+                    <a class="btn btn-primary" href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/edit"
+                        role="button">Edit Batch</a>
                 </td>
             </tr>
             <tr>
@@ -31,6 +36,11 @@
                 <th style="width: 40%; text-align: center;">Course</th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%">${batch.course.courseName} - ${batch.course.courseId}</td>
+            </tr>
+            <tr>
+                <th style="width: 40%; text-align: center;">Fee</th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%">${batch.fee}</td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Room Number</th>

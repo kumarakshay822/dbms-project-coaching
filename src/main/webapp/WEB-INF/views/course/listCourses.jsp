@@ -15,7 +15,6 @@
                     <th>Course ID</th>
                     <th>Course Name</th>
                     <th>Description</th>
-                    <th>Fee</th>
                     <th>Subjects</th>
                     <th>Add Subject</th>
                     <th>Action</th>
@@ -26,7 +25,6 @@
                     <td>${course.courseId}</td>
                     <td>${course.courseName}</td>
                     <td>${course.description}</td>
-                    <td>${course.fee}</td>
                     <td>
                         <c:forEach var="subject" items="${course.subjects}">
                             <div>${subject.subjectName} - ${subject.subjectId}</div>

@@ -81,7 +81,6 @@ public class ResultController {
             model.addAttribute("students", students);
             return "result/addEditResult";
         }
-        System.out.println(result);
         resultDao.save(result);
         return "redirect:/admin/academics/tests/" + testId + "/results";
     }

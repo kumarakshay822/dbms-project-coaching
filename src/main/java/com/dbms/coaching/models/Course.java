@@ -3,22 +3,15 @@ package com.dbms.coaching.models;
 public class Course {
     private String courseId;
     private String courseName;
-    private int fee;
     private String description;
 
     public Course() {
     }
 
-    public Course(String courseId, String courseName, int fee, String description) {
+    public Course(String courseId, String courseName, String description) {
         this.courseId = courseId;
         this.courseName = courseName;
-        this.fee = fee;
         this.description = description;
-    }
-
-    public Course courseId(String courseId) {
-        this.courseId = courseId;
-        return this;
     }
 
     /**
@@ -50,20 +43,6 @@ public class Course {
     }
 
     /**
-     * @return int return the fee
-     */
-    public int getFee() {
-        return fee;
-    }
-
-    /**
-     * @param fee the fee to set
-     */
-    public void setFee(int fee) {
-        this.fee = fee;
-    }
-
-    /**
      * @return String return the description
      */
     public String getDescription() {
@@ -82,7 +61,6 @@ public class Course {
         return "{" +
             " courseId='" + getCourseId() + "'" +
             ", courseName='" + getCourseName() + "'" +
-            ", fee='" + getFee() + "'" +
             ", description='" + getDescription() + "'" +
             "}";
     }

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class CourseController {
@@ -159,6 +160,13 @@ public class CourseController {
             @RequestParam String subjectId, Model model) {
         courseSubjectDao.delete(courseId, subjectId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/admin/academics/courses/{courseId}/get-all-batches", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public List<Batch> getAllBatches(@PathVariable("courseId") String courseId) {
+        List<Batch> batches = batchDao.getAllByCourseId(courseId);
+        return batches;
     }
 
 }

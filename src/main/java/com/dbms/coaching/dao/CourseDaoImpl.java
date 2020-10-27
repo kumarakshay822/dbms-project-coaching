@@ -18,8 +18,8 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public void save(Course course) {
-        String sql = "INSERT INTO Course (courseId, courseName, fee, description) VALUES (?, ?, ?, ?)";
-        template.update(sql, course.getCourseId(), course.getCourseName(), course.getFee(), course.getDescription());
+        String sql = "INSERT INTO Course (courseId, courseName, description) VALUES (?, ?, ?, ?)";
+        template.update(sql, course.getCourseId(), course.getCourseName(), course.getDescription());
     }
 
     @Override
@@ -53,8 +53,8 @@ public class CourseDaoImpl implements CourseDao {
      */
     @Override
     public void update(Course course) {
-        String sql = "UPDATE Course SET courseName = ?, description = ?, fee = ? WHERE courseId = ?";
-        template.update(sql, course.getCourseName(), course.getDescription(), course.getFee(), course.getCourseId());
+        String sql = "UPDATE Course SET courseName = ?, description = ? WHERE courseId = ?";
+        template.update(sql, course.getCourseName(), course.getDescription(), course.getCourseId());
     }
 
     @Override

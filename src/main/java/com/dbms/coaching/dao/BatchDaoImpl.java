@@ -17,8 +17,8 @@ public class BatchDaoImpl implements BatchDao {
 
     @Override
     public void save(Batch batch) {
-        String sql = "INSERT INTO Batch (batchId, courseId, batchName, roomNumber, startTime, endTime) VALUES (?, ?, ?, ?, ?, ?)";
-        template.update(sql, batch.getBatchId(), batch.getCourse().getCourseId(), batch.getBatchName(),
+        String sql = "INSERT INTO Batch (batchId, courseId, batchName, fee, roomNumber, startTime, endTime) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        template.update(sql, batch.getBatchId(), batch.getCourse().getCourseId(), batch.getBatchName(), batch.getFee(),
                 batch.getRoomNumber(), batch.getStartTime(), batch.getEndTime());
     }
 
@@ -47,13 +47,23 @@ public class BatchDaoImpl implements BatchDao {
         }
     }
 
+    @Override
+    public int getFee(String batchId, String courseId) {
+        try {
+            String sql = "SELECT fee FROM Batch NATURAL JOIN Course WHERE batchId = ? AND courseId = ?";
+            return template.queryForObject(sql, new Object[] { batchId, courseId }, Integer.class);
+        } catch (EmptyResultDataAccessException e) {
+            return 0;
+        }
+    }
+
     /**
      * Update all attributes except batchId and courseId
      */
     @Override
     public void update(Batch batch) {
-        String sql = "UPDATE Batch SET batchName = ?, roomNumber = ?, startTime = ?, endTime = ? WHERE batchId = ? AND courseId = ?";
-        template.update(sql, batch.getBatchName(), batch.getRoomNumber(), batch.getStartTime(), batch.getEndTime(),
+        String sql = "UPDATE Batch SET batchName = ?, fee = ?, roomNumber = ?, startTime = ?, endTime = ? WHERE batchId = ? AND courseId = ?";
+        template.update(sql, batch.getBatchName(), batch.getFee(), batch.getRoomNumber(), batch.getStartTime(), batch.getEndTime(),
                 batch.getBatchId(), batch.getCourse().getCourseId());
     }
 

@@ -6,21 +6,25 @@ public class Batch {
     private String batchId;
     private Course course;
     private String batchName;
+    private int fee;
     private int roomNumber;
     private Time startTime;
     private Time endTime;
+    private boolean isEnrollmentAllowed;
 
     public Batch() {
         course = new Course();
     }
 
-    public Batch(String batchId, Course course, String batchName, int roomNumber, Time startTime, Time endTime) {
+    public Batch(String batchId, Course course, String batchName, int fee, int roomNumber, Time startTime, Time endTime, boolean isEnrollmentAllowed) {
         this.batchId = batchId;
         this.course = course;
         this.batchName = batchName;
+        this.fee = fee;
         this.roomNumber = roomNumber;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.isEnrollmentAllowed = isEnrollmentAllowed;
     }
 
     /**
@@ -66,6 +70,20 @@ public class Batch {
     }
 
     /**
+     * @return int return the fee
+     */
+    public int getFee() {
+        return fee;
+    }
+
+    /**
+     * @param fee the fee to set
+     */
+    public void setFee(int fee) {
+        this.fee = fee;
+    }
+
+    /**
      * @return int return the roomNumber
      */
     public int getRoomNumber() {
@@ -107,15 +125,31 @@ public class Batch {
         this.endTime = endTime;
     }
 
+    /**
+     * @return boolean return the isEnrollmentAllowed
+     */
+    public boolean isIsEnrollmentAllowed() {
+        return isEnrollmentAllowed;
+    }
+
+    /**
+     * @param isEnrollmentAllowed the isEnrollmentAllowed to set
+     */
+    public void setIsEnrollmentAllowed(boolean isEnrollmentAllowed) {
+        this.isEnrollmentAllowed = isEnrollmentAllowed;
+    }
+
     @Override
     public String toString() {
         return "{" +
             " batchId='" + getBatchId() + "'" +
             ", course='" + getCourse() + "'" +
             ", batchName='" + getBatchName() + "'" +
+            ", fee='" + getFee() + "'" +
             ", roomNumber='" + getRoomNumber() + "'" +
             ", startTime='" + getStartTime() + "'" +
             ", endTime='" + getEndTime() + "'" +
+            ", isEnrollmentAllowed='" + isIsEnrollmentAllowed() + "'" +
             "}";
     }
 
