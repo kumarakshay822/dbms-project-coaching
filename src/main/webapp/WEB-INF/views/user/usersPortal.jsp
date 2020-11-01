@@ -18,7 +18,7 @@
                     <th>Date Created</th>
                     <th>Last Login</th>
                     <th>Role</th>
-                    <th>Activated?</th>
+                    <th>Active?</th>
                     <th>Delete</th>
                 </tr>
             </thead>
@@ -36,13 +36,8 @@
                     </td>
                     <td>${user.role}</td>
                     <td>
-                        <c:choose>
-                            <c:when test="${user.isActive == true}">Yes</c:when>
-                            <c:otherwise><a class="btn btn-outline-success btn-sm"
-                                    onclick="getRequest('/admin/users/${user.userId}/activate')"
-                                    role="button">Activate</a>
-                            </c:otherwise>
-                        </c:choose>
+                        <c:if test="${user.isActive == true}"><span style="color: green;">Yes</span></c:if>
+                        <c:if test="${user.isActive == false}"><span style="color: red;">No</span></c:if>
                     </td>
                     <td>
                         <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/users/${user.userId}/delete',

@@ -65,6 +65,16 @@ public class StudentDaoImpl implements StudentDao {
         }
     }
 
+    @Override
+    public Student getByUserId(int userId) {
+        try {
+            String sql = "SELECT * FROM Student NATURAL JOIN User WHERE userId = ?";
+            return (Student) template.queryForObject(sql, new Object[] { userId }, new StudentRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
     /**
      * Update all attributes except studentId and userId
      */

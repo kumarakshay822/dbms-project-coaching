@@ -84,6 +84,26 @@ public class TeacherDaoImpl implements TeacherDao {
         }
     }
 
+    @Override
+    public Teacher getByUserId(int userId) {
+        try {
+            String sql = "SELECT * FROM Teacher NATURAL JOIN Employee NATURAL JOIN User WHERE userId = ?";
+            return (Teacher) template.queryForObject(sql, new Object[] { userId }, new TeacherRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Integer getEmployeeIdByUserId(int userId) {
+        try {
+            String sql = "SELECT employeeId FROM Employee WHERE userId = ?";
+            return template.queryForObject(sql, new Object[] { userId }, Integer.class);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
     /**
      * Update all attributes except teacherId and employeeId
      */

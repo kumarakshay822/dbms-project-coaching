@@ -29,21 +29,26 @@
                 <div class="col-sm-7">
                     <c:forEach var="phoneNumber" items="${phoneNumbers}">
                         <div>${phoneNumber.phoneNumber} &emsp;
-                            <a href="#" onclick="postRequest('/admin/users/${userId}/phoneNumber/delete',
+                            <a href="#" onclick="postRequest('/profile/users/${userId}/phoneNumber/delete',
                             {'phoneNumber': '${phoneNumber.phoneNumber}'})"> Remove
                             </a>
                         </div>
                     </c:forEach>
 
                     <input type="text" id="phoneNumber">
-                    <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/admin/users/${userId}/phoneNumber/add',
+                    <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/profile/users/${userId}/phoneNumber/add',
                     {'phoneNumber': $('#phoneNumber').val()})" role="button">Add</a>
                     <div id="error" style="color: red;"></div>
             </div>
         </div>
         <div class="row mt-4 mb-4">
             <div class="col-sm-7 offset-sm-5">
-                <a class="btn btn-primary" type="button" href="/admin/staffs/ES${employeeId}">${buttonmessage}</a>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <a class="btn btn-primary" type="button" href="/admin/staffs/ES${employeeId}">${buttonmessage}</a>
+                </sec:authorize>
+                <sec:authorize access="!hasRole('ROLE_ADMIN')">
+                    <a class="btn btn-primary" type="button" href="/profile/staff">${buttonmessage}</a>
+                </sec:authorize>
             </div>
         </div>
     </div>

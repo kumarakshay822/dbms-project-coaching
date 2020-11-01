@@ -1,8 +1,10 @@
 package com.dbms.coaching.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.List;
 
 import com.dbms.coaching.models.User;
@@ -99,10 +101,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void setLoginTimestamp(User user) {
-        String sql = "UPDATE User SET lastLoginDate = ? AND lastLoginTime = ? WHERE userId = ?";
-        template.update(sql, dateTimeUtil.getCurrentDateTime("yyyy-MM-dd"),
-                dateTimeUtil.getCurrentDateTime("HH:mm:ss"), user.getUserId());
+    public User setLoginTimestamp(User user) {
+        String lastLoginDate = dateTimeUtil.getCurrentDateTime("yyyy-MM-dd");
+        String lastLoginTime = dateTimeUtil.getCurrentDateTime("HH:mm:ss");
+        String sql = "UPDATE User SET lastLoginDate = ?, lastLoginTime = ? WHERE userId = ?";
+        template.update(sql, lastLoginDate, lastLoginTime, user.getUserId());
+        user.setLastLoginDate(Date.valueOf(lastLoginDate));
+        user.setLastLoginTime(Time.valueOf(lastLoginTime));
+        return user;
     }
 
     @Override

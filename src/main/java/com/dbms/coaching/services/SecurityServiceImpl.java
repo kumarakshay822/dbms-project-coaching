@@ -1,10 +1,12 @@
 package com.dbms.coaching.services;
 
+import com.dbms.coaching.models.MyUserDetails;
+import com.dbms.coaching.models.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,18 +19,48 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public String findLoggedInUsername() {
-        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (userDetails instanceof UserDetails) {
-            return ((UserDetails) userDetails).getUsername();
+        Object myUserDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (myUserDetails instanceof MyUserDetails) {
+            return ((MyUserDetails) myUserDetails).getUser().getUsername();
+        }
+        return null;
+    }
+
+    @Override
+    public int findLoggedInUserId() {
+        Object myUserDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (myUserDetails instanceof MyUserDetails) {
+            return ((MyUserDetails) myUserDetails).getUser().getUserId();
+        }
+        return 0;
+    }
+
+    @Override
+    public String findLoggedInName() {
+        Object myUserDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (myUserDetails instanceof MyUserDetails) {
+            User user = ((MyUserDetails) myUserDetails).getUser();
+            return user.getFirstName() + " " + user.getMiddleName() + " " + user.getLastName();
+        }
+        return null;
+    }
+
+    @Override
+    public String findLoggedInUserRole() {
+        Object myUserDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (myUserDetails instanceof MyUserDetails) {
+            String role = ((MyUserDetails) myUserDetails).getUser().getRole();
+            // Convert ROLE_ABC to abc
+            return role.substring(5).toLowerCase();
         }
         return null;
     }
 
     @Override
     public void autoLogin(String username, String password) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        MyUserDetails myUserDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                userDetails, password, userDetails.getAuthorities());
+                myUserDetails, password, myUserDetails.getAuthorities());
         // TODO: Validate email address (later)
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {

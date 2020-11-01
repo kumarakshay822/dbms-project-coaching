@@ -19,7 +19,7 @@ public interface UserDao {
 
     public void activate(int userId);
 
-    public void setLoginTimestamp(User user);
+    public User setLoginTimestamp(User user);
 
     public void setRole(User user, String role);
 

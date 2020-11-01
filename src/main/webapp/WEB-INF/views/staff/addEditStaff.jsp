@@ -29,6 +29,7 @@
                     <td style="width: 50%">ES${staff.employee.employeeId}</td>
                 </tr>
                 </c:if>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <tr>
                     <th style="width: 40%; text-align: center;">Name</th>
                     <th style="width: 10%;"></th>
@@ -57,6 +58,7 @@
                         <form:errors path="employee.user.emailAddress" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                </sec:authorize>
                 <tr>
                     <th style="width: 40%; text-align: center;">Gender</th>
                     <th style="width: 10%;"></th>
@@ -93,6 +95,7 @@
                         <form:errors path="pinCode" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <tr>
                     <th style="width: 40%; text-align: center;">Basic Salary</th>
                     <th style="width: 10%;"></th>
@@ -117,6 +120,7 @@
                         <form:errors path="employee.endDate" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                </sec:authorize>
                 <tr>
                     <th style="width: 40%; text-align: center;">PAN Number</th>
                     <th style="width: 10%;"></th>
@@ -157,6 +161,7 @@
                         <form:errors path="employee.ifscCode" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <tr>
                     <th style="width: 40%; text-align: center;">Activated?</th>
                     <th style="width: 10%;"></th>
@@ -168,6 +173,7 @@
                         <form:errors path="employee.user.isActive" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                </sec:authorize>
                 <tr>
                     <th style="width: 40%; text-align: center;"></th>
                     <th style="width: 10%;"></th>

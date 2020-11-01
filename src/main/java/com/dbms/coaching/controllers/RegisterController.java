@@ -42,7 +42,7 @@ public class RegisterController {
         userService.save(user);
 
         securityService.autoLogin(user.getUsername(), originalPassword);
-        return "redirect:/welcome";
+        return "redirect:/";
     }
 
 }

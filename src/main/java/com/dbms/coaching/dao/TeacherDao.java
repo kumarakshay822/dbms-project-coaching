@@ -17,6 +17,10 @@ public interface TeacherDao {
 
     public Teacher getByEmployeeId(int employeeId);
 
+    public Teacher getByUserId(int userId);
+
+    public Integer getEmployeeIdByUserId(int userId);
+
     public void update(Teacher teacher);
 
     public void delete(int teacherId);

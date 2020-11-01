@@ -19,3 +19,4 @@ public class LoginController {
     }
 
 }
+// TODO: Join three names into one in jsp files

@@ -29,6 +29,7 @@
                     <td style="width: 50%">ET${teacher.employee.employeeId}</td>
                 </tr>
                 </c:if>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <tr>
                     <th style="width: 40%; text-align: center;">Name</th>
                     <th style="width: 10%;"></th>
@@ -39,18 +40,6 @@
                         <form:errors path="employee.user.middleName" style="color: red;"></form:errors>
                         <form:input type="text" path="employee.user.lastName" class="form-control"></form:input>
                         <form:errors path="employee.user.lastName" style="color: red;"></form:errors>
-                    </td>
-                </tr>
-                <tr>
-                    <th style="width: 40%; text-align: center;">Subject</th>
-                    <th style="width: 10%;"></th>
-                    <td style="width: 50%">
-                        <form:select class="form-control" path="subject.subjectId" required="true">
-                            <c:forEach var="subject" items="${subjects}">
-                                <form:option value="${subject.subjectId}">${subject.subjectName} - ${subject.subjectId}</form:option>
-                            </c:forEach>
-                        </form:select>
-                        <form:errors path="gender" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
@@ -67,6 +56,19 @@
                     <td style="width: 50%">
                         <form:input type="email" path="employee.user.emailAddress" class="form-control" required="true"></form:input>
                         <form:errors path="employee.user.emailAddress" style="color: red;"></form:errors>
+                    </td>
+                </tr>
+                </sec:authorize>
+                <tr>
+                    <th style="width: 40%; text-align: center;">Subject</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:select class="form-control" path="subject.subjectId" required="true">
+                            <c:forEach var="subject" items="${subjects}">
+                                <form:option value="${subject.subjectId}">${subject.subjectName} - ${subject.subjectId}</form:option>
+                            </c:forEach>
+                        </form:select>
+                        <form:errors path="gender" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
@@ -129,6 +131,7 @@
                         <form:errors path="doctoralDegree" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <tr>
                     <th style="width: 40%; text-align: center;">Basic Salary</th>
                     <th style="width: 10%;"></th>
@@ -153,6 +156,7 @@
                         <form:errors path="employee.endDate" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                </sec:authorize>
                 <tr>
                     <th style="width: 40%; text-align: center;">PAN Number</th>
                     <th style="width: 10%;"></th>
@@ -193,6 +197,7 @@
                         <form:errors path="employee.ifscCode" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <tr>
                     <th style="width: 40%; text-align: center;">Activated?</th>
                     <th style="width: 10%;"></th>
@@ -204,6 +209,7 @@
                         <form:errors path="employee.user.isActive" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                </sec:authorize>
                 <tr>
                     <th style="width: 40%; text-align: center;"></th>
                     <th style="width: 10%;"></th>

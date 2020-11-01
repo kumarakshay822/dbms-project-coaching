@@ -17,6 +17,7 @@ public class StudentRowMapper implements RowMapper<Student> {
 
         Student student = (new BeanPropertyRowMapper<>(Student.class)).mapRow(rs, rowNum);
         student.setUser(user);
+
         return student;
     }
 }

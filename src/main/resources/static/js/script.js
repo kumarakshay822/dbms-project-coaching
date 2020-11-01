@@ -6,8 +6,8 @@ function getRequestWithConfirmation(url, confirmText){
             success: function(data, status, xhr){
                 location.reload();
             },
-            error: function(error){
-                alert(error);
+            error: function(xhr, status, err){
+                alert(xhr.responseText);
             }
         });
     }
@@ -20,8 +20,8 @@ function getRequest(url) {
         success: function(data, status, xhr){
             location.reload();
         },
-        error: function(error){
-            alert(error);
+        error: function(xhr, status, err){
+            alert(xhr.responseText);
         }
     });
 }
@@ -36,7 +36,6 @@ function postRequest(url, data) {
         },
         error: function(xhr, status, err){
             document.getElementById("error").innerHTML = xhr.responseText;
-            alert(status);
         }
     });
 }

@@ -62,10 +62,10 @@
                                 <ul class="navbar-nav mr-2">
                                     <li class="nav-item dropdown mr-2">
                                         <a class="nav-link dropdown-toggle" href="#" id="userdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            User: <c:out value="${pageContext.request.userPrincipal.name}" />
+                                            User: <c:out value="${pageContext.request.userPrincipal.principal.user.username}" />
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="userdropdown">
-                                            <a class="dropdown-item" href="#">View Profile</a>
+                                            <a class="dropdown-item" href="/profile">View Profile</a>
                                             <a class="dropdown-item" href="/logout">Logout</a>
                                         </div>
                                     </li>
@@ -99,4 +99,13 @@
             <h4>${title}</h4>
             ${message}
         </div>
+        <c:if test="${pageContext.request.userPrincipal.principal.user.isActive == false}">
+            <div class="container" style="color: red;">
+                Your profile access is restricted. You can access this site, only after your profile is activated by the admin
+                <c:if test="${pageContext.request.userPrincipal.principal.user.role == 'ROLE_STUDENT'}">or the staff</c:if>
+            </div>
+            <div class="container" style="color: red;">
+                Make sure to create your <a href="/profile">profile</a> and keep it updated in order to have it verified.
+            </div>
+        </c:if>
     </div>

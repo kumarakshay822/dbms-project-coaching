@@ -1,9 +1,14 @@
 package com.dbms.coaching.models;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
 
-public class User {
+public class User implements Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     private int userId;
     private String username;
     private String password;
@@ -75,6 +80,13 @@ public class User {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * @return String return the name
+     */
+    public String getName() {
+        return firstName + " " + middleName + " " + lastName;
     }
 
     /**
