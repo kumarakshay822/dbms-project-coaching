@@ -5,9 +5,11 @@
 <%@ include file="/WEB-INF/views/template/header.jsp" %>
 
 <div class="container-fluid custom-container">
+    <sec:authorize access='hasRole("ROLE_ADMIN")'>
     <div class="div text-right">
-        <a class="btn btn-primary" href="/admin/academics/batches/add" role="button" >Add Batch</a>
+        <a class="btn btn-primary" href="/${role}/academics/batches/add" role="button" >Add Batch</a>
     </div>
+    </sec:authorize>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
             <thead>
@@ -32,13 +34,15 @@
                     <td>${batch.startTime}</td>
                     <td>${batch.endTime}</td>
                     <td>
-                        <a class="btn btn-outline-success btn-sm" href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}"
+                        <a class="btn btn-outline-success btn-sm" href="/${role}/academics/courses/${batch.course.courseId}/${batch.batchId}"
                             role="button">View</a>
-                        <a class="btn btn-outline-primary btn-sm" href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/edit"
+                        <sec:authorize access='hasRole("ROLE_ADMIN")'>
+                        <a class="btn btn-outline-primary btn-sm" href="/${role}/academics/courses/${batch.course.courseId}/${batch.batchId}/edit"
                             role="button">Edit</a>
-                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/delete',
+                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/${role}/academics/courses/${batch.course.courseId}/${batch.batchId}/delete',
                         'Do you want to delete this Batch? \nWarning! This action is destructible!')"
                             role="button">Delete</a>
+                        </sec:authorize>
                     </td>
                 </tr>
             </c:forEach>

@@ -30,7 +30,7 @@
                 <div class="col-sm-7">
                     <c:forEach var="subject" items="${subjectsPresent}">
                         <div>${subject.subjectName} - ${subject.subjectId} &emsp;
-                            <a href="#" onclick="postRequest('/admin/academics/courses/${courseId}/delete-subject',
+                            <a href="#" onclick="postRequest('/${role}/academics/courses/${courseId}/delete-subject',
                             {'subjectId': '${subject.subjectId}'})"> Remove
                             </a>
                         </div>
@@ -42,7 +42,7 @@
                             <option id="subjectId" value="${subject.subjectId}">${subject.subjectName} - ${subject.subjectId}</option>
                         </c:forEach>
                     </select>
-                    <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/admin/academics/courses/${courseId}/add-subject',
+                    <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/${role}/academics/courses/${courseId}/add-subject',
                     {'subjectId': $('#subjectId').val()})" role="button">Add</a>
                     </c:if>
 
@@ -52,7 +52,7 @@
             <div class="row mt-4 mb-4">
                 <div class="col-sm-7 offset-sm-5">
                     <a class="btn btn-primary" type="button"
-                        href="/admin/academics/courses">${buttonmessage}</a>
+                        href="/${role}/academics/courses">${buttonmessage}</a>
                 </div>
             </div>
         </div>

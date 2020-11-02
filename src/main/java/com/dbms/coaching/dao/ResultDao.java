@@ -9,11 +9,17 @@ public interface ResultDao {
 
     public List<Result> getAllByTestId(int testId);
 
+    public List<Result> getAllRechecksByTestId(int testId);
+
     public Result get(int testId, int studentId);
+
+    public int isStudentAppearedInTest(int testId, int studentId);
 
     public void applyForRecheck(int testId, int studentId, String recheckComments);
 
-    public void updateMarks(int testId, int studentId, int marks);
+    public void updateMarksAndMarkDone(int testId, int studentId, int marks);
+
+    public void updateMarks(Result result);
 
     public void update(Result result);
 

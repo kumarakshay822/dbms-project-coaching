@@ -66,7 +66,7 @@
                         <form:errors path="marksScored" style="color: red;"></form:errors>
                     </td>
                 </tr>
-                <c:if test="${edit == true}">
+                <c:if test="${edit == true && role == 'admin'}">
                     <tr>
                         <th style="width: 40%; text-align: center;">Applied for Recheck?</th>
                         <th style="width: 10%;"></th>
@@ -110,5 +110,30 @@
         </table>
     </div>
 </div>
+
+<c:if test="${edit == true}">
+<script src="/js/jquery-3.5.1.min.js"></script>
+<script>
+    function hasAppliedRecheck() {
+        var hasAppliedRecheck = $("#hasAppliedRecheck").val();
+        if (hasAppliedRecheck == 0) {
+            $('#isDoneRecheck').find('option').remove();
+            $('#isDoneRecheck').append('<option value = "' + 0 + '">' + "No" + '</option>');
+        } else {
+            $('#isDoneRecheck').find('option').remove();
+            $('#isDoneRecheck').append('<option value = "' + 0 + '">' + "No" + '</option>');
+            $('#isDoneRecheck').append('<option value = "' + 1 + '">' + "Yes" + '</option>');
+
+            if ($('#hasAppliedRecheck').val() == (${result.hasAppliedRecheck} ? 1 : 0)) {
+                document.getElementById("isDoneRecheck").value = (${result.isDoneRecheck} ? 1 : 0);
+            }
+        }
+    }
+    $(function () {
+        hasAppliedRecheck();
+        $("#hasAppliedRecheck").change(hasAppliedRecheck);
+    });
+</script>
+</c:if>
 
 <%@ include file="/WEB-INF/views/template/footer.jsp" %>

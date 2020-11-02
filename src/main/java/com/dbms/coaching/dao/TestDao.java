@@ -11,6 +11,8 @@ public interface TestDao {
 
     public List<Test> getAllByCourseId(String courseId);
 
+    public List<Test> getAllByStudentId(int studentId);
+
     public Test get(int testId);
 
     public void update(Test test);

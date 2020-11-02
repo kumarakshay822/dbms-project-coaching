@@ -14,7 +14,7 @@
                 <th style="width: 40%;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%; text-align: right;">
-                    <a class="btn btn-primary" href="/admin/academics/enrollments/${enrollment.enrollmentId}/edit" role="button">Edit Enrollment</a>
+                    <a class="btn btn-primary" href="/${role}/academics/enrollments/${enrollment.enrollmentId}/edit" role="button">Edit Enrollment</a>
                 </td>
             </tr>
             <tr>
@@ -25,17 +25,17 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Student ID</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%"><a href="/admin/students/ST${enrollment.studentId}">ST${enrollment.studentId}</a></td>
+                <td style="width: 50%"><a href="/${role}/students/ST${enrollment.studentId}">ST${enrollment.studentId}</a></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Course ID</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%"><a href="/admin/academics/courses/${enrollment.courseId}">${enrollment.courseId}</a></td>
+                <td style="width: 50%"><a href="/${role}/academics/courses/${enrollment.courseId}">${enrollment.courseId}</a></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Batch ID</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%"><a href="/admin/academics/courses/${enrollment.courseId}/${enrollment.batchId}">${enrollment.batchId}</a></td>
+                <td style="width: 50%"><a href="/${role}/academics/courses/${enrollment.courseId}/${enrollment.batchId}">${enrollment.batchId}</a></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Join Date</th>

@@ -75,6 +75,16 @@ public class StudentDaoImpl implements StudentDao {
         }
     }
 
+    @Override
+    public Integer getStudentIdByUserId(int userId) {
+        try {
+            String sql = "SELECT studentId FROM Student WHERE userId = ?";
+            return template.queryForObject(sql, new Object[] { userId }, Integer.class);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
     /**
      * Update all attributes except studentId and userId
      */

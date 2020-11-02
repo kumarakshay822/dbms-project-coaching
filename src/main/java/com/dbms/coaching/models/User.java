@@ -209,6 +209,14 @@ public class User implements Serializable {
     }
 
     /**
+     * @return String return only the role in smallcase
+     */
+    public String getSmallRole() {
+        // Convert ROLE_ABC to abc
+        return role.substring(5).toLowerCase();
+    }
+
+    /**
      * @param role the role to set
      */
     public void setRole(String role) {

@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.dbms.coaching.dao.TestDao;
 import com.dbms.coaching.dao.CourseDao;
+import com.dbms.coaching.dao.StudentDao;
 import com.dbms.coaching.models.Test;
+import com.dbms.coaching.services.SecurityService;
 import com.dbms.coaching.models.Course;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,13 @@ public class TestController {
     @Autowired
     private CourseDao courseDao;
 
-    @GetMapping("/admin/academics/tests")
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private StudentDao studentDao;
+
+    @GetMapping({ "/admin/academics/tests", "/staff/academics/tests", "/teacher/academics/tests" })
     public String listTests(Model model) {
         model.addAttribute("title", "Academic Portal - Tests");
         model.addAttribute("message", "View all the tests");
@@ -35,13 +43,25 @@ public class TestController {
         return "test/listTests";
     }
 
-    @GetMapping("/admin/academics/tests/add")
-    public String addTest1(Model model) {
+    @GetMapping("/student/academics/tests")
+    public String listTestsStudent(Model model) {
+        model.addAttribute("title", "Academic Portal - Tests");
+        model.addAttribute("message", "View all the tests of your course");
+        int userId = securityService.findLoggedInUserId();
+        int studentId = studentDao.getStudentIdByUserId(userId);
+        List<Test> tests = testDao.getAllByStudentId(studentId);
+        model.addAttribute("tests", tests);
+        return "test/listTests";
+    }
+
+    @GetMapping({ "/admin/academics/tests/add", "/staff/academics/tests/add" })
+    public String addTest(Model model) {
+        String role = securityService.findLoggedInUserRole();
         model.addAttribute("title", "Academic Portal - Tests");
         model.addAttribute("message", "Add Test");
         model.addAttribute("submessage1", "Add Test");
         model.addAttribute("buttonmessage", "Finish");
-        model.addAttribute("submiturl", "/admin/academics/tests/add");
+        model.addAttribute("submiturl", "/" + role + "/academics/tests/add");
         List<Course> courses = courseDao.getAll();
         model.addAttribute("courses", courses);
         Test test = new Test();
@@ -49,57 +69,24 @@ public class TestController {
         return "test/addEditTest";
     }
 
-    @GetMapping("/admin/academics/courses/{courseId}/add-test")
-    public String addTest2(@PathVariable("courseId") String courseId, Model model) {
-        model.addAttribute("title", "Academic Portal - Tests");
-        model.addAttribute("message", "Add Test");
-        model.addAttribute("submessage1", "Add Test");
-        model.addAttribute("buttonmessage", "Finish");
-        model.addAttribute("submiturl", "/admin/academics/courses/" + courseId + "/add-test");
-        Course course = courseDao.get(courseId);
-        model.addAttribute("course", course);
-        Test test = new Test();
-        model.addAttribute("test", test);
-        return "test/addEditTest";
-    }
-
-    @PostMapping("/admin/academics/tests/add")
-    public String addTest1(@ModelAttribute("test") Test test, BindingResult bindingResult, Model model) {
+    @PostMapping({ "/admin/academics/tests/add", "/staff/academics/tests/add" })
+    public String addTest(@ModelAttribute("test") Test test, BindingResult bindingResult, Model model) {
+        String role = securityService.findLoggedInUserRole();
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Tests");
             model.addAttribute("message", "Add Test");
             model.addAttribute("submessage1", "Add Test");
             model.addAttribute("buttonmessage", "Finish");
-            model.addAttribute("submiturl", "/admin/academics/tests/add");
+            model.addAttribute("submiturl", "/" + role + "/academics/tests/add");
             List<Course> courses = courseDao.getAll();
             model.addAttribute("courses", courses);
             return "test/addEditTest";
         }
         testDao.save(test);
-        return "redirect:/admin/academics/tests";
+        return "redirect:/" + role + "/academics/tests";
     }
 
-    @PostMapping("/admin/academics/courses/{courseId}/add-test")
-    public String addTest2(@PathVariable("courseId") String courseId, @ModelAttribute("test") Test test,
-            BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("title", "Academic Portal - Tests");
-            model.addAttribute("message", "Add Test");
-            model.addAttribute("submessage1", "Add Test");
-            model.addAttribute("buttonmessage", "Finish");
-            model.addAttribute("submiturl", "/admin/academics/courses/" + courseId);
-            Course course = courseDao.get(courseId);
-            model.addAttribute("course", course);
-            return "test/addEditTest";
-        }
-        Course course = test.getCourse();
-        course.setCourseId(courseId);
-        test.setCourse(course);
-        testDao.save(test);
-        return "redirect:/admin/academics/courses/" + courseId;
-    }
-
-    @GetMapping("/admin/academics/tests/{testId}")
+    @GetMapping({ "/admin/academics/tests/{testId}", "/staff/academics/tests/{testId}" })
     public String viewTest(@PathVariable("testId") int testId, Model model) {
         model.addAttribute("title", "Academic Portal - Tests");
         model.addAttribute("message", "View Test");
@@ -109,13 +96,14 @@ public class TestController {
         return "test/viewTest";
     }
 
-    @GetMapping("/admin/academics/tests/{testId}/edit")
+    @GetMapping({ "/admin/academics/tests/{testId}/edit", "/staff/academics/tests/{testId}/edit" })
     public String editTest(@PathVariable("testId") int testId, Model model) {
+        String role = securityService.findLoggedInUserRole();
         model.addAttribute("title", "Academic Portal - Tests");
         model.addAttribute("message", "Edit Test");
         model.addAttribute("submessage1", "Edit Test");
         model.addAttribute("buttonmessage", "Finish");
-        model.addAttribute("submiturl", "/admin/academics/tests/" + testId + "/edit");
+        model.addAttribute("submiturl", "/" + role + "/academics/tests/" + testId + "/edit");
         model.addAttribute("edit", "true");
         List<Course> courses = courseDao.getAll();
         model.addAttribute("courses", courses);
@@ -124,25 +112,26 @@ public class TestController {
         return "test/addEditTest";
     }
 
-    @PostMapping("/admin/academics/tests/{testId}/edit")
+    @PostMapping({ "/admin/academics/tests/{testId}/edit", "/staff/academics/tests/{testId}/edit" })
     public String editTest(@PathVariable("testId") int testId,
     @ModelAttribute("test") Test test, BindingResult bindingResult, Model model) {
+        String role = securityService.findLoggedInUserRole();
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Tests");
             model.addAttribute("message", "Edit Test");
             model.addAttribute("submessage1", "Edit Test");
             model.addAttribute("buttonmessage", "Finish");
-            model.addAttribute("submiturl", "/admin/academics/tests/" + testId + "/edit");
+            model.addAttribute("submiturl", "/" + role + "/academics/tests/" + testId + "/edit");
             model.addAttribute("edit", "true");
             List<Course> courses = courseDao.getAll();
             model.addAttribute("courses", courses);
             return "test/addEditTest";
         }
         testDao.update(test);
-        return "redirect:/admin/academics/tests/" + testId;
+        return "redirect:/" + role + "/academics/tests/" + testId;
     }
 
-    @GetMapping("/admin/academics/tests/{testId}/delete")
+    @GetMapping({ "/admin/academics/tests/{testId}/delete", "/staff/academics/tests/{testId}/delete" })
     public ResponseEntity<Integer> deleteTest(@PathVariable("testId") int testId, Model model) {
         testDao.delete(testId);
         return new ResponseEntity<>(HttpStatus.OK);

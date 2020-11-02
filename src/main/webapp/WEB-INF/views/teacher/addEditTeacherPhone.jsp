@@ -44,7 +44,7 @@
         <div class="row mt-4 mb-4">
             <div class="col-sm-7 offset-sm-5">
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    <a class="btn btn-primary" type="button" href="/admin/teachers/ET${employeeId}">${buttonmessage}</a>
+                    <a class="btn btn-primary" type="button" href="/${role}/teachers/ET${employeeId}">${buttonmessage}</a>
                 </sec:authorize>
                 <sec:authorize access="!hasRole('ROLE_ADMIN')">
                     <a class="btn btn-primary" type="button" href="/profile/teacher">${buttonmessage}</a>

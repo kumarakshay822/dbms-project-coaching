@@ -6,7 +6,7 @@
 
 <div class="container-fluid custom-container">
     <div class="div text-right">
-        <a class="btn btn-primary" href="/admin/complaints/add" role="button" >Add Complaint</a>
+        <a class="btn btn-primary" href="/${role}/complaints/add" role="button" >Add Complaint</a>
     </div>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
@@ -26,7 +26,7 @@
                 <tr>
                     <td>${complaint.complaintId}</td>
                     <td>${complaint.date} ${complaint.time}</td>
-                    <td><a href="/admin/students/ST${complaint.studentId}">ST${complaint.studentId}</a></td>
+                    <td><a href="/${role}/students/ST${complaint.studentId}">ST${complaint.studentId}</a></td>
                     <td>${complaint.subject}</td>
                     <td>${complaint.description}</td>
                     <td>${complaint.response}</td>
@@ -39,11 +39,11 @@
                         </c:choose>
                     </td>
                     <td>
-                        <a class="btn btn-outline-success btn-sm" href="/admin/complaints/${complaint.complaintId}"
+                        <a class="btn btn-outline-success btn-sm" href="/${role}/complaints/${complaint.complaintId}"
                             role="button">View</a>
-                        <a class="btn btn-outline-primary btn-sm" href="/admin/complaints/${complaint.complaintId}/edit"
+                        <a class="btn btn-outline-primary btn-sm" href="/${role}/complaints/${complaint.complaintId}/edit"
                             role="button">Edit</a>
-                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/complaints/${complaint.complaintId}/delete',
+                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/${role}/complaints/${complaint.complaintId}/delete',
                         'Do you want to delete this Complaint? \nWarning! This action is destructible!')"
                             role="button">Delete</a>
                     </td>

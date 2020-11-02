@@ -15,7 +15,7 @@
                 <th style="width: 10%;"></th>
                 <td style="width: 50%; text-align: right;">
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
-                        <a class="btn btn-primary" href="/admin/teachers/ET${teacher.employee.employeeId}/edit-teacher" role="button">Edit Teacher</a>
+                        <a class="btn btn-primary" href="/${role}/teachers/ET${teacher.employee.employeeId}/edit-teacher" role="button">Edit Teacher</a>
                     </sec:authorize>
                     <sec:authorize access="!hasRole('ROLE_ADMIN')">
                         <a class="btn btn-primary" href="/profile/teacher/edit-teacher" role="button">Edit Teacher</a>

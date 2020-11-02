@@ -9,6 +9,8 @@ public interface EnrollmentDao {
 
     public List<Enrollment> getAll();
 
+    public List<Enrollment> getAllByStudentId(int studentId);
+
     public List<Enrollment> getAllByCourseId(String courseId);
 
     public List<Enrollment> getAllByBatch(String courseId, String batchId);

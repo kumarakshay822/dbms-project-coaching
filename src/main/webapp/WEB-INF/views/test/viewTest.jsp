@@ -14,8 +14,8 @@
                 <th style="width: 40%;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%; text-align: right;">
-                    <a class="btn btn-success" href="/admin/academics/tests/${test.testId}/results/" role="button">View Results</a>
-                    <a class="btn btn-primary" href="/admin/academics/tests/${test.testId}/edit" role="button">Edit Test</a>
+                    <a class="btn btn-success" href="/${role}/academics/tests/${test.testId}/results/" role="button">View Results</a>
+                    <a class="btn btn-primary" href="/${role}/academics/tests/${test.testId}/edit" role="button">Edit Test</a>
                 </td>
             </tr>
             <tr>

@@ -40,7 +40,8 @@ public class CourseController {
     @Autowired
     private CourseSubjectDao courseSubjectDao;
 
-    @GetMapping("/admin/academics/courses")
+    @GetMapping({ "/admin/academics/courses", "/student/academics/courses", "/staff/academics/courses",
+            "/teacher/academics/courses" })
     public String listCourses(Model model) {
         model.addAttribute("title", "Academic Portal - Courses");
         model.addAttribute("message", "View all the courses");
@@ -85,7 +86,8 @@ public class CourseController {
         return "redirect:/admin/academics/courses";
     }
 
-    @GetMapping("/admin/academics/courses/{courseId}")
+    @GetMapping({ "/admin/academics/courses/{courseId}", "/student/academics/courses/{courseId}",
+            "/staff/academics/courses/{courseId}", "/teacher/academics/courses/{courseId}" })
     public String viewCourse(@PathVariable("courseId") String courseId, Model model) {
         model.addAttribute("title", "Academic Portal - Courses");
         model.addAttribute("message", "View Course");
@@ -165,6 +167,13 @@ public class CourseController {
     @PostMapping(path = "/admin/academics/courses/{courseId}/get-all-batches", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<Batch> getAllBatches(@PathVariable("courseId") String courseId) {
+        List<Batch> batches = batchDao.getAllByCourseId(courseId);
+        return batches;
+    }
+
+    @PostMapping(path = "/student/academics/courses/{courseId}/get-all-batches", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public List<Batch> getAllBatchesStudent(@PathVariable("courseId") String courseId) {
         List<Batch> batches = batchDao.getAllByCourseId(courseId);
         return batches;
     }

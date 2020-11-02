@@ -11,9 +11,13 @@ public interface EmployeeDao {
 
     public Employee get(int employeeId);
 
+    public Integer getEmployeeIdByUserId(int userId);
+
     public String getRole(int employeeId);
 
     public void update(Employee employee);
+
+    public void updateOwnProfile(Employee employee);
 
     public void delete(int employeeId);
 }

@@ -37,7 +37,7 @@
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <c:choose>
-                            <c:when test="${edit == true}">
+                            <c:when test="${edit == true || role == 'student'}">
                                 ST${enrollment.studentId}
                             </c:when>
                             <c:otherwise>
@@ -75,6 +75,7 @@
                         <form:errors path="joinDate" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                <c:if test="role != 'student'">
                 <tr>
                     <th style="width: 40%; text-align: center;">End Date</th>
                     <th style="width: 10%;"></th>
@@ -83,6 +84,7 @@
                         <form:errors path="endDate" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                </c:if>
                 <tr>
                     <th style="width: 40%; text-align: center;">Amount Payable</th>
                     <th style="width: 10%;"></th>

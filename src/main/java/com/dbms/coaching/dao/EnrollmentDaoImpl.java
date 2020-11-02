@@ -26,24 +26,31 @@ public class EnrollmentDaoImpl implements EnrollmentDao {
     @Override
     public List<Enrollment> getAll() {
         String sql = "SELECT * FROM Enrollment";
-        List<Enrollment> enrollmentes = template.query(sql, new BeanPropertyRowMapper<>(Enrollment.class));
-        return enrollmentes;
+        List<Enrollment> enrollments = template.query(sql, new BeanPropertyRowMapper<>(Enrollment.class));
+        return enrollments;
+    }
+
+    @Override
+    public List<Enrollment> getAllByStudentId(int studentId) {
+        String sql = "SELECT * FROM Enrollment WHERE studentId = ?";
+        List<Enrollment> enrollments = template.query(sql, new Object[] { studentId }, new BeanPropertyRowMapper<>(Enrollment.class));
+        return enrollments;
     }
 
     @Override
     public List<Enrollment> getAllByCourseId(String courseId) {
         String sql = "SELECT * FROM Enrollment WHERE courseId = ?";
-        List<Enrollment> enrollmentes = template.query(sql, new Object[] { courseId },
+        List<Enrollment> enrollments = template.query(sql, new Object[] { courseId },
                 new BeanPropertyRowMapper<>(Enrollment.class));
-        return enrollmentes;
+        return enrollments;
     }
 
     @Override
     public List<Enrollment> getAllByBatch(String courseId, String batchId) {
         String sql = "SELECT * FROM Enrollment WHERE courseId = ? AND batchId = ?";
-        List<Enrollment> enrollmentes = template.query(sql, new Object[] { courseId, batchId },
+        List<Enrollment> enrollments = template.query(sql, new Object[] { courseId, batchId },
                 new BeanPropertyRowMapper<>(Enrollment.class));
-        return enrollmentes;
+        return enrollments;
     }
 
     @Override

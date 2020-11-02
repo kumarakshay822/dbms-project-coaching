@@ -20,7 +20,28 @@ public class HomeController {
         return "home/admin";
     }
 
-    @GetMapping("/admin/academics")
+    @GetMapping("/staff")
+    public String staffPage(Model model) {
+        model.addAttribute("title", "Staff Page");
+        model.addAttribute("message", "Welcome, Staff!");
+        return "home/staff";
+    }
+
+    @GetMapping("/teacher")
+    public String teacherPage(Model model) {
+        model.addAttribute("title", "Teacher Page");
+        model.addAttribute("message", "Welcome, Teacher!");
+        return "home/teacher";
+    }
+
+    @GetMapping("/student")
+    public String studentPage(Model model) {
+        model.addAttribute("title", "Student Page");
+        model.addAttribute("message", "Welcome, Student!");
+        return "home/student";
+    }
+
+    @GetMapping({ "/admin/academics", "/student/academics", "/staff/academics", "/teacher/academics" })
     public String academicPortal(Model model) {
         model.addAttribute("title", "Academic Portal");
         model.addAttribute("message", "Manage all academic stuff");

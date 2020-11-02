@@ -30,6 +30,13 @@ public class ResultDaoImpl implements ResultDao {
     }
 
     @Override
+    public List<Result> getAllRechecksByTestId(int testId) {
+        String sql = "SELECT * FROM Result NATURAL JOIN Student NATURAL JOIN User WHERE testId = ? AND hasAppliedRecheck = 1 ORDER BY marksScored DESC";
+        List<Result> results = template.query(sql, new Object[] { testId }, new ResultRowMapper());
+        return results;
+    }
+
+    @Override
     public Result get(int testId, int studentId) {
         try {
             String sql = "SELECT * FROM Result NATURAL JOIN Student NATURAL JOIN User WHERE testId = ? AND studentId = ?";
@@ -40,14 +47,31 @@ public class ResultDaoImpl implements ResultDao {
         }
     }
 
+    @Override
+    public int isStudentAppearedInTest(int testId, int studentId) {
+        String sql = "SELECT COUNT(*) FROM Result WHERE testId = ? AND studentId = ?";
+        return template.queryForObject(sql, new Object[] { testId, studentId }, Integer.class);
+    }
+
+    @Override
     public void applyForRecheck(int testId, int studentId, String recheckComments) {
         String sql = "UPDATE Result SET hasAppliedRecheck = true, recheckComments = ? WHERE testId = ? AND studentId = ?";
         template.update(sql, recheckComments, testId, studentId);
     }
 
-    public void updateMarks(int testId, int studentId, int marks) {
+    @Override
+    public void updateMarksAndMarkDone(int testId, int studentId, int marks) {
         String sql = "UPDATE Result SET isDoneRecheck = true, marksScored = ? WHERE testId = ? AND studentId = ?";
         template.update(sql, marks, testId, studentId);
+    }
+
+    /**
+     * Update only the marks (to be done by staff)
+     */
+    @Override
+    public void updateMarks(Result result) {
+        String sql = "UPDATE Result SET marksScored = ? WHERE testId = ? AND studentId = ?";
+        template.update(sql, result.getMarksScored(), result.getTestId(), result.getStudent().getStudentId());
     }
 
     /**

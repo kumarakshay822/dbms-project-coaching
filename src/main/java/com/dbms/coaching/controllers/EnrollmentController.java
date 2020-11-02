@@ -5,16 +5,21 @@ import java.util.List;
 import com.dbms.coaching.dao.BatchDao;
 import com.dbms.coaching.dao.CourseDao;
 import com.dbms.coaching.dao.EnrollmentDao;
+import com.dbms.coaching.dao.StaffDao;
 import com.dbms.coaching.dao.StudentDao;
+import com.dbms.coaching.dao.TeacherDao;
 import com.dbms.coaching.dao.TransactionDao;
+import com.dbms.coaching.models.Batch;
 import com.dbms.coaching.models.Course;
 import com.dbms.coaching.models.Enrollment;
 import com.dbms.coaching.models.Student;
 import com.dbms.coaching.models.Transaction;
+import com.dbms.coaching.services.SecurityService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,15 +45,69 @@ public class EnrollmentController {
     @Autowired
     private CourseDao courseDao;
 
-    @GetMapping("/admin/academics/enrollments")
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private TeacherDao teacherDao;
+
+    @Autowired
+    private StaffDao staffDao;
+
+    public void checkStaffAssignedBatch(String courseId, String batchId) {
+        int userId = securityService.findLoggedInUserId();
+        String role = securityService.findLoggedInUserRole();
+        if (role.equals("staff")) {
+            int staffId = staffDao.getStaffIdByUserId(userId);
+            List<Batch> batches = batchDao.getAllByStaffId(staffId);
+            boolean forbidden = true;
+            for (Batch batch : batches) {
+                if (batch.getBatchId().equals(batchId) && batch.getCourse().getCourseId().equals(courseId)) {
+                    forbidden = false;
+                    break;
+                }
+            }
+            if (forbidden)
+                throw new AccessDeniedException("This batch is not assigned to you");
+        }
+    }
+
+    public boolean checkTeacherAssignedBatch(String courseId, String batchId) {
+        int userId = securityService.findLoggedInUserId();
+        String role = securityService.findLoggedInUserRole();
+        if (role.equals("teacher")) {
+            int teacherId = teacherDao.getTeacherIdByUserId(userId);
+            List<Batch> batches = batchDao.getAllByTeacherId(teacherId);
+            boolean forbidden = true;
+            for (Batch batch : batches) {
+                if (batch.getBatchId().equals(batchId) && batch.getCourse().getCourseId().equals(courseId)) {
+                    forbidden = false;
+                    break;
+                }
+            }
+            if (forbidden)
+                throw new AccessDeniedException("This batch is not assigned to you");
+        }
+        return true;
+    }
+
+    @GetMapping({ "/admin/academics/enrollments", "/student/academics/enrollments" })
     public String listEnrollments(Model model) {
         model.addAttribute("title", "Academic Portal - Enrollments");
         model.addAttribute("message", "View all the enrollments");
         List<Enrollment> enrollments = enrollmentDao.getAll();
+
+        int userId = securityService.findLoggedInUserId();
+        String role = securityService.findLoggedInUserRole();
+        if (role.equals("student")) {
+            int studentId = studentDao.getStudentIdByUserId(userId);
+            enrollments = enrollmentDao.getAllByStudentId(studentId);
+        }
+
         model.addAttribute("enrollments", enrollments);
         List<Course> courses = courseDao.getAll();
         model.addAttribute("courses", courses);
-        model.addAttribute("normal", true);
+        model.addAttribute("fullenrollment", true);
         return "enrollment/listEnrollments";
     }
 
@@ -62,9 +121,13 @@ public class EnrollmentController {
         return "enrollment/listEnrollments";
     }
 
-    @GetMapping("/admin/academics/courses/{courseId}/{batchId}/enrollments")
+    @GetMapping({ "/admin/academics/courses/{courseId}/{batchId}/enrollments",
+            "/staff/academics/courses/{courseId}/{batchId}/enrollments",
+            "/teacher/academics/courses/{courseId}/{batchId}/enrollments" })
     public String listEnrollmentsByBatch(@PathVariable("courseId") String courseId,
     @PathVariable("batchId") String batchId, Model model) {
+        checkStaffAssignedBatch(courseId, batchId);
+        checkTeacherAssignedBatch(courseId, batchId);
         model.addAttribute("title", "Academic Portal - Enrollments");
         model.addAttribute("message", "View enrollments by Batch");
         model.addAttribute("submessage1", "Batch " + batchId + " of Course " + courseId);
@@ -73,13 +136,17 @@ public class EnrollmentController {
         return "enrollment/listEnrollments";
     }
 
-    @GetMapping("/admin/academics/courses/{courseId}/{batchId}/enrollments/add")
+    @GetMapping({ "/admin/academics/courses/{courseId}/{batchId}/enrollments/add",
+            "/staff/academics/courses/{courseId}/{batchId}/enrollments/add",
+            "/student/academics/courses/{courseId}/{batchId}/enrollments/add" })
     public String addEnrollment(@PathVariable("courseId") String courseId, @PathVariable("batchId") String batchId, Model model) {
+        checkStaffAssignedBatch(courseId, batchId);
+        String role = securityService.findLoggedInUserRole();
         model.addAttribute("title", "Academic Portal - Enrollments");
         model.addAttribute("message", "Add Enrollment");
         model.addAttribute("submessage1", "Add Enrollment");
         model.addAttribute("buttonmessage", "Pay and Finish");
-        model.addAttribute("submiturl", "/admin/academics/courses/" + courseId + "/" + batchId + "/enrollments/add");
+        model.addAttribute("submiturl", "/" + role + "/academics/courses/" + courseId + "/" + batchId + "/enrollments/add");
         List<Student> students = studentDao.getAll();
         model.addAttribute("students", students);
         Transaction transaction = new Transaction();
@@ -90,25 +157,41 @@ public class EnrollmentController {
         enrollment.setTransaction(transaction);
         enrollment.setCourseId(courseId);
         enrollment.setBatchId(batchId);
+        if (role.equals("student")) {
+            int userId = securityService.findLoggedInUserId();
+            int studentId = studentDao.getStudentIdByUserId(userId);
+            enrollment.setStudentId(studentId);
+            transaction.setTransactionMode("Online");
+        }
         model.addAttribute("enrollment", enrollment);
         return "enrollment/addEditEnrollment";
     }
 
-    @PostMapping("/admin/academics/courses/{courseId}/{batchId}/enrollments/add")
+    @PostMapping({ "/admin/academics/courses/{courseId}/{batchId}/enrollments/add",
+            "/staff/academics/courses/{courseId}/{batchId}/enrollments/add",
+            "/student/academics/courses/{courseId}/{batchId}/enrollments/add" })
     public String addEnrollment(@PathVariable("courseId") String courseId, @PathVariable("batchId") String batchId,
             @ModelAttribute("enrollment") Enrollment enrollment, BindingResult bindingResult, Model model) {
+        checkStaffAssignedBatch(courseId, batchId);
+        String role = securityService.findLoggedInUserRole();
         // TODO: Don't allow enrolling in more than one batches of a course
         Transaction transaction = new Transaction();
         int amount = batchDao.getFee(batchId, courseId);
         transaction.setAmount(amount);
         transaction.setTransactionMode("Offline");
         enrollment.setTransaction(transaction);
+        if (role.equals("student")) {
+            int userId = securityService.findLoggedInUserId();
+            int studentId = studentDao.getStudentIdByUserId(userId);
+            enrollment.setStudentId(studentId);
+            transaction.setTransactionMode("Online");
+        }
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Enrollments");
             model.addAttribute("message", "Add Enrollment");
             model.addAttribute("submessage1", "Add Enrollment");
             model.addAttribute("buttonmessage", "Pay and Finish");
-            model.addAttribute("submiturl", "/admin/academics/courses/" + courseId + "/" + batchId + "/enrollments/add");
+            model.addAttribute("submiturl", "/" + role + "/academics/courses/" + courseId + "/" + batchId + "/enrollments/add");
             List<Student> students = studentDao.getAll();
             model.addAttribute("students", students);
             return "enrollment/addEditEnrollment";
@@ -116,46 +199,59 @@ public class EnrollmentController {
         transaction = transactionDao.save(enrollment.getTransaction());
         enrollment.setTransaction(transaction);
         enrollmentDao.save(enrollment);
-        return "redirect:/admin/academics/enrollments";
+        if (role.equals("student")) {
+            return "redirect:/student/academics/enrollments";
+        }
+        return "redirect:/" + role + "/academics/courses/" + courseId + "/" + batchId + "/enrollments";
     }
 
-    @GetMapping("/admin/academics/enrollments/{enrollmentId}")
+    @GetMapping({ "/admin/academics/enrollments/{enrollmentId}",
+            "/staff/academics/enrollments/{enrollmentId}",
+            "/student/academics/enrollments/{enrollmentId}" })
     public String viewEnrollment(@PathVariable("enrollmentId") int enrollmentId, Model model) {
         model.addAttribute("title", "Academic Portal - Courses");
         model.addAttribute("message", "View Enrollment");
         model.addAttribute("submessage1", "Enrollment Details");
         Enrollment enrollment = enrollmentDao.get(enrollmentId);
         model.addAttribute("enrollment", enrollment);
+        checkStaffAssignedBatch(enrollment.getCourseId(), enrollment.getBatchId());
         return "enrollment/viewEnrollment";
     }
 
-    @GetMapping("/admin/academics/enrollments/{enrollmentId}/edit")
+    @GetMapping({ "/admin/academics/enrollments/{enrollmentId}/edit", "/staff/academics/enrollments/{enrollmentId}/edit" })
     public String editEnrollment(@PathVariable("enrollmentId") int enrollmentId, Model model) {
+        String role = securityService.findLoggedInUserRole();
         model.addAttribute("title", "Academic Portal - Enrollments");
         model.addAttribute("message", "Edit Enrollment");
         model.addAttribute("submessage1", "Edit Enrollment");
         model.addAttribute("buttonmessage", "Finish");
-        model.addAttribute("submiturl", "/admin/academics/enrollments/" + enrollmentId + "/edit");
+        model.addAttribute("submiturl", "/" + role + "/academics/enrollments/" + enrollmentId + "/edit");
         model.addAttribute("edit", "true");
         Enrollment enrollment = enrollmentDao.get(enrollmentId);
+        checkStaffAssignedBatch(enrollment.getCourseId(), enrollment.getBatchId());
         model.addAttribute("enrollment", enrollment);
         return "enrollment/addEditEnrollment";
     }
 
-    @PostMapping("/admin/academics/enrollments/{enrollmentId}/edit")
+    @PostMapping({ "/admin/academics/enrollments/{enrollmentId}/edit", "/staff/academics/enrollments/{enrollmentId}/edit" })
     public String editEnrollment(@PathVariable("enrollmentId") int enrollmentId, @ModelAttribute("enrollment") Enrollment enrollment,
-            BindingResult bindingResult, Model model) {
+    BindingResult bindingResult, Model model) {
+        String role = securityService.findLoggedInUserRole();
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Enrollments");
             model.addAttribute("message", "Edit Enrollment");
             model.addAttribute("submessage1", "Edit Enrollment");
             model.addAttribute("buttonmessage", "Finish");
-            model.addAttribute("submiturl", "/admin/academics/enrollments/" + enrollmentId + "/edit");
+            model.addAttribute("submiturl", "/" + role + "/academics/enrollments/" + enrollmentId + "/edit");
             model.addAttribute("edit", "true");
             return "enrollment/addEditEnrollment";
         }
+        Enrollment oldEnrollment = enrollmentDao.get(enrollmentId);
+        String courseId = oldEnrollment.getCourseId();
+        String batchId = oldEnrollment.getBatchId();
+        checkStaffAssignedBatch(courseId, batchId);
         enrollmentDao.update(enrollment);
-        return "redirect:/admin/academics/enrollments";
+        return "redirect:/" + role + "/academics/courses/" + courseId + "/" + batchId + "/enrollments";
     }
 
     @GetMapping("/admin/academics/enrollments/{enrollmentId}/delete")

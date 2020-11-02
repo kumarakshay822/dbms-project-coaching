@@ -7,11 +7,11 @@
 <div class="container-fluid custom-container">
     <div class="div text-right">
         <input type="date" id="date">
-        <button class="btn btn-outline-success btn-sm ml-5" onclick="location.href='/admin/attendance?date=' + $('#date').val()">Filter</a>
+        <button class="btn btn-outline-success btn-sm ml-5" onclick="location.href='/${role}/attendance?date=' + $('#date').val()">Filter</a>
     </div>
     <div class="div text-right mt-2">
         <span class="mr-4">Total Days: ${days}</span>
-        <a class="btn btn-primary" href="/admin/attendance/add" role="button">Add Attendance</a>
+        <a class="btn btn-primary" href="/${role}/attendance/add" role="button">Add Attendance</a>
     </div>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
@@ -27,11 +27,11 @@
                 <tr>
                     <td>
                         <c:if test="${attendance.role == 'ROLE_TEACHER'}">
-                            <a href="/admin/teachers/ET${attendance.employeeId}">ET${attendance.employeeId} -
+                            <a href="/${role}/teachers/ET${attendance.employeeId}">ET${attendance.employeeId} -
                                 ${attendance.name}</a>
                         </c:if>
                         <c:if test="${attendance.role == 'ROLE_STAFF'}">
-                            <a href="/admin/staffs/ES${attendance.employeeId}">ES${attendance.employeeId} -
+                            <a href="/${role}/staffs/ES${attendance.employeeId}">ES${attendance.employeeId} -
                                 ${attendance.name}</a>
                         </c:if>
                     </td>
@@ -40,11 +40,11 @@
                     <td>
                         <c:if test="${attendance.role == 'ROLE_TEACHER'}">
                             <a class="btn btn-outline-success btn-sm"
-                                href="/admin/attendance/ET${attendance.employeeId}" role="button">View</a>
+                                href="/${role}/attendance/ET${attendance.employeeId}" role="button">View</a>
                         </c:if>
                         <c:if test="${attendance.role == 'ROLE_STAFF'}">
                             <a class="btn btn-outline-success btn-sm"
-                                href="/admin/attendance/ES${attendance.employeeId}" role="button">View</a>
+                                href="/${role}/attendance/ES${attendance.employeeId}" role="button">View</a>
                         </c:if>
                     </td>
                 </tr>

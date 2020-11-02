@@ -14,19 +14,19 @@
                 <th style="width: 40%;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%; text-align: right;">
-                    <a class="btn btn-primary" href="/admin/feedbacks/ST${feedback.studentId}/ET${feedback.employeeId}/edit"
+                    <a class="btn btn-primary" href="/${role}/feedbacks/ST${feedback.studentId}/ET${feedback.employeeId}/edit"
                         role="button">Edit Feedback</a>
                 </td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Student ID</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%"><a href="/admin/students/ST${feedback.studentId}">ST${feedback.studentId}</a></td>
+                <td style="width: 50%"><a href="/${role}/students/ST${feedback.studentId}">ST${feedback.studentId}</a></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Teacher ID</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%"><a href="/admin/teachers/ET${feedback.employeeId}">ET${feedback.employeeId}</a></td>
+                <td style="width: 50%"><a href="/${role}/teachers/ET${feedback.employeeId}">ET${feedback.employeeId}</a></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Date & Time</th>
@@ -55,7 +55,7 @@
                 <th style="width: 40%; text-align: center;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%">
-                    <a class="btn btn-outline-success btn-sm" onclick="postRequest('/admin/feedbacks/ST${feedback.studentId}/ET${feedback.employeeId}/respond',
+                    <a class="btn btn-outline-success btn-sm" onclick="postRequest('/${role}/feedbacks/ST${feedback.studentId}/ET${feedback.employeeId}/respond',
                             {'response': $('#response').val()})" role="button">Respond</a>
                 </td>
             </tr>

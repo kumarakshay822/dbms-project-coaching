@@ -43,7 +43,7 @@
         </div>
         <div class="row mt-4 mb-4">
             <div class="col-sm-7 offset-sm-5">
-                <a class="btn btn-primary" type="button" href="/admin/students/ST${studentId}/edit-guardian">${buttonmessage}</a>
+                <a class="btn btn-primary" type="button" href="/${role}/students/ST${studentId}/edit-guardian">${buttonmessage}</a>
             </div>
         </div>
     </div>

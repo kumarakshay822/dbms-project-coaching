@@ -5,9 +5,11 @@
 <%@ include file="/WEB-INF/views/template/header.jsp" %>
 
 <div class="container-fluid custom-container">
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
     <div class="div text-right">
-        <a class="btn btn-primary" href="/admin/academics/subjects/add" role="button" >Add Subject</a>
+        <a class="btn btn-primary" href="/${role}/academics/subjects/add" role="button" >Add Subject</a>
     </div>
+    </sec:authorize>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
             <thead>
@@ -15,8 +17,8 @@
                     <th>Subject ID</th>
                     <th>Subject Name</th>
                     <th>Description</th>
-                    <th>Study Materials</th>
-                    <th>Action</th>
+                    <sec:authorize access="!hasRole('ROLE_STAFF')"><th>Study Materials</th></sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')"><th>Action</th></sec:authorize>
                 </tr>
             </thead>
             <c:forEach items="${subjects}" var="subject">
@@ -24,16 +26,20 @@
                     <td>${subject.subjectId}</td>
                     <td>${subject.subjectName}</td>
                     <td>${subject.description}</td>
-                    <td><a class="btn btn-success" href="/admin/academics/subjects/${subject.subjectId}/materials" role="button">View</a></td>
+                    <sec:authorize access="!hasRole('ROLE_STAFF')">
+                    <td><a class="btn btn-success" href="/${role}/academics/subjects/${subject.subjectId}/materials" role="button">View</a></td>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <td>
-                        <a class="btn btn-outline-success btn-sm" href="/admin/academics/subjects/${subject.subjectId}"
+                        <a class="btn btn-outline-success btn-sm" href="/${role}/academics/subjects/${subject.subjectId}"
                             role="button">View</a>
-                        <a class="btn btn-outline-primary btn-sm" href="/admin/academics/subjects/${subject.subjectId}/edit"
+                        <a class="btn btn-outline-primary btn-sm" href="/${role}/academics/subjects/${subject.subjectId}/edit"
                             role="button">Edit</a>
-                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/academics/subjects/${subject.subjectId}/delete',
+                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/${role}/academics/subjects/${subject.subjectId}/delete',
                         'Do you want to delete this Subject? \nWarning! This action is destructible!')"
                             role="button">Delete</a>
                     </td>
+                    </sec:authorize>
                 </tr>
             </c:forEach>
             <tbody>

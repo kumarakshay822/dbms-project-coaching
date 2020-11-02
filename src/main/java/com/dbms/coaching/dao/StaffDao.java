@@ -19,7 +19,7 @@ public interface StaffDao {
 
     public Staff getByUserId(int userId);
 
-    public Integer getEmployeeIdByUserId(int userId);
+    public Integer getStaffIdByUserId(int userId);
 
     public void update(Staff staff);
 

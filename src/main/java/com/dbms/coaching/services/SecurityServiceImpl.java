@@ -49,9 +49,8 @@ public class SecurityServiceImpl implements SecurityService {
     public String findLoggedInUserRole() {
         Object myUserDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (myUserDetails instanceof MyUserDetails) {
-            String role = ((MyUserDetails) myUserDetails).getUser().getRole();
-            // Convert ROLE_ABC to abc
-            return role.substring(5).toLowerCase();
+            String smallRole = ((MyUserDetails) myUserDetails).getUser().getSmallRole();
+            return smallRole;
         }
         return null;
     }

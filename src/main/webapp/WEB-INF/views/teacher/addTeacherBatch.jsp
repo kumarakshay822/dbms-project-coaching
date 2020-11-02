@@ -31,7 +31,7 @@
                     <c:forEach var="teacher" items="${teachersPresent}">
                         <div>ES${teacher.employee.employeeId} - ${teacher.employee.user.firstName} ${teacher.employee.user.middleName}
                             ${teacher.employee.user.lastName} &emsp;
-                            <a href="#" onclick="postRequest('/admin/academics/courses/${courseId}/${batchId}/delete-teacher',
+                            <a href="#" onclick="postRequest('/${role}/academics/courses/${courseId}/${batchId}/delete-teacher',
                                 {'teacherId': '${teacher.teacherId}'})"> Remove
                             </a>
                         </div>
@@ -44,7 +44,7 @@
                             ${teacher.employee.user.lastName}</option>
                         </c:forEach>
                     </select>
-                    <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/admin/academics/courses/${courseId}/${batchId}/add-teacher',
+                    <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/${role}/academics/courses/${courseId}/${batchId}/add-teacher',
                     {'teacherId': $('#teacherId').val()})" role="button">Add</a>
                     </c:if>
 
@@ -54,7 +54,7 @@
             <div class="row mt-4 mb-4">
                 <div class="col-sm-7 offset-sm-5">
                     <a class="btn btn-primary" type="button"
-                        href="/admin/academics/courses/${courseId}/${batchId}">${buttonmessage}</a>
+                        href="/${role}/academics/courses/${courseId}/${batchId}">${buttonmessage}</a>
                 </div>
             </div>
         </div>

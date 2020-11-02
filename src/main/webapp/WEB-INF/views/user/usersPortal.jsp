@@ -6,7 +6,7 @@
 
 <div class="container-fluid custom-container">
     <div class="div text-right">
-        <a class="btn btn-primary" href="/admin/students/add" role="button">Add Student</a>
+        <a class="btn btn-primary" href="/${role}/students/add" role="button">Add Student</a>
     </div>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
@@ -40,7 +40,7 @@
                         <c:if test="${user.isActive == false}"><span style="color: red;">No</span></c:if>
                     </td>
                     <td>
-                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/users/${user.userId}/delete',
+                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/${role}/users/${user.userId}/delete',
                                             'Do you want to delete this User? \nWarning! This action is destructible!')"
                         role="button">Delete</a>
                     </td>

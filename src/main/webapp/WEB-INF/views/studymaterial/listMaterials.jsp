@@ -6,7 +6,9 @@
 
 <div class="container-fluid custom-container">
     <div class="div text-right">
-        <a class="btn btn-primary" href="/admin/academics/subjects/${subjectId}/materials/add" role="button" >Add Study Material</a>
+        <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')">
+        <a class="btn btn-primary" href="/${role}/academics/subjects/${subjectId}/materials/add" role="button" >Add Study Material</a>
+        </sec:authorize>
     </div>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
@@ -18,7 +20,7 @@
                     <th>Difficulty</th>
                     <th>Description</th>
                     <th>File</th>
-                    <th>Action</th>
+                    <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')"><th>Action</th></sec:authorize>
                 </tr>
             </thead>
             <c:forEach items="${materials}" var="material" varStatus="loop">
@@ -29,15 +31,17 @@
                     <td>${material.difficulty}</td>
                     <td>${material.description}</td>
                     <td><a href="/${urls[loop.count-1]}" target="_blank">${material.filename}</a></td>
+                    <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')">
                     <td>
-                        <a class="btn btn-outline-success btn-sm" href="/admin/academics/subjects/${material.subjectId}/materials/${material.materialId}"
+                        <a class="btn btn-outline-success btn-sm" href="/${role}/academics/subjects/${material.subjectId}/materials/${material.materialId}"
                             role="button">View</a>
-                        <a class="btn btn-outline-primary btn-sm" href="/admin/academics/subjects/${material.subjectId}/materials/${material.materialId}/edit"
+                        <a class="btn btn-outline-primary btn-sm" href="/${role}/academics/subjects/${material.subjectId}/materials/${material.materialId}/edit"
                             role="button">Edit</a>
-                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/academics/subjects/${material.subjectId}/materials/${material.materialId}/delete',
+                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/${role}/academics/subjects/${material.subjectId}/materials/${material.materialId}/delete',
                         'Do you want to delete this Study Material? \nWarning! This action is destructible!')"
                             role="button">Delete</a>
                     </td>
+                    </sec:authorize>
                 </tr>
             </c:forEach>
             <tbody>

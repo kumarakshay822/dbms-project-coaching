@@ -14,7 +14,7 @@
                 <th style="width: 40%;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%; text-align: right;">
-                    <a class="btn btn-primary" href="/admin/students/ST${student.studentId}/edit-student" role="button">Edit Student</a>
+                    <a class="btn btn-primary" href="/${role}/students/ST${student.studentId}/edit-student" role="button">Edit Student</a>
                 </td>
             </tr>
             <tr>

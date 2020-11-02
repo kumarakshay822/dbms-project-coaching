@@ -37,6 +37,13 @@ public class TestDaoImpl implements TestDao {
     }
 
     @Override
+    public List<Test> getAllByStudentId(int studentId) {
+        String sql = "SELECT * FROM Test NATURAL JOIN Course NATURAL JOIN Enrollment WHERE studentId = ?";
+        List<Test> tests = template.query(sql, new Object[] { studentId }, new TestRowMapper());
+        return tests;
+    }
+
+    @Override
     public Test get(int testId) {
         try {
             String sql = "SELECT * FROM Test NATURAL JOIN Course WHERE testId = ?";

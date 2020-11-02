@@ -66,7 +66,7 @@ public class ProfileController {
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("teacher"))
             return "redirect:/profile";
-        Integer employeeId = teacherDao.getEmployeeIdByUserId(userId);
+        Integer employeeId = employeeDao.getEmployeeIdByUserId(userId);
         if (employeeId != null)
             return "redirect:/profile";
 
@@ -91,7 +91,7 @@ public class ProfileController {
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("teacher"))
             return "redirect:/profile";
-        Integer employeeId = teacherDao.getEmployeeIdByUserId(userId);
+        Integer employeeId = employeeDao.getEmployeeIdByUserId(userId);
         if (employeeId != null)
             return "redirect:/profile";
 
@@ -126,7 +126,7 @@ public class ProfileController {
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("teacher"))
             return "redirect:/profile";
-        Integer employeeId = teacherDao.getEmployeeIdByUserId(userId);
+        Integer employeeId = employeeDao.getEmployeeIdByUserId(userId);
         if (employeeId == null)
             return "redirect:/profile/teacher/add";
 
@@ -146,7 +146,7 @@ public class ProfileController {
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("teacher"))
             return "redirect:/profile";
-        Integer employeeId = teacherDao.getEmployeeIdByUserId(userId);
+        Integer employeeId = employeeDao.getEmployeeIdByUserId(userId);
         if (employeeId == null)
             return "redirect:/profile/teacher/add";
 
@@ -172,7 +172,7 @@ public class ProfileController {
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("teacher"))
             return "redirect:/profile";
-        Integer employeeId = teacherDao.getEmployeeIdByUserId(userId);
+        Integer employeeId = employeeDao.getEmployeeIdByUserId(userId);
         if (employeeId == null)
             return "redirect:/profile/teacher/add";
 
@@ -197,8 +197,9 @@ public class ProfileController {
         employee.setEmployeeId(oldTeacher.getEmployee().getEmployeeId());
         teacher.setEmployee(employee);
         teacher.setTeacherId(oldTeacher.getTeacherId());
+        teacher.setSubject(oldTeacher.getSubject());
 
-        employeeDao.update(employee);
+        employeeDao.updateOwnProfile(employee);
         teacherDao.update(teacher);
         return "redirect:/profile/teacher/edit-teacher-phone";
     }
@@ -209,7 +210,7 @@ public class ProfileController {
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("teacher"))
             return "redirect:/profile";
-        Integer employeeId = teacherDao.getEmployeeIdByUserId(userId);
+        Integer employeeId = employeeDao.getEmployeeIdByUserId(userId);
         if (employeeId == null)
             return "redirect:/profile/teacher/add";
 
@@ -230,7 +231,7 @@ public class ProfileController {
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("teacher"))
             return "redirect:/profile";
-        Integer employeeId = teacherDao.getEmployeeIdByUserId(userId);
+        Integer employeeId = employeeDao.getEmployeeIdByUserId(userId);
         if (employeeId == null)
             return "redirect:/profile/teacher/add";
 
@@ -251,7 +252,7 @@ public class ProfileController {
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("staff"))
             return "redirect:/profile";
-        Integer employeeId = staffDao.getEmployeeIdByUserId(userId);
+        Integer employeeId = employeeDao.getEmployeeIdByUserId(userId);
         if (employeeId != null)
             return "redirect:/profile";
 
@@ -273,7 +274,7 @@ public class ProfileController {
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("staff"))
             return "redirect:/profile";
-        Integer employeeId = staffDao.getEmployeeIdByUserId(userId);
+        Integer employeeId = employeeDao.getEmployeeIdByUserId(userId);
         if (employeeId != null)
             return "redirect:/profile";
 
@@ -307,7 +308,7 @@ public class ProfileController {
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("staff"))
             return "redirect:/profile";
-        Integer employeeId = staffDao.getEmployeeIdByUserId(userId);
+        Integer employeeId = employeeDao.getEmployeeIdByUserId(userId);
         if (employeeId == null)
             return "redirect:/profile/staff/add";
 
@@ -327,7 +328,7 @@ public class ProfileController {
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("staff"))
             return "redirect:/profile";
-        Integer employeeId = staffDao.getEmployeeIdByUserId(userId);
+        Integer employeeId = employeeDao.getEmployeeIdByUserId(userId);
         if (employeeId == null)
             return "redirect:/profile/staff/add";
 
@@ -350,7 +351,7 @@ public class ProfileController {
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("staff"))
             return "redirect:/profile";
-        Integer employeeId = staffDao.getEmployeeIdByUserId(userId);
+        Integer employeeId = employeeDao.getEmployeeIdByUserId(userId);
         if (employeeId == null)
             return "redirect:/profile/staff/add";
 
@@ -376,7 +377,7 @@ public class ProfileController {
         staff.setEmployee(employee);
         staff.setStaffId(oldStaff.getStaffId());
 
-        employeeDao.update(employee);
+        employeeDao.updateOwnProfile(employee);
         staffDao.update(staff);
         return "redirect:/profile/staff/edit-staff-phone";
     }
@@ -387,7 +388,7 @@ public class ProfileController {
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("staff"))
             return "redirect:/profile";
-        Integer employeeId = staffDao.getEmployeeIdByUserId(userId);
+        Integer employeeId = employeeDao.getEmployeeIdByUserId(userId);
         if (employeeId == null)
             return "redirect:/profile/staff/add";
 
@@ -408,7 +409,7 @@ public class ProfileController {
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("staff"))
             return "redirect:/profile";
-        Integer employeeId = staffDao.getEmployeeIdByUserId(userId);
+        Integer employeeId = employeeDao.getEmployeeIdByUserId(userId);
         if (employeeId == null)
             return "redirect:/profile/staff/add";
 

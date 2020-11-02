@@ -56,6 +56,20 @@ public class SubjectDaoImpl implements SubjectDao {
         return subjects;
     }
 
+    @Override
+    public List<String> getSubjectCodeByStudentId(int studentId) {
+        String sql = "SELECT DISTINCT(S.subjectId) FROM Subject S, CourseSubjectDetails CS, Enrollment E WHERE E.studentId = ? AND E.courseId = CS.courseId AND CS.subjectId = S.subjectId";
+        List<String> subjects = template.queryForList(sql, new Object[] { studentId }, String.class);
+        return subjects;
+    }
+
+    @Override
+    public String getSubjectCodeByTeacherId(int teacherId) {
+        String sql = "SELECT subjectId FROM Teacher WHERE teacherId = ?";
+        String subject = template.queryForObject(sql, new Object[] { teacherId }, String.class);
+        return subject;
+    }
+
     /**
      * Update all attributes except subjectId
      */

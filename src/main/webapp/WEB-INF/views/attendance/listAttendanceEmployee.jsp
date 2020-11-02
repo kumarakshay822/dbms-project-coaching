@@ -6,10 +6,10 @@
 
 <div class="container-fluid custom-container">
     <div class="div text-right">
-        <button class="btn btn-outline-success btn-sm ml-5" onclick="location.href='/admin/attendance/'">Get All Attendance</a>
+        <button class="btn btn-outline-success btn-sm ml-5" onclick="location.href='/${role}/attendance/'">Get All Attendance</a>
     </div>
     <div class="div text-right mt-2">
-        <a class="btn btn-primary" href="/admin/attendance/add" role="button" >Add Attendance</a>
+        <a class="btn btn-primary" href="/${role}/attendance/add" role="button" >Add Attendance</a>
     </div>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
@@ -37,10 +37,10 @@
                     <td>${attendance.remarks}</td>
                     <td>
                         <c:if test="${attendance.employee.user.role == 'ROLE_TEACHER'}">
-                            <a class="btn btn-outline-primary btn-sm" href="/admin/attendance/${attendance.date}/ET${attendance.employee.employeeId}/edit" role="button">Edit</a>
+                            <a class="btn btn-outline-primary btn-sm" href="/${role}/attendance/${attendance.date}/ET${attendance.employee.employeeId}/edit" role="button">Edit</a>
                         </c:if>
                         <c:if test="${attendance.employee.user.role == 'ROLE_STAFF'}">
-                            <a class="btn btn-outline-primary btn-sm" href="/admin/attendance/${attendance.date}/ES${attendance.employee.employeeId}/edit" role="button">Edit</a>
+                            <a class="btn btn-outline-primary btn-sm" href="/${role}/attendance/${attendance.date}/ES${attendance.employee.employeeId}/edit" role="button">Edit</a>
                         </c:if>
                     </td>
                 </tr>

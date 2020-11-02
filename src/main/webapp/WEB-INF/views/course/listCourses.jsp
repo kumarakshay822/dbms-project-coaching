@@ -5,9 +5,11 @@
 <%@ include file="/WEB-INF/views/template/header.jsp" %>
 
 <div class="container-fluid custom-container">
+    <sec:authorize access='hasRole("ROLE_ADMIN")'>
     <div class="div text-right">
-        <a class="btn btn-primary" href="/admin/academics/courses/add" role="button" >Add Course</a>
+        <a class="btn btn-primary" href="/${role}/academics/courses/add" role="button" >Add Course</a>
     </div>
+    </sec:authorize>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
             <thead>
@@ -15,7 +17,7 @@
                     <th>Course ID</th>
                     <th>Course Name</th>
                     <th>Description</th>
-                    <th>Subjects</th>
+                    <sec:authorize access='hasRole("ROLE_ADMIN")'><th>Subjects</th></sec:authorize>
                     <th>Add Subject</th>
                     <th>Action</th>
                 </tr>
@@ -30,16 +32,20 @@
                             <div>${subject.subjectName} - ${subject.subjectId}</div>
                         </c:forEach>
                     </td>
+                    <sec:authorize access='hasRole("ROLE_ADMIN")'>
                     <td>
-                        <a class="btn btn-outline-success btn-sm" href="/admin/academics/courses/${course.courseId}/add-subject"
+                        <a class="btn btn-outline-success btn-sm" href="/${role}/academics/courses/${course.courseId}/add-subject"
                             role="button">Add Subject</a>
                     </td>
+                    </sec:authorize>
                     <td>
-                        <a class="btn btn-outline-success btn-sm" href="/admin/academics/courses/${course.courseId}" role="button">View</a>
-                        <a class="btn btn-outline-primary btn-sm" href="/admin/academics/courses/${course.courseId}/edit" role="button">Edit</a>
-                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/academics/courses/${course.courseId}/delete',
+                        <a class="btn btn-outline-success btn-sm" href="/${role}/academics/courses/${course.courseId}" role="button">View</a>
+                        <sec:authorize access='hasRole("ROLE_ADMIN")'>
+                        <a class="btn btn-outline-primary btn-sm" href="/${role}/academics/courses/${course.courseId}/edit" role="button">Edit</a>
+                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/${role}/academics/courses/${course.courseId}/delete',
                         'Do you want to delete this Course? \nWarning! This action is destructible!')"
                             role="button">Delete</a>
+                        </sec:authorize>
                     </td>
                 </tr>
             </c:forEach>

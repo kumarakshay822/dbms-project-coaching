@@ -11,6 +11,10 @@ public interface BatchDao {
 
     public List<Batch> getAllByCourseId(String courseId);
 
+    public List<Batch> getAllByTeacherId(int teacherId);
+
+    public List<Batch> getAllByStaffId(int staffId);
+
     public Batch get(String batchId, String courseId);
 
     public int getFee(String batchId, String courseId);

@@ -98,9 +98,9 @@ public class StaffDaoImpl implements StaffDao {
     }
 
     @Override
-    public Integer getEmployeeIdByUserId(int userId) {
+    public Integer getStaffIdByUserId(int userId) {
         try {
-            String sql = "SELECT employeeId FROM Employee WHERE userId = ?";
+            String sql = "SELECT staffId FROM Staff NATURAL JOIN Employee NATURAL JOIN User WHERE userId = ?";
             return template.queryForObject(sql, new Object[] { userId }, Integer.class);
         } catch (EmptyResultDataAccessException e) {
             return null;

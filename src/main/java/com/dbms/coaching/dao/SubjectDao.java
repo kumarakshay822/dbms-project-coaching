@@ -15,6 +15,10 @@ public interface SubjectDao {
 
     public List<Subject> getSubjectsNotInCourse(String courseId);
 
+    public List<String> getSubjectCodeByStudentId(int studentId);
+
+    public String getSubjectCodeByTeacherId(int teacherId);
+
     public void update(Subject subject);
 
     public void delete(String subjectId);

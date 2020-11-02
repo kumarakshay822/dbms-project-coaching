@@ -14,7 +14,7 @@
                 <th style="width: 40%;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%; text-align: right;">
-                    <a class="btn btn-primary" href="/admin/complaints/${complaint.complaintId}/edit"
+                    <a class="btn btn-primary" href="/${role}/complaints/${complaint.complaintId}/edit"
                         role="button">Edit Complaint</a>
                 </td>
             </tr>
@@ -31,7 +31,7 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Student ID</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%"><a href="/admin/students/ST${complaint.studentId}">ST${complaint.studentId}</a></td>
+                <td style="width: 50%"><a href="/${role}/students/ST${complaint.studentId}">ST${complaint.studentId}</a></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Subject</th>
@@ -69,7 +69,7 @@
                         <th style="width: 40%; text-align: center;"></th>
                         <th style="width: 10%;"></th>
                         <td style="width: 50%">
-                            <a class="btn btn-outline-success btn-sm" onclick="postRequest('/admin/complaints/${complaint.complaintId}/resolve',
+                            <a class="btn btn-outline-success btn-sm" onclick="postRequest('/${role}/complaints/${complaint.complaintId}/resolve',
                                     {'response': $('#response').val()})" role="button">Resolve</a>
                         </td>
                     </tr>

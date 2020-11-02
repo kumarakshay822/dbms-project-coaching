@@ -63,6 +63,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
+    public Integer getEmployeeIdByUserId(int userId) {
+        try {
+            String sql = "SELECT employeeId FROM Employee WHERE userId = ?";
+            return template.queryForObject(sql, new Object[] { userId }, Integer.class);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
     public String getRole(int employeeId) {
         try {
             String sql = "SELECT role FROM Employee NATURAL JOIN User WHERE employeeId = ?";
@@ -82,6 +92,17 @@ public class EmployeeDaoImpl implements EmployeeDao {
         template.update(sql, employee.getBasicSalary(), employee.getJoinDate(), employee.getEndDate(),
                 employee.getPanNumber(), employee.getAccountNumber(), employee.getBankName(), employee.getBankBranch(),
                 employee.getIfscCode(), employee.getEmployeeId());
+    }
+
+    /**
+     * Update all attributes except employeeId, userId, basic salary, join date, end
+     * date
+     */
+    @Override
+    public void updateOwnProfile(Employee employee) {
+        String sql = "UPDATE Employee SET panNumber = ?, accountNumber = ?, bankName = ?, bankBranch = ?, ifscCode = ? WHERE employeeId = ?";
+        template.update(sql, employee.getPanNumber(), employee.getAccountNumber(), employee.getBankName(),
+                employee.getBankBranch(), employee.getIfscCode(), employee.getEmployeeId());
     }
 
     @Override

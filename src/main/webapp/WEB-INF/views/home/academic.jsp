@@ -5,11 +5,16 @@
 
 <div class="container">
     <ul>
-        <li><a href="/admin/academics/subjects">Subjects</a></li>
-        <li><a href="/admin/academics/courses">Courses</a></li>
-        <li><a href="/admin/academics/batches">Batches</a></li>
-        <li><a href="/admin/academics/tests">Tests and Result Portal</a></li>
-        <li><a href="/admin/academics/enrollments">Enrollment Portal</a></li>
+        <li><a href="/${role}/academics/subjects">Subjects</a></li>
+        <li><a href="/${role}/academics/courses">Courses</a></li>
+        <li><a href="/${role}/academics/batches">Batches</a></li>
+        <sec:authorize access="hasAnyRole('ROLE_TEACHER', 'ROLE_STAFF')">
+        <li><a href="/${role}/academics/batches-assigned">Batches Assigned</a></li>
+        </sec:authorize>
+        <li><a href="/${role}/academics/tests">Tests and Result Portal</a></li>
+        <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STUDENT')">
+        <li><a href="/${role}/academics/enrollments">Enrollment Portal</a></li>
+        </sec:authorize>
     </ul>
 </div>
 

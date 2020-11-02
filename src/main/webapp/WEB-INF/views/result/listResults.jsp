@@ -8,9 +8,19 @@
     <div class="div" style="text-align: center;">
         Result for Test Id: ${testId}
     </div>
+    <sec:authorize access='hasRole("ROLE_STUDENT")'>
+        <div class="div text-right">
+            <a class="btn btn-outline-primary btn-sm" href="/${role}/academics/tests/${testId}/results-recheck" role="button">Apply for Recheck / Check Status</a>
+        </div>
+    </sec:authorize>
+    <sec:authorize access='hasAnyRole("ROLE_STAFF", "ROLE_ADMIN")'>
     <div class="div text-right">
-        <a class="btn btn-primary" href="/admin/academics/tests/${testId}/results/add" role="button" >Add Result</a>
+        <a class="btn btn-outline-primary btn-sm" href="/${role}/academics/tests/${testId}/results-recheck" role="button" >Filter Rechecks</a>
     </div>
+    <div class="div text-right mt-3">
+        <a class="btn btn-primary" href="/${role}/academics/tests/${testId}/results/add" role="button" >Add Result</a>
+    </div>
+    </sec:authorize>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
             <thead>
@@ -19,24 +29,28 @@
                     <th>Student Name</th>
                     <th>Total Marks</th>
                     <th>Rank</th>
+                    <sec:authorize access='hasAnyRole("ROLE_STAFF", "ROLE_ADMIN")'>
                     <th>Action</th>
+                    </sec:authorize>
                 </tr>
             </thead>
             <c:forEach items="${results}" var="result">
-                <tr>
+                <tr <c:if test="${result.student.user.userId == pageContext.request.userPrincipal.principal.user.userId}">class="table-success"</c:if>>
                     <td>ST${result.student.studentId}</td>
                     <td>${result.student.user.firstName} ${result.student.user.middleName} ${result.student.user.lastName}</td>
                     <td>${result.marksScored}</td>
                     <td>${marksToRank[result.marksScored]}</td>
+                    <sec:authorize access='hasAnyRole("ROLE_STAFF", "ROLE_ADMIN")'>
                     <td>
-                        <a class="btn btn-outline-success btn-sm" href="/admin/academics/tests/${testId}/results/ST${result.student.studentId}"
+                        <a class="btn btn-outline-success btn-sm" href="/${role}/academics/tests/${testId}/results/ST${result.student.studentId}"
                             role="button">View</a>
-                        <a class="btn btn-outline-primary btn-sm" href="/admin/academics/tests/${testId}/results/ST${result.student.studentId}/edit"
+                        <a class="btn btn-outline-primary btn-sm" href="/${role}/academics/tests/${testId}/results/ST${result.student.studentId}/edit"
                             role="button">Edit</a>
-                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/academics/tests/${testId}/results/ST${result.student.studentId}/delete',
+                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/${role}/academics/tests/${testId}/results/ST${result.student.studentId}/delete',
                         'Do you want to delete this Result? \nWarning! This action is destructible!')"
                             role="button">Delete</a>
                     </td>
+                    </sec:authorize>
                 </tr>
             </c:forEach>
             <tbody>

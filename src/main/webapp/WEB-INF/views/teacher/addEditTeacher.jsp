@@ -59,6 +59,7 @@
                     </td>
                 </tr>
                 </sec:authorize>
+                <c:if test="${edit != true}">
                 <tr>
                     <th style="width: 40%; text-align: center;">Subject</th>
                     <th style="width: 10%;"></th>
@@ -71,6 +72,7 @@
                         <form:errors path="gender" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                </c:if>
                 <tr>
                     <th style="width: 40%; text-align: center;">Gender</th>
                     <th style="width: 10%;"></th>

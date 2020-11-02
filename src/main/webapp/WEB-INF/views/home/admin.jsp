@@ -5,15 +5,15 @@
 
 <div class="container">
     <ul>
-        <li><a href="/admin/users">All Users</a></li>
-        <li><a href="/admin/academics">Academic Portal</a></li>
-        <li><a href="/admin/students">Student Portal</a></li>
-        <li><a href="/admin/staffs">Staff Portal</a></li>
-        <li><a href="/admin/teachers">Teacher Portal</a></li>
-        <li><a href="/admin/payroll">Payroll Management</a></li>
-        <li><a href="/admin/attendance">Attendance Management</a></li>
-        <li><a href="/admin/complaints">Complaints Portal</a></li>
-        <li><a href="/admin/feedbacks">Feedback Portal</a></li>
+        <li><a href="/${role}/users">All Users</a></li>
+        <li><a href="/${role}/academics">Academic Portal</a></li>
+        <li><a href="/${role}/students">Student Portal</a></li>
+        <li><a href="/${role}/staffs">Staff Portal</a></li>
+        <li><a href="/${role}/teachers">Teacher Portal</a></li>
+        <li><a href="/${role}/payroll">Payroll Management</a></li>
+        <li><a href="/${role}/attendance">Attendance Management</a></li>
+        <li><a href="/${role}/complaints">Complaints Portal</a></li>
+        <li><a href="/${role}/feedbacks">Feedback Portal</a></li>
     </ul>
 </div>
 

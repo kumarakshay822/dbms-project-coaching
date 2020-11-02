@@ -19,7 +19,7 @@ public interface TeacherDao {
 
     public Teacher getByUserId(int userId);
 
-    public Integer getEmployeeIdByUserId(int userId);
+    public Integer getTeacherIdByUserId(int userId);
 
     public void update(Teacher teacher);
 

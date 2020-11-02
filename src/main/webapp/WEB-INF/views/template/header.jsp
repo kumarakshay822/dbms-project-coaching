@@ -2,6 +2,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="role">${pageContext.request.userPrincipal.principal.user.smallRole}</c:set>
+
 <!doctype html>
 <html lang="en">
 
@@ -38,6 +40,21 @@
                         <sec:authorize access="hasRole('ROLE_ADMIN')">
                             <li class="nav-item mr-2">
                                 <a class="nav-link" href="/admin">Admin</a>
+                            </li>
+                        </sec:authorize>
+                        <sec:authorize access="hasRole('ROLE_STUDENT')">
+                            <li class="nav-item mr-2">
+                                <a class="nav-link" href="/student">Student</a>
+                            </li>
+                        </sec:authorize>
+                        <sec:authorize access="hasRole('ROLE_STAFF')">
+                            <li class="nav-item mr-2">
+                                <a class="nav-link" href="/staff">Staff</a>
+                            </li>
+                        </sec:authorize>
+                        <sec:authorize access="hasRole('ROLE_TEACHER')">
+                            <li class="nav-item mr-2">
+                                <a class="nav-link" href="/teacher">Teacher</a>
                             </li>
                         </sec:authorize>
                         <li class="nav-item mr-2">
@@ -97,7 +114,9 @@
     <div class="jumbotron">
         <div class="container">
             <h4>${title}</h4>
-            ${message}
+            <h4>${error} ${status}</h4>
+            <div>${message}</div>
+            <div>${timestamp}</div>
         </div>
         <c:if test="${pageContext.request.userPrincipal.principal.user.isActive == false}">
             <div class="container" style="color: red;">

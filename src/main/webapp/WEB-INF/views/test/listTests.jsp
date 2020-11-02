@@ -5,9 +5,11 @@
 <%@ include file="/WEB-INF/views/template/header.jsp" %>
 
 <div class="container-fluid custom-container">
+    <sec:authorize access='hasAnyRole("ROLE_STAFF", "ROLE_ADMIN")'>
     <div class="div text-right">
-        <a class="btn btn-primary" href="/admin/academics/tests/add" role="button" >Add Test</a>
+        <a class="btn btn-primary" href="/${role}/academics/tests/add" role="button" >Add Test</a>
     </div>
+    </sec:authorize>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
             <thead>
@@ -22,7 +24,7 @@
                     <th>Maximum Marks</th>
                     <th>Difficulty</th>
                     <th>Result</th>
-                    <th>Action</th>
+                    <sec:authorize access='hasAnyRole("ROLE_STAFF", "ROLE_ADMIN")'><th>Action</th></sec:authorize>
                 </tr>
             </thead>
             <c:forEach items="${tests}" var="test">
@@ -36,16 +38,18 @@
                     <td>${test.endTime}</td>
                     <td>${test.maximumMarks}</td>
                     <td>${test.difficulty}</td>
-                    <td><a class="btn btn-success" href="/admin/academics/tests/${test.testId}/results" role="button">View</a></td>
+                    <td><a class="btn btn-success" href="/${role}/academics/tests/${test.testId}/results" role="button">View</a></td>
+                    <sec:authorize access='hasAnyRole("ROLE_STAFF", "ROLE_ADMIN")'>
                     <td>
-                        <a class="btn btn-outline-success btn-sm" href="/admin/academics/tests/${test.testId}"
+                        <a class="btn btn-outline-success btn-sm" href="/${role}/academics/tests/${test.testId}"
                             role="button">View</a>
-                        <a class="btn btn-outline-primary btn-sm" href="/admin/academics/tests/${test.testId}/edit"
+                        <a class="btn btn-outline-primary btn-sm" href="/${role}/academics/tests/${test.testId}/edit"
                             role="button">Edit</a>
-                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/academics/tests/${test.testId}/delete',
+                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/${role}/academics/tests/${test.testId}/delete',
                         'Do you want to delete this Test? \nWarning! This action is destructible!')"
                             role="button">Delete</a>
                     </td>
+                    </sec:authorize>
                 </tr>
             </c:forEach>
             <tbody>

@@ -48,6 +48,12 @@ public class CourseDaoImpl implements CourseDao {
         }
     }
 
+    @Override
+    public List<String> getCourseIdByStudentId(int studentId) {
+        String sql = "SELECT DISTINCT(courseId) FROM Enrollment WHERE studentId = ?";
+        return template.queryForList(sql, new Object[] { studentId }, String.class);
+    }
+
     /**
      * Update all attributes except courseId
      */

@@ -8,7 +8,7 @@
     <div class="row justify-content-center mb-3">
         <h2>${submessage1}</h2>
     </div>
-    <c:if test="${normal == true}">
+    <c:if test="${fullenrollment == true}">
     <div class="div text-right">
         <select id="courseSelect">
             <c:forEach var="course" items="${courses}">
@@ -22,7 +22,7 @@
                 ${course.courseId} - ${course.courseName}
             </option>
         </select>
-        <button id="enrollment" class="btn btn-outline-success btn-sm ml-3">Add Enrollment</a>
+        <button id="enrollment" class="btn btn-primary btn ml-3">Add Enrollment</a>
     </div>
     </c:if>
     <div class="table-responsive">
@@ -35,25 +35,33 @@
                     <th>Batch ID</th>
                     <th>Join Date</th>
                     <th>End Date</th>
+                    <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STAFF', 'ROLE_STUDENT')">
                     <th>Action</th>
+                    </sec:authorize>
                 </tr>
             </thead>
             <c:forEach items="${enrollments}" var="enrollment">
                 <tr>
                     <td>${enrollment.enrollmentId}</td>
-                    <td><a href="/admin/students/ST${enrollment.studentId}">ST${enrollment.studentId}</a></td>
-                    <td><a href="/admin/academics/courses/${enrollment.courseId}">${enrollment.courseId}</a></td>
-                    <td><a href="/admin/academics/courses/${enrollment.courseId}/${enrollment.batchId}">${enrollment.batchId}</a></td>
+                    <td><a href="/${role}/students/ST${enrollment.studentId}">ST${enrollment.studentId}</a></td>
+                    <td><a href="/${role}/academics/courses/${enrollment.courseId}">${enrollment.courseId}</a></td>
+                    <td><a href="/${role}/academics/courses/${enrollment.courseId}/${enrollment.batchId}">${enrollment.batchId}</a></td>
                     <td>${enrollment.joinDate}</td>
                     <td>${enrollment.endDate}</td>
                     <td>
-                        <a class="btn btn-outline-success btn-sm" href="/admin/academics/enrollments/${enrollment.enrollmentId}"
+                        <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STAFF', 'ROLE_STUDENT')">
+                        <a class="btn btn-outline-success btn-sm" href="/${role}/academics/enrollments/${enrollment.enrollmentId}"
                             role="button">View</a>
-                        <a class="btn btn-outline-primary btn-sm" href="/admin/academics/enrollments/${enrollment.enrollmentId}/edit"
+                        </sec:authorize>
+                        <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STAFF')">
+                        <a class="btn btn-outline-primary btn-sm" href="/${role}/academics/enrollments/${enrollment.enrollmentId}/edit"
                             role="button">Edit</a>
-                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/academics/enrollments/${enrollment.enrollmentId}/delete',
+                        </sec:authorize>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/${role}/academics/enrollments/${enrollment.enrollmentId}/delete',
                         'Do you want to delete this Enrollment? \nWarning! This action is destructible!')"
                             role="button">Delete</a>
+                        </sec:authorize>
                     </td>
                 </tr>
             </c:forEach>
@@ -63,15 +71,16 @@
     </div>
 </div>
 
+<c:if test="${fullenrollment == true}">
 <script src="/js/jquery-3.5.1.min.js"></script>
 <script>
     $("#enrollment").click(function () {
-        location.href = "/admin/academics/courses/" + $('#courseSelect').val() + "/" + $('#batchSelect').val() + "/enrollments/add";
+        location.href = "/${role}/academics/courses/" + $('#courseSelect').val() + "/" + $('#batchSelect').val() + "/enrollments/add";
     });
     function courseSelectOnChange() {
         var courseId = $("#courseSelect").val();
         var data = {};
-        var url = "/admin/academics/courses/" + courseId + "/get-all-batches";
+        var url = "/${role}/academics/courses/" + courseId + "/get-all-batches";
         $.ajax({
             url: url,
             type: "post",
@@ -91,8 +100,7 @@
         courseSelectOnChange();
         $("#courseSelect").change(courseSelectOnChange);
     });
-
-
 </script>
+</c:if>
 
 <%@ include file="/WEB-INF/views/template/footer.jsp" %>

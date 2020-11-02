@@ -95,9 +95,9 @@ public class TeacherDaoImpl implements TeacherDao {
     }
 
     @Override
-    public Integer getEmployeeIdByUserId(int userId) {
+    public Integer getTeacherIdByUserId(int userId) {
         try {
-            String sql = "SELECT employeeId FROM Employee WHERE userId = ?";
+            String sql = "SELECT teacherId FROM Teacher NATURAL JOIN Employee NATURAL JOIN User WHERE userId = ?";
             return template.queryForObject(sql, new Object[] { userId }, Integer.class);
         } catch (EmptyResultDataAccessException e) {
             return null;

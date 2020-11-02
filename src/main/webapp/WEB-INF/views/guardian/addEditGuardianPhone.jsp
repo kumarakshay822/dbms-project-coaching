@@ -30,14 +30,14 @@
                 <div class="col-sm-7">
                     <c:forEach var="phoneNumber" items="${phoneNumbers}">
                         <div>${phoneNumber.phoneNumber} &emsp;
-                            <a href="#" onclick="postRequest('/admin/students/ST${studentId}/delete-guardian-phone',
+                            <a href="#" onclick="postRequest('/${role}/students/ST${studentId}/delete-guardian-phone',
                             {'phoneNumber': '${phoneNumber.phoneNumber}','name': '${phoneNumber.name}'})"> Remove
                             </a>
                         </div>
                     </c:forEach>
 
                     <input type="text" id="phoneNumber">
-                    <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/admin/students/ST${studentId}/add-guardian-phone',
+                    <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/${role}/students/ST${studentId}/add-guardian-phone',
                     {'phoneNumber': $('#phoneNumber').val(), 'name': '${guardian.name}'})" role="button">Add</a>
                     <div id="error" style="color: red;"></div>
                 </div>
@@ -45,7 +45,7 @@
             <div class="row mt-4 mb-4">
                 <div class="col-sm-7 offset-sm-5">
                     <a class="btn btn-primary" type="button"
-                        href="/admin/students/ST${guardian.studentId}">${buttonmessage}</a>
+                        href="/${role}/students/ST${guardian.studentId}">${buttonmessage}</a>
                 </div>
             </div>
         </div>

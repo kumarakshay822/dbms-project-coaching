@@ -14,14 +14,18 @@
                 <th style="width: 40%;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%; text-align: right;">
-                    <a class="btn btn-success" href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/enrollments/add"
+                    <sec:authorize access='hasAnyRole("ROLE_ADMIN", "ROLE_STUDENT")'>
+                    <a class="btn btn-success" href="/${role}/academics/courses/${batch.course.courseId}/${batch.batchId}/enrollments/add"
                         role="button">Enroll</a>
-                    <a class="btn btn-primary" href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/enrollments"
+                    </sec:authorize>
+                    <sec:authorize access='hasRole("ROLE_ADMIN")'>
+                    <a class="btn btn-primary" href="/${role}/academics/courses/${batch.course.courseId}/${batch.batchId}/enrollments"
                         role="button">View Students</a>
-                    <a class="btn btn-primary" href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/edit"
+                    <a class="btn btn-primary" href="/${role}/academics/courses/${batch.course.courseId}/${batch.batchId}/edit"
                         role="button">Edit Batch</a>
-                </td>
-            </tr>
+                    </sec:authorize>
+                    </td>
+                </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Batch ID</th>
                 <th style="width: 10%;"></th>
@@ -62,10 +66,12 @@
             <hr>
             <h5>Staffs</h5>
         </div>
+        <sec:authorize access='hasRole("ROLE_ADMIN")'>
         <div class="col-12" style="text-align: right;">
-            <a class="btn btn-primary" href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/add-staff"
+            <a class="btn btn-primary" href="/${role}/academics/courses/${batch.course.courseId}/${batch.batchId}/add-staff"
                 role="button">Add / Edit Staff</a>
         </div>
+        </sec:authorize>
         <table class="table table-hover mt-4">
             <thead>
                 <tr>
@@ -75,7 +81,7 @@
             </thead>
             <c:forEach items="${staffs}" var="staff">
                 <tr>
-                    <td><a href="/admin/staffs/ES${staff.employee.employeeId}">ES${staff.employee.employeeId}</a></td>
+                    <td><a href="/${role}/staffs/ES${staff.employee.employeeId}">ES${staff.employee.employeeId}</a></td>
                     <td>${staff.employee.user.firstName} ${staff.employee.user.middleName} ${staff.employee.user.lastName}</td>
                 </tr>
             </c:forEach>
@@ -86,10 +92,12 @@
             <hr>
             <h5>Teachers</h5>
         </div>
+        <sec:authorize access='hasRole("ROLE_ADMIN")'>
         <div class="col-12" style="text-align: right;">
-            <a class="btn btn-primary" href="/admin/academics/courses/${batch.course.courseId}/${batch.batchId}/add-teacher"
+            <a class="btn btn-primary" href="/${role}/academics/courses/${batch.course.courseId}/${batch.batchId}/add-teacher"
                 role="button">Add / Edit Teacher</a>
         </div>
+        </sec:authorize>
         <table class="table table-hover mt-4">
             <thead>
                 <tr>
@@ -99,7 +107,7 @@
             </thead>
             <c:forEach items="${teachers}" var="teacher">
                 <tr>
-                    <td><a href="/admin/teachers/ET${teacher.employee.employeeId}">ET${teacher.employee.employeeId}</a></td>
+                    <td><a href="/${role}/teachers/ET${teacher.employee.employeeId}">ET${teacher.employee.employeeId}</a></td>
                     <td>${teacher.employee.user.firstName} ${teacher.employee.user.middleName} ${teacher.employee.user.lastName}</td>
                 </tr>
             </c:forEach>

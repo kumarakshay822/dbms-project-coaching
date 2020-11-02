@@ -14,7 +14,7 @@
                 <th style="width: 40%;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%; text-align: right;">
-                    <a class="btn btn-primary" href="/admin/payroll/${payroll.paymentRefNo}/edit"
+                    <a class="btn btn-primary" href="/${role}/payroll/${payroll.paymentRefNo}/edit"
                         role="button">Edit Payroll</a>
                 </td>
             </tr>
@@ -28,13 +28,13 @@
                 <th style="width: 10%;"></th>
                 <td style="width: 50%">
                     <c:if test="${payroll.employee.user.role == 'ROLE_TEACHER'}">
-                        <a href="/admin/teachers/ET${payroll.employee.employeeId}">
+                        <a href="/${role}/teachers/ET${payroll.employee.employeeId}">
                             ET${payroll.employee.employeeId} - ${payroll.employee.user.firstName} ${payroll.employee.user.middleName}
                             ${payroll.employee.user.lastName}
                         </a>
                     </c:if>
                     <c:if test="${payroll.employee.user.role == 'ROLE_STAFF'}">
-                        <a href="/admin/staffs/ES${payroll.employee.employeeId}">
+                        <a href="/${role}/staffs/ES${payroll.employee.employeeId}">
                             ES${payroll.employee.employeeId} - ${payroll.employee.user.firstName} ${payroll.employee.user.middleName}
                             ${payroll.employee.user.lastName}
                         </a>

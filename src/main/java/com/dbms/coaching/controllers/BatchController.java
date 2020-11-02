@@ -12,6 +12,7 @@ import com.dbms.coaching.models.Batch;
 import com.dbms.coaching.models.Course;
 import com.dbms.coaching.models.Staff;
 import com.dbms.coaching.models.Teacher;
+import com.dbms.coaching.services.SecurityService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,13 +46,36 @@ public class BatchController {
     @Autowired
     private TeacherBatchDao teacherBatchDao;
 
-    @GetMapping("/admin/academics/batches")
+    @Autowired
+    private SecurityService securityService;
+
+    @GetMapping({ "/admin/academics/batches", "/student/academics/batches", "/staff/academics/batches",
+            "/teacher/academics/batches" })
     public String listBatches(Model model) {
         model.addAttribute("title", "Academic Portal - Batches");
         model.addAttribute("message", "View all the batches");
         List<Batch> batches = batchDao.getAll();
         model.addAttribute("batches", batches);
         return "batch/listBatches";
+    }
+
+    @GetMapping({ "/staff/academics/batches-assigned", "/teacher/academics/batches-assigned" })
+    public String listBatchesAssigned(Model model) {
+        model.addAttribute("title", "Academic Portal - Batches Assigned");
+        model.addAttribute("message", "View all the batches assigned to you");
+        List<Batch> batches;
+        int userId = securityService.findLoggedInUserId();
+        String role = securityService.findLoggedInUserRole();
+        if (role.equals("teacher")) {
+            int teacherId = teacherDao.getTeacherIdByUserId(userId);
+            batches = batchDao.getAllByTeacherId(teacherId);
+        }
+        else {
+            int staffId = staffDao.getStaffIdByUserId(userId);
+            batches = batchDao.getAllByStaffId(staffId);
+        }
+        model.addAttribute("batches", batches);
+        return "batch/listBatchesAssigned";
     }
 
     @GetMapping("/admin/academics/batches/add")
@@ -118,7 +142,8 @@ public class BatchController {
         return "redirect:/admin/academics/courses/" + courseId;
     }
 
-    @GetMapping("/admin/academics/courses/{courseId}/{batchId}")
+    @GetMapping({ "/admin/academics/courses/{courseId}/{batchId}", "/student/academics/courses/{courseId}/{batchId}",
+            "/staff/academics/courses/{courseId}/{batchId}", "/teacher/academics/courses/{courseId}/{batchId}" })
     public String viewBatch(@PathVariable("courseId") String courseId, @PathVariable("batchId") String batchId, Model model) {
         model.addAttribute("title", "Academic Portal - Batches");
         model.addAttribute("message", "View Batch");

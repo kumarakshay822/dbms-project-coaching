@@ -6,7 +6,7 @@
 
 <div class="container-fluid custom-container">
     <div class="div text-right">
-        <a class="btn btn-primary" href="/admin/staffs/add" role="button" >Add Staff</a>
+        <a class="btn btn-primary" href="/${role}/staffs/add" role="button" >Add Staff</a>
     </div>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
@@ -25,7 +25,7 @@
             </thead>
             <c:forEach items="${staffs}" var="staff">
                 <tr>
-                    <td><a href="/admin/staffs/ES${staff.employee.employeeId}">ES${staff.employee.employeeId}</a></td>
+                    <td><a href="/${role}/staffs/ES${staff.employee.employeeId}">ES${staff.employee.employeeId}</a></td>
                     <td>${staff.employee.user.firstName} ${staff.employee.user.middleName} ${staff.employee.user.lastName}</td>
                     <td>${staff.gender}</td>
                     <td>
@@ -40,14 +40,14 @@
                         <c:choose>
                             <c:when test="${staff.employee.user.isActive == true}">Yes</c:when>
                             <c:otherwise><a class="btn btn-outline-success btn-sm"
-                                    onclick="getRequest('/admin/users/${staff.employee.user.userId}/activate')" role="button">Activate</a>
+                                    onclick="getRequest('/${role}/users/${staff.employee.user.userId}/activate')" role="button">Activate</a>
                             </c:otherwise>
                         </c:choose>
                     </td>
                     <td>
-                        <a class="btn btn-outline-primary btn-sm" href="/admin/staffs/ES${staff.employee.employeeId}/edit-staff"
+                        <a class="btn btn-outline-primary btn-sm" href="/${role}/staffs/ES${staff.employee.employeeId}/edit-staff"
                             role="button">Edit</a>
-                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/admin/users/${staff.employee.user.userId}/delete',
+                        <a class="btn btn-outline-danger btn-sm" onclick="getRequestWithConfirmation('/${role}/users/${staff.employee.user.userId}/delete',
                         'Do you want to delete this User? \nWarning! This action is destructible!')"
                             role="button">Delete</a>
                     </td>

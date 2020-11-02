@@ -13,6 +13,8 @@ public interface StudentDao {
 
     public Student getByUserId(int userId);
 
+    public Integer getStudentIdByUserId(int userId);
+
     public void update(Student student);
 
     public void delete(int studentId);
