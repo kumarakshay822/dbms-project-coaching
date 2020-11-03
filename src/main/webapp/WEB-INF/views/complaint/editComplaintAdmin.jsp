@@ -47,29 +47,32 @@
                 <tr>
                     <th style="width: 40%; text-align: center;">Subject</th>
                     <th style="width: 10%;"></th>
-                    <td style="width: 50%">
-                        <form:input type="text" path="subject" class="form-control" required="true"></form:input>
-                        <form:errors path="subject" style="color: red;"></form:errors>
-                    <td>
+                    <td style="width: 50%">${complaint.subject}<td>
                 </tr>
                 <tr>
                     <th style="width: 40%; text-align: center;">Description</th>
                     <th style="width: 10%;"></th>
-                    <td style="width: 50%">
-                        <form:input type="text" path="description" class="form-control" required="true"></form:input>
-                        <form:errors path="description" style="color: red;"></form:errors>
-                    <td>
+                    <td style="width: 50%">${complaint.description}<td>
                 </tr>
                 <c:if test="${edit == true}">
                 <tr>
                     <th style="width: 40%; text-align: center;">Response</th>
                     <th style="width: 10%;"></th>
-                    <td style="width: 50%">${complaint.response}<td>
+                    <td style="width: 50%">
+                        <form:input type="text" path="response" class="form-control" required="true"></form:input>
+                        <form:errors path="response" style="color: red;"></form:errors>
+                    <td>
                 </tr>
                 <tr>
                     <th style="width: 40%; text-align: center;">Resolved?</th>
                     <th style="width: 10%;"></th>
-                    <td style="width: 50%">${complaint.isResolved}</td>
+                    <td style="width: 50%">
+                        <form:select class="form-control" path="isResolved" required="true">
+                            <form:option value="1">Yes</form:option>
+                            <form:option value="0">No</form:option>
+                        </form:select>
+                        <form:errors path="isResolved" style="color: red;"></form:errors>
+                    <td>
                 </tr>
                 </c:if>
                 <tr>

@@ -10,6 +10,7 @@
     </div>
     <div class="row shadow bg-white rounded" style="border: 1px solid whitesmoke; padding: 0 40px;">
         <table class="table table-borderless mt-4">
+            <c:if test="${role == 'admin' || (complaint.isResolved == false && role == 'student')}">
             <tr>
                 <th style="width: 40%;"></th>
                 <th style="width: 10%;"></th>
@@ -18,6 +19,7 @@
                         role="button">Edit Complaint</a>
                 </td>
             </tr>
+            </c:if>
             <tr>
                 <th style="width: 40%; text-align: center;">Complaint ID</th>
                 <th style="width: 10%;"></th>
@@ -43,38 +45,16 @@
                 <th style="width: 10%;"></th>
                 <td style="width: 50%">${complaint.description}</td>
             </tr>
-            <c:choose>
-                <c:when test="${complaint.isResolved == true}">
-                    <tr>
-                        <th style="width: 40%; text-align: center;">Response</th>
-                        <th style="width: 10%;"></th>
-                        <td style="width: 50%">${complaint.response}</td>
-                    </tr>
-                    <tr>
-                        <th style="width: 40%; text-align: center;">Resolved?</th>
-                        <th style="width: 10%;"></th>
-                        <td style="width: 50%">Yes</td>
-                    </tr>
-                </c:when>
-                <c:otherwise>
-                    <tr>
-                        <th style="width: 40%; text-align: center;">Response</th>
-                        <th style="width: 10%;"></th>
-                        <td style="width: 50%">
-                            <input type="text" id="response" class="form-control">
-                            <div id="error" style="color: red;"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style="width: 40%; text-align: center;"></th>
-                        <th style="width: 10%;"></th>
-                        <td style="width: 50%">
-                            <a class="btn btn-outline-success btn-sm" onclick="postRequest('/${role}/complaints/${complaint.complaintId}/resolve',
-                                    {'response': $('#response').val()})" role="button">Resolve</a>
-                        </td>
-                    </tr>
-                </c:otherwise>
-            </c:choose>
+            <tr>
+                <th style="width: 40%; text-align: center;">Response</th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%">${complaint.response}</td>
+            </tr>
+            <tr>
+                <th style="width: 40%; text-align: center;">Resolved?</th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%">${complaint.isResolved}</td>
+            </tr>
         </table>
     </div>
 </div>

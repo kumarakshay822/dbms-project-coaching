@@ -28,10 +28,10 @@ public class FeedbackDaoImpl implements FeedbackDao {
     }
 
     @Override
-    public Feedback get(int studentId, int employeeId) {
+    public Feedback get(int feedbackId) {
         try {
-            String sql = "SELECT * FROM Feedback WHERE studentId = ? AND employeeId = ?";
-            Feedback feedback = template.queryForObject(sql, new Object[] { studentId, employeeId },
+            String sql = "SELECT * FROM Feedback WHERE feedbackId = ?";
+            Feedback feedback = template.queryForObject(sql, new Object[] { feedbackId },
                     new BeanPropertyRowMapper<>(Feedback.class));
             return feedback;
         } catch (EmptyResultDataAccessException e) {
@@ -63,9 +63,9 @@ public class FeedbackDaoImpl implements FeedbackDao {
     }
 
     @Override
-    public void respond(int studentId, int employeeId, String response) {
-        String sql = "UPDATE Feedback SET response = ? WHERE studentId = ? AND employeeId = ?";
-        template.update(sql, response, studentId, employeeId);
+    public void respond(int feedbackId, String response) {
+        String sql = "UPDATE Feedback SET response = ? WHERE feedbackId = ?";
+        template.update(sql, response, feedbackId);
     }
 
     /**
@@ -73,15 +73,14 @@ public class FeedbackDaoImpl implements FeedbackDao {
      */
     @Override
     public void update(Feedback feedback) {
-        String sql = "UPDATE Feedback SET subject = ?, message = ?, response = ? WHERE studentId = ? AND employeeId = ?";
-        template.update(sql, feedback.getSubject(), feedback.getMessage(), feedback.getResponse(),
-                feedback.getStudentId(), feedback.getEmployeeId());
+        String sql = "UPDATE Feedback SET subject = ?, message = ?, response = ? WHERE feedbackId = ?";
+        template.update(sql, feedback.getSubject(), feedback.getMessage(), feedback.getResponse(), feedback.getFeedbackId());
     }
 
     @Override
-    public void delete(int studentId, int employeeId) {
-        String sql = "DELETE FROM Feedback WHERE studentId = ? AND employeeId = ?";
-        template.update(sql, studentId, employeeId);
+    public void delete(int feedbackId) {
+        String sql = "DELETE FROM Feedback WHERE feedbackId = ?";
+        template.update(sql, feedbackId);
     }
 
 }

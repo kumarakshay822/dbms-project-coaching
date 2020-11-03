@@ -37,10 +37,12 @@
                     <td>${attendance.remarks}</td>
                     <td>
                         <c:if test="${attendance.employee.user.role == 'ROLE_TEACHER'}">
-                            <a class="btn btn-outline-success btn-sm" href="/${role}/attendance/ET${attendance.employee.employeeId}" role="button">View</a>
+                            <a class="btn btn-outline-primary btn-sm" href='/${role}/attendance/<%= request.getParameter("date") %>/ET${attendance.employee.employeeId}/edit' role="button">Edit</a>
+                            <a class="btn btn-outline-success btn-sm" href='/${role}/attendance/ET${attendance.employee.employeeId}' role="button">View All</a>
                         </c:if>
                         <c:if test="${attendance.employee.user.role == 'ROLE_STAFF'}">
-                            <a class="btn btn-outline-success btn-sm" href="/${role}/attendance/ES${attendance.employee.employeeId}" role="button">View</a>
+                            <a class="btn btn-outline-primary btn-sm" href='/${role}/attendance/<%= request.getParameter("date") %>/ES${attendance.employee.employeeId}/edit' role="button">Edit</a>
+                            <a class="btn btn-outline-success btn-sm" href='/${role}/attendance/ES${attendance.employee.employeeId}' role="button">View All</a>
                         </c:if>
                     </td>
                 </tr>

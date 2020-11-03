@@ -60,13 +60,21 @@ public class ComplaintDaoImpl implements ComplaintDao {
     }
 
     /**
-     * Update all attributes except complaintId, studentId, date and time
+     * Update the subject and description of complaint
      */
     @Override
-    public void update(Complaint complaint) {
-        String sql = "UPDATE Complaint SET subject = ?, description = ?, response = ?, isResolved = ? WHERE complaintId = ?";
-        template.update(sql, complaint.getSubject(), complaint.getDescription(), complaint.getResponse(),
-                complaint.isIsResolved(), complaint.getComplaintId());
+    public void updateStudent(Complaint complaint) {
+        String sql = "UPDATE Complaint SET subject = ?, description = ? WHERE complaintId = ?";
+        template.update(sql, complaint.getSubject(), complaint.getDescription(), complaint.getComplaintId());
+    }
+
+    /**
+     * Response and isResolved of complaint
+     */
+    @Override
+    public void updateAdmin(Complaint complaint) {
+        String sql = "UPDATE Complaint SET response = ?, isResolved = ? WHERE complaintId = ?";
+        template.update(sql, complaint.getResponse(), complaint.isIsResolved(), complaint.getComplaintId());
     }
 
     @Override

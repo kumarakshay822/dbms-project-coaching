@@ -2,16 +2,18 @@ package com.dbms.coaching.controllers;
 
 import java.util.List;
 
+import com.dbms.coaching.dao.EmployeeDao;
 import com.dbms.coaching.dao.FeedbackDao;
 import com.dbms.coaching.dao.StudentDao;
 import com.dbms.coaching.dao.TeacherDao;
 import com.dbms.coaching.models.Feedback;
-import com.dbms.coaching.models.Student;
 import com.dbms.coaching.models.Teacher;
+import com.dbms.coaching.services.SecurityService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,110 +34,107 @@ public class FeedbackController {
     @Autowired
     private TeacherDao teacherDao;
 
-    @GetMapping("/admin/feedbacks")
+    @Autowired
+    private EmployeeDao employeeDao;
+
+    @Autowired
+    private SecurityService securityService;
+
+    public void checkFeedbackBelongingToStudent(int feedbackId) {
+        int userId = securityService.findLoggedInUserId();
+        String role = securityService.findLoggedInUserRole();
+        if (role.equals("student")) {
+            int studentId = studentDao.getStudentIdByUserId(userId);
+            Feedback feedback = feedbackDao.get(feedbackId);
+            if (feedback.getStudentId() != studentId)
+                throw new AccessDeniedException("This feedback is not given by you");
+        }
+    }
+
+    public void checkFeedbackBelongingToTeacher(int feedbackId) {
+        int userId = securityService.findLoggedInUserId();
+        String role = securityService.findLoggedInUserRole();
+        if (role.equals("teacher")) {
+            int employeeId = employeeDao.getEmployeeIdByUserId(userId);
+            Feedback feedback = feedbackDao.get(feedbackId);
+            if (feedback.getEmployeeId() != employeeId)
+                throw new AccessDeniedException("This feedback is not given to you");
+        }
+    }
+
+    @GetMapping({ "/admin/feedbacks", "/student/feedbacks", "/teacher/feedbacks"  })
     public String listFeedbacks(Model model) {
+        int userId = securityService.findLoggedInUserId();
+        String role = securityService.findLoggedInUserRole();
         model.addAttribute("title", "Feedback Portal");
         model.addAttribute("message", "View all the feedbacks");
-        List<Feedback> feedbacks = feedbackDao.getAll();
+        List<Feedback> feedbacks;
+        if (role.equals("student")) {
+            int studentId = studentDao.getStudentIdByUserId(userId);
+            feedbacks = feedbackDao.getAllByStudentId(studentId);
+        } else if (role.equals("teacher")) {
+            int employeeId = employeeDao.getEmployeeIdByUserId(userId);
+            feedbacks = feedbackDao.getAllByEmployeeId(employeeId);
+        } else {
+            feedbacks = feedbackDao.getAll();
+        }
         model.addAttribute("feedbacks", feedbacks);
         return "feedback/listFeedbacks";
     }
 
-    @GetMapping("/admin/feedbacks/add")
+    @GetMapping("/student/feedbacks/add")
     public String addFeedback(Model model) {
         model.addAttribute("title", "Feedback Portal");
         model.addAttribute("message", "Add Feedback");
         model.addAttribute("submessage1", "Add Feedback");
         model.addAttribute("buttonmessage", "Finish");
-        model.addAttribute("submiturl", "/admin/feedbacks/add");
-        List<Student> students = studentDao.getAll();
-        model.addAttribute("students", students);
+        model.addAttribute("submiturl", "/student/feedbacks/add");
         List<Teacher> teachers = teacherDao.getAll();
         model.addAttribute("teachers", teachers);
         Feedback feedback = new Feedback();
         model.addAttribute("feedback", feedback);
-        return "feedback/addEditFeedback";
+        return "feedback/addFeedback";
     }
 
-    @PostMapping("/admin/feedbacks/add")
+    @PostMapping("/student/feedbacks/add")
     public String addFeedback(@ModelAttribute("feedback") Feedback feedback, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Feedback Portal");
             model.addAttribute("message", "Add Feedback");
             model.addAttribute("submessage1", "Add Feedback");
             model.addAttribute("buttonmessage", "Finish");
-            model.addAttribute("submiturl", "/admin/feedbacks/add");
-            List<Student> students = studentDao.getAll();
-            model.addAttribute("students", students);
+            model.addAttribute("submiturl", "/student/feedbacks/add");
             List<Teacher> teachers = teacherDao.getAll();
             model.addAttribute("teachers", teachers);
-            return "feedback/addEditFeedback";
+            return "feedback/addFeedback";
         }
+        int userId = securityService.findLoggedInUserId();
+        int studentId = studentDao.getStudentIdByUserId(userId);
+        feedback.setStudentId(studentId);
         feedbackDao.save(feedback);
-        return "redirect:/admin/feedbacks";
+        return "redirect:/student/feedbacks";
     }
 
-    @GetMapping("/admin/feedbacks/ST{studentId}/ET{employeeId}")
-    public String viewFeedback(@PathVariable("studentId") int studentId, @PathVariable("employeeId") int employeeId,
-            Model model) {
-        model.addAttribute("title", "Feedback Portal");
-        model.addAttribute("message", "View Feedback");
-        model.addAttribute("submessage1", "Feedback Details");
-        Feedback feedback = feedbackDao.get(studentId, employeeId);
-        model.addAttribute("feedback", feedback);
-        return "feedback/viewFeedback";
-    }
-
-    @GetMapping("/admin/feedbacks/ST{studentId}/ET{employeeId}/edit")
-    public String editFeedback(@PathVariable("studentId") int studentId, @PathVariable("employeeId") int employeeId,
-            Model model) {
-        model.addAttribute("title", "Feedback Portal");
-        model.addAttribute("message", "Edit Feedback");
-        model.addAttribute("submessage1", "Edit Feedback");
-        model.addAttribute("buttonmessage", "Finish");
-        model.addAttribute("submiturl", "/admin/feedbacks/ST" + studentId + "/ET" + employeeId + "/edit");
-        model.addAttribute("edit", "true");
-        List<Student> students = studentDao.getAll();
-        model.addAttribute("students", students);
-        List<Teacher> teachers = teacherDao.getAll();
-        model.addAttribute("teachers", teachers);
-        Feedback feedback = feedbackDao.get(studentId, employeeId);
-        model.addAttribute("feedback", feedback);
-        return "feedback/addEditFeedback";
-    }
-
-    @PostMapping("/admin/feedbacks/ST{studentId}/ET{employeeId}/edit")
-    public String editFeedback(@PathVariable("studentId") int studentId, @PathVariable("employeeId") int employeeId,
-            @ModelAttribute("feedback") Feedback feedback, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("title", "Feedback Portal");
-            model.addAttribute("message", "Edit Feedback");
-            model.addAttribute("submessage1", "Edit Feedback");
-            model.addAttribute("buttonmessage", "Finish");
-            model.addAttribute("submiturl", "/admin/feedbacks/ST" + studentId + "/ET" + employeeId + "/edit");
-            model.addAttribute("edit", "true");
-            List<Student> students = studentDao.getAll();
-            model.addAttribute("students", students);
-            List<Teacher> teachers = teacherDao.getAll();
-            model.addAttribute("teachers", teachers);
-            return "feedback/addEditFeedback";
-        }
-        feedbackDao.update(feedback);
-        return "redirect:/admin/feedbacks";
-    }
-
-    @PostMapping("/admin/feedbacks/ST{studentId}/ET{employeeId}/respond")
-    public ResponseEntity<Integer> respondFeedback(@PathVariable("studentId") int studentId,
-            @PathVariable("employeeId") int employeeId,
-            @RequestParam String response, Model model) {
-        feedbackDao.respond(studentId, employeeId, response);
+    @PostMapping("/teacher/feedbacks/{feedbackId}/respond")
+    public ResponseEntity<Integer> respondFeedback(@PathVariable("feedbackId") int feedbackId, @RequestParam String response, Model model) {
+        checkFeedbackBelongingToTeacher(feedbackId);
+        Feedback feedback = feedbackDao.get(feedbackId);
+        if (feedback.getResponse() != null)
+            throw new AccessDeniedException("You have already responded");
+        feedbackDao.respond(feedbackId, response);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/admin/feedbacks/ST{studentId}/ET{employeeId}/delete")
-    public ResponseEntity<Integer> deleteFeedback(@PathVariable("studentId") int studentId,
-            @PathVariable("employeeId") int employeeId, Model model) {
-        feedbackDao.delete(studentId, employeeId);
+    @GetMapping({ "/admin/feedbacks/{feedbackId}/delete", "/student/feedbacks/{feedbackId}/delete" })
+    public ResponseEntity<Integer> deleteFeedback(@PathVariable("feedbackId") int feedbackId, Model model) {
+        checkFeedbackBelongingToStudent(feedbackId);
+        String role = securityService.findLoggedInUserRole();
+        if (role.equals("student")) {
+            Feedback feedback = feedbackDao.get(feedbackId);
+            if (feedback.getResponse() != null)
+                throw new AccessDeniedException("You can't delete this feedback");
+        }
+        feedbackDao.delete(feedbackId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

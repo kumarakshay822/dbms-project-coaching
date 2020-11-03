@@ -9,6 +9,10 @@ public interface EmployeeDao {
 
     public List<Employee> getAll();
 
+    public List<Employee> getAllTeachers();
+
+    public List<Employee> getAllStaffs();
+
     public Employee get(int employeeId);
 
     public Integer getEmployeeIdByUserId(int userId);

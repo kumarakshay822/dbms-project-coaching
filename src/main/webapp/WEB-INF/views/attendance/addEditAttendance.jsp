@@ -28,7 +28,7 @@
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <c:choose>
-                            <c:when test="${edit == true}">
+                            <c:when test="${edit == true || role == 'staff'}">
                                 ${attendance.date}
                             </c:when>
                             <c:otherwise>

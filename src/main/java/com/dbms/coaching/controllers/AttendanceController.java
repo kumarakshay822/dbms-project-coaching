@@ -8,11 +8,14 @@ import com.dbms.coaching.dao.EmployeeDao;
 import com.dbms.coaching.dao.AttendanceDao;
 import com.dbms.coaching.models.Attendance;
 import com.dbms.coaching.models.Employee;
+import com.dbms.coaching.services.SecurityService;
+import com.dbms.coaching.utils.DateTimeUtil;
 import com.dbms.coaching.utils.DateValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,10 +35,16 @@ public class AttendanceController {
     @Autowired
     private DateValidator dateValidator;
 
+    @Autowired
+    private DateTimeUtil dateTimeUtil;
+
+    @Autowired
+    private SecurityService securityService;
+
     @GetMapping("/admin/attendance")
     public String listAttendances(Model model, String date) {
         model.addAttribute("title", "Attendance Management");
-        model.addAttribute("message", "View all the attendance");
+        model.addAttribute("message", "View total attendance of each employee");
         if (date != null) {
             List<Attendance> attendance = attendanceDao.getAllByDate(Date.valueOf(date));
             model.addAttribute("attendances", attendance);
@@ -61,10 +70,75 @@ public class AttendanceController {
             return "redirect:/admin/attendance";
         }
         model.addAttribute("title", "Attendance Management");
-        model.addAttribute("message", "View all the attendance");
+        model.addAttribute("message", "View all the attendance of particular employee");
         List<Attendance> attendance = attendanceDao.getAllByEmployeeId(employeeId);
         model.addAttribute("attendances", attendance);
         return "attendance/listAttendanceEmployee";
+    }
+
+    @GetMapping({ "/staff/attendance", "/teacher/attendance" })
+    public String listOwnAttendance(Model model) {
+        model.addAttribute("title", "Attendance Management");
+        model.addAttribute("message", "View your attendance");
+        int userId = securityService.findLoggedInUserId();
+        int employeeId = employeeDao.getEmployeeIdByUserId(userId);
+        List<Attendance> attendance = attendanceDao.getAllByEmployeeId(employeeId);
+        model.addAttribute("attendances", attendance);
+        return "attendance/listAttendanceEmployee";
+    }
+
+    @GetMapping("/staff/mark-attendance")
+    public String markTeacherAttendance(Model model) {
+        model.addAttribute("title", "Teachers' Attendance");
+        model.addAttribute("message", "View teachers' today's attendance");
+        String todayDate = dateTimeUtil.getCurrentDateTime("yyyy-MM-dd");
+        model.addAttribute("date", todayDate);
+        List<Attendance> attendance = attendanceDao.getAllByDateForTeacher(Date.valueOf(todayDate));
+        model.addAttribute("attendances", attendance);
+        return "attendance/listAttendanceTeacher";
+    }
+
+    @GetMapping("/staff/mark-attendance/{date}/ET{employeeId}/edit")
+    public String editTeacherAttendance(@PathVariable("date") Date date, @PathVariable("employeeId") int employeeId,
+            Model model) {
+        String role = employeeDao.getRole(employeeId);
+        if (!role.equals("ROLE_TEACHER"))
+            throw new AccessDeniedException("You are not allowed to edit attendance of given employee");
+        model.addAttribute("title", "Teachers' Attendance");
+        model.addAttribute("message", "Edit teachers' today's attendance");
+        model.addAttribute("submessage1", "Edit Attendance");
+        model.addAttribute("buttonmessage", "Finish");
+        model.addAttribute("submiturl", "/staff/mark-attendance/" + date + "/ET" + employeeId + "/edit");
+        model.addAttribute("edit", "true");
+        Attendance attendance = attendanceDao.get(date, employeeId);
+        // TODO: Do similarly (maybe raise Bad Request here)
+        if (attendance == null)
+            return "redirect:/staff/mark-attendance";
+        model.addAttribute("attendance", attendance);
+        return "attendance/addEditAttendance";
+    }
+
+    @PostMapping("/staff/mark-attendance/{date}/ET{employeeId}/edit")
+    public String editTeacherAttendance(@PathVariable("date") Date date, @PathVariable("employeeId") int employeeId,
+            @ModelAttribute("attendance") Attendance attendance, BindingResult bindingResult, Model model) {
+        String role = employeeDao.getRole(employeeId);
+        if (!role.equals("ROLE_TEACHER"))
+            throw new AccessDeniedException("You are not allowed to edit attendance of given employee");
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("title", "Teachers' Attendance");
+            model.addAttribute("message", "Edit teachers' today's attendance");
+            model.addAttribute("submessage1", "Edit Attendance");
+            model.addAttribute("buttonmessage", "Finish");
+            model.addAttribute("submiturl", "/staff/mark-attendance/" + date + "/ET" + employeeId + "/edit");
+            model.addAttribute("edit", "true");
+            return "attendance/addEditAttendance";
+        }
+        Employee employee = attendance.getEmployee();
+        employee.setEmployeeId(employeeId);
+        attendance.setEmployee(employee);
+
+        attendanceDao.update(attendance);
+        return "redirect:/staff/mark-attendance/";
     }
 
     @GetMapping("/admin/attendance/{date}/{employeecode}")
@@ -72,16 +146,26 @@ public class AttendanceController {
         return "redirect:/admin/attendance/" + employeecode;
     }
 
-    @GetMapping("/admin/attendance/add")
+    @GetMapping({ "/admin/attendance/add", "/staff/mark-attendance/add" })
     public String addAttendance(Model model) {
         model.addAttribute("title", "Attendance Management");
         model.addAttribute("message", "Add Attendance");
         model.addAttribute("submessage1", "Add Attendance");
         model.addAttribute("buttonmessage", "Finish");
-        model.addAttribute("submiturl", "/admin/attendance/add");
-        List<Employee> employees = employeeDao.getAll();
+        String role = securityService.findLoggedInUserRole();
+        List<Employee> employees;
+        if (role.equals("admin")) {
+            model.addAttribute("submiturl", "/admin/attendance/add");
+            employees = employeeDao.getAll();
+        } else {
+            model.addAttribute("submiturl", "/staff/mark-attendance/add");
+            employees = employeeDao.getAllTeachers();
+        }
         model.addAttribute("employees", employees);
         Attendance attendance = new Attendance();
+        String todayDate = dateTimeUtil.getCurrentDateTime("yyyy-MM-dd");
+        attendance.setDate(Date.valueOf(todayDate));
+        attendance.setIsPresent(true);
         model.addAttribute("attendance", attendance);
         return "attendance/addEditAttendance";
     }
@@ -100,6 +184,25 @@ public class AttendanceController {
         }
         attendanceDao.save(attendance);
         return "redirect:/admin/attendance";
+    }
+
+    @PostMapping("/staff/mark-attendance/add")
+    public String addTeacherAttendance(@ModelAttribute("attendance") Attendance attendance, BindingResult bindingResult,
+            Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("title", "Attendance Management");
+            model.addAttribute("message", "Add Attendance");
+            model.addAttribute("submessage1", "Add Attendance");
+            model.addAttribute("buttonmessage", "Finish");
+            model.addAttribute("submiturl", "/staff/mark-attendance/add");
+            List<Employee> employees = employeeDao.getAllTeachers();
+            model.addAttribute("employees", employees);
+            return "attendance/addEditAttendance";
+        }
+        String todayDate = dateTimeUtil.getCurrentDateTime("yyyy-MM-dd");
+        attendance.setDate(Date.valueOf(todayDate));
+        attendanceDao.save(attendance);
+        return "redirect:/staff/mark-attendance";
     }
 
     @GetMapping("/admin/attendance/{date}/{employeecode}/edit")
@@ -153,4 +256,6 @@ public class AttendanceController {
         attendanceDao.delete(date, employeeId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    // TODO: Add mark others as absent for staff & admin
 }

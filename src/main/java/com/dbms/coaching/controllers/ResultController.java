@@ -215,7 +215,7 @@ public class ResultController {
 
     @PostMapping({ "/admin/academics/tests/{testId}/results-recheck/{studentId}",
             "/staff/academics/tests/{testId}/results-recheck/{studentId}" })
-    public ResponseEntity<String> addUserPhoneNumber(@PathVariable("testId") int testId,
+    public ResponseEntity<String> updateResultAndMarkDone(@PathVariable("testId") int testId,
             @PathVariable("studentId") int studentId, @RequestParam int newMarks, Model model) {
         resultDao.updateMarksAndMarkDone(testId, studentId, newMarks);
         // TODO: Validate above

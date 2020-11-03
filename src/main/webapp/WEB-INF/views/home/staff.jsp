@@ -9,6 +9,7 @@
         <li><a href="/staff/students">Student Portal</a></li>
         <li><a href="/staff/payroll">Payroll Management</a></li>
         <li><a href="/staff/attendance">Attendance Management</a></li>
+        <li><a href="/staff/mark-attendance">Attendance - Teachers</a></li>
     </ul>
 </div>
 

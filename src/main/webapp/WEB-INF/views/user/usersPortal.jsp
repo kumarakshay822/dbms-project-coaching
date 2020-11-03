@@ -5,9 +5,6 @@
 <%@ include file="/WEB-INF/views/template/header.jsp" %>
 
 <div class="container-fluid custom-container">
-    <div class="div text-right">
-        <a class="btn btn-primary" href="/${role}/students/add" role="button">Add Student</a>
-    </div>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
             <thead>

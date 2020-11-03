@@ -5,12 +5,14 @@
 <%@ include file="/WEB-INF/views/template/header.jsp" %>
 
 <div class="container-fluid custom-container">
+    <sec:authorize access='hasRole("ROLE_ADMIN")'>
     <div class="div text-right">
         <button class="btn btn-outline-success btn-sm ml-5" onclick="location.href='/${role}/attendance/'">Get All Attendance</a>
     </div>
     <div class="div text-right mt-2">
         <a class="btn btn-primary" href="/${role}/attendance/add" role="button" >Add Attendance</a>
     </div>
+    </sec:authorize>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
             <thead>
@@ -19,7 +21,7 @@
                     <th>Date</th>
                     <th>Status</th>
                     <th>Remarks</th>
-                    <th>Action</th>
+                    <sec:authorize access='hasRole("ROLE_ADMIN")'><th>Action</th></sec:authorize>
                 </tr>
             </thead>
             <c:forEach items="${attendances}" var="attendance">
@@ -35,6 +37,7 @@
                         <c:if test="${attendance.isPresent == false}"><span style="color: red;">Absent</span></c:if>
                     </td>
                     <td>${attendance.remarks}</td>
+                    <sec:authorize access='hasRole("ROLE_ADMIN")'>
                     <td>
                         <c:if test="${attendance.employee.user.role == 'ROLE_TEACHER'}">
                             <a class="btn btn-outline-primary btn-sm" href="/${role}/attendance/${attendance.date}/ET${attendance.employee.employeeId}/edit" role="button">Edit</a>
@@ -43,6 +46,7 @@
                             <a class="btn btn-outline-primary btn-sm" href="/${role}/attendance/${attendance.date}/ES${attendance.employee.employeeId}/edit" role="button">Edit</a>
                         </c:if>
                     </td>
+                    </sec:authorize>
                 </tr>
             </c:forEach>
             <tbody>

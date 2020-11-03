@@ -62,6 +62,20 @@ public class AttendanceDaoImpl implements AttendanceDao {
     }
 
     @Override
+    public List<Attendance> getAllByDateForTeacher(Date date) {
+        String sql = "SELECT * FROM Attendance NATURAL JOIN Employee NATURAL JOIN User WHERE date = ? AND role='ROLE_TEACHER'";
+        List<Attendance> attendances = template.query(sql, new Object[] { date }, new AttendanceRowMapper());
+        return attendances;
+    }
+
+    @Override
+    public List<Attendance> getAllByDateForStaff(Date date) {
+        String sql = "SELECT * FROM Attendance NATURAL JOIN Employee NATURAL JOIN User WHERE date = ? AND role='ROLE_STAFF'";
+        List<Attendance> attendances = template.query(sql, new Object[] { date }, new AttendanceRowMapper());
+        return attendances;
+    }
+
+    @Override
     public List<Attendance> getAllByEmployeeId(int employeeId) {
         String sql = "SELECT * FROM Attendance NATURAL JOIN Employee NATURAL JOIN User WHERE employeeId = ?";
         List<Attendance> attendances = template.query(sql, new Object[] { employeeId }, new AttendanceRowMapper());

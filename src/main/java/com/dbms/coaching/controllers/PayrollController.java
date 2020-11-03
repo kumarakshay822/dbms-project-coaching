@@ -5,6 +5,7 @@ import java.util.List;
 import com.dbms.coaching.dao.EmployeeDao;
 import com.dbms.coaching.dao.PayrollDao;
 import com.dbms.coaching.models.Payroll;
+import com.dbms.coaching.services.SecurityService;
 import com.dbms.coaching.models.Employee;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class PayrollController {
     @Autowired
     private EmployeeDao employeeDao;
 
+    @Autowired
+    private SecurityService securityService;
+
     @GetMapping("/admin/payroll")
     public String listPayrolls(Model model, String employee) {
         model.addAttribute("title", "Payroll Management");
@@ -45,6 +49,17 @@ public class PayrollController {
             List<Employee> employees = employeeDao.getAll();
             model.addAttribute("employees", employees);
         }
+        model.addAttribute("payrolls", payroll);
+        return "payroll/listPayrolls";
+    }
+
+    @GetMapping({ "/staff/payroll", "/teacher/payroll" })
+    public String listOwnPayrolls(Model model) {
+        model.addAttribute("title", "Payroll Management");
+        model.addAttribute("message", "View your payroll");
+        int userId = securityService.findLoggedInUserId();
+        int employeeId = employeeDao.getEmployeeIdByUserId(userId);
+        List<Payroll> payroll = payrollDao.getAllByEmployeeId(employeeId);
         model.addAttribute("payrolls", payroll);
         return "payroll/listPayrolls";
     }

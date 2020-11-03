@@ -40,11 +40,11 @@
                     <td>
                         <c:if test="${attendance.role == 'ROLE_TEACHER'}">
                             <a class="btn btn-outline-success btn-sm"
-                                href="/${role}/attendance/ET${attendance.employeeId}" role="button">View</a>
+                                href="/${role}/attendance/ET${attendance.employeeId}" role="button">View All</a>
                         </c:if>
                         <c:if test="${attendance.role == 'ROLE_STAFF'}">
                             <a class="btn btn-outline-success btn-sm"
-                                href="/${role}/attendance/ES${attendance.employeeId}" role="button">View</a>
+                                href="/${role}/attendance/ES${attendance.employeeId}" role="button">View All</a>
                         </c:if>
                     </td>
                 </tr>
@@ -54,5 +54,9 @@
         </table>
     </div>
 </div>
+
+<script>
+    document.querySelector('#date').value = (new Date()).toISOString().substr(0, 10);
+</script>
 
 <%@ include file="/WEB-INF/views/template/footer.jsp" %>

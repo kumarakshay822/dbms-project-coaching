@@ -12,7 +12,7 @@
     <div class="row shadow bg-white rounded" style="border: 1px solid whitesmoke; padding: 0 40px;">
         <table class="table table-borderless mt-4">
             <form:form class="form-horizontal" action="${submiturl}"
-                method="post" modelAttribute="complaint">
+                method="post" modelAttribute="feedback">
                 <tr>
                     <th style="width: 40%;">
                         <h4>${submessage2}</h4>
@@ -23,26 +23,17 @@
                                 aria-hidden="true"></i></a>
                     </td>
                 </tr>
-                <c:choose>
-                    <c:when test="${edit == true}">
-                        <tr>
-                            <th style="width: 40%; text-align: center;">Complaint ID</th>
-                            <th style="width: 10%;"></th>
-                            <td style="width: 50%">${complaint.complaintId}</td>
-                        </tr>
-                        <tr>
-                            <th style="width: 40%; text-align: center;">Date and Time</th>
-                            <th style="width: 10%;"></th>
-                            <td style="width: 50%">
-                                ${complaint.date} ${complaint.time}
-                            </td>
-                        </tr>
-                    </c:when>
-                </c:choose>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Student ID</th>
+                    <th style="width: 40%; text-align: center;">Teacher ID</th>
                     <th style="width: 10%;"></th>
-                    <td style="width: 50%">ST${studentId}</td>
+                    <td style="width: 50%">
+                        <form:select class="form-control" path="employeeId" required="true">
+                            <c:forEach var="teacher" items="${teachers}">
+                                <form:option value="${teacher.employee.employeeId}">ET${teacher.employee.employeeId} - ${teacher.employee.user.name}</form:option>
+                            </c:forEach>
+                        </form:select>
+                        <form:errors path="employeeId" style="color: red;"></form:errors>
+                    </td>
                 </tr>
                 <tr>
                     <th style="width: 40%; text-align: center;">Subject</th>
@@ -53,25 +44,13 @@
                     <td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Description</th>
+                    <th style="width: 40%; text-align: center;">Message</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
-                        <form:input type="text" path="description" class="form-control" required="true"></form:input>
-                        <form:errors path="description" style="color: red;"></form:errors>
+                        <form:input type="text" path="message" class="form-control" required="true"></form:input>
+                        <form:errors path="message" style="color: red;"></form:errors>
                     <td>
                 </tr>
-                <c:if test="${edit == true}">
-                <tr>
-                    <th style="width: 40%; text-align: center;">Response</th>
-                    <th style="width: 10%;"></th>
-                    <td style="width: 50%">${complaint.response}<td>
-                </tr>
-                <tr>
-                    <th style="width: 40%; text-align: center;">Resolved?</th>
-                    <th style="width: 10%;"></th>
-                    <td style="width: 50%">${complaint.isResolved}</td>
-                </tr>
-                </c:if>
                 <tr>
                     <th style="width: 40%; text-align: center;"></th>
                     <th style="width: 10%;"></th>

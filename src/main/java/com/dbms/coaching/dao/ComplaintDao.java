@@ -15,7 +15,9 @@ public interface ComplaintDao {
 
     public void resolve(int complaintId, String response);
 
-    public void update(Complaint complaint);
+    public void updateStudent(Complaint complaint);
+
+    public void updateAdmin(Complaint complaint);
 
     public void delete(int complaintId);
 }

@@ -7,7 +7,7 @@ import com.dbms.coaching.models.Feedback;
 public interface FeedbackDao {
     public void save(Feedback feedback);
 
-    public Feedback get(int studentId, int employeeId);
+    public Feedback get(int feedbackId);
 
     public List<Feedback> getAll();
 
@@ -15,9 +15,9 @@ public interface FeedbackDao {
 
     public List<Feedback> getAllByEmployeeId(int employeeId);
 
-    public void respond(int studentId, int employeeId, String response);
+    public void respond(int feedbackId, String response);
 
     public void update(Feedback feedback);
 
-    public void delete(int studentId, int employeeId);
+    public void delete(int feedbackId);
 }

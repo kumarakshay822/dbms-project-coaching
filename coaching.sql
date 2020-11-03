@@ -218,6 +218,7 @@ CREATE TABLE IF NOT EXISTS Teacher (
 
 
 CREATE TABLE IF NOT EXISTS Feedback (
+  feedbackId int NOT NULL AUTO_INCREMENT,
   studentId int NOT NULL,
   employeeId int NOT NULL,
   date date NOT NULL,
@@ -225,7 +226,7 @@ CREATE TABLE IF NOT EXISTS Feedback (
   subject varchar(255) NOT NULL,
   message varchar(255) NOT NULL,
   response varchar(255) DEFAULT NULL,
-  PRIMARY KEY (studentId, employeeId),
+  PRIMARY KEY (feedbackId),
   FOREIGN KEY (studentId) REFERENCES Student(studentId) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (employeeId) REFERENCES Employee(employeeId) ON DELETE CASCADE ON UPDATE CASCADE
 );

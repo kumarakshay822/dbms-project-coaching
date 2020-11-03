@@ -53,6 +53,20 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
+    public List<Employee> getAllTeachers() {
+        String sql = "SELECT * FROM Employee NATURAL JOIN User WHERE role='ROLE_TEACHER'";
+        List<Employee> employees = template.query(sql, new EmployeeRowMapper());
+        return employees;
+    }
+
+    @Override
+    public List<Employee> getAllStaffs() {
+        String sql = "SELECT * FROM Employee NATURAL JOIN User WHERE role='ROLE_STAFF'";
+        List<Employee> employees = template.query(sql, new EmployeeRowMapper());
+        return employees;
+    }
+
+    @Override
     public Employee get(int employeeId) {
         try {
             String sql = "SELECT * FROM Employee NATURAL JOIN User WHERE employeeId = ?";

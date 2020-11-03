@@ -72,7 +72,7 @@ public class EnrollmentController {
         }
     }
 
-    public boolean checkTeacherAssignedBatch(String courseId, String batchId) {
+    public void checkTeacherAssignedBatch(String courseId, String batchId) {
         int userId = securityService.findLoggedInUserId();
         String role = securityService.findLoggedInUserRole();
         if (role.equals("teacher")) {
@@ -88,7 +88,6 @@ public class EnrollmentController {
             if (forbidden)
                 throw new AccessDeniedException("This batch is not assigned to you");
         }
-        return true;
     }
 
     @GetMapping({ "/admin/academics/enrollments", "/student/academics/enrollments" })

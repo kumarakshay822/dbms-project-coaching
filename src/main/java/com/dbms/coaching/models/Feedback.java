@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 
 public class Feedback {
+    private int feedbackId;
     private int studentId;
     private int employeeId;
     private Date date;
@@ -15,7 +16,8 @@ public class Feedback {
     public Feedback() {
     }
 
-    public Feedback(int studentId, int employeeId, Date date, Time time, String subject, String message, String response) {
+    public Feedback(int feedbackId, int studentId, int employeeId, Date date, Time time, String subject, String message, String response) {
+        this.feedbackId = feedbackId;
         this.studentId = studentId;
         this.employeeId = employeeId;
         this.date = date;
@@ -23,6 +25,20 @@ public class Feedback {
         this.subject = subject;
         this.message = message;
         this.response = response;
+    }
+
+    /**
+     * @return int return the feedbackId
+     */
+    public int getFeedbackId() {
+        return feedbackId;
+    }
+
+    /**
+     * @param feedbackId the feedbackId to set
+     */
+    public void setFeedbackId(int feedbackId) {
+        this.feedbackId = feedbackId;
     }
 
     /**
@@ -126,7 +142,8 @@ public class Feedback {
     @Override
     public String toString() {
         return "{" +
-            " studentId='" + getStudentId() + "'" +
+            " feedbackId='" + getFeedbackId() + "'" +
+            ", studentId='" + getStudentId() + "'" +
             ", employeeId='" + getEmployeeId() + "'" +
             ", date='" + getDate() + "'" +
             ", time='" + getTime() + "'" +

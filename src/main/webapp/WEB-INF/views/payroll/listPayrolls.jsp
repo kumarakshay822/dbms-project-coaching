@@ -5,6 +5,7 @@
 <%@ include file="/WEB-INF/views/template/header.jsp" %>
 
 <div class="container-fluid custom-container">
+    <sec:authorize access='hasRole("ROLE_ADMIN")'>
     <div class="div text-right">
     <c:choose>
         <c:when test="${empty param.employee}">
@@ -32,6 +33,8 @@
     <div class="div text-right mt-4">
         <a class="btn btn-primary" href="/${role}/payroll/add" role="button" >Add Payroll</a>
     </div>
+    </sec:authorize>
+
     <div class="table-responsive">
         <table class="table table-hover mt-4">
             <thead>
@@ -42,7 +45,7 @@
                     <th>Year</th>
                     <th>Salary credited</th>
                     <th>Date credited</th>
-                    <th>Action</th>
+                    <sec:authorize access='hasRole("ROLE_ADMIN")'><th>Action</th></sec:authorize>
                 </tr>
             </thead>
             <c:forEach items="${payrolls}" var="payroll">
@@ -66,6 +69,7 @@
                     <td>${payroll.year}</td>
                     <td>${payroll.salaryCredited}</td>
                     <td>${payroll.dateCredited}</td>
+                    <sec:authorize access='hasRole("ROLE_ADMIN")'>
                     <td>
                         <a class="btn btn-outline-success btn-sm" href="/${role}/payroll/${payroll.paymentRefNo}"
                             role="button">View</a>
@@ -75,6 +79,7 @@
                         'Do you want to delete this Payroll? \nWarning! This action is destructible!')"
                             role="button">Delete</a>
                     </td>
+                    </sec:authorize>
                 </tr>
             </c:forEach>
             <tbody>

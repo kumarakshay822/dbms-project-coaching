@@ -17,6 +17,10 @@ public interface AttendanceDao {
 
     public List<Attendance> getAllByDate(Date date);
 
+    public List<Attendance> getAllByDateForTeacher(Date date);
+
+    public List<Attendance> getAllByDateForStaff(Date date);
+
     public List<Attendance> getAllByEmployeeId(int employeeId);
 
     public void update(Attendance attendance);
