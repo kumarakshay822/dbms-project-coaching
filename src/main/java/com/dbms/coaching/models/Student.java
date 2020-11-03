@@ -15,12 +15,14 @@ public class Student {
     private double percentage10th;
     private double percentage12th;
     private User user;
+    private Guardian guardian;
 
     public Student() {
         user = new User();
+        guardian = new Guardian();
     }
 
-    public Student(int studentId, String gender, Date dateOfBirth, String houseNumber, String street, String city, String state, int pinCode, String schoolAttending, double percentage10th, double percentage12th, User user) {
+    public Student(int studentId, String gender, Date dateOfBirth, String houseNumber, String street, String city, String state, int pinCode, String schoolAttending, double percentage10th, double percentage12th, User user, Guardian guardian) {
         this.studentId = studentId;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
@@ -33,6 +35,7 @@ public class Student {
         this.percentage10th = percentage10th;
         this.percentage12th = percentage12th;
         this.user = user;
+        this.guardian = guardian;
     }
 
     /**
@@ -203,6 +206,20 @@ public class Student {
         this.user = user;
     }
 
+    /**
+     * @return Guardian return the guardian
+     */
+    public Guardian getGuardian() {
+        return guardian;
+    }
+
+    /**
+     * @param guardian the guardian to set
+     */
+    public void setGuardian(Guardian guardian) {
+        this.guardian = guardian;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -218,6 +235,7 @@ public class Student {
             ", percentage10th='" + getPercentage10th() + "'" +
             ", percentage12th='" + getPercentage12th() + "'" +
             ", user='" + getUser() + "'" +
+            ", guardian='" + getGuardian() + "'" +
             "}";
     }
 

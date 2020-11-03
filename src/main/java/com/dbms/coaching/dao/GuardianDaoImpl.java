@@ -4,7 +4,6 @@ import com.dbms.coaching.models.Guardian;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -15,19 +14,18 @@ public class GuardianDaoImpl implements GuardianDao {
 
     @Override
     public void save(Guardian guardian) {
-        String sql = "INSERT INTO Guardian (name, studentId, occupation, address, emailAddress, relationWithStudent) "
+        String sql = "INSERT INTO Guardian (name, studentId, occupation, address, email, relationWithStudent) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
         template.update(sql, guardian.getName(), guardian.getStudentId(), guardian.getOccupation(),
-                guardian.getAddress(), guardian.getEmailAddress(), guardian.getRelationWithStudent());
+                guardian.getAddress(), guardian.getEmail(), guardian.getRelationWithStudent());
     }
 
     @Override
-    public Guardian getByStudentId(int studentId) {
+    public String getNameByStudentId(int studentId) {
         try {
-            String sql = "SELECT * FROM Guardian WHERE studentId = ?";
-            Guardian guardian = template.queryForObject(sql, new Object[] { studentId },
-                    new BeanPropertyRowMapper<>(Guardian.class));
-            return guardian;
+            String sql = "SELECT name FROM Guardian WHERE studentId = ?";
+            String guardianName = template.queryForObject(sql, new Object[] { studentId }, String.class);
+            return guardianName;
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -38,9 +36,9 @@ public class GuardianDaoImpl implements GuardianDao {
      */
     @Override
     public void update(Guardian guardian) {
-        String sql = "UPDATE Guardian SET name = ?, occupation = ?, address = ?, emailAddress = ?, relationWithStudent = ? WHERE studentId = ?";
+        String sql = "UPDATE Guardian SET name = ?, occupation = ?, address = ?, email = ?, relationWithStudent = ? WHERE studentId = ?";
         template.update(sql, guardian.getName(), guardian.getOccupation(), guardian.getAddress(),
-                guardian.getEmailAddress(), guardian.getRelationWithStudent(), guardian.getStudentId());
+                guardian.getEmail(), guardian.getRelationWithStudent(), guardian.getStudentId());
     }
 
 }

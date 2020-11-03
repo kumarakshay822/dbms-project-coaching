@@ -3,6 +3,7 @@ package com.dbms.coaching.dao.rowmappers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.dbms.coaching.models.Guardian;
 import com.dbms.coaching.models.Student;
 import com.dbms.coaching.models.User;
 
@@ -17,6 +18,9 @@ public class StudentRowMapper implements RowMapper<Student> {
 
         Student student = (new BeanPropertyRowMapper<>(Student.class)).mapRow(rs, rowNum);
         student.setUser(user);
+
+        Guardian guardian = (new BeanPropertyRowMapper<>(Guardian.class)).mapRow(rs, rowNum);
+        student.setGuardian(guardian);
 
         return student;
     }

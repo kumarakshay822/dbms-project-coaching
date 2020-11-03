@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS Guardian (
   studentId int NOT NULL,
   occupation varchar(255) DEFAULT NULL,
   address varchar(255) NOT NULL,
-  emailAddress varchar(255) DEFAULT NULL,
+  email varchar(255) DEFAULT NULL,
   relationWithStudent enum ('Father', 'Mother', 'Other') NOT NULL,
   PRIMARY KEY (name, studentId),
   FOREIGN KEY (studentId) REFERENCES Student(studentId) ON DELETE CASCADE ON UPDATE CASCADE

@@ -14,7 +14,12 @@
                 <th style="width: 40%;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%; text-align: right;">
-                    <a class="btn btn-primary" href="/${role}/students/ST${student.studentId}/edit-student" role="button">Edit Student</a>
+                    <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STAFF')">
+                        <a class="btn btn-primary" href="/${role}/students/ST${student.studentId}/edit-student" role="button">Edit Student</a>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_STUDENT')">
+                        <a class="btn btn-primary" href="/profile/student/edit-student" role="button">Edit Student</a>
+                    </sec:authorize>
                 </td>
             </tr>
             <tr>
@@ -98,27 +103,27 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Name</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${guardian.name}</td>
+                <td style="width: 50%">${student.guardian.name}</td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Occupation</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${guardian.occupation}</td>
+                <td style="width: 50%">${student.guardian.occupation}</td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Address</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${guardian.address}</td>
+                <td style="width: 50%">${student.guardian.address}</td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Email Address</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${guardian.emailAddress}</td>
+                <td style="width: 50%">${student.guardian.email}</td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Relation With Student</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${guardian.relationWithStudent}</td>
+                <td style="width: 50%">${student.guardian.relationWithStudent}</td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Phone Numbers</th>

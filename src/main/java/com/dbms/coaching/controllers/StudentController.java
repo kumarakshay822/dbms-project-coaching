@@ -12,9 +12,12 @@ import com.dbms.coaching.models.GuardianPhoneNumber;
 import com.dbms.coaching.models.Student;
 import com.dbms.coaching.models.User;
 import com.dbms.coaching.models.UserPhoneNumber;
+import com.dbms.coaching.services.SecurityService;
 import com.dbms.coaching.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class StudentController {
@@ -43,7 +47,10 @@ public class StudentController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/admin/students")
+    @Autowired
+    private SecurityService securityService;
+
+    @GetMapping({ "/admin/students", "/staff/students" })
     public String studentsPortal(Model model) {
         model.addAttribute("title", "Student Portal");
         model.addAttribute("message", "View all the students");
@@ -52,34 +59,37 @@ public class StudentController {
         return "student/studentsPortal";
     }
 
-    @GetMapping("/admin/students/add")
+    @GetMapping({ "/admin/students/add", "/staff/students/add" })
     public String addStudent(Model model) {
-        // TODO: Create student and guardian together
+        String role = securityService.findLoggedInUserRole();
         model.addAttribute("title", "Student Portal");
         model.addAttribute("message", "Create Student's profile");
         model.addAttribute("submessage1", "Add Student Details");
-        model.addAttribute("submessage2", "Step 1: Student Details");
-        model.addAttribute("buttonmessage", "Proceed to Step 2");
-        model.addAttribute("submiturl", "/admin/students/add");
+        model.addAttribute("buttonmessage", "Proceed");
+        model.addAttribute("submiturl", "/" + role + "/students/add");
         Student student = new Student();
         model.addAttribute("student", student);
         return "student/addEditStudent";
     }
 
-    @PostMapping("/admin/students/add")
+    @PostMapping({ "/admin/students/add", "/staff/students/add" })
     public String addStudent(@ModelAttribute("student") Student student, BindingResult bindingResult, Model model) {
+        String role = securityService.findLoggedInUserRole();
         // TODO: Validate here
+        // Username must be unique, email also
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Student Portal");
             model.addAttribute("message", "Create Student's profile");
             model.addAttribute("submessage1", "Add Student Details");
-            model.addAttribute("submessage2", "Step 1: Student Details");
-            model.addAttribute("buttonmessage", "Proceed to Step 2");
-            model.addAttribute("submiturl", "/admin/students/add");
+            model.addAttribute("buttonmessage", "Proceed");
+            model.addAttribute("submiturl", "/" + role + "/students/add");
             return "student/addEditStudent";
         }
 
         User user = student.getUser();
+        // TODO: Set random password here
+        // TODO: Email the user the password
+        // TODO: Add email validation, don't allow login without it
         user.setPassword("password");
         user.setRole("ROLE_STUDENT");
         user = userService.save(user);
@@ -87,10 +97,14 @@ public class StudentController {
         student.setUser(user);
         student = studentDao.save(student);
 
-        return "redirect:/admin/students/ST" + student.getStudentId() + "/add-student-phone";
+        Guardian guardian = student.getGuardian();
+        guardian.setStudentId(student.getStudentId());
+        guardianDao.save(guardian);
+
+        return "redirect:/" + role + "/students/ST" + student.getStudentId() + "/add-student-phone";
     }
 
-    @GetMapping("/admin/students/ST{studentId}")
+    @GetMapping({ "/admin/students/ST{studentId}", "/staff/students/ST{studentId}" })
     public String viewStudent(@PathVariable("studentId") int studentId, Model model) {
         model.addAttribute("title", "Student Portal");
         model.addAttribute("message", "View Student's profile");
@@ -98,40 +112,38 @@ public class StudentController {
         Student student = studentDao.get(studentId);
         int userId = student.getUser().getUserId();
         List<UserPhoneNumber> userPhoneNumbers = userPhoneNumberDao.getByUserId(userId);
-        Guardian guardian = guardianDao.getByStudentId(studentId);
         List<GuardianPhoneNumber> guardianPhoneNumbers = guardianPhoneNumberDao.getByStudentId(studentId);
         model.addAttribute("student", student);
-        model.addAttribute("guardian", guardian);
         model.addAttribute("userPhoneNumbers", userPhoneNumbers);
         model.addAttribute("guardianPhoneNumbers", guardianPhoneNumbers);
         return "student/viewStudent";
     }
 
-    @GetMapping("/admin/students/ST{studentId}/edit-student")
+    @GetMapping({ "/admin/students/ST{studentId}/edit-student", "/staff/students/ST{studentId}/edit-student" })
     public String editStudent(@PathVariable("studentId") int studentId, Model model) {
+        String role = securityService.findLoggedInUserRole();
         model.addAttribute("title", "Student Portal");
         model.addAttribute("message", "Edit Student's profile");
         model.addAttribute("submessage1", "Edit Student Details");
-        model.addAttribute("submessage2", "Step 1: Student Details");
-        model.addAttribute("buttonmessage", "Proceed to Step 2");
-        model.addAttribute("submiturl", "/admin/students/ST" + studentId + "/edit-student");
+        model.addAttribute("buttonmessage", "Proceed");
+        model.addAttribute("submiturl", "/" + role + "/students/ST" + studentId + "/edit-student");
         model.addAttribute("edit", "true");
         Student student = studentDao.get(studentId);
         model.addAttribute("student", student);
         return "student/addEditStudent";
     }
 
-    @PostMapping("/admin/students/ST{studentId}/edit-student")
+    @PostMapping({ "/admin/students/ST{studentId}/edit-student", "/staff/students/ST{studentId}/edit-student" })
     public String editStudent(@PathVariable("studentId") int studentId, @ModelAttribute("student") Student student,
     BindingResult bindingResult, Model model) {
+        String role = securityService.findLoggedInUserRole();
         // TODO: Validate here
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Student Portal");
             model.addAttribute("message", "Edit Student's profile");
             model.addAttribute("submessage1", "Edit Student Details");
-            model.addAttribute("submessage2", "Step 1: Student Details");
-            model.addAttribute("buttonmessage", "Proceed to Step 2");
-            model.addAttribute("submiturl", "/admin/students/ST" + studentId + "/edit-student");
+            model.addAttribute("submiturl", "/" + role + "/students/ST" + studentId + "/edit-student");
+            model.addAttribute("buttonmessage", "Proceed");
             model.addAttribute("edit", "true");
             return "student/addEditStudent";
         }
@@ -144,37 +156,62 @@ public class StudentController {
 
         userDao.update(user);
         studentDao.update(student);
-        return "redirect:/admin/students/ST{studentId}/edit-student-phone";
+
+        Guardian guardian = student.getGuardian();
+        guardian.setStudentId(studentId);
+        guardianDao.update(guardian);
+        return "redirect:/" + role + "/students/ST{studentId}/edit-student-phone";
     }
 
-    @GetMapping("/admin/students/ST{studentId}/add-student-phone")
+    @GetMapping({ "/admin/students/ST{studentId}/add-student-phone",
+            "/staff/students/ST{studentId}/add-student-phone" })
     public String addStudentPhone(@PathVariable("studentId") int studentId, Model model) {
         model.addAttribute("title", "Student Portal");
         model.addAttribute("message", "Create Student's profile");
         model.addAttribute("submessage1", "Add Student Details");
-        model.addAttribute("submessage2", "Step 2: Student Phone Number");
-        model.addAttribute("buttonmessage", "Proceed to Step 3");
+        model.addAttribute("buttonmessage", "Finish");
         Student student = studentDao.get(studentId);
         int userId = student.getUser().getUserId();
-        List<UserPhoneNumber> phoneNumbers = userPhoneNumberDao.getByUserId(userId);
-        model.addAttribute("phoneNumbers", phoneNumbers);
+        List<UserPhoneNumber> studentPhoneNumbers = userPhoneNumberDao.getByUserId(userId);
+        List<GuardianPhoneNumber> guardianPhoneNumbers = guardianPhoneNumberDao.getByStudentId(studentId);
+        model.addAttribute("studentPhoneNumbers", studentPhoneNumbers);
+        model.addAttribute("guardianPhoneNumbers", guardianPhoneNumbers);
         model.addAttribute("userId", userId);
         return "student/addEditStudentPhone";
     }
 
-    @GetMapping("/admin/students/ST{studentId}/edit-student-phone")
+    @GetMapping({ "/admin/students/ST{studentId}/edit-student-phone", "/staff/students/ST{studentId}/edit-student-phone" })
     public String editStudentPhone(@PathVariable("studentId") int studentId, Model model) {
         model.addAttribute("title", "Student Portal");
         model.addAttribute("message", "Edit Student's profile");
         model.addAttribute("submessage1", "Edit Student Details");
-        model.addAttribute("submessage2", "Step 2: Student Phone Number");
-        model.addAttribute("buttonmessage", "Proceed to Step 3");
+        model.addAttribute("buttonmessage", "Finish");
         Student student = studentDao.get(studentId);
         int userId = student.getUser().getUserId();
-        List<UserPhoneNumber> phoneNumbers = userPhoneNumberDao.getByUserId(userId);
-        model.addAttribute("phoneNumbers", phoneNumbers);
+        List<UserPhoneNumber> studentPhoneNumbers = userPhoneNumberDao.getByUserId(userId);
+        List<GuardianPhoneNumber> guardianPhoneNumbers = guardianPhoneNumberDao.getByStudentId(studentId);
+        model.addAttribute("studentPhoneNumbers", studentPhoneNumbers);
+        model.addAttribute("guardianPhoneNumbers", guardianPhoneNumbers);
         model.addAttribute("userId", userId);
         return "student/addEditStudentPhone";
+    }
+
+    @PostMapping({ "/admin/students/ST{studentId}/add-guardian-phone", "/staff/students/ST{studentId}/add-guardian-phone" })
+    public ResponseEntity<Integer> addGuardianPhoneNumber(@PathVariable("studentId") int studentId,
+            @RequestParam String phoneNumber, Model model) {
+        String guardianName = guardianDao.getNameByStudentId(studentId);
+        GuardianPhoneNumber guardianPhoneNumber = new GuardianPhoneNumber(phoneNumber, guardianName, studentId);
+        guardianPhoneNumberDao.save(guardianPhoneNumber);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping({ "/admin/students/ST{studentId}/delete-guardian-phone", "/staff/students/ST{studentId}/delete-guardian-phone" })
+    public ResponseEntity<Integer> deleteGuardianPhoneNumber(@PathVariable("studentId") int studentId,
+    @RequestParam String phoneNumber, Model model) {
+        String guardianName = guardianDao.getNameByStudentId(studentId);
+        GuardianPhoneNumber guardianPhoneNumber = new GuardianPhoneNumber(phoneNumber, guardianName, studentId);
+        guardianPhoneNumberDao.delete(guardianPhoneNumber);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

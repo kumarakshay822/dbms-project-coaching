@@ -15,7 +15,7 @@
                 method="post" modelAttribute="student">
                 <tr>
                     <th style="width: 40%;">
-                        <h4>${submessage2}</h4>
+                        <h4>Step 1: Student Details</h4>
                     </th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%; text-align: right;">
@@ -30,6 +30,7 @@
                     <td style="width: 50%">ST${student.studentId}</td>
                 </tr>
                 </c:if>
+                <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STAFF')">
                 <tr>
                     <th style="width: 40%; text-align: center;">Name</th>
                     <th style="width: 10%;"></th>
@@ -58,6 +59,7 @@
                         <form:errors path="user.emailAddress" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                </sec:authorize>
                 <tr>
                     <th style="width: 40%; text-align: center;">Gender</th>
                     <th style="width: 10%;"></th>
@@ -118,6 +120,7 @@
                         <form:errors path="percentage12th" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STAFF')">
                 <tr>
                     <th style="width: 40%; text-align: center;">Activated?</th>
                     <th style="width: 10%;"></th>
@@ -127,6 +130,58 @@
                             <form:option value="0">No</form:option>
                         </form:select>
                         <form:errors path="user.isActive" style="color: red;"></form:errors>
+                    </td>
+                </tr>
+                </sec:authorize>
+                <tr>
+                    <th style="width: 40%;">
+                        <h4>Step 2: Guardian Details</h4>
+                    </th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%; text-align: right;"></td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">Name</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:input type="text" path="guardian.name" class="form-control" required="true"></form:input>
+                        <form:errors path="guardian.name" style="color: red;"></form:errors>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">Occupation</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:input type="text" path="guardian.occupation" class="form-control"></form:input>
+                        <form:errors path="guardian.occupation" style="color: red;"></form:errors>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">Address</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:input type="text" path="guardian.address" class="form-control" required="true"></form:input>
+                        <form:errors path="guardian.address" style="color: red;"></form:errors>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">Email Address</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:input type="email" path="guardian.email" class="form-control"></form:input>
+                        <form:errors path="guardian.email" style="color: red;"></form:errors>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">Relation with student</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">
+                        <form:select class="form-control" path="guardian.relationWithStudent" required="true">
+                            <form:option value="Father">Father</form:option>
+                            <form:option value="Mother">Mother</form:option>
+                            <form:option value="Other">Other</form:option>
+                        </form:select>
+                        <form:errors path="guardian.relationWithStudent" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>

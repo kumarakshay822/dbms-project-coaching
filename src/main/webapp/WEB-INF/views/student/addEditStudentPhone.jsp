@@ -13,7 +13,7 @@
         <table class="table table-borderless mt-4">
             <tr>
                 <th style="width: 60%;">
-                    <h4>${submessage2}</h4>
+                    <h4>Step 3: Student Phone Number</h4>
                 </th>
                 <td style="width: 40%; text-align: right;">
                     <a href="#" onclick="window.location.reload();">Reset <i class="fa fa-refresh" aria-hidden="true"></i></a>
@@ -27,7 +27,7 @@
                     Phone Numbers:
                 </div>
                 <div class="col-sm-7">
-                    <c:forEach var="phoneNumber" items="${phoneNumbers}">
+                    <c:forEach var="phoneNumber" items="${studentPhoneNumbers}">
                         <div>${phoneNumber.phoneNumber} &emsp;
                             <a href="#" onclick="postRequest('/profile/users/${userId}/phoneNumber/delete',
                             {'phoneNumber': '${phoneNumber.phoneNumber}'})"> Remove
@@ -35,18 +35,68 @@
                         </div>
                     </c:forEach>
 
-                    <input type="text" id="phoneNumber">
+                    <input type="text" id="studentPhoneNumber">
                     <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/profile/users/${userId}/phoneNumber/add',
-                    {'phoneNumber': $('#phoneNumber').val()})" role="button">Add</a>
+                    {'phoneNumber': $('#studentPhoneNumber').val()})" role="button">Add</a>
+                </div>
+            </div>
+        </div>
+        <table class="table table-borderless mt-4">
+            <tr>
+                <th style="width: 60%;">
+                    <h4>Step 4: Guardian Phone Number</h4>
+                </th>
+                <td style="width: 40%; text-align: right;">
+                    <a href="#" onclick="window.location.reload();">Reset <i class="fa fa-refresh" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+        </table>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-5" style="text-align: center;">
+                    Phone Numbers:
+                </div>
+                <div class="col-sm-7">
+                    <c:forEach var="phoneNumber" items="${guardianPhoneNumbers}">
+                        <div>${phoneNumber.phoneNumber} &emsp;
+                            <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STAFF')">
+                                <a href="#" onclick="postRequest('/${role}/students/ST${studentId}/delete-guardian-phone',
+                                            {'phoneNumber': '${phoneNumber.phoneNumber}'})"> Remove</a>
+                            </sec:authorize>
+                            <sec:authorize access="hasRole('ROLE_STUDENT')">
+                                <a href="#" onclick="postRequest('/profile/student/delete-guardian-phone',
+                                            {'phoneNumber': '${phoneNumber.phoneNumber}'})"> Remove</a>
+                            </sec:authorize>
+                        </div>
+                    </c:forEach>
+
+                    <input type="text" id="guardianPhoneNumber">
+                    <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STAFF')">
+                        <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/${role}/students/ST${studentId}/add-guardian-phone',
+                                                                        {'phoneNumber': $('#guardianPhoneNumber').val()})"
+                            role="button">Add</a>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_STUDENT')">
+                        <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/profile/student/add-guardian-phone',
+                                                                        {'phoneNumber': $('#guardianPhoneNumber').val()})"
+                            role="button">Add</a>
+                    </sec:authorize>
+
                     <div id="error" style="color: red;"></div>
+                </div>
+            </div>
+            <div class="row mt-4 mb-4">
+                <div class="col-sm-7 offset-sm-5">
+                    <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STAFF')">
+                        <a class="btn btn-primary" type="button" href="/${role}/students/ST${studentId}">${buttonmessage}</a>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_STUDENT')">
+                        <a class="btn btn-primary" type="button" href="/profile/student">${buttonmessage}</a>
+                    </sec:authorize>
+                </div>
             </div>
         </div>
-        <div class="row mt-4 mb-4">
-            <div class="col-sm-7 offset-sm-5">
-                <a class="btn btn-primary" type="button" href="/${role}/students/ST${studentId}/edit-guardian">${buttonmessage}</a>
-            </div>
-        </div>
-    </div>
     </div>
 </div>
 

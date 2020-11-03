@@ -11,6 +11,7 @@ import com.dbms.coaching.services.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,14 +39,25 @@ public class UserController {
         return "user/usersPortal";
     }
 
-    @GetMapping("/admin/users/{userId}/activate")
+    public void validateCorrectUserForStaff(int userId) {
+        String role = securityService.findLoggedInUserRole();
+        if (role.equals("staff")) {
+            User user = userDao.get(userId);
+            if (!user.getRole().equals("ROLE_STUDENT"))
+                throw new AccessDeniedException("You are not allowed to delete/activate this user");
+        }
+    }
+
+    @GetMapping({ "/admin/users/{userId}/activate", "/staff/users/{userId}/activate"  })
     public ResponseEntity<Integer> activateUser(@PathVariable("userId") int userId, Model model) {
+        validateCorrectUserForStaff(userId);
         userDao.activate(userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/admin/users/{userId}/delete")
+    @GetMapping({ "/admin/users/{userId}/delete", "/staff/users/{userId}/delete" })
     public ResponseEntity<String> deleteUser(@PathVariable("userId") int userId, Model model) {
+        validateCorrectUserForStaff(userId);
         if (userId == securityService.findLoggedInUserId()) {
             return new ResponseEntity<>("Can't delete own user", HttpStatus.BAD_REQUEST);
         }
@@ -55,11 +67,13 @@ public class UserController {
 
     @PostMapping("/profile/users/{userId}/phoneNumber/add")
     public ResponseEntity<String> addUserPhoneNumber(@PathVariable("userId") int userId,
-            @RequestParam String phoneNumber, Model model) {
+    @RequestParam String phoneNumber, Model model) {
         int loggedInUserId = securityService.findLoggedInUserId();
         String role = securityService.findLoggedInUserRole();
-        if (!role.equals("admin") && loggedInUserId != userId)
+        if (!role.equals("admin") && !role.equals("staff") && loggedInUserId != userId)
             return new ResponseEntity<>("You are not allowed to perform this action", HttpStatus.BAD_REQUEST);
+        if (loggedInUserId != userId)
+            validateCorrectUserForStaff(userId);
 
         UserPhoneNumber userPhoneNumber = new UserPhoneNumber(phoneNumber, userId);
         userPhoneNumberDao.save(userPhoneNumber);
@@ -75,8 +89,10 @@ public class UserController {
             @RequestParam String phoneNumber, Model model) {
         int loggedInUserId = securityService.findLoggedInUserId();
         String role = securityService.findLoggedInUserRole();
-        if (!role.equals("admin") && loggedInUserId != userId)
+        if (!role.equals("admin") && !role.equals("staff") && loggedInUserId != userId)
             return new ResponseEntity<>("You are not allowed to perform this action", HttpStatus.BAD_REQUEST);
+        if (loggedInUserId != userId)
+            validateCorrectUserForStaff(userId);
 
         UserPhoneNumber userPhoneNumber = new UserPhoneNumber(phoneNumber, userId);
         userPhoneNumberDao.delete(userPhoneNumber);

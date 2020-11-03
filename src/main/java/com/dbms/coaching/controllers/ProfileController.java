@@ -3,12 +3,18 @@ package com.dbms.coaching.controllers;
 import java.util.List;
 
 import com.dbms.coaching.dao.EmployeeDao;
+import com.dbms.coaching.dao.GuardianDao;
+import com.dbms.coaching.dao.GuardianPhoneNumberDao;
 import com.dbms.coaching.dao.StaffDao;
+import com.dbms.coaching.dao.StudentDao;
 import com.dbms.coaching.dao.SubjectDao;
 import com.dbms.coaching.dao.TeacherDao;
 import com.dbms.coaching.dao.UserPhoneNumberDao;
 import com.dbms.coaching.models.Employee;
+import com.dbms.coaching.models.Guardian;
+import com.dbms.coaching.models.GuardianPhoneNumber;
 import com.dbms.coaching.models.Staff;
+import com.dbms.coaching.models.Student;
 import com.dbms.coaching.models.Subject;
 import com.dbms.coaching.models.Teacher;
 import com.dbms.coaching.models.User;
@@ -16,12 +22,15 @@ import com.dbms.coaching.models.UserPhoneNumber;
 import com.dbms.coaching.services.SecurityService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ProfileController {
@@ -41,7 +50,16 @@ public class ProfileController {
     private SubjectDao subjectDao;
 
     @Autowired
+    private StudentDao studentDao;
+
+    @Autowired
+    private GuardianDao guardianDao;
+
+    @Autowired
     private UserPhoneNumberDao userPhoneNumberDao;
+
+    @Autowired
+    private GuardianPhoneNumberDao guardianPhoneNumberDao;
 
     @GetMapping("/profile")
     public String redirectToProfile(Model model) {
@@ -422,6 +440,196 @@ public class ProfileController {
         model.addAttribute("phoneNumbers", phoneNumbers);
         model.addAttribute("userId", userId);
         return "staff/addEditStaffPhone";
+    }
+
+    @GetMapping("/profile/student/add")
+    public String addStudent(Model model) {
+        int userId = securityService.findLoggedInUserId();
+        String role = securityService.findLoggedInUserRole();
+        if (!role.equals("student"))
+            return "redirect:/profile";
+        Integer studentId = studentDao.getStudentIdByUserId(userId);
+        if (studentId != null)
+            return "redirect:/profile";
+
+        model.addAttribute("title", "Student Portal");
+        model.addAttribute("message", "Create Student's profile");
+        model.addAttribute("submessage1", "Add Student Details");
+        model.addAttribute("buttonmessage", "Proceed");
+        model.addAttribute("submiturl", "/profile/student/add");
+        Student student = new Student();
+        model.addAttribute("student", student);
+        return "student/addEditStudent";
+    }
+
+    @PostMapping("/profile/student/add")
+    public String addStudent(@ModelAttribute("student") Student student, BindingResult bindingResult, Model model) {
+        int userId = securityService.findLoggedInUserId();
+        String role = securityService.findLoggedInUserRole();
+        if (!role.equals("student"))
+            return "redirect:/profile";
+        Integer studentId = studentDao.getStudentIdByUserId(userId);
+        if (studentId != null)
+            return "redirect:/profile";
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("title", "Student Portal");
+            model.addAttribute("message", "Create Student's profile");
+            model.addAttribute("submessage1", "Add Student Details");
+            model.addAttribute("buttonmessage", "Proceed");
+            model.addAttribute("submiturl", "/profile/student/add");
+            return "student/addEditStudent";
+        }
+        User user = student.getUser();
+        user.setUserId(userId);
+
+        student.setUser(user);
+        student = studentDao.save(student);
+
+        Guardian guardian = student.getGuardian();
+        guardian.setStudentId(student.getStudentId());
+        guardianDao.save(guardian);
+
+        return "redirect:/profile/student/add-student-phone";
+    }
+
+    @GetMapping("/profile/student")
+    public String viewStudent(Model model) {
+        int userId = securityService.findLoggedInUserId();
+        String role = securityService.findLoggedInUserRole();
+        if (!role.equals("student"))
+            return "redirect:/profile";
+        Integer studentId = studentDao.getStudentIdByUserId(userId);
+        if (studentId == null)
+            return "redirect:/profile/student/add";
+
+        model.addAttribute("title", "Student Portal");
+        model.addAttribute("message", "View Student's profile");
+        model.addAttribute("submessage1", "Student Details");
+        Student student = studentDao.get(studentId);
+        List<UserPhoneNumber> userPhoneNumbers = userPhoneNumberDao.getByUserId(userId);
+        List<GuardianPhoneNumber> guardianPhoneNumbers = guardianPhoneNumberDao.getByStudentId(studentId);
+        model.addAttribute("student", student);
+        model.addAttribute("userPhoneNumbers", userPhoneNumbers);
+        model.addAttribute("guardianPhoneNumbers", guardianPhoneNumbers);
+        return "student/viewStudent";
+    }
+
+    @GetMapping("/profile/student/edit-student")
+    public String editStudent(Model model) {
+        int userId = securityService.findLoggedInUserId();
+        String role = securityService.findLoggedInUserRole();
+        if (!role.equals("student"))
+            return "redirect:/profile";
+        Integer studentId = studentDao.getStudentIdByUserId(userId);
+        if (studentId == null)
+            return "redirect:/profile/student/add";
+
+        model.addAttribute("title", "Student Portal");
+        model.addAttribute("message", "Edit Student's profile");
+        model.addAttribute("submessage1", "Edit Student Details");
+        model.addAttribute("buttonmessage", "Proceed");
+        model.addAttribute("submiturl", "/profile/student/edit-student");
+        model.addAttribute("edit", "true");
+        Student student = studentDao.get(studentId);
+        model.addAttribute("student", student);
+        return "student/addEditStudent";
+    }
+
+    @PostMapping("/profile/student/edit-student")
+    public String editStudent(@ModelAttribute("student") Student student, BindingResult bindingResult, Model model) {
+        int userId = securityService.findLoggedInUserId();
+        String role = securityService.findLoggedInUserRole();
+        if (!role.equals("student"))
+            return "redirect:/profile";
+        Integer studentId = studentDao.getStudentIdByUserId(userId);
+        if (studentId == null)
+            return "redirect:/profile/student/add";
+
+        // TODO: Validate here
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("title", "Student Portal");
+            model.addAttribute("message", "Edit Student's profile");
+            model.addAttribute("submessage1", "Edit Student Details");
+            model.addAttribute("submiturl", "/profile/student/edit-student");
+            model.addAttribute("buttonmessage", "Proceed");
+            model.addAttribute("edit", "true");
+            return "student/addEditStudent";
+        }
+        User user = student.getUser();
+        user.setUserId(userId);
+
+        student.setUser(user);
+        studentDao.update(student);
+
+        Guardian guardian = student.getGuardian();
+        guardian.setStudentId(studentId);
+        guardianDao.update(guardian);
+        return "redirect:/profile/student/edit-student-phone";
+    }
+
+    @GetMapping("/profile/student/add-student-phone")
+    public String addStudentPhone(Model model) {
+        int userId = securityService.findLoggedInUserId();
+        String role = securityService.findLoggedInUserRole();
+        if (!role.equals("student"))
+            return "redirect:/profile";
+        Integer studentId = studentDao.getStudentIdByUserId(userId);
+        if (studentId == null)
+            return "redirect:/profile/student/add";
+
+        model.addAttribute("title", "Student Portal");
+        model.addAttribute("message", "Create Student's profile");
+        model.addAttribute("submessage1", "Add Student Details");
+        model.addAttribute("buttonmessage", "Finish");
+        List<UserPhoneNumber> studentPhoneNumbers = userPhoneNumberDao.getByUserId(userId);
+        List<GuardianPhoneNumber> guardianPhoneNumbers = guardianPhoneNumberDao.getByStudentId(studentId);
+        model.addAttribute("studentPhoneNumbers", studentPhoneNumbers);
+        model.addAttribute("guardianPhoneNumbers", guardianPhoneNumbers);
+        model.addAttribute("userId", userId);
+        return "student/addEditStudentPhone";
+    }
+
+    @GetMapping("/profile/student/edit-student-phone")
+    public String editStudentPhone(Model model) {
+        int userId = securityService.findLoggedInUserId();
+        String role = securityService.findLoggedInUserRole();
+        if (!role.equals("student"))
+            return "redirect:/profile";
+        Integer studentId = studentDao.getStudentIdByUserId(userId);
+        if (studentId == null)
+            return "redirect:/profile/student/add";
+
+        model.addAttribute("title", "Student Portal");
+        model.addAttribute("message", "Edit Student's profile");
+        model.addAttribute("submessage1", "Edit Student Details");
+        model.addAttribute("buttonmessage", "Finish");
+        List<UserPhoneNumber> studentPhoneNumbers = userPhoneNumberDao.getByUserId(userId);
+        List<GuardianPhoneNumber> guardianPhoneNumbers = guardianPhoneNumberDao.getByStudentId(studentId);
+        model.addAttribute("studentPhoneNumbers", studentPhoneNumbers);
+        model.addAttribute("guardianPhoneNumbers", guardianPhoneNumbers);
+        model.addAttribute("userId", userId);
+        return "student/addEditStudentPhone";
+    }
+
+    @PostMapping("/profile/student/add-guardian-phone")
+    public ResponseEntity<Integer> addGuardianPhoneNumber(@RequestParam String phoneNumber, Model model) {
+        int userId = securityService.findLoggedInUserId();
+        int studentId = studentDao.getStudentIdByUserId(userId);
+        String guardianName = guardianDao.getNameByStudentId(studentId);
+        GuardianPhoneNumber guardianPhoneNumber = new GuardianPhoneNumber(phoneNumber, guardianName, studentId);
+        guardianPhoneNumberDao.save(guardianPhoneNumber);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/profile/student/delete-guardian-phone")
+    public ResponseEntity<Integer> deleteGuardianPhoneNumber(@RequestParam String phoneNumber, Model model) {
+        int userId = securityService.findLoggedInUserId();
+        int studentId = studentDao.getStudentIdByUserId(userId);
+        String guardianName = guardianDao.getNameByStudentId(studentId);
+        GuardianPhoneNumber guardianPhoneNumber = new GuardianPhoneNumber(phoneNumber, guardianName, studentId);
+        guardianPhoneNumberDao.delete(guardianPhoneNumber);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

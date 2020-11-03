@@ -5,18 +5,18 @@ public class Guardian {
     private int studentId;
     private String occupation;
     private String address;
-    private String emailAddress;
+    private String email;
     private String relationWithStudent;
 
     public Guardian() {
     }
 
-    public Guardian(String name, int studentId, String occupation, String address, String emailAddress, String relationWithStudent) {
+    public Guardian(String name, int studentId, String occupation, String address, String email, String relationWithStudent) {
         this.name = name;
         this.studentId = studentId;
         this.occupation = occupation;
         this.address = address;
-        this.emailAddress = emailAddress;
+        this.email = email;
         this.relationWithStudent = relationWithStudent;
     }
 
@@ -77,17 +77,17 @@ public class Guardian {
     }
 
     /**
-     * @return String return the emailAddress
+     * @return String return the email
      */
-    public String getEmailAddress() {
-        return emailAddress;
+    public String getEmail() {
+        return email;
     }
 
     /**
-     * @param emailAddress the emailAddress to set
+     * @param email the email to set
      */
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**
@@ -111,7 +111,7 @@ public class Guardian {
             ", studentId='" + getStudentId() + "'" +
             ", occupation='" + getOccupation() + "'" +
             ", address='" + getAddress() + "'" +
-            ", emailAddress='" + getEmailAddress() + "'" +
+            ", email='" + getEmail() + "'" +
             ", relationWithStudent='" + getRelationWithStudent() + "'" +
             "}";
     }
