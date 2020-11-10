@@ -6,5 +6,5 @@ public interface UserService {
     public User save(User user);
     public User findByEmailAddress(String emailAddress);
     public User findByUsername(String username);
-    // TODO: Add more user services here
+    public User setPasswordActivateUserAndEmail(User user);
 }

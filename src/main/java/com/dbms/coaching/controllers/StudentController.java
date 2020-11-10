@@ -90,8 +90,8 @@ public class StudentController {
         // TODO: Set random password here
         // TODO: Email the user the password
         // TODO: Add email validation, don't allow login without it
-        user.setPassword("password");
         user.setRole("ROLE_STUDENT");
+        user = userService.setPasswordActivateUserAndEmail(user);
         user = userService.save(user);
 
         student.setUser(user);

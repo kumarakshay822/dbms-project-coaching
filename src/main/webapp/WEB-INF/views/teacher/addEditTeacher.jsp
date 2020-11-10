@@ -199,6 +199,7 @@
                         <form:errors path="employee.ifscCode" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                <c:if test="${edit == true}">
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <tr>
                     <th style="width: 40%; text-align: center;">Activated?</th>
@@ -212,6 +213,7 @@
                     </td>
                 </tr>
                 </sec:authorize>
+                </c:if>
                 <tr>
                     <th style="width: 40%; text-align: center;"></th>
                     <th style="width: 10%;"></th>

@@ -91,8 +91,8 @@ public class TeacherController {
         }
         Employee employee = teacher.getEmployee();
         User user = employee.getUser();
-        user.setPassword("password");
         user.setRole("ROLE_TEACHER");
+        user = userService.setPasswordActivateUserAndEmail(user);
         user = userService.save(user);
 
         employee.setUser(user);

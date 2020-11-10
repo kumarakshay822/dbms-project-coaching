@@ -120,6 +120,7 @@
                         <form:errors path="percentage12th" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                <c:if test="${edit == true}">
                 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STAFF')">
                 <tr>
                     <th style="width: 40%; text-align: center;">Activated?</th>
@@ -133,6 +134,7 @@
                     </td>
                 </tr>
                 </sec:authorize>
+                </c:if>
                 <tr>
                     <th style="width: 40%;">
                         <h4>Step 2: Guardian Details</h4>
