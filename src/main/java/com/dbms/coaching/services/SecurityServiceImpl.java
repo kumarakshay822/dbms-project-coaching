@@ -1,5 +1,6 @@
 package com.dbms.coaching.services;
 
+import com.dbms.coaching.dao.UserDao;
 import com.dbms.coaching.models.MyUserDetails;
 import com.dbms.coaching.models.User;
 
@@ -16,6 +17,9 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public String findLoggedInUsername() {
@@ -82,4 +86,16 @@ public class SecurityServiceImpl implements SecurityService {
         SecurityContextHolder.clearContext();
     }
 
+    @Override
+    public boolean isUserDeleted() {
+        int userId = findLoggedInUserId();
+        if (userId == 0)
+            return false;
+        User user = userDao.get(userId);
+        if (user == null) {
+            autoLogout();
+            return true;
+        }
+        return false;
+    }
 }

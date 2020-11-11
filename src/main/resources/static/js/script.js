@@ -1,3 +1,11 @@
+$.ajax({
+    url: "/user/checkUserLoggedIn",
+    type: "get",
+    success: function(data, status, xhr) {},
+    error: function(xhr, status, err) {
+        location.reload();
+    }
+});
 function getRequestWithConfirmation(url, confirmText){
     if (confirm(confirmText)){
         $.ajax({
@@ -73,6 +81,8 @@ function titleCase(text) {
     }
     var words = text.split("-");
     for (let i = 0; i < words.length; i++) {
+        if (words[i] == "")
+            continue;
         words[i] = words[i][0].toUpperCase() + words[i].slice(1);
     }
     return words.join(" ");

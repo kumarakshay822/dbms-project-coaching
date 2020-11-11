@@ -3,10 +3,12 @@ package com.dbms.coaching.controllers;
 import com.dbms.coaching.dao.UserDao;
 import com.dbms.coaching.dao.UserTokenDao;
 import com.dbms.coaching.models.User;
+import com.dbms.coaching.services.SecurityService;
 import com.dbms.coaching.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,9 @@ public class LoginController {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private SecurityService securityService;
 
     @GetMapping("/user/login")
     public String login(Model model, String error, String logout, String verified, String resetSuccessful, String emailSent, String verificationEmailSent) {
@@ -129,5 +134,14 @@ public class LoginController {
         }
         userService.sendPasswordResetEmail(user);
         return "redirect:/user/login?emailSent";
+    }
+
+    @GetMapping("/user/checkUserLoggedIn")
+    public ResponseEntity<Integer> isUserLoggedIn(Model model) {
+        boolean isDeleted = securityService.isUserDeleted();
+        if (!isDeleted)
+            return new ResponseEntity<>(HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

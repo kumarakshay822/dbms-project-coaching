@@ -16,4 +16,6 @@ public interface SecurityService {
     public void autoLogin(String username, String password);
 
     public void autoLogout();
+
+    public boolean isUserDeleted();
 }
