@@ -2,10 +2,13 @@ package com.dbms.coaching.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.dbms.coaching.dao.EmployeeDao;
 import com.dbms.coaching.dao.PayrollDao;
 import com.dbms.coaching.models.Payroll;
 import com.dbms.coaching.services.SecurityService;
+import com.dbms.coaching.validators.PayrollValidator;
 import com.dbms.coaching.models.Employee;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,9 @@ public class PayrollController {
 
     @Autowired
     private SecurityService securityService;
+
+    @Autowired
+    private PayrollValidator payrollValidator;
 
     @GetMapping("/admin/payroll")
     public String listPayrolls(Model model, String employee) {
@@ -79,7 +85,8 @@ public class PayrollController {
     }
 
     @PostMapping("/admin/payroll/add")
-    public String addPayroll(@ModelAttribute("payroll") Payroll payroll, BindingResult bindingResult, Model model) {
+    public String addPayroll(@Valid @ModelAttribute("payroll") Payroll payroll, BindingResult bindingResult, Model model) {
+        payrollValidator.validate(payroll, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Payroll Management");
             model.addAttribute("message", "Add Payroll");
@@ -121,7 +128,8 @@ public class PayrollController {
 
     @PostMapping("/admin/payroll/{paymentRefNo}/edit")
     public String editPayroll(@PathVariable("paymentRefNo") String paymentRefNo,
-    @ModelAttribute("payroll") Payroll payroll, BindingResult bindingResult, Model model) {
+    @Valid @ModelAttribute("payroll") Payroll payroll, BindingResult bindingResult, Model model) {
+        payrollValidator.validate(payroll, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Payroll Management");
             model.addAttribute("message", "Edit Payroll");

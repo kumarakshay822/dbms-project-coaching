@@ -2,6 +2,8 @@ package com.dbms.coaching.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.dbms.coaching.dao.EmployeeDao;
 import com.dbms.coaching.dao.FeedbackDao;
 import com.dbms.coaching.dao.StudentDao;
@@ -97,7 +99,7 @@ public class FeedbackController {
     }
 
     @PostMapping("/student/feedbacks/add")
-    public String addFeedback(@ModelAttribute("feedback") Feedback feedback, BindingResult bindingResult, Model model) {
+    public String addFeedback(@Valid @ModelAttribute("feedback") Feedback feedback, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Feedback Portal");
             model.addAttribute("message", "Add Feedback");

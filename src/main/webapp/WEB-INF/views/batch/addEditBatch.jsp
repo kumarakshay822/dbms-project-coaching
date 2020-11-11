@@ -53,7 +53,7 @@
                     <td style="width: 50%">
                         <c:choose>
                             <c:when test="${edit == true}">
-                                ${batch.course.courseId} - ${batch.course.courseName}
+                                ${courseId} - ${batch.course.courseName}
                             </c:when>
                             <c:when test="${not empty courseId}">
                                 ${courseId}

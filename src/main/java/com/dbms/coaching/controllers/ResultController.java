@@ -8,11 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import com.dbms.coaching.dao.ResultDao;
 import com.dbms.coaching.dao.StudentDao;
 import com.dbms.coaching.models.Result;
 import com.dbms.coaching.models.Student;
 import com.dbms.coaching.services.SecurityService;
+import com.dbms.coaching.validators.ResultValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +40,9 @@ public class ResultController {
 
     @Autowired
     private SecurityService securityService;
+
+    @Autowired
+    private ResultValidator resultValidator;
 
     public Map<Integer, Integer> getMarksToRank(List<Result> results) {
         Set<Integer> marks = new LinkedHashSet<>();
@@ -96,8 +102,9 @@ public class ResultController {
     }
 
     @PostMapping({ "/admin/academics/tests/{testId}/results/add", "/staff/academics/tests/{testId}/results/add" })
-    public String addResult(@PathVariable("testId") int testId, @ModelAttribute("result") Result result,
+    public String addResult(@PathVariable("testId") int testId, @Valid @ModelAttribute("result") Result result,
             BindingResult bindingResult, Model model) {
+        resultValidator.validate(result, bindingResult);
         String role = securityService.findLoggedInUserRole();
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Results");
@@ -142,7 +149,7 @@ public class ResultController {
 
     @PostMapping({ "/admin/academics/tests/{testId}/results/ST{studentId}/edit", "/staff/academics/tests/{testId}/results/ST{studentId}/edit" })
     public String editResult(@PathVariable("testId") int testId, @PathVariable("studentId") int studentId,
-    @ModelAttribute("result") Result result, BindingResult bindingResult, Model model) {
+    @Valid @ModelAttribute("result") Result result, BindingResult bindingResult, Model model) {
         String role = securityService.findLoggedInUserRole();
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Results");
@@ -197,8 +204,9 @@ public class ResultController {
     }
 
     @PostMapping("/student/academics/tests/{testId}/results-recheck")
-    public String studentRechecks(@PathVariable("testId") int testId, @ModelAttribute("result") Result result,
+    public String studentRechecks(@PathVariable("testId") int testId, @Valid @ModelAttribute("result") Result result,
             BindingResult bindingResult, Model model) {
+        resultValidator.validate(result, bindingResult);
         checkStudentAppearedInTest(testId);
         int userId = securityService.findLoggedInUserId();
         int studentId = studentDao.getStudentIdByUserId(userId);

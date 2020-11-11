@@ -32,7 +32,7 @@
                                 ${attendance.date}
                             </c:when>
                             <c:otherwise>
-                                <form:input type="date" path="date" class="form-control" required="true"></form:input>
+                                <form:input type="date" path="date" class="form-control" required="true" max="${todayFormatted}"></form:input>
                                 <form:errors path="date" style="color: red;"></form:errors>
                             </c:otherwise>
                         </c:choose>

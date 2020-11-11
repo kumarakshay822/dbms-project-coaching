@@ -3,12 +3,22 @@ package com.dbms.coaching.models;
 import java.sql.Date;
 import java.sql.Time;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class Complaint {
     private int complaintId;
     private Date date;
     private Time time;
+
+    @NotBlank
+    @Size(min = 5, max = 50)
     private String subject;
+
+    @NotBlank
+    @Size(min = 10, max = 255)
     private String description;
+
     private String response;
     private boolean isResolved;
     private int studentId;

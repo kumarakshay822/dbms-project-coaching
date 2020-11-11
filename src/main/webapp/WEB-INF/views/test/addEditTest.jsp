@@ -73,7 +73,7 @@
                     <th style="width: 40%; text-align: center;">Test Date</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
-                        <form:input type="date" path="testDate" class="form-control"  required="true"></form:input>
+                        <form:input type="date" path="testDate" class="form-control"  required="true" min="${todayFormatted}"></form:input>
                         <form:errors path="testDate" style="color: red;"></form:errors>
                     </td>
                 </tr>

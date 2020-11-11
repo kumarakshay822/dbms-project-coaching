@@ -54,6 +54,7 @@
                                         </form:option>
                                     </c:forEach>
                                 </form:select>
+                                <form:errors path="student.studentId" style="color: red;"></form:errors>
                             </td>
                         </tr>
                     </c:otherwise>

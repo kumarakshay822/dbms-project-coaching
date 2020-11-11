@@ -41,6 +41,18 @@ public class SubjectDaoImpl implements SubjectDao {
     }
 
     @Override
+    public Subject getBySubjectName(String subjectName) {
+        try {
+            String sql = "SELECT * FROM Subject WHERE subjectName = ?";
+            Subject subject = template.queryForObject(sql, new Object[] { subjectName },
+                    new BeanPropertyRowMapper<>(Subject.class));
+            return subject;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
     public List<Subject> getSubjectsInCourse(String courseId) {
         String sql = "SELECT * FROM Subject NATURAL JOIN CourseSubjectDetails WHERE courseId = ?";
         List<Subject> subjects = template.query(sql, new Object[] { courseId },

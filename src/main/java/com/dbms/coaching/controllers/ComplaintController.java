@@ -2,6 +2,8 @@ package com.dbms.coaching.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.dbms.coaching.dao.ComplaintDao;
 import com.dbms.coaching.dao.StudentDao;
 import com.dbms.coaching.models.Complaint;
@@ -76,7 +78,7 @@ public class ComplaintController {
     }
 
     @PostMapping("/student/complaints/add")
-    public String addComplaint(@ModelAttribute("complaint") Complaint complaint, BindingResult bindingResult,
+    public String addComplaint(@Valid @ModelAttribute("complaint") Complaint complaint, BindingResult bindingResult,
             Model model) {
         int userId = securityService.findLoggedInUserId();
         int studentId = studentDao.getStudentIdByUserId(userId);
@@ -119,7 +121,7 @@ public class ComplaintController {
     }
 
     @PostMapping("/admin/complaints/{complaintId}/edit")
-    public String editComplaintAdmin(@PathVariable("complaintId") int complaintId, @ModelAttribute("complaint") Complaint complaint,
+    public String editComplaintAdmin(@PathVariable("complaintId") int complaintId, @Valid @ModelAttribute("complaint") Complaint complaint,
             BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Complaint Portal");

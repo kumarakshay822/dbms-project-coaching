@@ -2,6 +2,8 @@ package com.dbms.coaching.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.dbms.coaching.dao.EmployeeDao;
 import com.dbms.coaching.dao.GuardianDao;
 import com.dbms.coaching.dao.GuardianPhoneNumberDao;
@@ -112,7 +114,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/teacher/add")
-    public String addTeacher(@ModelAttribute("teacher") Teacher teacher, BindingResult bindingResult, Model model) {
+    public String addTeacher(@Valid @ModelAttribute("teacher") Teacher teacher, BindingResult bindingResult, Model model) {
         int userId = securityService.findLoggedInUserId();
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("teacher"))
@@ -194,7 +196,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/teacher/edit-teacher")
-    public String editTeacher(@ModelAttribute("teacher") Teacher teacher,
+    public String editTeacher(@Valid @ModelAttribute("teacher") Teacher teacher,
             BindingResult bindingResult, Model model) {
         int userId = securityService.findLoggedInUserId();
         String role = securityService.findLoggedInUserRole();
@@ -297,7 +299,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/staff/add")
-    public String addStaff(@ModelAttribute("staff") Staff staff, BindingResult bindingResult, Model model) {
+    public String addStaff(@Valid @ModelAttribute("staff") Staff staff, BindingResult bindingResult, Model model) {
         int userId = securityService.findLoggedInUserId();
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("staff"))
@@ -375,7 +377,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/staff/edit-staff")
-    public String editStaff(@ModelAttribute("staff") Staff staff,
+    public String editStaff(@Valid @ModelAttribute("staff") Staff staff,
             BindingResult bindingResult, Model model) {
         int userId = securityService.findLoggedInUserId();
         String role = securityService.findLoggedInUserRole();
@@ -475,7 +477,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/student/add")
-    public String addStudent(@ModelAttribute("student") Student student, BindingResult bindingResult, Model model) {
+    public String addStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult, Model model) {
         int userId = securityService.findLoggedInUserId();
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("student"))
@@ -551,7 +553,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/student/edit-student")
-    public String editStudent(@ModelAttribute("student") Student student, BindingResult bindingResult, Model model) {
+    public String editStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult, Model model) {
         int userId = securityService.findLoggedInUserId();
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("student"))
@@ -627,7 +629,10 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/student/add-guardian-phone")
-    public ResponseEntity<Integer> addGuardianPhoneNumber(@RequestParam String phoneNumber, Model model) {
+    public ResponseEntity<String> addGuardianPhoneNumber(@RequestParam String phoneNumber, Model model) {
+        if (!phoneNumber.matches("^[1-9][0-9]{9,9}$")) {
+            return new ResponseEntity<>("The phone number must be of 10 digits", HttpStatus.BAD_REQUEST);
+        }
         int userId = securityService.findLoggedInUserId();
         int studentId = studentDao.getStudentIdByUserId(userId);
         String guardianName = guardianDao.getNameByStudentId(studentId);

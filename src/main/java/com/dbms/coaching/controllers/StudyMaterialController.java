@@ -4,6 +4,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.dbms.coaching.dao.StudentDao;
 import com.dbms.coaching.dao.StudyMaterialDao;
 import com.dbms.coaching.dao.SubjectDao;
@@ -11,6 +13,7 @@ import com.dbms.coaching.dao.TeacherDao;
 import com.dbms.coaching.models.StudyMaterial;
 import com.dbms.coaching.services.SecurityService;
 import com.dbms.coaching.services.StorageService;
+import com.dbms.coaching.validators.StudyMaterialValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,6 +48,9 @@ public class StudyMaterialController {
 
     @Autowired
     private SubjectDao subjectDao;
+
+    @Autowired
+    private StudyMaterialValidator studyMaterialValidator;
 
     public void checkStudentEnrolledSubject(String subjectId) {
         int userId = securityService.findLoggedInUserId();
@@ -104,8 +110,9 @@ public class StudyMaterialController {
     @PostMapping({ "/admin/academics/subjects/{subjectId}/materials/add",
             "/teacher/academics/subjects/{subjectId}/materials/add" })
     public String addStudyMaterial(@PathVariable("subjectId") String subjectId,
-            @ModelAttribute("material") StudyMaterial material, BindingResult bindingResult, Model model,
+            @Valid @ModelAttribute("material") StudyMaterial material, BindingResult bindingResult, Model model,
             @RequestParam("file") MultipartFile file) {
+        studyMaterialValidator.validate(material, bindingResult);
         String role = securityService.findLoggedInUserRole();
         checkTeacherOfSubject(subjectId);
         if (bindingResult.hasErrors()) {
@@ -159,8 +166,9 @@ public class StudyMaterialController {
     @PostMapping({ "/admin/academics/subjects/{subjectId}/materials/{materialId}/edit",
             "/teacher/academics/subjects/{subjectId}/materials/{materialId}/edit" })
     public String editStudyMaterial(@PathVariable("subjectId") String subjectId,
-    @PathVariable("materialId") String materialId, @ModelAttribute("material") StudyMaterial material,
-    BindingResult bindingResult, Model model) {
+            @PathVariable("materialId") String materialId, @Valid @ModelAttribute("material") StudyMaterial material,
+            BindingResult bindingResult, Model model) {
+        studyMaterialValidator.validate(material, bindingResult);
         String role = securityService.findLoggedInUserRole();
         checkTeacherOfSubject(subjectId);
         if (bindingResult.hasErrors()) {

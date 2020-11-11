@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import com.dbms.coaching.dao.EmployeeDao;
 import com.dbms.coaching.dao.AttendanceDao;
 import com.dbms.coaching.models.Attendance;
@@ -11,6 +13,7 @@ import com.dbms.coaching.models.Employee;
 import com.dbms.coaching.services.SecurityService;
 import com.dbms.coaching.utils.DateTimeUtil;
 import com.dbms.coaching.utils.DateValidator;
+import com.dbms.coaching.validators.AttendanceValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,6 +43,9 @@ public class AttendanceController {
 
     @Autowired
     private SecurityService securityService;
+
+    @Autowired
+    private AttendanceValidator attendanceValidator;
 
     @GetMapping("/admin/attendance")
     public String listAttendances(Model model, String date) {
@@ -120,7 +126,8 @@ public class AttendanceController {
 
     @PostMapping("/staff/mark-attendance/{date}/ET{employeeId}/edit")
     public String editTeacherAttendance(@PathVariable("date") Date date, @PathVariable("employeeId") int employeeId,
-            @ModelAttribute("attendance") Attendance attendance, BindingResult bindingResult, Model model) {
+            @Valid @ModelAttribute("attendance") Attendance attendance, BindingResult bindingResult, Model model) {
+        attendanceValidator.validate(attendance, bindingResult);
         String role = employeeDao.getRole(employeeId);
         if (!role.equals("ROLE_TEACHER"))
             throw new AccessDeniedException("You are not allowed to edit attendance of given employee");
@@ -138,7 +145,7 @@ public class AttendanceController {
         attendance.setEmployee(employee);
 
         attendanceDao.update(attendance);
-        return "redirect:/staff/mark-attendance/";
+        return "redirect:/staff/mark-attendance";
     }
 
     @GetMapping("/admin/attendance/{date}/{employeecode}")
@@ -171,7 +178,8 @@ public class AttendanceController {
     }
 
     @PostMapping("/admin/attendance/add")
-    public String addAttendance(@ModelAttribute("attendance") Attendance attendance, BindingResult bindingResult, Model model) {
+    public String addAttendance(@Valid @ModelAttribute("attendance") Attendance attendance, BindingResult bindingResult, Model model) {
+        attendanceValidator.validate(attendance, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Attendance Management");
             model.addAttribute("message", "Add Attendance");
@@ -187,8 +195,9 @@ public class AttendanceController {
     }
 
     @PostMapping("/staff/mark-attendance/add")
-    public String addTeacherAttendance(@ModelAttribute("attendance") Attendance attendance, BindingResult bindingResult,
+    public String addTeacherAttendance(@Valid @ModelAttribute("attendance") Attendance attendance, BindingResult bindingResult,
             Model model) {
+        attendanceValidator.validate(attendance, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Attendance Management");
             model.addAttribute("message", "Add Attendance");
@@ -226,7 +235,8 @@ public class AttendanceController {
 
     @PostMapping("/admin/attendance/{date}/{employeecode}/edit")
     public String editAttendance(@PathVariable("date") Date date, @PathVariable("employeecode") String employeecode,
-            @ModelAttribute("attendance") Attendance attendance, BindingResult bindingResult, Model model) {
+            @Valid @ModelAttribute("attendance") Attendance attendance, BindingResult bindingResult, Model model) {
+        attendanceValidator.validate(attendance, bindingResult);
         String code = employeecode.substring(0, 2);
         int employeeId = Integer.parseInt(employeecode.substring(2));
         String role = employeeDao.getRole(employeeId);

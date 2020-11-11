@@ -2,12 +2,28 @@ package com.dbms.coaching.models;
 
 import java.sql.Time;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
 public class Batch {
+    @NotEmpty
+    @Size(min = 2, max = 10)
     private String batchId;
+
     private Course course;
+
+    @NotEmpty
+    @Size(min = 2, max = 50)
     private String batchName;
+
+    @Min(1000)
     private int fee;
+
+    @Positive
     private int roomNumber;
+
     private Time startTime;
     private Time endTime;
     private boolean isEnrollmentAllowed;

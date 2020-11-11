@@ -75,7 +75,7 @@
                     <th style="width: 40%; text-align: center;">Date of Birth</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
-                        <form:input type="date" path="dateOfBirth" class="form-control" required="true"></form:input>
+                        <form:input type="date" path="dateOfBirth" class="form-control" required="true" max="2005-01-01" min="1960-01-01"></form:input>
                         <form:errors path="dateOfBirth" style="color: red;"></form:errors>
                     </td>
                 </tr>

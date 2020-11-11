@@ -11,6 +11,8 @@ public interface SubjectDao {
 
     public Subject get(String subjectId);
 
+    public Subject getBySubjectName(String subjectName);
+
     public List<Subject> getSubjectsInCourse(String courseId);
 
     public List<Subject> getSubjectsNotInCourse(String courseId);

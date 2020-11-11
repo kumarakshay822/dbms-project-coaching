@@ -1,11 +1,21 @@
 package com.dbms.coaching.models;
 
+import javax.validation.constraints.NotEmpty;
+
 public class Guardian {
+    @NotEmpty
     private String name;
+
     private int studentId;
+
     private String occupation;
+
+    @NotEmpty
     private String address;
+
     private String email;
+
+    @NotEmpty
     private String relationWithStudent;
 
     public Guardian() {

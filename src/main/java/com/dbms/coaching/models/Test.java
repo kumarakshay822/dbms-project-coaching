@@ -3,15 +3,32 @@ package com.dbms.coaching.models;
 import java.sql.Date;
 import java.sql.Time;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
+
 public class Test {
     private int testId;
+
+    @NotEmpty
     private String testName;
+
+    @Positive
     private int roomNumber;
+
     private Date testDate;
+
     private Time startTime;
+
     private Time endTime;
+
+    @Positive
+    @Max(500)
     private int maximumMarks;
+
+    @NotEmpty
     private String difficulty;
+
     private Course course;
 
     public Test() {

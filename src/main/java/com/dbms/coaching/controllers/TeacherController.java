@@ -2,6 +2,8 @@ package com.dbms.coaching.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.dbms.coaching.dao.EmployeeDao;
 import com.dbms.coaching.dao.SubjectDao;
 import com.dbms.coaching.dao.TeacherDao;
@@ -13,6 +15,7 @@ import com.dbms.coaching.models.Teacher;
 import com.dbms.coaching.models.User;
 import com.dbms.coaching.models.UserPhoneNumber;
 import com.dbms.coaching.services.UserService;
+import com.dbms.coaching.validators.TeacherValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,6 +52,9 @@ public class TeacherController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TeacherValidator teacherValidator;
+
     @GetMapping("/admin/teachers")
     public String teachersPortal(Model model) {
         model.addAttribute("title", "Teacher Portal");
@@ -76,8 +82,8 @@ public class TeacherController {
     }
 
     @PostMapping("/admin/teachers/add")
-    public String addTeacher(@ModelAttribute("teacher") Teacher teacher, BindingResult bindingResult, Model model) {
-        // TODO: Validate here
+    public String addTeacher(@Valid @ModelAttribute("teacher") Teacher teacher, BindingResult bindingResult, Model model) {
+        teacherValidator.validate(teacher, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Teacher Portal");
             model.addAttribute("message", "Create Teacher's profile");
@@ -135,9 +141,8 @@ public class TeacherController {
     }
 
     @PostMapping("/admin/teachers/ET{employeeId}/edit-teacher")
-    public String editTeacher(@PathVariable("employeeId") int employeeId, @ModelAttribute("teacher") Teacher teacher,
+    public String editTeacher(@PathVariable("employeeId") int employeeId, @Valid @ModelAttribute("teacher") Teacher teacher,
             BindingResult bindingResult, Model model) {
-        // TODO: Validate here
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Teacher Portal");
             model.addAttribute("message", "Edit Teacher's profile");

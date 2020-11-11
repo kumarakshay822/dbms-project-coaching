@@ -2,19 +2,42 @@ package com.dbms.coaching.models;
 
 import java.sql.Date;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
 public class Teacher {
     private int teacherId;
+
+    @NotBlank
     private String gender;
+
     private Date dateOfBirth;
+
+    @NotBlank
     private String houseNumber;
+
+    @NotBlank
     private String street;
+
+    @NotBlank
     private String city;
+
+    @NotBlank
     private String state;
+
+    @Min(100000)
+    @Max(999999)
     private int pinCode;
+
     private String bachelorsDegree;
     private String mastersDegree;
     private String doctoralDegree;
+
+    @Valid
     private Employee employee;
+
     private Subject subject;
 
     public Teacher() {

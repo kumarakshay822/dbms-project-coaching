@@ -2,6 +2,8 @@ package com.dbms.coaching.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.dbms.coaching.dao.BatchDao;
 import com.dbms.coaching.dao.CourseDao;
 import com.dbms.coaching.dao.StaffBatchDao;
@@ -13,6 +15,7 @@ import com.dbms.coaching.models.Course;
 import com.dbms.coaching.models.Staff;
 import com.dbms.coaching.models.Teacher;
 import com.dbms.coaching.services.SecurityService;
+import com.dbms.coaching.validators.BatchValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,6 +51,9 @@ public class BatchController {
 
     @Autowired
     private SecurityService securityService;
+
+    @Autowired
+    private BatchValidator batchValidator;
 
     @GetMapping({ "/admin/academics/batches", "/student/academics/batches", "/staff/academics/batches",
             "/teacher/academics/batches" })
@@ -107,7 +113,8 @@ public class BatchController {
     }
 
     @PostMapping("/admin/academics/batches/add")
-    public String addBatch1(@ModelAttribute("batch") Batch batch, BindingResult bindingResult, Model model) {
+    public String addBatch1(@Valid @ModelAttribute("batch") Batch batch, BindingResult bindingResult, Model model) {
+        batchValidator.validate(batch, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Batches");
             model.addAttribute("message", "Add Batch");
@@ -124,7 +131,8 @@ public class BatchController {
 
     @PostMapping("/admin/academics/courses/{courseId}/add-batch")
     public String addBatch2(@PathVariable("courseId") String courseId,
-            @ModelAttribute("batch") Batch batch, BindingResult bindingResult, Model model) {
+            @Valid @ModelAttribute("batch") Batch batch, BindingResult bindingResult, Model model) {
+        batchValidator.validate(batch, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Batches");
             model.addAttribute("message", "Add Batch");
@@ -175,7 +183,8 @@ public class BatchController {
 
     @PostMapping("/admin/academics/courses/{courseId}/{batchId}/edit")
     public String editBatch(@PathVariable("courseId") String courseId, @PathVariable("batchId") String batchId,
-            @ModelAttribute("batch") Batch batch, BindingResult bindingResult, Model model) {
+            @Valid @ModelAttribute("batch") Batch batch, BindingResult bindingResult, Model model) {
+        batchValidator.validate(batch, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Batches");
             model.addAttribute("message", "Edit Batch");

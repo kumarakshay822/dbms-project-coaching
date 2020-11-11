@@ -1,5 +1,7 @@
 package com.dbms.coaching.controllers;
 
+import javax.validation.Valid;
+
 import com.dbms.coaching.models.User;
 import com.dbms.coaching.services.UserService;
 import com.dbms.coaching.validators.UserValidator;
@@ -28,7 +30,7 @@ public class RegisterController {
     }
 
     @PostMapping("/user/register")
-    public String register(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+    public String register(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Register Page");

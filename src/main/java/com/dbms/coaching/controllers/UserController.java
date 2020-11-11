@@ -67,7 +67,10 @@ public class UserController {
 
     @PostMapping("/profile/users/{userId}/phoneNumber/add")
     public ResponseEntity<String> addUserPhoneNumber(@PathVariable("userId") int userId,
-    @RequestParam String phoneNumber, Model model) {
+            @RequestParam String phoneNumber, Model model) {
+        if (!phoneNumber.matches("^[1-9][0-9]{9,9}$")) {
+            return new ResponseEntity<>("The phone number must be of 10 digits", HttpStatus.BAD_REQUEST);
+        }
         int loggedInUserId = securityService.findLoggedInUserId();
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("admin") && !role.equals("staff") && loggedInUserId != userId)
@@ -77,10 +80,6 @@ public class UserController {
 
         UserPhoneNumber userPhoneNumber = new UserPhoneNumber(phoneNumber, userId);
         userPhoneNumberDao.save(userPhoneNumber);
-        // TODO: Check for Validation
-        // if (false) {
-        //     return new ResponseEntity<>("Wrong Phone Number", HttpStatus.BAD_REQUEST);
-        // }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

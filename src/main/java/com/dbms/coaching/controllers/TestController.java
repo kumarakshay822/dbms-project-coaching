@@ -2,6 +2,8 @@ package com.dbms.coaching.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.dbms.coaching.dao.TestDao;
 import com.dbms.coaching.dao.CourseDao;
 import com.dbms.coaching.dao.StudentDao;
@@ -70,7 +72,7 @@ public class TestController {
     }
 
     @PostMapping({ "/admin/academics/tests/add", "/staff/academics/tests/add" })
-    public String addTest(@ModelAttribute("test") Test test, BindingResult bindingResult, Model model) {
+    public String addTest(@Valid @ModelAttribute("test") Test test, BindingResult bindingResult, Model model) {
         String role = securityService.findLoggedInUserRole();
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Tests");
@@ -114,7 +116,7 @@ public class TestController {
 
     @PostMapping({ "/admin/academics/tests/{testId}/edit", "/staff/academics/tests/{testId}/edit" })
     public String editTest(@PathVariable("testId") int testId,
-    @ModelAttribute("test") Test test, BindingResult bindingResult, Model model) {
+    @Valid @ModelAttribute("test") Test test, BindingResult bindingResult, Model model) {
         String role = securityService.findLoggedInUserRole();
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Tests");

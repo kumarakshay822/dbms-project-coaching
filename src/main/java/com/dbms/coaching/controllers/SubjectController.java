@@ -2,8 +2,11 @@ package com.dbms.coaching.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.dbms.coaching.dao.SubjectDao;
 import com.dbms.coaching.models.Subject;
+import com.dbms.coaching.validators.SubjectValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +23,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class SubjectController {
     @Autowired
     private SubjectDao subjectDao;
+
+    @Autowired
+    private SubjectValidator subjectValidator;
 
     @GetMapping({ "/admin/academics/subjects", "/staff/academics/subjects", "/teacher/academics/subjects",
             "/student/academics/subjects" })
@@ -44,7 +50,8 @@ public class SubjectController {
     }
 
     @PostMapping("/admin/academics/subjects/add")
-    public String addSubject(@ModelAttribute("subject") Subject subject, BindingResult bindingResult, Model model) {
+    public String addSubject(@Valid @ModelAttribute("subject") Subject subject, BindingResult bindingResult, Model model) {
+        subjectValidator.validate(subject, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Subjects");
             model.addAttribute("message", "Add Subject");
@@ -81,8 +88,9 @@ public class SubjectController {
     }
 
     @PostMapping("/admin/academics/subjects/{subjectId}/edit")
-    public String editSubject(@PathVariable("subjectId") String subjectId, @ModelAttribute("subject") Subject subject,
+    public String editSubject(@PathVariable("subjectId") String subjectId, @Valid @ModelAttribute("subject") Subject subject,
             BindingResult bindingResult, Model model) {
+        subjectValidator.validate(subject, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Subjects");
             model.addAttribute("message", "Edit Subject");

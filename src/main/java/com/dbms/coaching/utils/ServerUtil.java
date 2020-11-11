@@ -12,7 +12,6 @@ public class ServerUtil {
             address = InetAddress.getLocalHost().getHostAddress();
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println(e);
         }
         return address + ":8080";
     }

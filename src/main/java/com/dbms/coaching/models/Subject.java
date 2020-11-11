@@ -1,8 +1,18 @@
 package com.dbms.coaching.models;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class Subject {
+    @NotBlank
+    @Size(min = 2, max = 10)
     private String subjectId;
+
+    @NotBlank
+    @Size(min = 2, max = 30)
     private String subjectName;
+
+    @Size(min = 0, max = 255)
     private String description;
 
     public Subject() {

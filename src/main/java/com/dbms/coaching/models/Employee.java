@@ -2,16 +2,30 @@ package com.dbms.coaching.models;
 
 import java.sql.Date;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class Employee {
     private int employeeId;
     private int basicSalary;
     private Date joinDate;
     private Date endDate;
+
+    @Pattern(regexp = "^[A-Z]{5}[0-9]{4}[A-Z]{1}$", message = "must be a valid PAN Number")
     private String panNumber;
+
+    @Size(min = 5, max = 20)
     private String accountNumber;
+
+    @Size(min = 2, max = 50)
     private String bankName;
+
+    @Size(min = 2, max = 50)
     private String bankBranch;
+
+    @Pattern(regexp = "^[A-Z]{4}0[A-Z0-9]{6}$", message = "must be a valid IFSC Code")
     private String ifscCode;
+
     private User user;
 
     public Employee() {

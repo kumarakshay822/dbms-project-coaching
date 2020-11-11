@@ -1,8 +1,18 @@
 package com.dbms.coaching.models;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class Course {
+    @NotEmpty
+    @Size(min = 2, max = 10)
     private String courseId;
+
+    @NotEmpty
+    @Size(min = 2, max = 50)
     private String courseName;
+
+    @Size(min = 0, max = 255)
     private String description;
 
     public Course() {

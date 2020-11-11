@@ -18,7 +18,7 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public void save(Course course) {
-        String sql = "INSERT INTO Course (courseId, courseName, description) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Course (courseId, courseName, description) VALUES (?, ?, ?)";
         template.update(sql, course.getCourseId(), course.getCourseName(), course.getDescription());
     }
 

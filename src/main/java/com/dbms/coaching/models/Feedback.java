@@ -3,14 +3,24 @@ package com.dbms.coaching.models;
 import java.sql.Date;
 import java.sql.Time;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class Feedback {
     private int feedbackId;
     private int studentId;
     private int employeeId;
     private Date date;
     private Time time;
+
+    @NotEmpty
+    @Size(min = 5, max = 50)
     private String subject;
+
+    @NotEmpty
+    @Size(min = 10, max = 255)
     private String message;
+
     private String response;
 
     public Feedback() {

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import com.dbms.coaching.dao.BatchDao;
 import com.dbms.coaching.dao.CourseDao;
 import com.dbms.coaching.dao.CourseSubjectDao;
@@ -12,6 +14,7 @@ import com.dbms.coaching.models.Batch;
 import com.dbms.coaching.models.Course;
 import com.dbms.coaching.models.CourseSubjectDetails;
 import com.dbms.coaching.models.Subject;
+import com.dbms.coaching.validators.CourseValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,6 +42,9 @@ public class CourseController {
 
     @Autowired
     private CourseSubjectDao courseSubjectDao;
+
+    @Autowired
+    private CourseValidator courseValidator;
 
     @GetMapping({ "/admin/academics/courses", "/student/academics/courses", "/staff/academics/courses",
             "/teacher/academics/courses" })
@@ -73,7 +79,8 @@ public class CourseController {
     }
 
     @PostMapping("/admin/academics/courses/add")
-    public String addCourse(@ModelAttribute("course") Course course, BindingResult bindingResult, Model model) {
+    public String addCourse(@Valid @ModelAttribute("course") Course course, BindingResult bindingResult, Model model) {
+        courseValidator.validate(course, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Courses");
             model.addAttribute("message", "Add Course");
@@ -115,8 +122,9 @@ public class CourseController {
     }
 
     @PostMapping("/admin/academics/courses/{courseId}/edit")
-    public String editCourse(@PathVariable("courseId") String courseId, @ModelAttribute("course") Course course,
+    public String editCourse(@PathVariable("courseId") String courseId, @Valid @ModelAttribute("course") Course course,
             BindingResult bindingResult, Model model) {
+        courseValidator.validate(course, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Courses");
             model.addAttribute("message", "Edit Course");

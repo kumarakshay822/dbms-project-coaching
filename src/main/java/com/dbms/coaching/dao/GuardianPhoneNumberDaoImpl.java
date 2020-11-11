@@ -5,9 +5,12 @@ import java.util.List;
 import com.dbms.coaching.models.GuardianPhoneNumber;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.server.ResponseStatusException;
 
 @Repository
 public class GuardianPhoneNumberDaoImpl implements GuardianPhoneNumberDao {
@@ -16,8 +19,12 @@ public class GuardianPhoneNumberDaoImpl implements GuardianPhoneNumberDao {
 
     @Override
     public void save(GuardianPhoneNumber guardianPhoneNumber) {
-        String sql = "INSERT INTO GuardianPhoneNumber (phoneNumber, name, studentId) VALUES (?, ?, ?)";
-        template.update(sql, guardianPhoneNumber.getPhoneNumber(), guardianPhoneNumber.getName(), guardianPhoneNumber.getStudentId());
+        try {
+            String sql = "INSERT INTO GuardianPhoneNumber (phoneNumber, name, studentId) VALUES (?, ?, ?)";
+            template.update(sql, guardianPhoneNumber.getPhoneNumber(), guardianPhoneNumber.getName(), guardianPhoneNumber.getStudentId());
+        } catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The given phone number already exists");
+        }
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.dbms.coaching.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.dbms.coaching.dao.EmployeeDao;
 import com.dbms.coaching.dao.StaffDao;
 import com.dbms.coaching.dao.UserDao;
@@ -11,6 +13,7 @@ import com.dbms.coaching.models.Staff;
 import com.dbms.coaching.models.User;
 import com.dbms.coaching.models.UserPhoneNumber;
 import com.dbms.coaching.services.UserService;
+import com.dbms.coaching.validators.StaffValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,6 +47,9 @@ public class StaffController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private StaffValidator staffValidator;
+
     @GetMapping("/admin/staffs")
     public String staffsPortal(Model model) {
         model.addAttribute("title", "Staff Portal");
@@ -68,8 +74,8 @@ public class StaffController {
     }
 
     @PostMapping("/admin/staffs/add")
-    public String addStaff(@ModelAttribute("staff") Staff staff, BindingResult bindingResult, Model model) {
-        // TODO: Validate here
+    public String addStaff(@Valid @ModelAttribute("staff") Staff staff, BindingResult bindingResult, Model model) {
+        staffValidator.validate(staff.getEmployee().getUser(), bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Staff Portal");
             model.addAttribute("message", "Create Staff's profile");
@@ -123,9 +129,8 @@ public class StaffController {
     }
 
     @PostMapping("/admin/staffs/ES{employeeId}/edit-staff")
-    public String editStaff(@PathVariable("employeeId") int employeeId, @ModelAttribute("staff") Staff staff,
-    BindingResult bindingResult, Model model) {
-        // TODO: Validate here
+    public String editStaff(@PathVariable("employeeId") int employeeId, @Valid @ModelAttribute("staff") Staff staff,
+            BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Staff Portal");
             model.addAttribute("message", "Edit Staff's profile");

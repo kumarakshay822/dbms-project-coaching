@@ -2,11 +2,24 @@ package com.dbms.coaching.models;
 
 import java.sql.Date;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
 public class Payroll {
+    @Size(min = 4, max = 50)
     private String paymentRefNo;
+
+    @Min(1)
+    @Max(12)
     private int month;
+
+    @Min(2020)
     private int year;
+
+    @Min(1000)
     private double salaryCredited;
+
     private Date dateCredited;
     private Employee Employee;
 

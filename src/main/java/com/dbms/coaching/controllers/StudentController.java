@@ -2,6 +2,8 @@ package com.dbms.coaching.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.dbms.coaching.dao.GuardianDao;
 import com.dbms.coaching.dao.GuardianPhoneNumberDao;
 import com.dbms.coaching.dao.StudentDao;
@@ -14,6 +16,7 @@ import com.dbms.coaching.models.User;
 import com.dbms.coaching.models.UserPhoneNumber;
 import com.dbms.coaching.services.SecurityService;
 import com.dbms.coaching.services.UserService;
+import com.dbms.coaching.validators.StudentValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,6 +53,9 @@ public class StudentController {
     @Autowired
     private SecurityService securityService;
 
+    @Autowired
+    private StudentValidator studentValidator;
+
     @GetMapping({ "/admin/students", "/staff/students" })
     public String studentsPortal(Model model) {
         model.addAttribute("title", "Student Portal");
@@ -73,7 +79,8 @@ public class StudentController {
     }
 
     @PostMapping({ "/admin/students/add", "/staff/students/add" })
-    public String addStudent(@ModelAttribute("student") Student student, BindingResult bindingResult, Model model) {
+    public String addStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult, Model model) {
+        studentValidator.validate(student.getUser(), bindingResult);
         String role = securityService.findLoggedInUserRole();
         // TODO: Validate here
         // Username must be unique, email also
@@ -134,8 +141,8 @@ public class StudentController {
     }
 
     @PostMapping({ "/admin/students/ST{studentId}/edit-student", "/staff/students/ST{studentId}/edit-student" })
-    public String editStudent(@PathVariable("studentId") int studentId, @ModelAttribute("student") Student student,
-    BindingResult bindingResult, Model model) {
+    public String editStudent(@PathVariable("studentId") int studentId, @Valid @ModelAttribute("student") Student student,
+            BindingResult bindingResult, Model model) {
         String role = securityService.findLoggedInUserRole();
         // TODO: Validate here
         if (bindingResult.hasErrors()) {
@@ -197,8 +204,11 @@ public class StudentController {
     }
 
     @PostMapping({ "/admin/students/ST{studentId}/add-guardian-phone", "/staff/students/ST{studentId}/add-guardian-phone" })
-    public ResponseEntity<Integer> addGuardianPhoneNumber(@PathVariable("studentId") int studentId,
+    public ResponseEntity<String> addGuardianPhoneNumber(@PathVariable("studentId") int studentId,
             @RequestParam String phoneNumber, Model model) {
+        if (!phoneNumber.matches("^[1-9][0-9]{9,9}$")) {
+            return new ResponseEntity<>("The phone number must be of 10 digits", HttpStatus.BAD_REQUEST);
+        }
         String guardianName = guardianDao.getNameByStudentId(studentId);
         GuardianPhoneNumber guardianPhoneNumber = new GuardianPhoneNumber(phoneNumber, guardianName, studentId);
         guardianPhoneNumberDao.save(guardianPhoneNumber);

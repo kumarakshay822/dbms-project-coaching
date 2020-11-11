@@ -81,7 +81,7 @@
                     <th style="width: 40%; text-align: center;">Date Credited</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
-                        <form:input type="date" path="dateCredited" class="form-control" required="true"></form:input>
+                        <form:input type="date" path="dateCredited" class="form-control" required="true" max='${todayFormatted}'></form:input>
                         <form:errors path="dateCredited" style="color: red;"></form:errors>
                     <td>
                 </tr>

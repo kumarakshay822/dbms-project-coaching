@@ -7,7 +7,7 @@
 <div class="container-fluid custom-container">
     <sec:authorize access='hasRole("ROLE_ADMIN")'>
     <div class="div text-right">
-        <button class="btn btn-outline-success btn-sm ml-5" onclick="location.href='/${role}/attendance/'">Get All Attendance</a>
+        <button class="btn btn-outline-success btn-sm ml-5" onclick="location.href='/${role}/attendance'">Get All Attendance</a>
     </div>
     <div class="div text-right mt-2">
         <a class="btn btn-primary" href="/${role}/attendance/add" role="button" >Add Attendance</a>

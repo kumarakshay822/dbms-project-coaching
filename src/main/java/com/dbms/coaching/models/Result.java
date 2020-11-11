@@ -1,9 +1,14 @@
 package com.dbms.coaching.models;
 
+import javax.validation.constraints.PositiveOrZero;
+
 public class Result {
     private Student student;
     private int testId;
+
+    @PositiveOrZero
     private int marksScored;
+
     private boolean hasAppliedRecheck;
     private boolean isDoneRecheck;
     private String recheckComments;

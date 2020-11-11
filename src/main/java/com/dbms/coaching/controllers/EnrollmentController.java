@@ -2,6 +2,8 @@ package com.dbms.coaching.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.dbms.coaching.dao.BatchDao;
 import com.dbms.coaching.dao.CourseDao;
 import com.dbms.coaching.dao.EnrollmentDao;
@@ -178,7 +180,7 @@ public class EnrollmentController {
             "/staff/academics/courses/{courseId}/{batchId}/enrollments/add",
             "/student/academics/courses/{courseId}/{batchId}/enrollments/add" })
     public String addEnrollment(@PathVariable("courseId") String courseId, @PathVariable("batchId") String batchId,
-            @ModelAttribute("enrollment") Enrollment enrollment, BindingResult bindingResult, Model model) {
+            @Valid @ModelAttribute("enrollment") Enrollment enrollment, BindingResult bindingResult, Model model) {
         checkStaffAssignedBatch(courseId, batchId);
         String role = securityService.findLoggedInUserRole();
         if (bindingResult.hasErrors()) {
@@ -212,7 +214,6 @@ public class EnrollmentController {
 
     @GetMapping("/student/transaction/{courseId}/{batchId}")
     public String processTransaction(Integer transaction_id, @PathVariable("courseId") String courseId, @PathVariable("batchId") String batchId) {
-        System.out.println(transaction_id);
         int transactionId = transaction_id;
         String status = paymentService.getTransactionDetails(transactionId);
         if (status.equals("completed")) {
@@ -260,7 +261,7 @@ public class EnrollmentController {
     }
 
     @PostMapping({ "/admin/academics/enrollments/{enrollmentId}/edit", "/staff/academics/enrollments/{enrollmentId}/edit" })
-    public String editEnrollment(@PathVariable("enrollmentId") int enrollmentId, @ModelAttribute("enrollment") Enrollment enrollment,
+    public String editEnrollment(@PathVariable("enrollmentId") int enrollmentId, @Valid @ModelAttribute("enrollment") Enrollment enrollment,
     BindingResult bindingResult, Model model) {
         String role = securityService.findLoggedInUserRole();
         if (bindingResult.hasErrors()) {

@@ -2,19 +2,50 @@ package com.dbms.coaching.models;
 
 import java.sql.Date;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
 public class Student {
     private int studentId;
+
+    @NotBlank
     private String gender;
+
     private Date dateOfBirth;
+
+    @NotBlank
     private String houseNumber;
+
+    @NotBlank
     private String street;
+
+    @NotBlank
     private String city;
+
+    @NotBlank
     private String state;
+
+    @Min(100000)
+    @Max(999999)
     private int pinCode;
+
+    @NotBlank
     private String schoolAttending;
+
+    @Min(50)
+    @Max(100)
     private double percentage10th;
+
+    @Min(50)
+    @Max(100)
     private double percentage12th;
+
+    @Valid
     private User user;
+
+    @Valid
     private Guardian guardian;
 
     public Student() {
