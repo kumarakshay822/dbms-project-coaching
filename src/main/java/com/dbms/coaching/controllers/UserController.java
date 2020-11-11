@@ -79,7 +79,11 @@ public class UserController {
             validateCorrectUserForStaff(userId);
 
         UserPhoneNumber userPhoneNumber = new UserPhoneNumber(phoneNumber, userId);
-        userPhoneNumberDao.save(userPhoneNumber);
+        try {
+            userPhoneNumberDao.save(userPhoneNumber);
+        } catch (Exception e) {
+            return new ResponseEntity<>("The phone number already exists", HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -17,6 +17,8 @@ public interface EnrollmentDao {
 
     public Enrollment get(int enrollmentId);
 
+    public Enrollment getByStudentAndCourse(int studentId, String courseId);
+
     public void update(Enrollment enrollment);
 
     public void delete(int enrollmentId);

@@ -189,7 +189,6 @@ CREATE TABLE IF NOT EXISTS Batch (
   roomNumber int NOT NULL,
   startTime time DEFAULT NULL,
   endTime time DEFAULT NULL,
-  isEnrollmentAllowed boolean DEFAULT true NOT NULL,
   PRIMARY KEY (batchId, courseId),
   FOREIGN KEY (courseId) REFERENCES Course(courseId) ON DELETE CASCADE ON UPDATE CASCADE
 );

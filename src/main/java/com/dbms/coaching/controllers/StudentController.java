@@ -211,7 +211,11 @@ public class StudentController {
         }
         String guardianName = guardianDao.getNameByStudentId(studentId);
         GuardianPhoneNumber guardianPhoneNumber = new GuardianPhoneNumber(phoneNumber, guardianName, studentId);
-        guardianPhoneNumberDao.save(guardianPhoneNumber);
+        try {
+            guardianPhoneNumberDao.save(guardianPhoneNumber);
+        } catch (Exception e) {
+            return new ResponseEntity<>("The phone number already exists", HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

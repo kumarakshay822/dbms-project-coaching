@@ -65,6 +65,18 @@ public class EnrollmentDaoImpl implements EnrollmentDao {
         }
     }
 
+    @Override
+    public Enrollment getByStudentAndCourse(int studentId, String courseId) {
+        try {
+            String sql = "SELECT * FROM Enrollment NATURAL JOIN Transaction WHERE studentId = ? AND courseId = ?";
+            Enrollment enrollment = template.queryForObject(sql, new Object[] { studentId, courseId },
+                    new EnrollmentRowMapper());
+            return enrollment;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
     /**
      * Update joinDate and endDate
      */

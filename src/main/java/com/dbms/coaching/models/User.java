@@ -4,10 +4,6 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-
 public class User implements Serializable {
     /**
      *
@@ -15,20 +11,15 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     private int userId;
 
-    @NotEmpty
-    @Size(min = 4, max = 32)
     private String username;
 
     private String password;
 
-    @NotEmpty
     private String firstName;
 
     private String middleName;
     private String lastName;
 
-    @NotEmpty
-    @Email
     private String emailAddress;
 
     private Date dateCreated;

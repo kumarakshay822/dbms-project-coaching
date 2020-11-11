@@ -19,6 +19,7 @@ import com.dbms.coaching.models.Transaction;
 import com.dbms.coaching.models.User;
 import com.dbms.coaching.services.PaymentService;
 import com.dbms.coaching.services.SecurityService;
+import com.dbms.coaching.validators.EnrollmentValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,6 +61,9 @@ public class EnrollmentController {
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    private EnrollmentValidator enrollmentValidator;
 
     public void checkStaffAssignedBatch(String courseId, String batchId) {
         int userId = securityService.findLoggedInUserId();
@@ -154,23 +158,21 @@ public class EnrollmentController {
         model.addAttribute("submiturl", "/" + role + "/academics/courses/" + courseId + "/" + batchId + "/enrollments/add");
         List<Student> students = studentDao.getAll();
         model.addAttribute("students", students);
-        Transaction transaction = new Transaction();
         int amount = batchDao.getFee(batchId, courseId);
-        transaction.setAmount(amount);
-        transaction.setTransactionMode("Offline");
+        model.addAttribute("amount", amount);
         Enrollment enrollment = new Enrollment();
-        enrollment.setTransaction(transaction);
         enrollment.setCourseId(courseId);
         enrollment.setBatchId(batchId);
         if (role.equals("student")) {
             int userId = securityService.findLoggedInUserId();
             int studentId = studentDao.getStudentIdByUserId(userId);
             enrollment.setStudentId(studentId);
-            transaction.setTransactionMode("Online");
             model.addAttribute("buttonmessage", "Pay and Finish");
+            model.addAttribute("transactionMode", "Online");
         }
         else {
             model.addAttribute("buttonmessage", "Accept Payment and Finish");
+            model.addAttribute("transactionMode", "Offline");
         }
         model.addAttribute("enrollment", enrollment);
         return "enrollment/addEditEnrollment";
@@ -183,17 +185,30 @@ public class EnrollmentController {
             @Valid @ModelAttribute("enrollment") Enrollment enrollment, BindingResult bindingResult, Model model) {
         checkStaffAssignedBatch(courseId, batchId);
         String role = securityService.findLoggedInUserRole();
+        if (role.equals("student")) {
+            int userId = securityService.findLoggedInUserId();
+            int studentId = studentDao.getStudentIdByUserId(userId);
+            enrollment.setStudentId(studentId);
+        }
+        enrollmentValidator.validate(enrollment, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Enrollments");
             model.addAttribute("message", "Add Enrollment");
             model.addAttribute("submessage1", "Add Enrollment");
-            model.addAttribute("buttonmessage", "Pay and Finish");
+            int amount = batchDao.getFee(batchId, courseId);
+            model.addAttribute("amount", amount);
+            if (role.equals("student")) {
+                model.addAttribute("buttonmessage", "Pay and Finish");
+                model.addAttribute("transactionMode", "Online");
+            } else {
+                model.addAttribute("buttonmessage", "Accept Payment and Finish");
+                model.addAttribute("transactionMode", "Offline");
+            }
             model.addAttribute("submiturl", "/" + role + "/academics/courses/" + courseId + "/" + batchId + "/enrollments/add");
             List<Student> students = studentDao.getAll();
             model.addAttribute("students", students);
             return "enrollment/addEditEnrollment";
         }
-        // TODO: Don't allow enrolling in more than one batches of a course
         Transaction transaction = new Transaction();
         int amount = batchDao.getFee(batchId, courseId);
         transaction.setAmount(amount);

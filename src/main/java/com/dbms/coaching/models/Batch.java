@@ -26,13 +26,12 @@ public class Batch {
 
     private Time startTime;
     private Time endTime;
-    private boolean isEnrollmentAllowed;
 
     public Batch() {
         course = new Course();
     }
 
-    public Batch(String batchId, Course course, String batchName, int fee, int roomNumber, Time startTime, Time endTime, boolean isEnrollmentAllowed) {
+    public Batch(String batchId, Course course, String batchName, int fee, int roomNumber, Time startTime, Time endTime) {
         this.batchId = batchId;
         this.course = course;
         this.batchName = batchName;
@@ -40,7 +39,6 @@ public class Batch {
         this.roomNumber = roomNumber;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.isEnrollmentAllowed = isEnrollmentAllowed;
     }
 
     /**
@@ -141,20 +139,6 @@ public class Batch {
         this.endTime = endTime;
     }
 
-    /**
-     * @return boolean return the isEnrollmentAllowed
-     */
-    public boolean isIsEnrollmentAllowed() {
-        return isEnrollmentAllowed;
-    }
-
-    /**
-     * @param isEnrollmentAllowed the isEnrollmentAllowed to set
-     */
-    public void setIsEnrollmentAllowed(boolean isEnrollmentAllowed) {
-        this.isEnrollmentAllowed = isEnrollmentAllowed;
-    }
-
     @Override
     public String toString() {
         return "{" +
@@ -165,7 +149,6 @@ public class Batch {
             ", roomNumber='" + getRoomNumber() + "'" +
             ", startTime='" + getStartTime() + "'" +
             ", endTime='" + getEndTime() + "'" +
-            ", isEnrollmentAllowed='" + isIsEnrollmentAllowed() + "'" +
             "}";
     }
 

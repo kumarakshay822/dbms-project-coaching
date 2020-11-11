@@ -64,10 +64,10 @@
                                 <a href="#" onclick="postRequest('/${role}/students/ST${studentId}/delete-guardian-phone',
                                             {'phoneNumber': '${phoneNumber.phoneNumber}'})"> Remove</a>
                             </sec:authorize>
-                            <sec:authorize access="hasRole('ROLE_STUDENT')">
+                            <c:if test="${role == 'student'}">
                                 <a href="#" onclick="postRequest('/profile/student/delete-guardian-phone',
                                             {'phoneNumber': '${phoneNumber.phoneNumber}'})"> Remove</a>
-                            </sec:authorize>
+                            </c:if>
                         </div>
                     </c:forEach>
 
@@ -77,11 +77,11 @@
                                                                         {'phoneNumber': $('#guardianPhoneNumber').val()})"
                             role="button">Add</a>
                     </sec:authorize>
-                    <sec:authorize access="hasRole('ROLE_STUDENT')">
+                    <c:if test="${role == 'student'}">
                         <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/profile/student/add-guardian-phone',
                                                                         {'phoneNumber': $('#guardianPhoneNumber').val()})"
                             role="button">Add</a>
-                    </sec:authorize>
+                    </c:if>
 
                     <div id="error" style="color: red;"></div>
                 </div>
@@ -91,9 +91,9 @@
                     <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STAFF')">
                         <a class="btn btn-primary" type="button" href="/${role}/students/ST${studentId}">${buttonmessage}</a>
                     </sec:authorize>
-                    <sec:authorize access="hasRole('ROLE_STUDENT')">
+                    <c:if test="${role == 'student'}">
                         <a class="btn btn-primary" type="button" href="/profile/student">${buttonmessage}</a>
-                    </sec:authorize>
+                    </c:if>
                 </div>
             </div>
         </div>

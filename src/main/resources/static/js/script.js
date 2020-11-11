@@ -43,7 +43,7 @@ function postRequest(url, data) {
             location.reload();
         },
         error: function(xhr, status, err){
-            document.getElementById("error").innerHTML = xhr.responseJSON.message;
+            document.getElementById("error").innerHTML = xhr.responseText;
         }
     });
 }
