@@ -18,14 +18,17 @@ public class User implements Serializable {
     private String emailAddress;
     private Date dateCreated;
     private boolean isActive;
+    private boolean isEmailVerified;
     private Date lastLoginDate;
     private Time lastLoginTime;
     private String role;
 
     public User() {
+        isActive = false;
+        isEmailVerified = false;
     }
 
-    public User(int userId, String username, String password, String firstName, String middleName, String lastName, String emailAddress, Date dateCreated, boolean isActive, Date lastLoginDate, Time lastLoginTime, String role) {
+    public User(int userId, String username, String password, String firstName, String middleName, String lastName, String emailAddress, Date dateCreated, boolean isActive, boolean isEmailVerified, Date lastLoginDate, Time lastLoginTime, String role) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -35,6 +38,7 @@ public class User implements Serializable {
         this.emailAddress = emailAddress;
         this.dateCreated = dateCreated;
         this.isActive = isActive;
+        this.isEmailVerified = isEmailVerified;
         this.lastLoginDate = lastLoginDate;
         this.lastLoginTime = lastLoginTime;
         this.role = role;
@@ -171,6 +175,20 @@ public class User implements Serializable {
      */
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
+    }
+
+    /**
+     * @return boolean return the isEmailVerified
+     */
+    public boolean isIsEmailVerified() {
+        return isEmailVerified;
+    }
+
+    /**
+     * @param isEmailVerified the isEmailVerified to set
+     */
+    public void setIsEmailVerified(boolean isEmailVerified) {
+        this.isEmailVerified = isEmailVerified;
     }
 
     /**

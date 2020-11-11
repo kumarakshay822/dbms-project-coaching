@@ -13,6 +13,13 @@ public class HomeController {
         return "home/index";
     }
 
+    @GetMapping("/user")
+    public String userPage(Model model) {
+        model.addAttribute("title", "User Page");
+        model.addAttribute("message", "Welcome, User!");
+        return "home/user";
+    }
+
     @GetMapping("/admin")
     public String adminPage(Model model) {
         model.addAttribute("title", "Admin Page");

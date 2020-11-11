@@ -15,6 +15,7 @@
                     <th>Date Created</th>
                     <th>Last Login</th>
                     <th>Role</th>
+                    <th>Email Verified?</th>
                     <th>Active?</th>
                     <th>Delete</th>
                 </tr>
@@ -32,6 +33,10 @@
                         <fmt:formatDate pattern="HH:mm:ss" value="${user.lastLoginTime}" />
                     </td>
                     <td>${user.role}</td>
+                    <td>
+                        <c:if test="${user.isEmailVerified == true}"><span style="color: green;">Yes</span></c:if>
+                        <c:if test="${user.isEmailVerified == false}"><span style="color: red;">No</span></c:if>
+                    </td>
                     <td>
                         <c:if test="${user.isActive == true}"><span style="color: green;">Yes</span></c:if>
                         <c:if test="${user.isActive == false}"><span style="color: red;">No</span></c:if>

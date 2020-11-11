@@ -1,13 +1,16 @@
 package com.dbms.coaching.services;
 
 import com.dbms.coaching.dao.UserDao;
+import com.dbms.coaching.dao.UserTokenDao;
 import com.dbms.coaching.models.User;
-import com.dbms.coaching.utils.PasswordGenerator;
+import com.dbms.coaching.models.UserToken;
 import com.dbms.coaching.utils.ServerUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,17 +21,18 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private PasswordGenerator passwordGenerator;
-
-    @Autowired
     private EmailSendService emailSendService;
 
     @Autowired
     private ServerUtil serverUtil;
 
+    @Autowired
+    private UserTokenDao userTokenDao;
+
     @Override
     public User save(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        if (user.getPassword() != null)
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userDao.save(user);
         // TODO: Prevent creating admin user using this function
     }
@@ -43,20 +47,98 @@ public class UserServiceImpl implements UserService {
         return userDao.findByUsername(username);
     }
 
+    public String createOrUpdateToken(int userId) {
+        UserToken userToken = new UserToken(userId);
+        String token = userTokenDao.getTokenByUserId(userId);
+        if (token == null) {
+            userTokenDao.save(userToken);
+        } else {
+            userTokenDao.update(userToken);
+        }
+        return userToken.getToken();
+    }
+
     @Override
-    public User setPasswordActivateUserAndEmail(User user) {
-        String password = passwordGenerator.generatePassword(8);
-        user.setIsActive(true);
-        user.setPassword(password);
+    public User activateUserAndEmailToken(User user) {
+        userDao.activate(user.getUserId());
 
         String email = user.getEmailAddress();
-        String subject = "Account Creation Successful";
+        String subject = "Account Creation Successful | Confirm Registration";
         String message = "";
-        message += "Hello " + user.getName() + ",\n\nHere are your details:\nUsername: " + user.getUsername() + "\nPassword: " + user.getPassword();
-        message += "\n\nPlease go to " + serverUtil.getHostAddressAndPort() + "/login in order to login.\n\nThank you!";
+        String token = createOrUpdateToken(user.getUserId());
+        message += "Hello " + user.getName() + ",\n\n";
+        message += "Please go to " + serverUtil.getHostAddressAndPort() + "/user/confirm-registration?token=" + token;
+        message += " in order to set your password and confirm your registration. You can login using your username '" + user.getUsername() + "'";
+        message += " by going to " + serverUtil.getHostAddressAndPort() + "/user/login" + "\n\nThank you!";
         emailSendService.sendEmail(email, subject, message);
 
         return user;
+    }
+
+    @Override
+    public void sendVerificationEmail(User user) {
+        String email = user.getEmailAddress();
+        String subject = "Account Creation Successful | Verify Email";
+        String message = "";
+        String token = createOrUpdateToken(user.getUserId());
+        message += "Hello " + user.getName() + ",\n\n";
+        message += "Please go to " + serverUtil.getHostAddressAndPort() + "/user/verify-email?token=" + token;
+        message += " to verify your email. Thereafter, you can login using your username '" + user.getUsername() + "'";
+        message += " by going to " + serverUtil.getHostAddressAndPort() + "/user/login" + "\n\nThank you!";
+        emailSendService.sendEmail(email, subject, message);
+    }
+
+    @Override
+    public void sendPasswordResetEmail(User user) {
+        String email = user.getEmailAddress();
+        String subject = "Password Reset Email";
+        String message = "";
+        String token = createOrUpdateToken(user.getUserId());
+        message += "Hello " + user.getName() + ",\n\n";
+        message += "Please go to " + serverUtil.getHostAddressAndPort() + "/user/reset-password?token=" + token;
+        message += " to reset your password. Thereafter, you can login using your username '" + user.getUsername()
+                + "'";
+        message += " by going to " + serverUtil.getHostAddressAndPort() + "/user/login" + "\n\nThank you!";
+        emailSendService.sendEmail(email, subject, message);
+    }
+
+    public int validateToken(String token) {
+        Integer userId = userTokenDao.getUserIdByToken(token);
+        if (userId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Token");
+        }
+        userTokenDao.delete(token);
+        return userId;
+    }
+
+    @Override
+    public void verifyEmail(String token) {
+        int userId = validateToken(token);
+        userDao.verifyEmail(userId);
+    }
+
+    @Override
+    public void confirmRegistration(String token, String password) {
+        int userId = validateToken(token);
+        userDao.verifyEmail(userId);
+        userDao.changePassword(userId, bCryptPasswordEncoder.encode(password));
+    }
+
+    @Override
+    public void resetPassword(String token, String password) {
+        int userId = validateToken(token);
+        userDao.changePassword(userId, bCryptPasswordEncoder.encode(password));
+    }
+
+    @Override
+    public void changePassword(int userId, String password) {
+        userDao.changePassword(userId, bCryptPasswordEncoder.encode(password));
+    }
+
+    @Override
+    public boolean verifyOldPassword(int userId, String password) {
+        String encryptedPassword = userDao.getPassword(userId);
+        return bCryptPasswordEncoder.matches(password, encryptedPassword);
     }
 
 }

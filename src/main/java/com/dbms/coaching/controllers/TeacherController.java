@@ -92,8 +92,8 @@ public class TeacherController {
         Employee employee = teacher.getEmployee();
         User user = employee.getUser();
         user.setRole("ROLE_TEACHER");
-        user = userService.setPasswordActivateUserAndEmail(user);
         user = userService.save(user);
+        user = userService.activateUserAndEmailToken(user);
 
         employee.setUser(user);
         employee = employeeDao.save(employee);

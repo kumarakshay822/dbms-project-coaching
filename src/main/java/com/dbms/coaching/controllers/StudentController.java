@@ -91,8 +91,8 @@ public class StudentController {
         // TODO: Email the user the password
         // TODO: Add email validation, don't allow login without it
         user.setRole("ROLE_STUDENT");
-        user = userService.setPasswordActivateUserAndEmail(user);
         user = userService.save(user);
+        user = userService.activateUserAndEmailToken(user);
 
         student.setUser(user);
         student = studentDao.save(student);

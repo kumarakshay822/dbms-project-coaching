@@ -1,7 +1,6 @@
 package com.dbms.coaching.controllers;
 
 import com.dbms.coaching.models.User;
-import com.dbms.coaching.services.SecurityService;
 import com.dbms.coaching.services.UserService;
 import com.dbms.coaching.validators.UserValidator;
 
@@ -19,30 +18,25 @@ public class RegisterController {
     private UserService userService;
 
     @Autowired
-    private SecurityService securityService;
-
-    @Autowired
     private UserValidator userValidator;
 
-    @GetMapping("/register")
+    @GetMapping("/user/register")
     public String register(Model model) {
         model.addAttribute("title", "Register Page");
         model.addAttribute("user", new User());
         return "user/register";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/user/register")
     public String register(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Register Page");
             return "user/register";
         }
-        String originalPassword = user.getPassword();
         userService.save(user);
-
-        securityService.autoLogin(user.getUsername(), originalPassword);
-        return "redirect:/";
+        userService.sendVerificationEmail(user);
+        return "redirect:/user/login?verificationEmailSent";
     }
 
 }

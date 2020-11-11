@@ -83,7 +83,8 @@
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="userdropdown">
                                             <a class="dropdown-item" href="/profile">View Profile</a>
-                                            <a class="dropdown-item" href="/logout">Logout</a>
+                                            <a class="dropdown-item" href="/profile/change-password">Change Password</a>
+                                            <a class="dropdown-item" href="/user/logout">Logout</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -91,10 +92,10 @@
                             <c:otherwise>
                                 <ul class="navbar-nav mr-4">
                                     <li class="nav-item mr-2">
-                                        <a class="nav-link" href="/login">Login</a>
+                                        <a class="nav-link" href="/user/login">Login</a>
                                     </li>
                                     <li class="nav-item mr-2">
-                                        <a class="nav-link" href="/register">Register</a>
+                                        <a class="nav-link" href="/user/register">Register</a>
                                     </li>
                                 </ul>
                             </c:otherwise>

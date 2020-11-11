@@ -39,7 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()
             .authorizeRequests()
-                .antMatchers("/", "/login", "/logout", "/register", "/css/**", "/js/**").permitAll()
+                .antMatchers("/", "/user/**", "/css/**", "/js/**").permitAll()
                 .antMatchers("/student/**").hasRole("STUDENT")
                 .antMatchers("/staff/**").hasRole("STAFF")
                 .antMatchers("/teacher/**").hasRole("TEACHER")
@@ -47,12 +47,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
-                .loginPage("/login")
+                .loginPage("/user/login")
                 .defaultSuccessUrl("/", true)
-                .failureUrl("/login?error=true")
+                .failureUrl("/user/login?error=true")
                 .and()
             .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout");
+                .logoutUrl("/user/logout")
+                .logoutSuccessUrl("/user/login?logout");
     }
 }

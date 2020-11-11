@@ -9,6 +9,7 @@ import com.dbms.coaching.dao.StaffDao;
 import com.dbms.coaching.dao.StudentDao;
 import com.dbms.coaching.dao.SubjectDao;
 import com.dbms.coaching.dao.TeacherDao;
+import com.dbms.coaching.dao.UserDao;
 import com.dbms.coaching.dao.UserPhoneNumberDao;
 import com.dbms.coaching.models.Employee;
 import com.dbms.coaching.models.Guardian;
@@ -20,6 +21,7 @@ import com.dbms.coaching.models.Teacher;
 import com.dbms.coaching.models.User;
 import com.dbms.coaching.models.UserPhoneNumber;
 import com.dbms.coaching.services.SecurityService;
+import com.dbms.coaching.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,6 +62,12 @@ public class ProfileController {
 
     @Autowired
     private GuardianPhoneNumberDao guardianPhoneNumberDao;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private UserDao userDao;
 
     @GetMapping("/profile")
     public String redirectToProfile(Model model) {
@@ -139,7 +147,9 @@ public class ProfileController {
     }
 
     @GetMapping("/profile/teacher")
-    public String viewTeacher(Model model) {
+    public String viewTeacher(Model model, String changeSuccessful) {
+        if (changeSuccessful != null)
+            model.addAttribute("successmessage", "Your password has been changed successfully");
         int userId = securityService.findLoggedInUserId();
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("teacher"))
@@ -321,7 +331,9 @@ public class ProfileController {
     }
 
     @GetMapping("/profile/staff")
-    public String viewStaff(Model model) {
+    public String viewStaff(Model model, String changeSuccessful) {
+        if (changeSuccessful != null)
+            model.addAttribute("successmessage", "Your password has been changed successfully");
         int userId = securityService.findLoggedInUserId();
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("staff"))
@@ -494,7 +506,9 @@ public class ProfileController {
     }
 
     @GetMapping("/profile/student")
-    public String viewStudent(Model model) {
+    public String viewStudent(Model model, String changeSuccessful) {
+        if (changeSuccessful != null)
+            model.addAttribute("successmessage", "Your password has been changed successfully");
         int userId = securityService.findLoggedInUserId();
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("student"))
@@ -630,6 +644,56 @@ public class ProfileController {
         GuardianPhoneNumber guardianPhoneNumber = new GuardianPhoneNumber(phoneNumber, guardianName, studentId);
         guardianPhoneNumberDao.delete(guardianPhoneNumber);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/profile/change-password")
+    public String changePassword(Model model) {
+        model.addAttribute("title", "Reset Password");
+        model.addAttribute("message", "Reset your password");
+        model.addAttribute("submitUrl", "/profile/change-password");
+        return "/user/changePassword";
+    }
+
+    @PostMapping("/profile/change-password")
+    public String changePassword(@RequestParam("password") String password,
+            @RequestParam("confirmPassword") String confirmPassword,
+            @RequestParam("oldPassword") String oldPassword, Model model) {
+        if (!password.equals(confirmPassword)) {
+            model.addAttribute("title", "Change Password");
+            model.addAttribute("message", "Change your password");
+            model.addAttribute("errormessage", "The passwords do not match");
+            model.addAttribute("submitUrl", "/profile/change-password");
+            return "user/changePassword";
+        }
+        int userId = securityService.findLoggedInUserId();
+        String role = securityService.findLoggedInUserRole();
+        if (!userService.verifyOldPassword(userId, oldPassword)) {
+            model.addAttribute("title", "Change Password");
+            model.addAttribute("message", "Change your password");
+            model.addAttribute("errormessage", "Old Password is incorrect");
+            model.addAttribute("submitUrl", "/profile/change-password");
+            return "user/changePassword";
+        }
+        userService.changePassword(userId, password);
+        return "redirect:/profile/" + role + "?changeSuccessful";
+    }
+
+    @GetMapping("/profile/admin")
+    public String viewAdmin(Model model, String changeSuccessful) {
+        if (changeSuccessful != null)
+            model.addAttribute("successmessage", "Your password has been changed successfully");
+        int userId = securityService.findLoggedInUserId();
+        String role = securityService.findLoggedInUserRole();
+        User user = userDao.get(userId);
+        if (!role.equals("admin"))
+            return "redirect:/profile";
+        model.addAttribute("title", "Admin Portal");
+        model.addAttribute("message", "View Admin profile");
+        model.addAttribute("submessage1", "Admin Details");
+        List<UserPhoneNumber> userPhoneNumbers = userPhoneNumberDao.getByUserId(userId);
+        model.addAttribute("user", user);
+        model.addAttribute("userPhoneNumbers", userPhoneNumbers);
+        return "user/viewAdmin";
     }
 
 }

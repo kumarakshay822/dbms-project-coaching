@@ -13,7 +13,7 @@
                             REGISTER
                         </div>
                         <div class="card-body">
-                            <form:form class="form-horizontal" action="/register" method="post" modelAttribute="user">
+                            <form:form class="form-horizontal" action="/user/register" method="post" modelAttribute="user">
                                 <div class="form-group row">
                                     <label class="col-3 control-label">Username:</label>
                                     <div class="col-9">
@@ -79,9 +79,16 @@
                                 </div>
                             </form:form>
                             <div class="form-group">
-                                <div class="col-md-12 control">
-                                    <div style="font-size:85%">
-                                        Already Registered! <a href="/login">Login Here </a>
+                                <div class="row">
+                                    <div class="col-md-6 control">
+                                        <div style="font-size:85%">
+                                            Already Registered! <a href="/user/login">Login Here </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 control">
+                                        <div style="font-size:85%">
+                                            Forgot password! <a href="/user/forgot-password"> Click Here </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

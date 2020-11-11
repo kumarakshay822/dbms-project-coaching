@@ -11,9 +11,9 @@ public class LogoutController {
     @Autowired
     private SecurityService securityService;
 
-    @GetMapping("/logout")
+    @GetMapping("/user/logout")
     public String logout() {
         securityService.autoLogout();
-        return "redirect:/login?logout";
+        return "redirect:/user/login?logout";
     }
 }

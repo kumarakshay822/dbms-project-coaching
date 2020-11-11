@@ -5,19 +5,27 @@ USE coaching;
 
 CREATE TABLE IF NOT EXISTS User (
   userId int NOT NULL AUTO_INCREMENT,
-  username varchar(255) NOT NULL,
-  password varchar(255) NOT NULL,
+  username varchar(255) NOT NULL UNIQUE,
+  password varchar(255) DEFAULT NULL,
   firstName varchar(255) NOT NULL,
   middleName varchar(255) DEFAULT NULL,
   lastName varchar(255) DEFAULT NULL,
-  emailAddress varchar(255) NOT NULL,
+  emailAddress varchar(255) NOT NULL UNIQUE,
   dateCreated date NOT NULL,
   isActive boolean DEFAULT false NOT NULL,
+  isEmailVerified boolean DEFAULT false NOT NULL,
   lastLoginDate date DEFAULT NULL,
   lastLoginTime time DEFAULT NULL,
   role varchar(255) NOT NULL,
   PRIMARY KEY (userId)
 );
+
+CREATE TABLE IF NOT EXISTS UserToken (
+  userId int NOT NULL,
+  token varchar(255) NOT NULL UNIQUE,
+  PRIMARY KEY (userId),
+  FOREIGN KEY (userId) REFERENCES User(userId) ON DELETE CASCADE ON UPDATE CASCADE
+)
 
 
 CREATE TABLE IF NOT EXISTS UserPhoneNumber (

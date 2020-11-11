@@ -13,19 +13,19 @@
                             LOGIN
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal" action="/login" method="post">
+                            <form class="form-horizontal" action="/user/login" method="post">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <c:if test="${not empty message}">
+                                        <c:if test="${not empty successmessage}">
                                             <div class="alert alert-success alert-dismissible">
                                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                                ${message}
+                                                ${successmessage}
                                             </div>
                                         </c:if>
-                                        <c:if test="${not empty error}">
+                                        <c:if test="${not empty errormessage}">
                                             <div class="alert alert-danger alert-dismissible">
                                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                                ${error}
+                                                ${errormessage}
                                             </div>
                                         </c:if>
                                         <div class="input-group mt-2">
@@ -52,9 +52,16 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-md-12 control">
-                                        <div style="padding-top:15px; font-size:85%">
-                                            Don't have an account! <a href="/register"> Register Here </a>
+                                    <div class="row">
+                                        <div class="col-md-6 control">
+                                            <div style="padding-top:15px; font-size:85%">
+                                                Don't have an account! <a href="/user/register"> Register Here </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 control">
+                                            <div style="padding-top:15px; font-size:85%">
+                                                Forgot password! <a href="/user/forgot-password"> Click Here </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

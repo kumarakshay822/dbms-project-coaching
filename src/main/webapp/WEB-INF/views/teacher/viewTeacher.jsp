@@ -9,6 +9,12 @@
         <h2>${submessage1}</h2>
     </div>
     <div class="row shadow bg-white rounded" style="border: 1px solid whitesmoke; padding: 0 40px;">
+        <c:if test="${not empty successmessage}">
+            <div class="alert alert-success alert-dismissible mt-4" style="width: 100%; text-align: center;">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                ${successmessage}
+            </div>
+        </c:if>
         <table class="table table-borderless mt-4">
             <tr>
                 <th style="width: 40%;"></th>
