@@ -6,7 +6,6 @@
 <div class="container">
     <ul>
         <li><a href="/teacher/academics">Academic Portal</a></li>
-        <li><a href="/teacher/students">Student Portal</a></li>
         <li><a href="/teacher/payroll">Payroll Management</a></li>
         <li><a href="/teacher/attendance">Attendance Management</a></li>
         <li><a href="/teacher/feedbacks">Feedback Portal</a></li>

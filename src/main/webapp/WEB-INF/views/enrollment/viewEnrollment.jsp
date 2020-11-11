@@ -14,7 +14,9 @@
                 <th style="width: 40%;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%; text-align: right;">
+                    <sec:authorize access="!hasRole('ROLE_STUDENT')">
                     <a class="btn btn-primary" href="/${role}/academics/enrollments/${enrollment.enrollmentId}/edit" role="button">Edit Enrollment</a>
+                    </sec:authorize>
                 </td>
             </tr>
             <tr>

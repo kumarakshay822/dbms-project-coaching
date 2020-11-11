@@ -49,5 +49,9 @@ public class UserValidator implements Validator {
             errors.rejectValue("emailAddress", "Invalid.user.emailAddress");
         }
 
+        if (!user.getRole().equals("ROLE_STUDENT") && !user.getRole().equals("ROLE_STAFF") && !user.getRole().equals("ROLE_TEACHER")) {
+            errors.rejectValue("role", "Invalid.user.role");
+        }
+
     }
 }

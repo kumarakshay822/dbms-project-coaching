@@ -32,6 +32,9 @@ public class LoginController {
 
     @GetMapping("/user/login")
     public String login(Model model, String error, String logout, String verified, String resetSuccessful, String emailSent, String verificationEmailSent) {
+        if (securityService.findLoggedInUserId() != 0) {
+            return "redirect:/";
+        }
         if (error != null)
             model.addAttribute("errormessage", "Either the username and password combination is invalid, or the email is not verified");
         if (logout != null)
@@ -50,12 +53,18 @@ public class LoginController {
 
     @GetMapping("/user/verify-email")
     public String verifyEmail(Model model, String token) {
+        if (securityService.findLoggedInUserId() != 0) {
+            return "redirect:/";
+        }
         userService.verifyEmail(token);
         return "redirect:/user/login?verified";
     }
 
     @GetMapping("/user/confirm-registration")
     public String confirmRegistration(Model model, String token) {
+        if (securityService.findLoggedInUserId() != 0) {
+            return "redirect:/";
+        }
         Integer userId = userTokenDao.getUserIdByToken(token);
         if (userId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Token");
@@ -69,6 +78,9 @@ public class LoginController {
     @PostMapping("/user/confirm-registration")
     public String confirmRegistration(@RequestParam("password") String password,
             @RequestParam("confirmPassword") String confirmPassword, Model model, String token) {
+        if (securityService.findLoggedInUserId() != 0) {
+            return "redirect:/";
+        }
         Integer userId = userTokenDao.getUserIdByToken(token);
         if (userId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Token");
@@ -86,6 +98,9 @@ public class LoginController {
 
     @GetMapping("/user/reset-password")
     public String resetPassword(Model model, String token) {
+        if (securityService.findLoggedInUserId() != 0) {
+            return "redirect:/";
+        }
         Integer userId = userTokenDao.getUserIdByToken(token);
         if (userId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Token");
@@ -98,7 +113,10 @@ public class LoginController {
 
     @PostMapping("/user/reset-password")
     public String resetPassword(@RequestParam("password") String password,
-    @RequestParam("confirmPassword") String confirmPassword, Model model, String token) {
+            @RequestParam("confirmPassword") String confirmPassword, Model model, String token) {
+        if (securityService.findLoggedInUserId() != 0) {
+            return "redirect:/";
+        }
         Integer userId = userTokenDao.getUserIdByToken(token);
         if (userId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Token");
@@ -124,6 +142,9 @@ public class LoginController {
 
     @PostMapping("/user/forgot-password")
     public String resetPassword(@RequestParam("email") String email, Model model) {
+        if (securityService.findLoggedInUserId() != 0) {
+            return "redirect:/";
+        }
         User user = userDao.findByEmailAddress(email);
         if (user == null) {
             model.addAttribute("title", "Forgot Password");

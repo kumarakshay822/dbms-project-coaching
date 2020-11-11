@@ -67,7 +67,6 @@
                                             <form:option value="ROLE_STUDENT">Student</form:option>
                                             <form:option value="ROLE_STAFF">Staff</form:option>
                                             <form:option value="ROLE_TEACHER">Teacher</form:option>
-                                            <form:option value="ROLE_ADMIN">Admin</form:option>
                                         </form:select>
                                         <form:errors path="role" style="color: red;"></form:errors>
                                     </div>
