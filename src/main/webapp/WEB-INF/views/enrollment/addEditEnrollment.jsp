@@ -67,6 +67,7 @@
                         ${enrollment.batchId}
                     </td>
                 </tr>
+                <c:if test="role != 'student'">
                 <tr>
                     <th style="width: 40%; text-align: center;">Join Date</th>
                     <th style="width: 10%;"></th>
@@ -75,7 +76,6 @@
                         <form:errors path="joinDate" style="color: red;"></form:errors>
                     </td>
                 </tr>
-                <c:if test="role != 'student'">
                 <tr>
                     <th style="width: 40%; text-align: center;">End Date</th>
                     <th style="width: 10%;"></th>

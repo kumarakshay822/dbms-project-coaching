@@ -14,6 +14,8 @@ import com.dbms.coaching.models.Course;
 import com.dbms.coaching.models.Enrollment;
 import com.dbms.coaching.models.Student;
 import com.dbms.coaching.models.Transaction;
+import com.dbms.coaching.models.User;
+import com.dbms.coaching.services.PaymentService;
 import com.dbms.coaching.services.SecurityService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,9 @@ public class EnrollmentController {
 
     @Autowired
     private StaffDao staffDao;
+
+    @Autowired
+    private PaymentService paymentService;
 
     public void checkStaffAssignedBatch(String courseId, String batchId) {
         int userId = securityService.findLoggedInUserId();
@@ -144,7 +149,6 @@ public class EnrollmentController {
         model.addAttribute("title", "Academic Portal - Enrollments");
         model.addAttribute("message", "Add Enrollment");
         model.addAttribute("submessage1", "Add Enrollment");
-        model.addAttribute("buttonmessage", "Pay and Finish");
         model.addAttribute("submiturl", "/" + role + "/academics/courses/" + courseId + "/" + batchId + "/enrollments/add");
         List<Student> students = studentDao.getAll();
         model.addAttribute("students", students);
@@ -161,6 +165,10 @@ public class EnrollmentController {
             int studentId = studentDao.getStudentIdByUserId(userId);
             enrollment.setStudentId(studentId);
             transaction.setTransactionMode("Online");
+            model.addAttribute("buttonmessage", "Pay and Finish");
+        }
+        else {
+            model.addAttribute("buttonmessage", "Accept Payment and Finish");
         }
         model.addAttribute("enrollment", enrollment);
         return "enrollment/addEditEnrollment";
@@ -173,18 +181,6 @@ public class EnrollmentController {
             @ModelAttribute("enrollment") Enrollment enrollment, BindingResult bindingResult, Model model) {
         checkStaffAssignedBatch(courseId, batchId);
         String role = securityService.findLoggedInUserRole();
-        // TODO: Don't allow enrolling in more than one batches of a course
-        Transaction transaction = new Transaction();
-        int amount = batchDao.getFee(batchId, courseId);
-        transaction.setAmount(amount);
-        transaction.setTransactionMode("Offline");
-        enrollment.setTransaction(transaction);
-        if (role.equals("student")) {
-            int userId = securityService.findLoggedInUserId();
-            int studentId = studentDao.getStudentIdByUserId(userId);
-            enrollment.setStudentId(studentId);
-            transaction.setTransactionMode("Online");
-        }
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Enrollments");
             model.addAttribute("message", "Add Enrollment");
@@ -195,13 +191,44 @@ public class EnrollmentController {
             model.addAttribute("students", students);
             return "enrollment/addEditEnrollment";
         }
-        transaction = transactionDao.save(enrollment.getTransaction());
-        enrollment.setTransaction(transaction);
-        enrollmentDao.save(enrollment);
+        // TODO: Don't allow enrolling in more than one batches of a course
+        Transaction transaction = new Transaction();
+        int amount = batchDao.getFee(batchId, courseId);
+        transaction.setAmount(amount);
+        transaction.setTransactionMode("Offline");
         if (role.equals("student")) {
+            User user = securityService.findLoggedInUser();
+            transaction.setTransactionMode("Online");
+            transaction = transactionDao.save(transaction);
+            return "redirect:" + paymentService.createPayment(user, transaction.getTransactionId(), amount, courseId, batchId);
+        } else {
+            transaction.setIsSuccess(true);
+            transaction = transactionDao.save(transaction);
+            enrollment.setTransaction(transaction);
+            enrollmentDao.save(enrollment);
+            return "redirect:/" + role + "/academics/courses/" + courseId + "/" + batchId + "/enrollments";
+        }
+    }
+
+    @GetMapping("/student/transaction/{courseId}/{batchId}")
+    public String processTransaction(Integer transaction_id, @PathVariable("courseId") String courseId, @PathVariable("batchId") String batchId) {
+        System.out.println(transaction_id);
+        int transactionId = transaction_id;
+        String status = paymentService.getTransactionDetails(transactionId);
+        if (status.equals("completed")) {
+            transactionDao.setSuccess(transactionId);
+            Enrollment enrollment = new Enrollment();
+            enrollment.setCourseId(courseId);
+            enrollment.setBatchId(batchId);
+            int userId = securityService.findLoggedInUserId();
+            int studentId = studentDao.getStudentIdByUserId(userId);
+            enrollment.setStudentId(studentId);
+            Transaction transaction = transactionDao.get(transactionId);
+            enrollment.setTransaction(transaction);
+            enrollmentDao.save(enrollment);
             return "redirect:/student/academics/enrollments";
         }
-        return "redirect:/" + role + "/academics/courses/" + courseId + "/" + batchId + "/enrollments";
+        return "redirect:/student/academics/enrollments?error";
     }
 
     @GetMapping({ "/admin/academics/enrollments/{enrollmentId}",

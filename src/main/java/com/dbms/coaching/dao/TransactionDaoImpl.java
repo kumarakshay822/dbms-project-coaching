@@ -61,6 +61,12 @@ public class TransactionDaoImpl implements TransactionDao {
     }
 
     @Override
+    public void setSuccess(int transactionId) {
+        String sql = "UPDATE Transaction SET isSuccess = ? WHERE transactionId = ?";
+        template.update(sql, true, transactionId);
+    }
+
+    @Override
     public List<Transaction> getAll() {
         String sql = "SELECT * FROM Transaction";
         List<Transaction> transactions = template.query(sql, new BeanPropertyRowMapper<>(Transaction.class));

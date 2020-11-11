@@ -1,0 +1,89 @@
+package com.dbms.coaching.services;
+
+import java.util.List;
+
+import com.dbms.coaching.dao.UserPhoneNumberDao;
+import com.dbms.coaching.models.User;
+import com.dbms.coaching.models.UserPhoneNumber;
+import com.dbms.coaching.utils.ServerUtil;
+import com.instamojo.wrapper.api.ApiContext;
+import com.instamojo.wrapper.api.Instamojo;
+import com.instamojo.wrapper.api.InstamojoImpl;
+import com.instamojo.wrapper.exception.ConnectionException;
+import com.instamojo.wrapper.exception.HTTPException;
+import com.instamojo.wrapper.model.PaymentOrder;
+import com.instamojo.wrapper.model.PaymentOrderResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+@Service
+public class PaymentService {
+    @Autowired
+    private ServerUtil serverUtil;
+
+    @Autowired
+    private UserPhoneNumberDao userPhoneNumberDao;
+
+    /*
+     * Get a reference to the instamojo api
+     */
+    ApiContext context = ApiContext.create(System.getenv("INSTAMOJO_CLIENT_ID"), System.getenv("INSTAMOJO_CLIENT_SECRET"), ApiContext.Mode.TEST);
+    Instamojo api = new InstamojoImpl(context);
+
+    public String createPayment(User user, int transactionId, int amount, String courseId, String batchId) {
+
+        /*
+         * Create a new payment order
+         */
+        PaymentOrder order = new PaymentOrder();
+        order.setName(user.getName());
+        order.setEmail(user.getEmailAddress());
+        order.setPhone("9999999999");
+        order.setCurrency("INR");
+        order.setAmount((double)amount);
+        order.setDescription("Payment for enrolling " + user.getName());
+        String redirectUrl = "http://" + serverUtil.getHostAddressAndPort() + "/student/transaction/" + courseId + "/" + batchId;
+        order.setRedirectUrl(redirectUrl);
+        order.setTransactionId("" + transactionId);
+
+        List<UserPhoneNumber> phoneNumbers = userPhoneNumberDao.getByUserId(user.getUserId());
+        if (phoneNumbers.size() > 0) {
+            String phoneNumber = phoneNumbers.get(0).getPhoneNumber();
+            if (phoneNumber.length() == 10) {
+                order.setPhone(phoneNumber);
+            }
+        }
+
+        try {
+            PaymentOrderResponse paymentOrderResponse = api.createPaymentOrder(order);
+            return paymentOrderResponse.getPaymentOptions().getPaymentUrl();
+
+        } catch (HTTPException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    e.getStatusCode() + e.getMessage() + e.getJsonPayload());
+
+        } catch (ConnectionException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    public String getTransactionDetails(int transactionId) {
+        /*
+         * Get details of payment order when transaction id is given
+         */
+        try {
+            PaymentOrder paymentOrder = api.getPaymentOrderByTransactionId("" + transactionId);
+            return paymentOrder.getStatus();
+
+        } catch (HTTPException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    e.getStatusCode() + " " + e.getMessage() + " " + e.getJsonPayload());
+
+        } catch (ConnectionException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+}

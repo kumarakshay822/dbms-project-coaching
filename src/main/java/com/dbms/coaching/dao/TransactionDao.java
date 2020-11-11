@@ -9,5 +9,7 @@ public interface TransactionDao {
 
     public Transaction get(int transactionId);
 
+    public void setSuccess(int transactionId);
+
     public List<Transaction> getAll();
 }

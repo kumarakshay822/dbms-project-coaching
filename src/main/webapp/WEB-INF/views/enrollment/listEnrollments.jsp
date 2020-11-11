@@ -25,6 +25,11 @@
         <button id="enrollment" class="btn btn-primary btn ml-3">Add Enrollment</a>
     </div>
     </c:if>
+    <c:if test="${fullenrollment != true}">
+        <div class="div text-right mt-2">
+            <a class="btn btn-success" href="/${role}/academics/courses/${courseId}/${batchId}/enrollments/add" role="button">Enroll</a>
+        </div>
+    </c:if>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
             <thead>

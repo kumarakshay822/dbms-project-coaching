@@ -56,6 +56,16 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
+    public User findLoggedInUser() {
+        Object myUserDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (myUserDetails instanceof MyUserDetails) {
+            User user = ((MyUserDetails) myUserDetails).getUser();
+            return user;
+        }
+        return null;
+    }
+
+    @Override
     public void autoLogin(String username, String password) {
         MyUserDetails myUserDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(

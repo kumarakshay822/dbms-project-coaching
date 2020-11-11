@@ -9,16 +9,20 @@ public class Transaction {
     private Date date;
     private Time time;
     private String transactionMode;
+    private boolean isSuccess;
 
     public Transaction() {
+        isSuccess = false;
+        transactionMode = "Offline";
     }
 
-    public Transaction(int transactionId, int amount, Date date, Time time, String transactionMode) {
+    public Transaction(int transactionId, int amount, Date date, Time time, String transactionMode, boolean isSuccess) {
         this.transactionId = transactionId;
         this.amount = amount;
         this.date = date;
         this.time = time;
         this.transactionMode = transactionMode;
+        this.isSuccess = isSuccess;
     }
 
     /**
@@ -91,6 +95,20 @@ public class Transaction {
         this.transactionMode = transactionMode;
     }
 
+    /**
+     * @return boolean return the isSuccess
+     */
+    public boolean isIsSuccess() {
+        return isSuccess;
+    }
+
+    /**
+     * @param isSuccess the isSuccess to set
+     */
+    public void setIsSuccess(boolean isSuccess) {
+        this.isSuccess = isSuccess;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -99,6 +117,7 @@ public class Transaction {
             ", date='" + getDate() + "'" +
             ", time='" + getTime() + "'" +
             ", transactionMode='" + getTransactionMode() + "'" +
+            ", isSuccess='" + isIsSuccess() + "'" +
             "}";
     }
 

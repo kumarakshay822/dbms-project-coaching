@@ -248,6 +248,7 @@ CREATE TABLE IF NOT EXISTS Transaction (
   date date NOT NULL,
   time time NOT NULL,
   transactionMode enum ('Offline', 'Online') DEFAULT 'Online' NOT NULL,
+  isSuccess boolean DEFAULT false NOT NULL,
   PRIMARY KEY (transactionId)
 );
 
