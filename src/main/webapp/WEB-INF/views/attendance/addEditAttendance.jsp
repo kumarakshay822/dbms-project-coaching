@@ -29,7 +29,7 @@
                     <td style="width: 50%">
                         <c:choose>
                             <c:when test="${edit == true || role == 'staff'}">
-                                ${attendance.date}
+                                <fmt:formatDate pattern="dd-MM-yyyy" value="${attendance.date}" />
                             </c:when>
                             <c:otherwise>
                                 <form:input type="date" path="date" class="form-control" required="true" max="${todayFormatted}"></form:input>

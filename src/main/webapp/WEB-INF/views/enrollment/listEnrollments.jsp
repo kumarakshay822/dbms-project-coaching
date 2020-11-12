@@ -51,8 +51,8 @@
                     <td><a href="/${role}/students/ST${enrollment.studentId}">ST${enrollment.studentId}</a></td>
                     <td><a href="/${role}/academics/courses/${enrollment.courseId}">${enrollment.courseId}</a></td>
                     <td><a href="/${role}/academics/courses/${enrollment.courseId}/${enrollment.batchId}">${enrollment.batchId}</a></td>
-                    <td>${enrollment.joinDate}</td>
-                    <td>${enrollment.endDate}</td>
+                    <td><fmt:formatDate pattern="dd-MM-yyyy" value="${enrollment.joinDate}" /></td>
+                    <td><fmt:formatDate pattern="dd-MM-yyyy" value="${enrollment.endDate}" /></td>
                     <td>
                         <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STAFF', 'ROLE_STUDENT')">
                         <a class="btn btn-outline-success btn-sm" href="/${role}/academics/enrollments/${enrollment.enrollmentId}"

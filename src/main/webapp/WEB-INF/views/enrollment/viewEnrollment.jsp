@@ -42,12 +42,12 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Join Date</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${enrollment.joinDate}</td>
+                <td style="width: 50%"><fmt:formatDate pattern="dd-MM-yyyy" value="${enrollment.joinDate}" /></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">End Date</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${enrollment.endDate}</td>
+                <td style="width: 50%"><fmt:formatDate pattern="dd-MM-yyyy" value="${enrollment.endDate}" /></td>
             </tr>
         </table>
         <div class="col-12" style="text-align: center;">
@@ -68,12 +68,12 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Date</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${enrollment.transaction.date}</td>
+                <td style="width: 50%"><fmt:formatDate pattern="dd-MM-yyyy" value="${enrollment.transaction.date}" /></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Time</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${enrollment.transaction.time}</td>
+                <td style="width: 50%"><fmt:formatDate pattern="dd-MM-yyyy" value="${enrollment.transaction.time}" /></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Transaction Mode</th>

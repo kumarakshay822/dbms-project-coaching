@@ -26,8 +26,8 @@
                     <td>${batch.course.courseName} - ${batch.course.courseId}</td>
                     <td>${batch.fee}</td>
                     <td>${batch.roomNumber}</td>
-                    <td>${batch.startTime}</td>
-                    <td>${batch.endTime}</td>
+                    <td><fmt:formatDate pattern="HH:mm:ss" value="${batch.startTime}" /></td>
+                    <td><fmt:formatDate pattern="HH:mm:ss" value="${batch.endTime}" /></td>
                     <td>
                         <a class="btn btn-outline-success btn-sm" href="/${role}/academics/courses/${batch.course.courseId}/${batch.batchId}"
                             role="button">View</a>

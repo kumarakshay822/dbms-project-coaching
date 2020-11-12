@@ -34,7 +34,8 @@
                             <th style="width: 40%; text-align: center;">Date and Time</th>
                             <th style="width: 10%;"></th>
                             <td style="width: 50%">
-                                ${complaint.date} ${complaint.time}
+                                <fmt:formatDate pattern="dd-MM-yyyy" value="${complaint.date}" />
+                                <fmt:formatDate pattern="HH:mm:ss" value="${complaint.time}" />
                             </td>
                         </tr>
                     </c:when>
@@ -69,7 +70,10 @@
                 <tr>
                     <th style="width: 40%; text-align: center;">Resolved?</th>
                     <th style="width: 10%;"></th>
-                    <td style="width: 50%">${complaint.isResolved}</td>
+                    <td style="width: 50%">
+                        <c:if test="${complaint.isResolved == true}"><span style="color: green;">Yes</span></c:if>
+                        <c:if test="${complaint.isResolved == false}"><span style="color: red;">No</span></c:if>
+                    </td>
                 </tr>
                 </c:if>
                 <tr>

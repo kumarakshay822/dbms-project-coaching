@@ -68,7 +68,7 @@
                     <td>${payroll.month}</td>
                     <td>${payroll.year}</td>
                     <td>${payroll.salaryCredited}</td>
-                    <td>${payroll.dateCredited}</td>
+                    <td><fmt:formatDate pattern="dd-MM-yyyy" value="${payroll.dateCredited}" /></td>
                     <sec:authorize access='hasRole("ROLE_ADMIN")'>
                     <td>
                         <a class="btn btn-outline-success btn-sm" href="/${role}/payroll/${payroll.paymentRefNo}"

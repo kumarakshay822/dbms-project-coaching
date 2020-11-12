@@ -22,7 +22,7 @@
             <c:forEach items="${attendances}" var="attendance">
                 <tr>
                     <td>ET${attendance.employee.employeeId} - ${attendance.employee.user.name}</td>
-                    <td>${attendance.date}</td>
+                    <td><fmt:formatDate pattern="dd-MM-yyyy" value="${attendance.date}" /></td>
                     <td>
                         <c:if test="${attendance.isPresent == true}">Present</c:if>
                         <c:if test="${attendance.isPresent == false}"><span style="color: red;">Absent</span></c:if>

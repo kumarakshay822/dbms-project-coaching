@@ -29,7 +29,10 @@
                     <td>${feedback.feedbackId}</td>
                     <td><a href="/${role}/students/ST${feedback.studentId}">ST${feedback.studentId}</a></td>
                     <td><a href="/${role}/teachers/ET${feedback.employeeId}">ST${feedback.employeeId}</a></td>
-                    <td>${feedback.date} ${feedback.time}</td>
+                    <td>
+                        <fmt:formatDate pattern="dd-MM-yyyy" value="${feedback.date}" />
+                        <fmt:formatDate pattern="HH:mm:ss" value="${feedback.time}" />
+                    </td>
                     <td>${feedback.subject}</td>
                     <td>${feedback.message}</td>
                     <td>

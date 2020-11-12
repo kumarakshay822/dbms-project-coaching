@@ -27,7 +27,10 @@
             <c:forEach items="${complaints}" var="complaint">
                 <tr>
                     <td>${complaint.complaintId}</td>
-                    <td>${complaint.date} ${complaint.time}</td>
+                    <td>
+                        <fmt:formatDate pattern="dd-MM-yyyy" value="${complaint.date}" />
+                        <fmt:formatDate pattern="HH:mm:ss" value="${complaint.time}" />
+                    </td>
                     <td><a href="/${role}/students/ST${complaint.studentId}">ST${complaint.studentId}</a></td>
                     <td>${complaint.subject}</td>
                     <td>${complaint.description}</td>

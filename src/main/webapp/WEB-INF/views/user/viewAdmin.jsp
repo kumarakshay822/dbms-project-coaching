@@ -34,17 +34,23 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Activated?</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${user.isActive}</td>
+                <td style="width: 50%">
+                    <c:if test="${user.isActive == true}"><span style="color: green;">Yes</span></c:if>
+                    <c:if test="${user.isActive == false}"><span style="color: red;">No</span></c:if>
+                </td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Date Created</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${user.dateCreated}</td>
+                <td style="width: 50%"><fmt:formatDate pattern="dd-MM-yyyy" value="${user.dateCreated}" /></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Last Login</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${user.lastLoginDate} ${user.lastLoginTime}</td>
+                <td style="width: 50%">
+                    <fmt:formatDate pattern="dd-MM-yyyy" value="${user.lastLoginDate}" />
+                    <fmt:formatDate pattern="HH:mm:ss" value="${user.lastLoginTime}" />
+                </td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Phone Numbers</th>

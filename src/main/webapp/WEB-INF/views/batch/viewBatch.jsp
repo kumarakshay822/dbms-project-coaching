@@ -54,12 +54,12 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Start Time</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${batch.startTime}</td>
+                <td style="width: 50%"><fmt:formatDate pattern="HH:mm:ss" value="${batch.startTime}" /></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">End Time</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${batch.endTime}</td>
+                <td style="width: 50%"><fmt:formatDate pattern="HH:mm:ss" value="${batch.endTime}" /></td>
             </tr>
         </table>
         <div class="col-12" style="text-align: center;">

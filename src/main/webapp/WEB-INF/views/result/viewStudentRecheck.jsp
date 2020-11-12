@@ -47,12 +47,18 @@
                 <tr>
                     <th style="width: 40%; text-align: center;">Applied for Recheck?</th>
                     <th style="width: 10%;"></th>
-                    <td style="width: 50%">${result.hasAppliedRecheck}</td>
+                    <td style="width: 50%">
+                        <c:if test="${result.hasAppliedRecheck == true}"><span style="color: green;">Yes</span></c:if>
+                        <c:if test="${result.hasAppliedRecheck == false}"><span style="color: red;">No</span></c:if>
+                    </td>
                 </tr>
                 <tr>
                     <th style="width: 40%; text-align: center;">Is Recheck Done?</th>
                     <th style="width: 10%;"></th>
-                    <td style="width: 50%">${result.isDoneRecheck}</td>
+                    <td style="width: 50%">
+                        <c:if test="${result.isDoneRecheck == true}"><span style="color: green;">Yes</span></c:if>
+                        <c:if test="${result.isDoneRecheck == false}"><span style="color: red;">No</span></c:if>
+                    </td>
                 </tr>
                 <tr>
                     <th style="width: 40%; text-align: center;">Recheck Comments</th>

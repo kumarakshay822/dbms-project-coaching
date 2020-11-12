@@ -41,17 +41,17 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Test Date</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${test.testDate}</td>
+                <td style="width: 50%"><fmt:formatDate pattern="dd-MM-yyyy" value="${test.testDate}" /></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Start Time</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${test.startTime}</td>
+                <td style="width: 50%"><fmt:formatDate pattern="HH:mm:ss" value="${test.startTime}" /></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">End Time</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${test.endTime}</td>
+                <td style="width: 50%"><fmt:formatDate pattern="HH:mm:ss" value="${test.endTime}" /></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Maximum Marks</th>

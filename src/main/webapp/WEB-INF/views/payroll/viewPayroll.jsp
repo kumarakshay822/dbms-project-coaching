@@ -59,7 +59,7 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Date credited</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${payroll.dateCredited}</td>
+                <td style="width: 50%"><fmt:formatDate pattern="dd-MM-yyyy" value="${payroll.dateCredited}" /></td>
             </tr>
         </table>
     </div>

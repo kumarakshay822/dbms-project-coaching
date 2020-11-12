@@ -61,7 +61,7 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Date of Birth</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${teacher.dateOfBirth}</td>
+                <td style="width: 50%"><fmt:formatDate pattern="dd-MM-yyyy" value="${teacher.dateOfBirth}" /></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Address</th>
@@ -86,17 +86,23 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Activated?</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${teacher.employee.user.isActive}</td>
+                <td style="width: 50%">
+                    <c:if test="${teacher.employee.user.isActive == true}"><span style="color: green;">Yes</span></c:if>
+                    <c:if test="${teacher.employee.user.isActive == false}"><span style="color: red;">No</span></c:if>
+                </td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Date Created</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${teacher.employee.user.dateCreated}</td>
+                <td style="width: 50%"><fmt:formatDate pattern="dd-MM-yyyy" value="${teacher.employee.user.dateCreated}" /></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Last Login</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${teacher.employee.user.lastLoginDate} ${teacher.employee.user.lastLoginTime}</td>
+                <td style="width: 50%">
+                    <fmt:formatDate pattern="dd-MM-yyyy" value="${teacher.employee.user.lastLoginDate}" />
+                    <fmt:formatDate pattern="HH:mm:ss" value="${teacher.employee.user.lastLoginTime}" />
+                </td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Phone Numbers</th>
@@ -119,12 +125,12 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Join Date</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${teacher.employee.joinDate}</td>
+                <td style="width: 50%"><fmt:formatDate pattern="dd-MM-yyyy" value="${teacher.employee.joinDate}" /></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">End Date</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${teacher.employee.endDate}</td>
+                <td style="width: 50%"><fmt:formatDate pattern="dd-MM-yyyy" value="${teacher.employee.endDate}" /></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">PAN Number</th>

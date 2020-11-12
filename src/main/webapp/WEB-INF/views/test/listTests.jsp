@@ -33,9 +33,9 @@
                     <td>${test.testName}</td>
                     <td>${test.course.courseName} - ${test.course.courseId}</td>
                     <td>${test.roomNumber}</td>
-                    <td>${test.testDate}</td>
-                    <td>${test.startTime}</td>
-                    <td>${test.endTime}</td>
+                    <td><fmt:formatDate pattern="dd-MM-yyyy" value="${test.testDate}" /></td>
+                    <td><fmt:formatDate pattern="HH:mm:ss" value="${test.startTime}" /></td>
+                    <td><fmt:formatDate pattern="HH:mm:ss" value="${test.endTime}" /></td>
                     <td>${test.maximumMarks}</td>
                     <td>${test.difficulty}</td>
                     <td><a class="btn btn-success" href="/${role}/academics/tests/${test.testId}/results" role="button">View</a></td>

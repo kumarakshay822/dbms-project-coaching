@@ -29,7 +29,7 @@
                         <c:if test="${attendance.employee.user.role == 'ROLE_STAFF'}">ES${attendance.employee.employeeId}</c:if>
                         - ${attendance.employee.user.firstName} ${attendance.employee.user.middleName} ${attendance.employee.user.lastName}
                     </td>
-                    <td>${attendance.date}</td>
+                    <td><fmt:formatDate pattern="dd-MM-yyyy" value="${attendance.date}" /></td>
                     <td>
                         <c:if test="${attendance.isPresent == true}">Present</c:if>
                         <c:if test="${attendance.isPresent == false}"><span style="color: red;">Absent</span></c:if>
