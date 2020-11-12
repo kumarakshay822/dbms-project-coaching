@@ -24,7 +24,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Course ID</th>
+                    <th style="width: 40%; text-align: center;">Course ID ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <c:choose>
@@ -39,7 +39,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Course Name</th>
+                    <th style="width: 40%; text-align: center;">Course Name ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="courseName" class="form-control" required="true"></form:input>

@@ -24,7 +24,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Date</th>
+                    <th style="width: 40%; text-align: center;">Date ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <c:choose>
@@ -39,7 +39,7 @@
                     <td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Employee</th>
+                    <th style="width: 40%; text-align: center;">Employee ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <c:choose>
@@ -64,7 +64,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Present?</th>
+                    <th style="width: 40%; text-align: center;">Present? ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:select class="form-control" path="isPresent" required="true">

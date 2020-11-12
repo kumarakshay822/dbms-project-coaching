@@ -78,7 +78,7 @@ public class TeacherController {
 
     @PostMapping("/admin/teachers/add")
     public String addTeacher(@Valid @ModelAttribute("teacher") Teacher teacher, BindingResult bindingResult, Model model) {
-        teacherValidator.validate(teacher, bindingResult);
+        teacherValidator.validate(teacher.getEmployee().getUser(), bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Teacher Portal");
             model.addAttribute("message", "Create Teacher's profile");

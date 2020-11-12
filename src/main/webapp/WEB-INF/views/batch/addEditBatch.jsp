@@ -25,7 +25,7 @@
             <form:form class="form-horizontal" action="${submiturl}"
                 method="post" modelAttribute="batch">
                 <tr>
-                    <th style="width: 40%; text-align: center;">Batch ID</th>
+                    <th style="width: 40%; text-align: center;">Batch ID ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <c:choose>
@@ -40,7 +40,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Batch Name</th>
+                    <th style="width: 40%; text-align: center;">Batch Name ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="batchName" class="form-control"></form:input>
@@ -48,7 +48,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Course</th>
+                    <th style="width: 40%; text-align: center;">Course ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <c:choose>
@@ -70,7 +70,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Fee</th>
+                    <th style="width: 40%; text-align: center;">Fee ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="number" path="fee" class="form-control" required="true"></form:input>
@@ -78,7 +78,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Room Number</th>
+                    <th style="width: 40%; text-align: center;">Room Number ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="number" path="roomNumber" class="form-control" required="true"></form:input>

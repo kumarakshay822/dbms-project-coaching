@@ -32,19 +32,19 @@
                 </c:if>
                 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STAFF')">
                 <tr>
-                    <th style="width: 40%; text-align: center;">Name</th>
+                    <th style="width: 40%; text-align: center;">Name ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
-                        <form:input type="text" path="user.firstName" class="form-control" required="true"></form:input>
+                        <form:input type="text" path="user.firstName" class="form-control" required="true" placeholder="First Name"></form:input>
                         <form:errors path="user.firstName" style="color: red;"></form:errors>
-                        <form:input type="text" path="user.middleName" class="form-control"></form:input>
+                        <form:input type="text" path="user.middleName" class="form-control" placeholder="Middle Name"></form:input>
                         <form:errors path="user.middleName" style="color: red;"></form:errors>
-                        <form:input type="text" path="user.lastName" class="form-control"></form:input>
+                        <form:input type="text" path="user.lastName" class="form-control" placeholder="Last Name"></form:input>
                         <form:errors path="user.lastName" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Username</th>
+                    <th style="width: 40%; text-align: center;">Username ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="user.username" class="form-control" required="true"></form:input>
@@ -52,7 +52,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Email Address</th>
+                    <th style="width: 40%; text-align: center;">Email Address ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="email" path="user.emailAddress" class="form-control" required="true"></form:input>
@@ -61,7 +61,7 @@
                 </tr>
                 </sec:authorize>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Gender</th>
+                    <th style="width: 40%; text-align: center;">Gender ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:select class="form-control" path="gender" required="true">
@@ -73,7 +73,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Date of Birth</th>
+                    <th style="width: 40%; text-align: center;">Date of Birth ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="date" path="dateOfBirth" class="form-control" required="true" max="2015-01-01" min="1995-01-01"></form:input>
@@ -81,23 +81,29 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Address</th>
+                    <th style="width: 40%; text-align: center;">Address ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
-                        <form:input type="text" path="houseNumber" class="form-control"></form:input>
+                        <form:input type="text" path="houseNumber" class="form-control" placeholder="House Number"></form:input>
                         <form:errors path="houseNumber" style="color: red;"></form:errors>
-                        <form:input type="text" path="street" class="form-control" required="true"></form:input>
+                        <form:input type="text" path="street" class="form-control" required="true" placeholder="Street"></form:input>
                         <form:errors path="street" style="color: red;"></form:errors>
-                        <form:input type="text" path="city" class="form-control" required="true"></form:input>
+                        <form:input type="text" path="city" class="form-control" required="true" placeholder="City"></form:input>
                         <form:errors path="city" style="color: red;"></form:errors>
-                        <form:input type="text" path="state" class="form-control" required="true"></form:input>
+                        <form:input type="text" path="state" class="form-control" required="true" placeholder="State"></form:input>
                         <form:errors path="state" style="color: red;"></form:errors>
-                        <form:input type="number" path="pinCode" class="form-control" required="true"></form:input>
+                        <form:input type="number" path="pinCode" class="form-control" required="true" placeholder="Pincode (6 digits)"></form:input>
                         <form:errors path="pinCode" style="color: red;"></form:errors>
+                        <script>
+                            var pinCode = document.getElementById("pinCode").value;
+                            if (pinCode == 0) {
+                                document.getElementById("pinCode").value = "";
+                            }
+                        </script>
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">School Attending</th>
+                    <th style="width: 40%; text-align: center;">School Attending ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="schoolAttending" class="form-control" required="true"></form:input>
@@ -105,7 +111,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">10th Percentage</th>
+                    <th style="width: 40%; text-align: center;">10th Percentage ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="percentage10th" class="form-control" required="true"></form:input>
@@ -113,7 +119,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">12th Percentage</th>
+                    <th style="width: 40%; text-align: center;">12th Percentage ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="percentage12th" class="form-control" required="true"></form:input>
@@ -123,7 +129,7 @@
                 <c:if test="${edit == true}">
                 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STAFF')">
                 <tr>
-                    <th style="width: 40%; text-align: center;">Activated?</th>
+                    <th style="width: 40%; text-align: center;">Activated? ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:select class="form-control" path="user.isActive" required="true">
@@ -143,7 +149,7 @@
                     <td style="width: 50%; text-align: right;"></td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Name</th>
+                    <th style="width: 40%; text-align: center;">Name ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="guardian.name" class="form-control" required="true"></form:input>
@@ -159,7 +165,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Address</th>
+                    <th style="width: 40%; text-align: center;">Address ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="guardian.address" class="form-control" required="true"></form:input>
@@ -175,7 +181,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Relation with student</th>
+                    <th style="width: 40%; text-align: center;">Relation with student ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:select class="form-control" path="guardian.relationWithStudent" required="true">

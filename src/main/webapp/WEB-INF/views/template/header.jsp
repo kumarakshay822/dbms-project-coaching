@@ -6,6 +6,7 @@
 <c:set var="today" value="<%= new java.util.Date()%>" />
 <fmt:formatDate var="todayFormatted" value="${today}" pattern="yyyy-MM-dd" />
 <c:set var="role">${pageContext.request.userPrincipal.principal.user.smallRole}</c:set>
+<c:set var="mandatory"><span style="color: red;">*</span></c:set>
 
 <!doctype html>
 <html lang="en">

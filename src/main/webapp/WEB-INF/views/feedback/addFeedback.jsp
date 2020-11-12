@@ -24,7 +24,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Teacher ID</th>
+                    <th style="width: 40%; text-align: center;">Teacher ID ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:select class="form-control" path="employeeId" required="true">
@@ -36,7 +36,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Subject</th>
+                    <th style="width: 40%; text-align: center;">Subject ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="subject" class="form-control" required="true"></form:input>
@@ -44,7 +44,7 @@
                     <td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Message</th>
+                    <th style="width: 40%; text-align: center;">Message ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="message" class="form-control" required="true"></form:input>

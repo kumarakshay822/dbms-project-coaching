@@ -32,19 +32,19 @@
                 <c:choose>
                     <c:when test="${edit == true}">
                         <tr>
-                            <th style="width: 40%; text-align: center;">Student ID</th>
+                            <th style="width: 40%; text-align: center;">Student ID ${mandatory}</th>
                             <th style="width: 10%;"></th>
                             <td style="width: 50%">ST${result.student.studentId}</td>
                         </tr>
                         <tr>
-                            <th style="width: 40%; text-align: center;">Student Name</th>
+                            <th style="width: 40%; text-align: center;">Student Name ${mandatory}</th>
                             <th style="width: 10%;"></th>
                             <td style="width: 50%">${result.student.user.firstName} ${result.student.user.middleName} ${result.student.user.lastName}</td>
                         </tr>
                     </c:when>
                     <c:otherwise>
                         <tr>
-                            <th style="width: 40%; text-align: center;">Student</th>
+                            <th style="width: 40%; text-align: center;">Student ${mandatory}</th>
                             <th style="width: 10%;"></th>
                             <td style="width: 50%">
                                 <form:select class="form-control" path="student.studentId" required="true">
@@ -60,7 +60,7 @@
                     </c:otherwise>
                 </c:choose>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Marks Scored</th>
+                    <th style="width: 40%; text-align: center;">Marks Scored ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="number" path="marksScored" class="form-control" required="true"></form:input>

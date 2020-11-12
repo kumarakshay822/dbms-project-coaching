@@ -32,7 +32,7 @@
                     </tr>
                 </c:if>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Test Name</th>
+                    <th style="width: 40%; text-align: center;">Test Name ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="testName" class="form-control"></form:input>
@@ -40,7 +40,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Course</th>
+                    <th style="width: 40%; text-align: center;">Course ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <c:choose>
@@ -62,7 +62,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Room Number</th>
+                    <th style="width: 40%; text-align: center;">Room Number ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="number" path="roomNumber" class="form-control" required="true"></form:input>
@@ -70,7 +70,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Test Date</th>
+                    <th style="width: 40%; text-align: center;">Test Date ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="date" path="testDate" class="form-control"  required="true" min="${todayFormatted}"></form:input>
@@ -78,7 +78,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Start Time</th>
+                    <th style="width: 40%; text-align: center;">Start Time ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="time" path="startTime" class="form-control"  required="true"></form:input>
@@ -86,7 +86,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">End Time</th>
+                    <th style="width: 40%; text-align: center;">End Time ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="time" path="endTime" class="form-control"  required="true"></form:input>
@@ -94,7 +94,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Maximum Marks</th>
+                    <th style="width: 40%; text-align: center;">Maximum Marks ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="number" path="maximumMarks" class="form-control"  required="true"></form:input>
@@ -102,7 +102,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Difficulty</th>
+                    <th style="width: 40%; text-align: center;">Difficulty ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:select class="form-control" path="difficulty" required="true">

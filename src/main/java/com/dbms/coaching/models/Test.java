@@ -5,6 +5,7 @@ import java.sql.Time;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 public class Test {
@@ -16,10 +17,13 @@ public class Test {
     @Positive
     private int roomNumber;
 
+    @NotNull
     private Date testDate;
 
+    @NotNull
     private Time startTime;
 
+    @NotNull
     private Time endTime;
 
     @Positive

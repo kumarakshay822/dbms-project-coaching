@@ -15,7 +15,7 @@
                         <div class="card-body">
                             <form:form class="form-horizontal" action="/user/register" method="post" modelAttribute="user">
                                 <div class="form-group row">
-                                    <label class="col-3 control-label">Username:</label>
+                                    <label class="col-3 control-label">Username: ${mandatory}</label>
                                     <div class="col-9">
                                         <form:input type="text" path="username" class="form-control" placeholder="Enter the username" autofocus="true" required="true"></form:input>
                                         <div class="ml-2" style="text-align: left;">
@@ -24,7 +24,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-3 control-label">Password:</label>
+                                    <label class="col-3 control-label">Password: ${mandatory}</label>
                                     <div class="col-9">
                                         <form:input type="password" path="password" class="form-control" placeholder="Enter the password" required="true"></form:input>
                                         <span toggle="#password-field" class="fa fa-lg fa-eye toggle-password mr-2"
@@ -35,7 +35,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-3 control-label">Name:</label>
+                                    <label class="col-3 control-label">Name: ${mandatory}</label>
                                     <div class="col-3">
                                         <form:input type="text" path="firstName" class="form-control" placeholder="First name" required="true"></form:input>
                                     </div>
@@ -52,7 +52,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-3 control-label">Email Address:</label>
+                                    <label class="col-3 control-label">Email Address: ${mandatory}</label>
                                     <div class="col-9">
                                         <form:input type="email" path="emailAddress" class="form-control" placeholder="Enter the email address" required="true"></form:input>
                                         <div class="ml-2" style="text-align: left;">
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-3 control-label">Registering as:</label>
+                                    <label class="col-3 control-label">Registering as: ${mandatory}</label>
                                     <div class="col-9">
                                         <form:select class="form-control" path="role" required="true">
                                             <form:option value="ROLE_STUDENT">Student</form:option>

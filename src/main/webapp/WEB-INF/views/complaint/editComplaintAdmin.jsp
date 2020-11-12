@@ -57,7 +57,7 @@
                 </tr>
                 <c:if test="${edit == true}">
                 <tr>
-                    <th style="width: 40%; text-align: center;">Response</th>
+                    <th style="width: 40%; text-align: center;">Response ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="response" class="form-control" required="true"></form:input>
@@ -65,7 +65,7 @@
                     <td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Resolved?</th>
+                    <th style="width: 40%; text-align: center;">Resolved? ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:select class="form-control" path="isResolved" required="true">

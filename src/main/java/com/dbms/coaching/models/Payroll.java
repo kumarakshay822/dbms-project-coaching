@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class Payroll {
@@ -20,7 +21,9 @@ public class Payroll {
     @Min(1000)
     private double salaryCredited;
 
+    @NotNull
     private Date dateCredited;
+
     private Employee Employee;
 
     public Payroll() {

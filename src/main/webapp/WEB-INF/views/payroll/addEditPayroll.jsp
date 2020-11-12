@@ -24,7 +24,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Payment Ref No</th>
+                    <th style="width: 40%; text-align: center;">Payment Ref No ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <c:choose>
@@ -39,7 +39,7 @@
                     <td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Employee</th>
+                    <th style="width: 40%; text-align: center;">Employee ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:select class="form-control" path="employee.employeeId" required="true">
@@ -54,7 +54,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Month</th>
+                    <th style="width: 40%; text-align: center;">Month ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="number" path="month" class="form-control" required="true"></form:input>
@@ -62,7 +62,7 @@
                     <td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Year</th>
+                    <th style="width: 40%; text-align: center;">Year ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="number" path="year" class="form-control" required="true"></form:input>
@@ -70,7 +70,7 @@
                     <td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Salary Credited</th>
+                    <th style="width: 40%; text-align: center;">Salary Credited ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="number" path="salaryCredited" class="form-control" required="true" step=".01"></form:input>
@@ -78,7 +78,7 @@
                     <td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Date Credited</th>
+                    <th style="width: 40%; text-align: center;">Date Credited ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="date" path="dateCredited" class="form-control" required="true" max='${todayFormatted}'></form:input>

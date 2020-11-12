@@ -41,12 +41,12 @@
                     </c:when>
                 </c:choose>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Student ID</th>
+                    <th style="width: 40%; text-align: center;">Student ID ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">ST${studentId}</td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Subject</th>
+                    <th style="width: 40%; text-align: center;">Subject ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="subject" class="form-control" required="true"></form:input>
@@ -54,7 +54,7 @@
                     <td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Description</th>
+                    <th style="width: 40%; text-align: center;">Description ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="description" class="form-control" required="true"></form:input>

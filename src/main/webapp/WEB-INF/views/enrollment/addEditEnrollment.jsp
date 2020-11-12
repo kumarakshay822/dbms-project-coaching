@@ -33,7 +33,7 @@
                     </tr>
                 </c:if>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Student ID</th>
+                    <th style="width: 40%; text-align: center;">Student ID ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <c:choose>
@@ -55,14 +55,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Course ID</th>
+                    <th style="width: 40%; text-align: center;">Course ID ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         ${enrollment.courseId}
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Batch ID</th>
+                    <th style="width: 40%; text-align: center;">Batch ID ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         ${enrollment.batchId}
@@ -87,7 +87,7 @@
                 </tr>
                 </c:if>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Amount Payable</th>
+                    <th style="width: 40%; text-align: center;">Amount Payable ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <c:if test="${edit == 'true'}">Rs ${enrollment.transaction.amount}</c:if>
@@ -95,7 +95,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Transaction Mode</th>
+                    <th style="width: 40%; text-align: center;">Transaction Mode ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <c:if test="${edit == 'true'}">${enrollment.transaction.transactionMode}</c:if>

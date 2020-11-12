@@ -24,7 +24,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Material ID</th>
+                    <th style="width: 40%; text-align: center;">Material ID ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <c:choose>
@@ -39,14 +39,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Subject ID</th>
+                    <th style="width: 40%; text-align: center;">Subject ID ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         ${subjectId}
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Topic Name</th>
+                    <th style="width: 40%; text-align: center;">Topic Name ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:input type="text" path="topicName" class="form-control" required="true"></form:input>
@@ -54,7 +54,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Difficulty</th>
+                    <th style="width: 40%; text-align: center;">Difficulty ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <form:select class="form-control" path="difficulty" required="true">
@@ -74,7 +74,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">File</th>
+                    <th style="width: 40%; text-align: center;">File ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
                         <c:choose>
