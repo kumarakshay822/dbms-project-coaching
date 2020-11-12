@@ -26,12 +26,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.ResponseBody;
-
-// import org.springframework.security.core.Authentication;
-// import org.springframework.security.core.context.SecurityContextHolder;
-// import org.springframework.security.core.userdetails.UserDetails;
 
 @Transactional
 @Controller
@@ -79,7 +73,6 @@ public class TeacherController {
 
         Teacher teacher = new Teacher();
         model.addAttribute("teacher", teacher);
-        // TODO: Fix basic salary, join date and end date to be null.
         return "teacher/addEditTeacher";
     }
 

@@ -24,12 +24,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.ResponseBody;
-
-// import org.springframework.security.core.Authentication;
-// import org.springframework.security.core.context.SecurityContextHolder;
-// import org.springframework.security.core.userdetails.UserDetails;
 
 @Transactional
 @Controller
@@ -71,7 +65,6 @@ public class StaffController {
         model.addAttribute("submiturl", "/admin/staffs/add");
         Staff staff = new Staff();
         model.addAttribute("staff", staff);
-        // TODO: Fix basic salary, join date and end date to be null.
         return "staff/addEditStaff";
     }
 

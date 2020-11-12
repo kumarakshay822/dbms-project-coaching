@@ -111,7 +111,6 @@ public class ProfileController {
 
         Teacher teacher = new Teacher();
         model.addAttribute("teacher", teacher);
-        // TODO: Fix basic salary, join date and end date to be null.
         return "teacher/addEditTeacher";
     }
 
@@ -125,7 +124,6 @@ public class ProfileController {
         if (employeeId != null)
             return "redirect:/profile";
 
-        // TODO: Validate here
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Teacher Portal");
             model.addAttribute("message", "Create Teacher's profile");
@@ -208,7 +206,6 @@ public class ProfileController {
         if (employeeId == null)
             return "redirect:/profile/teacher/add";
 
-        // TODO: Validate here
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Teacher Portal");
             model.addAttribute("message", "Edit Teacher's profile");
@@ -296,7 +293,6 @@ public class ProfileController {
         model.addAttribute("submiturl", "/profile/staff/add");
         Staff staff = new Staff();
         model.addAttribute("staff", staff);
-        // TODO: Fix basic salary, join date and end date to be null.
         return "staff/addEditStaff";
     }
 
@@ -310,7 +306,6 @@ public class ProfileController {
         if (employeeId != null)
             return "redirect:/profile";
 
-        // TODO: Validate here
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Staff Portal");
             model.addAttribute("message", "Create Staff's profile");
@@ -389,7 +384,6 @@ public class ProfileController {
         if (employeeId == null)
             return "redirect:/profile/staff/add";
 
-        // TODO: Validate here
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Staff Portal");
             model.addAttribute("message", "Edit Staff's profile");
@@ -564,7 +558,6 @@ public class ProfileController {
         if (studentId == null)
             return "redirect:/profile/student/add";
 
-        // TODO: Validate here
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Student Portal");
             model.addAttribute("message", "Edit Student's profile");

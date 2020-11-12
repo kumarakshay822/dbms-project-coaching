@@ -81,7 +81,6 @@ public class ResultDaoImpl implements ResultDao {
      */
     @Override
     public void update(Result result) {
-        // TODO: Rename certain fields with boolean value
         String sql = "UPDATE Result SET marksScored = ?, hasAppliedRecheck = ?, isDoneRecheck = ?, recheckComments = ? WHERE testId = ? AND studentId = ?";
         template.update(sql, result.getMarksScored(), result.isHasAppliedRecheck(), result.isIsDoneRecheck(),
                 result.getRecheckComments(), result.getTestId(), result.getStudent().getStudentId());

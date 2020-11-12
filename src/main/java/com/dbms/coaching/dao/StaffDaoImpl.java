@@ -56,8 +56,6 @@ public class StaffDaoImpl implements StaffDao {
 
     @Override
     public List<Staff> getAllByBatch(String batchId, String courseId) {
-        // TODO: Project the query to get only some attributes - queryForList(), queryForMap()
-        // TODO: NATURAL JOIN / USING / ON / INNER JOIN / Normal Cross Product / Multiple Query instead of Join
         String sql = "SELECT * FROM Staff NATURAL JOIN StaffBatchDetails NATURAL JOIN Employee NATURAL JOIN User WHERE batchId = ? AND courseId = ?";
         List<Staff> teachers = template.query(sql, new Object[] { batchId, courseId }, new StaffRowMapper());
         return teachers;

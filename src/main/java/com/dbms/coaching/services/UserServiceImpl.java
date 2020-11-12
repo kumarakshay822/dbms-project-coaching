@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
         if (user.getPassword() != null)
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userDao.save(user);
-        // TODO: Prevent creating admin user using this function
     }
 
     @Override

@@ -119,7 +119,6 @@ public class AttendanceController {
         model.addAttribute("submiturl", "/staff/mark-attendance/" + date + "/ET" + employeeId + "/edit");
         model.addAttribute("edit", "true");
         Attendance attendance = attendanceDao.get(date, employeeId);
-        // TODO: Do similarly (maybe raise Bad Request here)
         if (attendance == null)
             return "redirect:/staff/mark-attendance";
         model.addAttribute("attendance", attendance);

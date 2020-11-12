@@ -84,8 +84,6 @@ public class StudentController {
     public String addStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult, Model model) {
         studentValidator.validate(student.getUser(), bindingResult);
         String role = securityService.findLoggedInUserRole();
-        // TODO: Validate here
-        // Username must be unique, email also
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Student Portal");
             model.addAttribute("message", "Create Student's profile");
@@ -96,9 +94,6 @@ public class StudentController {
         }
 
         User user = student.getUser();
-        // TODO: Set random password here
-        // TODO: Email the user the password
-        // TODO: Add email validation, don't allow login without it
         user.setRole("ROLE_STUDENT");
         user = userService.save(user);
         user = userService.activateUserAndEmailToken(user);
@@ -146,7 +141,6 @@ public class StudentController {
     public String editStudent(@PathVariable("studentId") int studentId, @Valid @ModelAttribute("student") Student student,
             BindingResult bindingResult, Model model) {
         String role = securityService.findLoggedInUserRole();
-        // TODO: Validate here
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Student Portal");
             model.addAttribute("message", "Edit Student's profile");

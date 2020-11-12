@@ -124,8 +124,7 @@ public class ResultController {
 
     @GetMapping({ "/admin/academics/tests/{testId}/results/ST{studentId}", "/staff/academics/tests/{testId}/results/ST{studentId}" })
     public String viewResult(@PathVariable("testId") int testId, @PathVariable("studentId") int studentId,
-    Model model) {
-        // TODO: Change true / false in jsp to Yes / No
+            Model model) {
         model.addAttribute("title", "Academic Portal - Results");
         model.addAttribute("message", "View Result");
         model.addAttribute("submessage1", "Result Details");
@@ -136,7 +135,7 @@ public class ResultController {
 
     @GetMapping({ "/admin/academics/tests/{testId}/results/ST{studentId}/edit", "/staff/academics/tests/{testId}/results/ST{studentId}/edit" })
     public String editResult(@PathVariable("testId") int testId, @PathVariable("studentId") int studentId,
-    Model model) {
+            Model model) {
         String role = securityService.findLoggedInUserRole();
         model.addAttribute("title", "Academic Portal - Results");
         model.addAttribute("message", "Edit Result");
@@ -151,7 +150,7 @@ public class ResultController {
 
     @PostMapping({ "/admin/academics/tests/{testId}/results/ST{studentId}/edit", "/staff/academics/tests/{testId}/results/ST{studentId}/edit" })
     public String editResult(@PathVariable("testId") int testId, @PathVariable("studentId") int studentId,
-    @Valid @ModelAttribute("result") Result result, BindingResult bindingResult, Model model) {
+            @Valid @ModelAttribute("result") Result result, BindingResult bindingResult, Model model) {
         String role = securityService.findLoggedInUserRole();
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Results");
@@ -177,7 +176,7 @@ public class ResultController {
 
     @GetMapping({ "/admin/academics/tests/{testId}/results/ST{studentId}/delete", "/staff/academics/tests/{testId}/results/ST{studentId}/delete" })
     public ResponseEntity<Integer> deleteResult(@PathVariable("testId") int testId,
-    @PathVariable("studentId") int studentId, Model model) {
+            @PathVariable("studentId") int studentId, Model model) {
         resultDao.delete(testId, studentId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
