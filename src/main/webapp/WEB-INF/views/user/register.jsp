@@ -80,12 +80,12 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6 control">
-                                        <div style="font-size:85%">
+                                        <div>
                                             Already Registered! <a href="/user/login">Login Here </a>
                                         </div>
                                     </div>
                                     <div class="col-md-6 control">
-                                        <div style="font-size:85%">
+                                        <div>
                                             Forgot password! <a href="/user/forgot-password"> Click Here </a>
                                         </div>
                                     </div>

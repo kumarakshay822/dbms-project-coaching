@@ -12,7 +12,14 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("title", "Home Page");
+        model.addAttribute("message", "Welcome to our website!");
         return "home/index";
+    }
+
+    @GetMapping("/privacy-policy")
+    public String privacyPolicy(Model model) {
+        model.addAttribute("title", "Privacy Policy");
+        return "home/privacypolicy";
     }
 
     @GetMapping("/user")

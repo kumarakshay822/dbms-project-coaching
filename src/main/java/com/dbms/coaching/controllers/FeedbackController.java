@@ -71,7 +71,7 @@ public class FeedbackController {
         int userId = securityService.findLoggedInUserId();
         String role = securityService.findLoggedInUserRole();
         model.addAttribute("title", "Feedback Portal");
-        model.addAttribute("message", "View all the feedbacks");
+        model.addAttribute("message", "View all the student-teacher feedback and communication");
         List<Feedback> feedbacks;
         if (role.equals("student")) {
             int studentId = studentDao.getStudentIdByUserId(userId);

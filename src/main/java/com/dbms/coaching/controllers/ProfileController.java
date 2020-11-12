@@ -652,8 +652,8 @@ public class ProfileController {
 
     @GetMapping("/profile/change-password")
     public String changePassword(Model model) {
-        model.addAttribute("title", "Reset Password");
-        model.addAttribute("message", "Reset your password");
+        model.addAttribute("title", "Change Password");
+        model.addAttribute("message", "Change your password");
         model.addAttribute("submitUrl", "/profile/change-password");
         return "/user/changePassword";
     }

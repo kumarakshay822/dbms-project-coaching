@@ -17,3 +17,16 @@
     padding-right: 10vw;
     padding-left: 10vw;
 }
+
+.feature-card {
+    border: 1px solid grey;
+    text-align: center;
+    background-color: #eeeeee;
+    vertical-align: middle;
+    width: 20em;
+}
+
+.feature-card:hover {
+    background-color: #dddddd;
+    cursor: pointer;
+}

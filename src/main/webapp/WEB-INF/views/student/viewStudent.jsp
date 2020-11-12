@@ -24,6 +24,7 @@
                         <a class="btn btn-primary" href="/${role}/students/ST${student.studentId}/edit-student" role="button">Edit Student</a>
                     </sec:authorize>
                     <sec:authorize access="hasRole('ROLE_STUDENT')">
+                        <a class="btn btn-outline-success" href="/profile/change-password" role="button">Change Password</a>
                         <a class="btn btn-primary" href="/profile/student/edit-student" role="button">Edit Student</a>
                     </sec:authorize>
                 </td>

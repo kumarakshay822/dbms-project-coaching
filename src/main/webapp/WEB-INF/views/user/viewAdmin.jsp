@@ -17,6 +17,15 @@
         </c:if>
         <table class="table table-borderless mt-4">
             <tr>
+                <th style="width: 40%;"></th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%; text-align: right;">
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <a class="btn btn-outline-success" href="/profile/change-password" role="button">Change Password</a>
+                    </sec:authorize>
+                </td>
+            </tr>
+            <tr>
                 <th style="width: 40%; text-align: center;">Name</th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%">${user.firstName} ${user.middleName} ${user.lastName}</td>

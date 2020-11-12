@@ -54,13 +54,13 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6 control">
-                                            <div style="padding-top:15px; font-size:85%">
-                                                Don't have an account! <a href="/user/register"> Register Here </a>
+                                            <div style="padding-top:15px;">
+                                                Don't have an account! <br><a href="/user/register"> Register Here </a>
                                             </div>
                                         </div>
                                         <div class="col-md-6 control">
-                                            <div style="padding-top:15px; font-size:85%">
-                                                Forgot password! <a href="/user/forgot-password"> Click Here </a>
+                                            <div style="padding-top:15px;">
+                                                Forgot password! <br><a href="/user/forgot-password"> Click Here </a>
                                             </div>
                                         </div>
                                     </div>
