@@ -1,18 +1,15 @@
 package com.dbms.coaching.utils;
 
-import java.net.InetAddress;
-
 import org.springframework.stereotype.Component;
 
 @Component
 public class ServerUtil {
     public String getHostAddressAndPort() {
-        String address = "";
-        try {
-            address = InetAddress.getLocalHost().getHostAddress();
-        } catch (Exception e) {
-            e.printStackTrace();
+        String hostname = System.getenv("SERVER_HOSTNAME");
+        if (hostname == null) {
+            return "http://127.0.0.1:8080";
+        } else {
+            return hostname;
         }
-        return address + ":8080";
     }
 }
