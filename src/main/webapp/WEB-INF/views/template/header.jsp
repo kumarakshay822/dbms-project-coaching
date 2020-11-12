@@ -18,8 +18,7 @@
     <meta name="author" content="Ashish Kumar">
     <title>${title}</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/a22cb468b2.js" crossorigin="anonymous"></script>
 
     <!-- Custom styles for this template -->
