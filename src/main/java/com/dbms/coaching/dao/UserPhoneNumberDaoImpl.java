@@ -10,8 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+@Transactional
 @Repository
 public class UserPhoneNumberDaoImpl implements UserPhoneNumberDao {
     @Autowired

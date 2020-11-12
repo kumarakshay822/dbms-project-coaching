@@ -8,7 +8,9 @@ import com.dbms.coaching.models.TeacherBatchDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Repository
 public class TeacherBatchDaoImpl implements TeacherBatchDao {
     @Autowired

@@ -12,11 +12,13 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dbms.coaching.models.Staff;
 import com.dbms.coaching.utils.PreparedStatementUtil;
 import com.dbms.coaching.dao.rowmappers.StaffRowMapper;
 
+@Transactional
 @Repository
 public class StaffDaoImpl implements StaffDao {
     @Autowired
