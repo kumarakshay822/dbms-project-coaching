@@ -1,8 +1,3 @@
-DROP DATABASE IF EXISTS coaching;
-CREATE DATABASE coaching;
-USE coaching;
-
-
 CREATE TABLE IF NOT EXISTS User (
   userId int NOT NULL AUTO_INCREMENT,
   username varchar(255) NOT NULL UNIQUE,
@@ -25,7 +20,7 @@ CREATE TABLE IF NOT EXISTS UserToken (
   token varchar(255) NOT NULL UNIQUE,
   PRIMARY KEY (userId),
   FOREIGN KEY (userId) REFERENCES User(userId) ON DELETE CASCADE ON UPDATE CASCADE
-)
+);
 
 
 CREATE TABLE IF NOT EXISTS UserPhoneNumber (
