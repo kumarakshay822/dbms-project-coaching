@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 import com.dbms.coaching.dao.ResultDao;
 import com.dbms.coaching.dao.StudentDao;
+import com.dbms.coaching.dao.TestDao;
 import com.dbms.coaching.models.Result;
 import com.dbms.coaching.models.Student;
 import com.dbms.coaching.services.SecurityService;
@@ -45,6 +46,9 @@ public class ResultController {
 
     @Autowired
     private ResultValidator resultValidator;
+
+    @Autowired
+    private TestDao testDao;
 
     public Map<Integer, Integer> getMarksToRank(List<Result> results) {
         Set<Integer> marks = new LinkedHashSet<>();
@@ -84,12 +88,13 @@ public class ResultController {
         model.addAttribute("results", results);
         Map<Integer, Integer> marksToRank = getMarksToRank(results);
         model.addAttribute("marksToRank", marksToRank);
+        int maximumMarks = testDao.getMaximumMarks(testId);
+        model.addAttribute("maximumMarks", maximumMarks);
         return "result/listResults";
     }
 
     @GetMapping({ "/admin/academics/tests/{testId}/results/add", "/staff/academics/tests/{testId}/results/add" })
     public String addResult(@PathVariable("testId") int testId, Model model) {
-        // TODO: Display total marks here and in list view, also validate
         String role = securityService.findLoggedInUserRole();
         model.addAttribute("title", "Academic Portal - Results");
         model.addAttribute("message", "Add Result");
@@ -100,6 +105,8 @@ public class ResultController {
         model.addAttribute("students", students);
         Result result = new Result();
         model.addAttribute("result", result);
+        int maximumMarks = testDao.getMaximumMarks(testId);
+        model.addAttribute("maximumMarks", maximumMarks);
         return "result/addEditResult";
     }
 
@@ -116,6 +123,8 @@ public class ResultController {
             model.addAttribute("submiturl", "/" + role + "/academics/tests/" + testId + "/results/add");
             List<Student> students = studentDao.getAll();
             model.addAttribute("students", students);
+            int maximumMarks = testDao.getMaximumMarks(testId);
+            model.addAttribute("maximumMarks", maximumMarks);
             return "result/addEditResult";
         }
         resultDao.save(result);
@@ -130,6 +139,8 @@ public class ResultController {
         model.addAttribute("submessage1", "Result Details");
         Result result = resultDao.get(testId, studentId);
         model.addAttribute("result", result);
+        int maximumMarks = testDao.getMaximumMarks(testId);
+        model.addAttribute("maximumMarks", maximumMarks);
         return "result/viewResult";
     }
 
@@ -145,12 +156,15 @@ public class ResultController {
         model.addAttribute("edit", "true");
         Result result = resultDao.get(testId, studentId);
         model.addAttribute("result", result);
+        int maximumMarks = testDao.getMaximumMarks(testId);
+        model.addAttribute("maximumMarks", maximumMarks);
         return "result/addEditResult";
     }
 
     @PostMapping({ "/admin/academics/tests/{testId}/results/ST{studentId}/edit", "/staff/academics/tests/{testId}/results/ST{studentId}/edit" })
     public String editResult(@PathVariable("testId") int testId, @PathVariable("studentId") int studentId,
             @Valid @ModelAttribute("result") Result result, BindingResult bindingResult, Model model) {
+        resultValidator.validate(result, bindingResult);
         String role = securityService.findLoggedInUserRole();
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Results");
@@ -159,6 +173,8 @@ public class ResultController {
             model.addAttribute("buttonmessage", "Finish");
             model.addAttribute("submiturl", "/" + role + "/academics/tests/" + testId + "/results/ST" + studentId + "/edit");
             model.addAttribute("edit", "true");
+            int maximumMarks = testDao.getMaximumMarks(testId);
+            model.addAttribute("maximumMarks", maximumMarks);
             return "result/addEditResult";
         }
         Student student = result.getStudent();
@@ -187,12 +203,14 @@ public class ResultController {
         model.addAttribute("message", "View all the recheck applied by students");
         List<Result> results = resultDao.getAllRechecksByTestId(testId);
         model.addAttribute("results", results);
+        int maximumMarks = testDao.getMaximumMarks(testId);
+        model.addAttribute("maximumMarks", maximumMarks);
         return "result/listRechecks";
     }
 
     @GetMapping("/student/academics/tests/{testId}/results-recheck")
     public String studentRechecks(@PathVariable("testId") int testId, Model model) {
-        checkStudentAppearedInTest(testId);
+            checkStudentAppearedInTest(testId);
         model.addAttribute("title", "Academic Portal - Results Recheck");
         model.addAttribute("message", "View Recheck Status or Apply for Recheck");
         model.addAttribute("submessage1", "Recheck Details");
@@ -201,6 +219,8 @@ public class ResultController {
         int studentId = studentDao.getStudentIdByUserId(userId);
         Result result = resultDao.get(testId, studentId);
         model.addAttribute("result", result);
+        int maximumMarks = testDao.getMaximumMarks(testId);
+        model.addAttribute("maximumMarks", maximumMarks);
         return "result/viewStudentRecheck";
     }
 
@@ -216,6 +236,8 @@ public class ResultController {
             model.addAttribute("message", "View Recheck Status or Apply for Recheck");
             model.addAttribute("submessage1", "Recheck Details");
             model.addAttribute("submiturl", "/student/academics/tests/" + testId + "/results-recheck");
+            int maximumMarks = testDao.getMaximumMarks(testId);
+            model.addAttribute("maximumMarks", maximumMarks);
             return "result/viewStudentRecheck";
         }
         resultDao.applyForRecheck(testId, studentId, result.getRecheckComments());
@@ -226,8 +248,11 @@ public class ResultController {
             "/staff/academics/tests/{testId}/results-recheck/{studentId}" })
     public ResponseEntity<String> updateResultAndMarkDone(@PathVariable("testId") int testId,
             @PathVariable("studentId") int studentId, @RequestParam int newMarks, Model model) {
+        int maximumMarks = testDao.getMaximumMarks(testId);
+        if (newMarks > maximumMarks) {
+            return new ResponseEntity<>("Marks scored cannot be greater than maximum marks", HttpStatus.BAD_REQUEST);
+        }
         resultDao.updateMarksAndMarkDone(testId, studentId, newMarks);
-        // TODO: Validate above
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

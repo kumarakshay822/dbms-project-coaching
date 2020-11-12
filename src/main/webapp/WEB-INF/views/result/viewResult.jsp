@@ -35,7 +35,15 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Marks Scored</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${result.marksScored}</td>
+                <td style="width: 50%">
+                    ${result.marksScored}
+                    (<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${result.marksScored / maximumMarks * 100}" /> %)
+                </td>
+            </tr>
+            <tr>
+                <th style="width: 40%; text-align: center;">Maximum Marks</th>
+                <th style="width: 10%;"></th>
+                <td style="width: 50%">${maximumMarks}</td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Applied For Recheck?</th>

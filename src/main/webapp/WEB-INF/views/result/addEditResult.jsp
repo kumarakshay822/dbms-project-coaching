@@ -67,6 +67,11 @@
                         <form:errors path="marksScored" style="color: red;"></form:errors>
                     </td>
                 </tr>
+                <tr>
+                    <th style="width: 40%; text-align: center;">Maximum Marks</th>
+                    <th style="width: 10%;"></th>
+                    <td style="width: 50%">${maximumMarks}</td>
+                </tr>
                 <c:if test="${edit == true && role == 'admin'}">
                     <tr>
                         <th style="width: 40%; text-align: center;">Applied for Recheck?</th>

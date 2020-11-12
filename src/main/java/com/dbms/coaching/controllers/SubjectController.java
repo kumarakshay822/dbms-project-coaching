@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.dbms.coaching.dao.StudentDao;
 import com.dbms.coaching.dao.SubjectDao;
+import com.dbms.coaching.dao.TeacherDao;
 import com.dbms.coaching.models.Subject;
+import com.dbms.coaching.services.SecurityService;
 import com.dbms.coaching.validators.SubjectValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +32,47 @@ public class SubjectController {
     @Autowired
     private SubjectValidator subjectValidator;
 
-    @GetMapping({ "/admin/academics/subjects", "/staff/academics/subjects", "/teacher/academics/subjects",
-            "/student/academics/subjects" })
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private TeacherDao teacherDao;
+
+    @Autowired
+    private StudentDao studentDao;
+
+    @GetMapping({ "/admin/academics/subjects", "/staff/academics/subjects" })
     public String listSubjects(Model model) {
         model.addAttribute("title", "Academic Portal - Subjects");
         model.addAttribute("message", "View all the subjects");
         List<Subject> subjects = subjectDao.getAll();
         model.addAttribute("subjects", subjects);
+        return "subject/listSubjects";
+    }
+
+    @GetMapping("/teacher/academics/subjects")
+    public String listTeacherSubjects(Model model) {
+        model.addAttribute("title", "Academic Portal - Subjects");
+        model.addAttribute("message", "View all the subjects");
+        List<Subject> subjects = subjectDao.getAll();
+        model.addAttribute("subjects", subjects);
+        int userId = securityService.findLoggedInUserId();
+        int teacherId = teacherDao.getTeacherIdByUserId(userId);
+        String teacherSubjectId = subjectDao.getSubjectCodeByTeacherId(teacherId);
+        model.addAttribute("teacherSubjectId", teacherSubjectId);
+        return "subject/listSubjects";
+    }
+
+    @GetMapping("/student/academics/subjects")
+    public String listStudentSubjects(Model model) {
+        model.addAttribute("title", "Academic Portal - Subjects");
+        model.addAttribute("message", "View all the subjects");
+        List<Subject> subjects = subjectDao.getAll();
+        model.addAttribute("subjects", subjects);
+        int userId = securityService.findLoggedInUserId();
+        int studentId = studentDao.getStudentIdByUserId(userId);
+        List<String> studentSubjectsId = subjectDao.getSubjectCodeByStudentId(studentId);
+        model.addAttribute("studentSubjectsId", studentSubjectsId);
         return "subject/listSubjects";
     }
 

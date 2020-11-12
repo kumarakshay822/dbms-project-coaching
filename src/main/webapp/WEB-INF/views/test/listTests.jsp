@@ -11,6 +11,9 @@
     </div>
     </sec:authorize>
     <div class="table-responsive">
+        <c:if test="${role == 'student'}">
+            <div style="text-align: center; color: red;">You can only view the results for those tests you have appeared in.</div>
+        </c:if>
         <table class="table table-hover mt-4">
             <thead>
                 <tr>
@@ -38,7 +41,16 @@
                     <td><fmt:formatDate pattern="HH:mm:ss" value="${test.endTime}" /></td>
                     <td>${test.maximumMarks}</td>
                     <td>${test.difficulty}</td>
-                    <td><a class="btn btn-success" href="/${role}/academics/tests/${test.testId}/results" role="button">View</a></td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${role == 'student' && test.marksScored == null}">
+                                <div style="color: red;">Not appeared</div>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="btn btn-success" href="/${role}/academics/tests/${test.testId}/results" role="button">View</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
                     <sec:authorize access='hasAnyRole("ROLE_STAFF", "ROLE_ADMIN")'>
                     <td>
                         <a class="btn btn-outline-success btn-sm" href="/${role}/academics/tests/${test.testId}"

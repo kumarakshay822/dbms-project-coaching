@@ -5,8 +5,9 @@
 <%@ include file="/WEB-INF/views/template/header.jsp" %>
 
 <div class="container-fluid custom-container">
-    <div class="div" style="text-align: center;">
-        Result for Test Id: ${testId}
+    <div class="div" style="text-align: center; color: red;">
+        Result for Test Id: ${testId}<br>
+        Maximum Marks: ${maximumMarks}
     </div>
     <sec:authorize access='hasRole("ROLE_STUDENT")'>
         <div class="div text-right">
@@ -38,7 +39,10 @@
                 <tr <c:if test="${result.student.user.userId == pageContext.request.userPrincipal.principal.user.userId}">class="table-success"</c:if>>
                     <td>ST${result.student.studentId}</td>
                     <td>${result.student.user.firstName} ${result.student.user.middleName} ${result.student.user.lastName}</td>
-                    <td>${result.marksScored}</td>
+                    <td>
+                        ${result.marksScored}
+                        (<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${result.marksScored / maximumMarks * 100}" /> %)
+                    </td>
                     <td>${marksToRank[result.marksScored]}</td>
                     <sec:authorize access='hasAnyRole("ROLE_STAFF", "ROLE_ADMIN")'>
                     <td>

@@ -12,6 +12,12 @@
     </sec:authorize>
     <div class="table-responsive">
         <table class="table table-hover mt-4">
+            <c:if test="${role == 'student'}">
+                <div style="text-align: center; color: red;">You can only view the study materials for the subjects in the courses you are enrolled.</div>
+            </c:if>
+            <c:if test="${role == 'teacher'}">
+                <div style="text-align: center; color: red;">You can only view or add the study materials for the subject you are a teacher of.</div>
+            </c:if>
             <thead>
                 <tr>
                     <th>Subject ID</th>
@@ -27,7 +33,28 @@
                     <td>${subject.subjectName}</td>
                     <td>${subject.description}</td>
                     <sec:authorize access="!hasRole('ROLE_STAFF')">
-                    <td><a class="btn btn-success" href="/${role}/academics/subjects/${subject.subjectId}/materials" role="button">View</a></td>
+                        <c:if test="${role == 'student'}">
+                            <c:set var="contains" value="false" />
+                            <c:forEach var="studentSubjectId" items="${studentSubjectsId}">
+                                <c:if test="${studentSubjectId eq subject.subjectId}">
+                                    <c:set var="contains" value="true" />
+                                </c:if>
+                            </c:forEach>
+                            <c:if test="${contains == true}"></c:if>
+                        </c:if>
+                        <td>
+                        <c:choose>
+                            <c:when test="${role == 'teacher' && teacherSubjectId != subject.subjectId}">
+                                <div style="color: red;">Can't View</div>
+                            </c:when>
+                            <c:when test="${role == 'student' && contains == false}">
+                                <div style="color: red;">Not Enrolled</div>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="btn btn-success" href="/${role}/academics/subjects/${subject.subjectId}/materials" role="button">View</a>
+                            </c:otherwise>
+                        </c:choose>
+                        </td>
                     </sec:authorize>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <td>

@@ -1,6 +1,7 @@
 package com.dbms.coaching.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -53,7 +54,8 @@ public class TestController {
         model.addAttribute("message", "View all the tests of your course");
         int userId = securityService.findLoggedInUserId();
         int studentId = studentDao.getStudentIdByUserId(userId);
-        List<Test> tests = testDao.getAllByStudentId(studentId);
+        List<Map<String, Object>> tests = testDao.getAllByStudentId(studentId);
+        System.out.println(tests);
         model.addAttribute("tests", tests);
         return "test/listTests";
     }
@@ -99,6 +101,13 @@ public class TestController {
         model.addAttribute("test", test);
         return "test/viewTest";
     }
+
+    @GetMapping({ "/teacher/academics/tests/{testId}", "/student/academics/tests/{testId}" })
+    public String viewTestRedirect(@PathVariable("testId") int testId, Model model) {
+        String role = securityService.findLoggedInUserRole();
+        return "redirect:/" + role + "/academics/tests/" + testId + "/results";
+    }
+
 
     @GetMapping({ "/admin/academics/tests/{testId}/edit", "/staff/academics/tests/{testId}/edit" })
     public String editTest(@PathVariable("testId") int testId, Model model) {

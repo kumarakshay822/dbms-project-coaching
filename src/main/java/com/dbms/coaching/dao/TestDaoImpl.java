@@ -1,6 +1,7 @@
 package com.dbms.coaching.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.dbms.coaching.dao.rowmappers.TestRowMapper;
 import com.dbms.coaching.models.Test;
@@ -26,22 +27,23 @@ public class TestDaoImpl implements TestDao {
 
     @Override
     public List<Test> getAll() {
-        String sql = "SELECT * FROM Test NATURAL JOIN Course";
+        String sql = "SELECT * FROM Test NATURAL JOIN Course ORDER BY testDate DESC, startTime DESC";
         List<Test> tests = template.query(sql, new TestRowMapper());
         return tests;
     }
 
     @Override
     public List<Test> getAllByCourseId(String courseId) {
-        String sql = "SELECT * FROM Test NATURAL JOIN Course WHERE courseId = ?";
+        String sql = "SELECT * FROM Test NATURAL JOIN Course WHERE courseId = ? ORDER BY testDate DESC, startTime DESC";
         List<Test> tests = template.query(sql, new Object[] {courseId}, new TestRowMapper());
         return tests;
     }
 
     @Override
-    public List<Test> getAllByStudentId(int studentId) {
-        String sql = "SELECT * FROM Test NATURAL JOIN Course NATURAL JOIN Enrollment WHERE studentId = ?";
-        List<Test> tests = template.query(sql, new Object[] { studentId }, new TestRowMapper());
+    public List<Map<String, Object>> getAllByStudentId(int studentId) {
+        String sql = "SELECT * FROM Test NATURAL JOIN Course NATURAL JOIN Enrollment LEFT JOIN Result USING (testId, studentId) WHERE studentId = ?";
+        sql += " ORDER BY testDate DESC, startTime DESC";
+        List<Map<String, Object>> tests = template.queryForList(sql, new Object[] { studentId });
         return tests;
     }
 
@@ -51,6 +53,17 @@ public class TestDaoImpl implements TestDao {
             String sql = "SELECT * FROM Test NATURAL JOIN Course WHERE testId = ?";
             Test test = template.queryForObject(sql, new Object[] { testId }, new TestRowMapper());
             return test;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Integer getMaximumMarks(int testId) {
+        try {
+            String sql = "SELECT maximumMarks FROM Test WHERE testId = ?";
+            Integer maximumMarks = template.queryForObject(sql, new Object[] { testId }, Integer.class);
+            return maximumMarks;
         } catch (EmptyResultDataAccessException e) {
             return null;
         }

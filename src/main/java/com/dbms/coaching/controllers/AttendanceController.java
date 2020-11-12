@@ -198,6 +198,8 @@ public class AttendanceController {
     @PostMapping("/staff/mark-attendance/add")
     public String addTeacherAttendance(@Valid @ModelAttribute("attendance") Attendance attendance, BindingResult bindingResult,
             Model model) {
+        String todayDate = dateTimeUtil.getCurrentDateTime("yyyy-MM-dd");
+        attendance.setDate(Date.valueOf(todayDate));
         attendanceValidator.validate(attendance, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Attendance Management");
@@ -209,8 +211,6 @@ public class AttendanceController {
             model.addAttribute("employees", employees);
             return "attendance/addEditAttendance";
         }
-        String todayDate = dateTimeUtil.getCurrentDateTime("yyyy-MM-dd");
-        attendance.setDate(Date.valueOf(todayDate));
         attendanceDao.save(attendance);
         return "redirect:/staff/mark-attendance";
     }
@@ -268,5 +268,4 @@ public class AttendanceController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    // TODO: Add mark others as absent for staff & admin
 }
