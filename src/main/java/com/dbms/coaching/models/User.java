@@ -3,6 +3,7 @@ package com.dbms.coaching.models;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Objects;
 
 public class User implements Serializable {
     /**
@@ -263,6 +264,23 @@ public class User implements Serializable {
             ", lastLoginTime='" + getLastLoginTime() + "'" +
             ", role='" + getRole() + "'" +
             "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof User)) {
+            return false;
+        }
+        User user = (User) o;
+        return userId == user.userId && Objects.equals(username, user.username)
+                && Objects.equals(password, user.password) && Objects.equals(firstName, user.firstName)
+                && Objects.equals(middleName, user.middleName) && Objects.equals(lastName, user.lastName)
+                && Objects.equals(emailAddress, user.emailAddress) && Objects.equals(dateCreated, user.dateCreated)
+                && isActive == user.isActive && isEmailVerified == user.isEmailVerified
+                && Objects.equals(lastLoginDate, user.lastLoginDate)
+                && Objects.equals(lastLoginTime, user.lastLoginTime) && Objects.equals(role, user.role);
     }
 
 }

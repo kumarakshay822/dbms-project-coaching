@@ -1,5 +1,7 @@
 package com.dbms.coaching.services;
 
+import java.util.Objects;
+
 import com.dbms.coaching.dao.UserDao;
 import com.dbms.coaching.models.MyUserDetails;
 import com.dbms.coaching.models.User;
@@ -7,6 +9,7 @@ import com.dbms.coaching.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,7 +91,7 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public boolean isUserDeleted() {
+    public boolean isUserDeletedOrUpdated() {
         int userId = findLoggedInUserId();
         if (userId == 0)
             return false;
@@ -96,6 +99,18 @@ public class SecurityServiceImpl implements SecurityService {
         if (user == null) {
             autoLogout();
             return true;
+        } else {
+            // Resetting the authentication object
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            MyUserDetails oldUserDetails = (MyUserDetails)auth.getPrincipal();
+            MyUserDetails newUserDetails = new MyUserDetails(user);
+            boolean updated = !Objects.equals(user, oldUserDetails.getUser());
+            if (updated) {
+                Authentication newAuth = new UsernamePasswordAuthenticationToken(newUserDetails, auth.getCredentials(),
+                        newUserDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(newAuth);
+                return true;
+            }
         }
         return false;
     }

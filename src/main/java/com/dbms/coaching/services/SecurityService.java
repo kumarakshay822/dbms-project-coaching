@@ -17,5 +17,5 @@ public interface SecurityService {
 
     public void autoLogout();
 
-    public boolean isUserDeleted();
+    public boolean isUserDeletedOrUpdated();
 }

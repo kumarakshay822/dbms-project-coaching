@@ -159,10 +159,10 @@ public class LoginController {
         return "redirect:/user/login?emailSent";
     }
 
-    @GetMapping("/user/checkUserLoggedIn")
+    @GetMapping("/user/updateSessionIfRequired")
     public ResponseEntity<Integer> isUserLoggedIn(Model model) {
-        boolean isDeleted = securityService.isUserDeleted();
-        if (!isDeleted)
+        boolean isDeletedOrUpdated = securityService.isUserDeletedOrUpdated();
+        if (!isDeletedOrUpdated)
             return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

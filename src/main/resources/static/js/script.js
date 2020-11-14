@@ -1,5 +1,5 @@
 $.ajax({
-    url: "/user/checkUserLoggedIn",
+    url: "/user/updateSessionIfRequired",
     type: "get",
     success: function(data, status, xhr) {},
     error: function(xhr, status, err) {
