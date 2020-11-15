@@ -10,8 +10,8 @@
         <a class="btn btn-primary" href="/${role}/academics/courses/add" role="button" >Add Course</a>
     </div>
     </sec:authorize>
-    <div class="table-responsive">
-        <table class="table table-hover mt-4">
+    <div class="table-responsive mt-2">
+        <table class="table table-hover mt-4 table-sort">
             <thead>
                 <tr>
                     <th>Course ID</th>
@@ -22,6 +22,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
+            <tbody>
             <c:forEach items="${courses}" var="course">
                 <tr>
                     <td>${course.courseId}</td>
@@ -49,7 +50,6 @@
                     </td>
                 </tr>
             </c:forEach>
-            <tbody>
             </tbody>
         </table>
     </div>

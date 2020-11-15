@@ -5,8 +5,8 @@
 <%@ include file="/WEB-INF/views/template/header.jsp" %>
 
 <div class="container-fluid custom-container">
-    <div class="table-responsive">
-        <table class="table table-hover mt-4">
+    <div class="table-responsive mt-2">
+        <table class="table table-hover mt-4 table-sort">
             <thead>
                 <tr>
                     <th>Batch ID</th>
@@ -19,6 +19,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
+            <tbody>
             <c:forEach items="${batches}" var="batch">
                 <tr>
                     <td>${batch.batchId}</td>
@@ -40,7 +41,6 @@
                     </td>
                 </tr>
             </c:forEach>
-            <tbody>
             </tbody>
         </table>
     </div>

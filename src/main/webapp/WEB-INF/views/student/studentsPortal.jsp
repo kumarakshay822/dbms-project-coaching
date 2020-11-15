@@ -8,8 +8,8 @@
     <div class="div text-right">
         <a class="btn btn-primary" href="/${role}/students/add" role="button" >Add Student</a>
     </div>
-    <div class="table-responsive">
-        <table class="table table-hover mt-4">
+    <div class="table-responsive mt-2">
+        <table class="table table-hover mt-4 table-sort">
             <thead>
                 <tr>
                     <th>Student ID</th>
@@ -23,6 +23,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
+            <tbody>
             <c:forEach items="${students}" var="student">
                 <tr>
                     <td><a href="/${role}/students/ST${student.studentId}">ST${student.studentId}</a></td>
@@ -53,7 +54,6 @@
                     </td>
                 </tr>
             </c:forEach>
-            <tbody>
             </tbody>
         </table>
     </div>

@@ -10,8 +10,8 @@
         <a class="btn btn-primary" href="/${role}/feedbacks/add" role="button" >Add Feedback</a>
     </div>
     </sec:authorize>
-    <div class="table-responsive">
-        <table class="table table-hover mt-4">
+    <div class="table-responsive mt-2">
+        <table class="table table-hover mt-4 table-sort">
             <thead>
                 <tr>
                     <th>Feedback ID</th>
@@ -24,6 +24,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
+            <tbody>
             <c:forEach items="${feedbacks}" var="feedback">
                 <tr>
                     <td>${feedback.feedbackId}</td>
@@ -60,7 +61,6 @@
                     </td>
                 </tr>
             </c:forEach>
-            <tbody>
             </tbody>
         </table>
     </div>

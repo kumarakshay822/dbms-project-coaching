@@ -10,8 +10,8 @@
         <a class="btn btn-primary" href="/${role}/academics/subjects/add" role="button" >Add Subject</a>
     </div>
     </sec:authorize>
-    <div class="table-responsive">
-        <table class="table table-hover mt-4">
+    <div class="table-responsive mt-2">
+        <table class="table table-hover mt-4 table-sort">
             <c:if test="${role == 'student'}">
                 <div style="text-align: center; color: red;">You can only view the study materials for the subjects in the courses you are enrolled.</div>
             </c:if>
@@ -24,9 +24,10 @@
                     <th>Subject Name</th>
                     <th>Description</th>
                     <sec:authorize access="!hasRole('ROLE_STAFF')"><th>Study Materials</th></sec:authorize>
-                    <sec:authorize access="hasRole('ROLE_ADMIN')"><th>Action</th></sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">Action</sec:authorize>
                 </tr>
             </thead>
+            <tbody>
             <c:forEach items="${subjects}" var="subject">
                 <tr>
                     <td>${subject.subjectId}</td>
@@ -69,7 +70,6 @@
                     </sec:authorize>
                 </tr>
             </c:forEach>
-            <tbody>
             </tbody>
         </table>
     </div>

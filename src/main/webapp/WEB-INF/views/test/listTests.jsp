@@ -14,7 +14,7 @@
         <c:if test="${role == 'student'}">
             <div style="text-align: center; color: red;">You can only view the results for those tests you have appeared in.</div>
         </c:if>
-        <table class="table table-hover mt-4">
+        <table class="table table-hover mt-4 table-sort">
             <thead>
                 <tr>
                     <th>Test ID</th>
@@ -30,6 +30,7 @@
                     <sec:authorize access='hasAnyRole("ROLE_STAFF", "ROLE_ADMIN")'><th>Action</th></sec:authorize>
                 </tr>
             </thead>
+            <tbody>
             <c:forEach items="${tests}" var="test">
                 <tr>
                     <td>${test.testId}</td>
@@ -64,7 +65,6 @@
                     </sec:authorize>
                 </tr>
             </c:forEach>
-            <tbody>
             </tbody>
         </table>
     </div>

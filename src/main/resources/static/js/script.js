@@ -114,3 +114,4 @@ for (i = 1; i < pathArray.length; i++) {
     }
     $(".breadcrumb").append(getBreadcrumb(url, currentLink, isLast));
 };
+$('.table-sort').DataTable();

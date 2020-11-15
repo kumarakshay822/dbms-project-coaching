@@ -22,8 +22,8 @@
         <a class="btn btn-primary" href="/${role}/academics/tests/${testId}/results/add" role="button" >Add Result</a>
     </div>
     </sec:authorize>
-    <div class="table-responsive">
-        <table class="table table-hover mt-4">
+    <div class="table-responsive mt-2">
+        <table class="table table-hover mt-4 table-sort">
             <thead>
                 <tr>
                     <th>Student ID</th>
@@ -35,6 +35,7 @@
                     </sec:authorize>
                 </tr>
             </thead>
+            <tbody>
             <c:forEach items="${results}" var="result">
                 <tr <c:if test="${result.student.user.userId == pageContext.request.userPrincipal.principal.user.userId}">class="table-success"</c:if>>
                     <td>ST${result.student.studentId}</td>
@@ -57,7 +58,6 @@
                     </sec:authorize>
                 </tr>
             </c:forEach>
-            <tbody>
             </tbody>
         </table>
     </div>

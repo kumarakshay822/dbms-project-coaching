@@ -13,8 +13,8 @@
         <a class="btn btn-primary" href="/${role}/attendance/add" role="button" >Add Attendance</a>
     </div>
     </sec:authorize>
-    <div class="table-responsive">
-        <table class="table table-hover mt-4">
+    <div class="table-responsive mt-2">
+        <table class="table table-hover mt-4 table-sort">
             <thead>
                 <tr>
                     <th>Employee</th>
@@ -24,6 +24,7 @@
                     <sec:authorize access='hasRole("ROLE_ADMIN")'><th>Action</th></sec:authorize>
                 </tr>
             </thead>
+            <tbody>
             <c:forEach items="${attendances}" var="attendance">
                 <tr>
                     <td>
@@ -49,7 +50,6 @@
                     </sec:authorize>
                 </tr>
             </c:forEach>
-            <tbody>
             </tbody>
         </table>
     </div>

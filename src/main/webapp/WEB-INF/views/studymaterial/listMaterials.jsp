@@ -10,8 +10,8 @@
         <a class="btn btn-primary" href="/${role}/academics/subjects/${subjectId}/materials/add" role="button" >Add Study Material</a>
         </sec:authorize>
     </div>
-    <div class="table-responsive">
-        <table class="table table-hover mt-4">
+    <div class="table-responsive mt-2">
+        <table class="table table-hover mt-4 table-sort">
             <thead>
                 <tr>
                     <th>Subject ID</th>
@@ -23,6 +23,7 @@
                     <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')"><th>Action</th></sec:authorize>
                 </tr>
             </thead>
+            <tbody>
             <c:forEach items="${materials}" var="material" varStatus="loop">
                 <tr>
                     <td>${material.subjectId}</td>
@@ -44,7 +45,6 @@
                     </sec:authorize>
                 </tr>
             </c:forEach>
-            <tbody>
             </tbody>
         </table>
     </div>

@@ -22,7 +22,7 @@
                         </option>
                     </c:if>
                 </c:forEach>
-            <select>
+            </select>
             <button class="btn btn-outline-success btn-sm ml-2" onclick="location.href='/${role}/payroll?employee=' + $('#employee').val()">Filter</a>
         </c:when>
         <c:otherwise>
@@ -35,8 +35,8 @@
     </div>
     </sec:authorize>
 
-    <div class="table-responsive">
-        <table class="table table-hover mt-4">
+    <div class="table-responsive mt-2">
+        <table class="table table-hover mt-4 table-sort">
             <thead>
                 <tr>
                     <th>Payment Ref No</th>
@@ -48,6 +48,7 @@
                     <sec:authorize access='hasRole("ROLE_ADMIN")'><th>Action</th></sec:authorize>
                 </tr>
             </thead>
+            <tbody>
             <c:forEach items="${payrolls}" var="payroll">
                 <tr>
                     <td><a href="/${role}/payroll/${payroll.paymentRefNo}">${payroll.paymentRefNo}</a></td>
@@ -82,7 +83,6 @@
                     </sec:authorize>
                 </tr>
             </c:forEach>
-            <tbody>
             </tbody>
         </table>
     </div>

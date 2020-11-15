@@ -10,8 +10,8 @@
         <a class="btn btn-primary" href="/${role}/complaints/add" role="button" >Add Complaint</a>
     </div>
     </sec:authorize>
-    <div class="table-responsive">
-        <table class="table table-hover mt-4">
+    <div class="table-responsive mt-2">
+        <table class="table table-hover mt-4 table-sort">
             <thead>
                 <tr>
                     <th>Complaint ID</th>
@@ -24,6 +24,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
+            <tbody>
             <c:forEach items="${complaints}" var="complaint">
                 <tr>
                     <td>${complaint.complaintId}</td>
@@ -66,7 +67,6 @@
                     </td>
                 </tr>
             </c:forEach>
-            <tbody>
             </tbody>
         </table>
     </div>

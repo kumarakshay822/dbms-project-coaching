@@ -8,8 +8,8 @@
     <div class="div text-right mt-2">
         <a class="btn btn-primary" href="/${role}/mark-attendance/add" role="button" >Add Attendance</a>
     </div>
-    <div class="table-responsive">
-        <table class="table table-hover mt-4">
+    <div class="table-responsive mt-2">
+        <table class="table table-hover mt-4 table-sort">
             <thead>
                 <tr>
                     <th>Employee</th>
@@ -19,6 +19,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
+            <tbody>
             <c:forEach items="${attendances}" var="attendance">
                 <tr>
                     <td>ET${attendance.employee.employeeId} - ${attendance.employee.user.name}</td>
@@ -33,7 +34,6 @@
                     </td>
                 </tr>
             </c:forEach>
-            <tbody>
             </tbody>
         </table>
     </div>

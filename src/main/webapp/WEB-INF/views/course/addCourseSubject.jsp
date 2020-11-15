@@ -37,9 +37,9 @@
                     </c:forEach>
 
                     <c:if test="${not empty subjectsNotPresent}">
-                    <select>
+                    <select id="subjectId">
                         <c:forEach var="subject" items="${subjectsNotPresent}">
-                            <option id="subjectId" value="${subject.subjectId}">${subject.subjectName} - ${subject.subjectId}</option>
+                            <option value="${subject.subjectId}">${subject.subjectName} - ${subject.subjectId}</option>
                         </c:forEach>
                     </select>
                     <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/${role}/academics/courses/${courseId}/add-subject',

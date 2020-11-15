@@ -72,22 +72,24 @@
                 role="button">Add / Edit Staff</a>
         </div>
         </sec:authorize>
-        <table class="table table-hover mt-4">
+        <div class="col-12 mt-2">
+        <table class="table table-hover mt-4 table-sort">
             <thead>
                 <tr>
                     <th>Employee ID</th>
                     <th>Name</th>
                 </tr>
             </thead>
+            <tbody>
             <c:forEach items="${staffs}" var="staff">
                 <tr>
                     <td><a href="/${role}/staffs/ES${staff.employee.employeeId}">ES${staff.employee.employeeId}</a></td>
                     <td>${staff.employee.user.firstName} ${staff.employee.user.middleName} ${staff.employee.user.lastName}</td>
                 </tr>
             </c:forEach>
-            <tbody>
             </tbody>
         </table>
+        </div>
         <div class="col-12" style="text-align: center;">
             <hr>
             <h5>Teachers</h5>
@@ -98,22 +100,24 @@
                 role="button">Add / Edit Teacher</a>
         </div>
         </sec:authorize>
-        <table class="table table-hover mt-4">
+        <div class="col-12 mt-2">
+        <table class="table table-hover mt-4 table-sort">
             <thead>
                 <tr>
                     <th>Employee ID</th>
                     <th>Name</th>
                 </tr>
             </thead>
+            <tbody>
             <c:forEach items="${teachers}" var="teacher">
                 <tr>
                     <td><a href="/${role}/teachers/ET${teacher.employee.employeeId}">ET${teacher.employee.employeeId}</a></td>
                     <td>${teacher.employee.user.firstName} ${teacher.employee.user.middleName} ${teacher.employee.user.lastName}</td>
                 </tr>
             </c:forEach>
-            <tbody>
             </tbody>
         </table>
+        </div>
     </div>
 </div>
 
