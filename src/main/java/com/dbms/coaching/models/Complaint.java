@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.sql.Time;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 public class Complaint {
     private int complaintId;
@@ -12,11 +11,9 @@ public class Complaint {
     private Time time;
 
     @NotBlank
-    @Size(min = 5, max = 50)
     private String subject;
 
     @NotBlank
-    @Size(min = 10, max = 255)
     private String description;
 
     private String response;

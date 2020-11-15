@@ -2,6 +2,7 @@ package com.dbms.coaching.models;
 
 import java.sql.Date;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -17,10 +18,10 @@ public class Employee {
     @Size(min = 5, max = 20)
     private String accountNumber;
 
-    @Size(min = 2, max = 50)
+    @NotEmpty
     private String bankName;
 
-    @Size(min = 2, max = 50)
+    @NotEmpty
     private String bankBranch;
 
     @Pattern(regexp = "^[A-Z]{4}0[A-Z0-9]{6}$", message = "must be a valid IFSC Code")

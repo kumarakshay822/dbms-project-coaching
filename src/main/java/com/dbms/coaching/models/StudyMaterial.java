@@ -1,24 +1,20 @@
 package com.dbms.coaching.models;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 public class StudyMaterial {
     @NotBlank
     private String subjectId;
 
     @NotBlank
-    @Size(min = 2, max = 10)
     private String materialId;
 
     @NotBlank
-    @Size(min = 2, max = 50)
     private String topicName;
 
     @NotBlank
     private String difficulty;
 
-    @Size(min = 0, max = 255)
     private String description;
 
     private String filename;

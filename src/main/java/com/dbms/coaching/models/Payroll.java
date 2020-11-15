@@ -4,11 +4,11 @@ import java.sql.Date;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 public class Payroll {
-    @Size(min = 4, max = 50)
+    @NotEmpty
     private String paymentRefNo;
 
     @Min(1)
