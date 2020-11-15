@@ -29,6 +29,7 @@
                             <th style="width: 40%; text-align: center;">Complaint ID</th>
                             <th style="width: 10%;"></th>
                             <td style="width: 50%">${complaint.complaintId}</td>
+                            <form:errors path="complaintId" style="color: red;"></form:errors>
                         </tr>
                         <tr>
                             <th style="width: 40%; text-align: center;">Date and Time</th>
@@ -37,30 +38,35 @@
                                 <fmt:formatDate pattern="dd-MM-yyyy" value="${complaint.date}" />
                                 <fmt:formatDate pattern="HH:mm:ss" value="${complaint.time}" />
                             </td>
+                            <form:input type="hidden" path="date" class="form-control" required="true" value="${complaint.date}"></form:input>
+                            <form:input type="hidden" path="time" class="form-control" required="true" value="${complaint.time}"></form:input>
                         </tr>
                     </c:when>
                 </c:choose>
                 <tr>
                     <th style="width: 40%; text-align: center;">Student ID</th>
                     <th style="width: 10%;"></th>
-                    <td style="width: 50%">ST${studentId}</td>
+                    <td style="width: 50%">ST${complaint.studentId}</td>
+                    <form:input type="hidden" path="studentId" class="form-control" required="true" value="${complaint.studentId}"></form:input>
                 </tr>
                 <tr>
                     <th style="width: 40%; text-align: center;">Subject</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">${complaint.subject}<td>
+                    <form:input type="hidden" path="subject" class="form-control" required="true" value="${complaint.subject}"></form:input>
                 </tr>
                 <tr>
                     <th style="width: 40%; text-align: center;">Description</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">${complaint.description}<td>
+                    <form:input type="hidden" path="description" class="form-control" required="true" value="${complaint.description}"></form:input>
                 </tr>
                 <c:if test="${edit == true}">
                 <tr>
-                    <th style="width: 40%; text-align: center;">Response ${mandatory}</th>
+                    <th style="width: 40%; text-align: center;">Response</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
-                        <form:input type="text" path="response" class="form-control" required="true"></form:input>
+                        <form:input type="text" path="response" class="form-control"></form:input>
                         <form:errors path="response" style="color: red;"></form:errors>
                     <td>
                 </tr>

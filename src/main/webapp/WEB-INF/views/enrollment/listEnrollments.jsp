@@ -25,7 +25,7 @@
         <button id="enrollment" class="btn btn-primary btn ml-3">Add Enrollment</a>
     </div>
     </c:if>
-    <c:if test="${fullenrollment != true}">
+    <c:if test="${fullenrollment != true && (role == 'admin' || role == 'staff')}">
         <div class="div text-right mt-2">
             <a class="btn btn-success" href="/${role}/academics/courses/${courseId}/${batchId}/enrollments/add" role="button">Enroll</a>
         </div>

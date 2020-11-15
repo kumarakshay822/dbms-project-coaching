@@ -47,7 +47,7 @@ public class PaymentService {
         order.setCurrency("INR");
         order.setAmount((double)amount);
         order.setDescription("Payment for enrolling " + user.getName());
-        String redirectUrl = "http://" + serverUtil.getHostAddressAndPort() + "/student/transaction/" + courseId + "/" + batchId;
+        String redirectUrl = serverUtil.getHostAddressAndPort() + "/student/transaction/" + courseId + "/" + batchId;
         order.setRedirectUrl(redirectUrl);
         order.setTransactionId("" + transactionId);
 

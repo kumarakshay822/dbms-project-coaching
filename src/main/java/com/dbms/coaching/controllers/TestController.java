@@ -55,7 +55,6 @@ public class TestController {
         int userId = securityService.findLoggedInUserId();
         int studentId = studentDao.getStudentIdByUserId(userId);
         List<Map<String, Object>> tests = testDao.getAllByStudentId(studentId);
-        System.out.println(tests);
         model.addAttribute("tests", tests);
         return "test/listTests";
     }

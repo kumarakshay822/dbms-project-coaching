@@ -39,9 +39,7 @@ public class StorageServiceImpl implements StorageService {
 
             Path file = uploadLocation.resolve(filename);
             Files.delete(file);
-        } catch (Exception e) {
-            throw new RuntimeException("Error: " + e.getMessage());
-        }
+        } catch (Exception e) { }
     }
 
 }

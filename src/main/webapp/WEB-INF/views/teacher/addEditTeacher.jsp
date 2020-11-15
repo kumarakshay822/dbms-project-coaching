@@ -60,7 +60,7 @@
                     </td>
                 </tr>
                 </sec:authorize>
-                <c:if test="${edit != true}">
+                <c:if test="${edit != true || (edit == true && role == 'admin')}">
                 <tr>
                     <th style="width: 40%; text-align: center;">Subject ${mandatory}</th>
                     <th style="width: 10%;"></th>

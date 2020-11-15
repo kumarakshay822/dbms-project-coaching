@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriUtils;
 
 @Transactional
 @Controller
@@ -88,7 +89,7 @@ public class StudyMaterialController {
         model.addAttribute("materials", materials);
         List<Path> urls = new ArrayList<>();
         for (StudyMaterial material : materials) {
-            urls.add(storageService.getFileLocation(subjectId, material.getFilename()));
+            urls.add(storageService.getFileLocation(subjectId, UriUtils.encodePath(material.getFilename(), "UTF-8")));
         }
         model.addAttribute("urls", urls);
         return "studymaterial/listMaterials";
@@ -141,7 +142,7 @@ public class StudyMaterialController {
         model.addAttribute("submessage1", "Study Material Details");
         StudyMaterial material= studyMaterialDao.get(subjectId, materialId);
         model.addAttribute("material", material);
-        Path url = storageService.getFileLocation(subjectId, material.getFilename());
+        Path url = storageService.getFileLocation(subjectId, UriUtils.encodePath(material.getFilename(), "UTF-8"));
         model.addAttribute("url", url);
         return "studymaterial/viewMaterial";
     }
