@@ -126,7 +126,6 @@ public class CourseController {
     @PostMapping("/admin/academics/courses/{courseId}/edit")
     public String editCourse(@PathVariable("courseId") String courseId, @Valid @ModelAttribute("course") Course course,
             BindingResult bindingResult, Model model) {
-        courseValidator.validate(course, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Courses");
             model.addAttribute("message", "Edit Course");

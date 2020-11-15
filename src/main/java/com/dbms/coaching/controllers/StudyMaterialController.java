@@ -171,7 +171,6 @@ public class StudyMaterialController {
     public String editStudyMaterial(@PathVariable("subjectId") String subjectId,
             @PathVariable("materialId") String materialId, @Valid @ModelAttribute("material") StudyMaterial material,
             BindingResult bindingResult, Model model) {
-        studyMaterialValidator.validate(material, bindingResult);
         String role = securityService.findLoggedInUserRole();
         checkTeacherOfSubject(subjectId);
         if (bindingResult.hasErrors()) {

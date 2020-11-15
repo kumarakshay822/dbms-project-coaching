@@ -128,7 +128,6 @@ public class AttendanceController {
     @PostMapping("/staff/mark-attendance/{date}/ET{employeeId}/edit")
     public String editTeacherAttendance(@PathVariable("date") Date date, @PathVariable("employeeId") int employeeId,
             @Valid @ModelAttribute("attendance") Attendance attendance, BindingResult bindingResult, Model model) {
-        attendanceValidator.validate(attendance, bindingResult);
         String role = employeeDao.getRole(employeeId);
         if (!role.equals("ROLE_TEACHER"))
             throw new AccessDeniedException("You are not allowed to edit attendance of given employee");
@@ -237,7 +236,6 @@ public class AttendanceController {
     @PostMapping("/admin/attendance/{date}/{employeecode}/edit")
     public String editAttendance(@PathVariable("date") Date date, @PathVariable("employeecode") String employeecode,
             @Valid @ModelAttribute("attendance") Attendance attendance, BindingResult bindingResult, Model model) {
-        attendanceValidator.validate(attendance, bindingResult);
         String code = employeecode.substring(0, 2);
         int employeeId = Integer.parseInt(employeecode.substring(2));
         String role = employeeDao.getRole(employeeId);

@@ -110,22 +110,6 @@
                         <form:errors path="schoolAttending" style="color: red;"></form:errors>
                     </td>
                 </tr>
-                <tr>
-                    <th style="width: 40%; text-align: center;">10th Percentage ${mandatory}</th>
-                    <th style="width: 10%;"></th>
-                    <td style="width: 50%">
-                        <form:input type="text" path="percentage10th" class="form-control" required="true"></form:input>
-                        <form:errors path="percentage10th" style="color: red;"></form:errors>
-                    </td>
-                </tr>
-                <tr>
-                    <th style="width: 40%; text-align: center;">12th Percentage ${mandatory}</th>
-                    <th style="width: 10%;"></th>
-                    <td style="width: 50%">
-                        <form:input type="text" path="percentage12th" class="form-control" required="true"></form:input>
-                        <form:errors path="percentage12th" style="color: red;"></form:errors>
-                    </td>
-                </tr>
                 <c:if test="${edit == true}">
                 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STAFF')">
                 <tr>

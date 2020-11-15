@@ -1,7 +1,5 @@
 package com.dbms.coaching.validators;
 
-import java.time.LocalDate;
-
 import com.dbms.coaching.dao.PayrollDao;
 import com.dbms.coaching.models.Payroll;
 
@@ -27,11 +25,6 @@ public class PayrollValidator implements Validator {
 
         if (payrollDao.get(paymentRefNo) != null) {
             errors.rejectValue("paymentRefNo", "Duplicate.payroll.paymentRefNo");
-        }
-        LocalDate localDate = LocalDate.now();
-        int year = localDate.getYear();
-        if (payroll.getYear() > year) {
-            errors.rejectValue("year", "Invalid.payroll.year");
         }
     }
 }

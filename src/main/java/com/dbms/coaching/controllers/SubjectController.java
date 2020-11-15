@@ -129,7 +129,6 @@ public class SubjectController {
     @PostMapping("/admin/academics/subjects/{subjectId}/edit")
     public String editSubject(@PathVariable("subjectId") String subjectId, @Valid @ModelAttribute("subject") Subject subject,
             BindingResult bindingResult, Model model) {
-        subjectValidator.validate(subject, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Subjects");
             model.addAttribute("message", "Edit Subject");

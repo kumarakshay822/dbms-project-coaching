@@ -34,14 +34,6 @@ public class Student {
     @NotBlank
     private String schoolAttending;
 
-    @Min(50)
-    @Max(100)
-    private double percentage10th;
-
-    @Min(50)
-    @Max(100)
-    private double percentage12th;
-
     @Valid
     private User user;
 
@@ -53,7 +45,7 @@ public class Student {
         guardian = new Guardian();
     }
 
-    public Student(int studentId, String gender, Date dateOfBirth, String houseNumber, String street, String city, String state, int pinCode, String schoolAttending, double percentage10th, double percentage12th, User user, Guardian guardian) {
+    public Student(int studentId, String gender, Date dateOfBirth, String houseNumber, String street, String city, String state, int pinCode, String schoolAttending, User user, Guardian guardian) {
         this.studentId = studentId;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
@@ -63,8 +55,6 @@ public class Student {
         this.state = state;
         this.pinCode = pinCode;
         this.schoolAttending = schoolAttending;
-        this.percentage10th = percentage10th;
-        this.percentage12th = percentage12th;
         this.user = user;
         this.guardian = guardian;
     }
@@ -196,34 +186,6 @@ public class Student {
     }
 
     /**
-     * @return double return the percentage10th
-     */
-    public double getPercentage10th() {
-        return percentage10th;
-    }
-
-    /**
-     * @param percentage10th the percentage10th to set
-     */
-    public void setPercentage10th(double percentage10th) {
-        this.percentage10th = percentage10th;
-    }
-
-    /**
-     * @return double return the percentage12th
-     */
-    public double getPercentage12th() {
-        return percentage12th;
-    }
-
-    /**
-     * @param percentage12th the percentage12th to set
-     */
-    public void setPercentage12th(double percentage12th) {
-        this.percentage12th = percentage12th;
-    }
-
-    /**
      * @return User return the user
      */
     public User getUser() {
@@ -263,8 +225,6 @@ public class Student {
             ", state='" + getState() + "'" +
             ", pinCode='" + getPinCode() + "'" +
             ", schoolAttending='" + getSchoolAttending() + "'" +
-            ", percentage10th='" + getPercentage10th() + "'" +
-            ", percentage12th='" + getPercentage12th() + "'" +
             ", user='" + getUser() + "'" +
             ", guardian='" + getGuardian() + "'" +
             "}";

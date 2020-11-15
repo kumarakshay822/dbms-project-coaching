@@ -29,8 +29,8 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public Student save(Student student) {
-        String sql = "INSERT INTO Student (gender, dateOfBirth, houseNumber, street, city, state, pincode, schoolAttending, percentage10th, "
-                + "percentage12th, userId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Student (gender, dateOfBirth, houseNumber, street, city, state, pincode, schoolAttending, "
+                + "userId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(new PreparedStatementCreator(){
             @Override
@@ -38,8 +38,7 @@ public class StudentDaoImpl implements StudentDao {
                 PreparedStatement preparedStatement = conn.prepareStatement(sql, new String[] {"studentId"});
                 preparedStatementUtil.setParameters(preparedStatement, student.getGender(), student.getDateOfBirth(),
                         student.getHouseNumber(), student.getStreet(), student.getCity(), student.getState(),
-                        student.getPinCode(), student.getSchoolAttending(), student.getPercentage10th(),
-                        student.getPercentage12th(), student.getUser().getUserId());
+                        student.getPinCode(), student.getSchoolAttending(), student.getUser().getUserId());
                 return preparedStatement;
             }
         }, keyHolder);
@@ -93,11 +92,10 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public void update(Student student) {
         String sql = "UPDATE Student SET gender = ?, dateOfBirth = ?, houseNumber = ?, street = ?, city = ?, state = ?, pinCode = ?, "
-                + "schoolAttending = ?, percentage10th = ?, percentage12th = ? WHERE studentId = ?";
+                + "schoolAttending = ? WHERE studentId = ?";
         template.update(sql, student.getGender(), student.getDateOfBirth(), student.getHouseNumber(),
                 student.getStreet(), student.getCity(), student.getState(), student.getPinCode(),
-                student.getSchoolAttending(), student.getPercentage10th(), student.getPercentage12th(),
-                student.getStudentId());
+                student.getSchoolAttending(), student.getStudentId());
     }
 
     @Override

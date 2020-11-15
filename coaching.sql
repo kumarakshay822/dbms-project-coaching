@@ -41,8 +41,6 @@ CREATE TABLE IF NOT EXISTS Student (
   state varchar(255) NOT NULL,
   pinCode int NOT NULL,
   schoolAttending varchar(255) NOT NULL,
-  pencentage10th decimal(4,2) NOT NULL,
-  pencentage12th decimal(4,2) NOT NULL,
   userId int NOT NULL,
   PRIMARY KEY (studentId),
   FOREIGN KEY (userId) REFERENCES User(userId) ON DELETE CASCADE ON UPDATE CASCADE

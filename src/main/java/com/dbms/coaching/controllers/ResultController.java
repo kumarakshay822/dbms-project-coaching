@@ -15,6 +15,7 @@ import com.dbms.coaching.dao.StudentDao;
 import com.dbms.coaching.dao.TestDao;
 import com.dbms.coaching.models.Result;
 import com.dbms.coaching.models.Student;
+import com.dbms.coaching.models.Test;
 import com.dbms.coaching.services.SecurityService;
 import com.dbms.coaching.validators.ResultValidator;
 
@@ -113,6 +114,10 @@ public class ResultController {
     @PostMapping({ "/admin/academics/tests/{testId}/results/add", "/staff/academics/tests/{testId}/results/add" })
     public String addResult(@PathVariable("testId") int testId, @Valid @ModelAttribute("result") Result result,
             BindingResult bindingResult, Model model) {
+        Test test = testDao.get(result.getTestId());
+        if (result.getMarksScored() > test.getMaximumMarks()) {
+            bindingResult.rejectValue("marksScored", "Invalid.result.marksScored");
+        }
         resultValidator.validate(result, bindingResult);
         String role = securityService.findLoggedInUserRole();
         if (bindingResult.hasErrors()) {
@@ -164,7 +169,10 @@ public class ResultController {
     @PostMapping({ "/admin/academics/tests/{testId}/results/ST{studentId}/edit", "/staff/academics/tests/{testId}/results/ST{studentId}/edit" })
     public String editResult(@PathVariable("testId") int testId, @PathVariable("studentId") int studentId,
             @Valid @ModelAttribute("result") Result result, BindingResult bindingResult, Model model) {
-        resultValidator.validate(result, bindingResult);
+        Test test = testDao.get(result.getTestId());
+        if (result.getMarksScored() > test.getMaximumMarks()) {
+            bindingResult.rejectValue("marksScored", "Invalid.result.marksScored");
+        }
         String role = securityService.findLoggedInUserRole();
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Results");
@@ -227,7 +235,6 @@ public class ResultController {
     @PostMapping("/student/academics/tests/{testId}/results-recheck")
     public String studentRechecks(@PathVariable("testId") int testId, @Valid @ModelAttribute("result") Result result,
             BindingResult bindingResult, Model model) {
-        resultValidator.validate(result, bindingResult);
         checkStudentAppearedInTest(testId);
         int userId = securityService.findLoggedInUserId();
         int studentId = studentDao.getStudentIdByUserId(userId);

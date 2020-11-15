@@ -186,7 +186,6 @@ public class BatchController {
     @PostMapping("/admin/academics/courses/{courseId}/{batchId}/edit")
     public String editBatch(@PathVariable("courseId") String courseId, @PathVariable("batchId") String batchId,
             @Valid @ModelAttribute("batch") Batch batch, BindingResult bindingResult, Model model) {
-        batchValidator.validate(batch, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Academic Portal - Batches");
             model.addAttribute("message", "Edit Batch");

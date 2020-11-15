@@ -5,6 +5,9 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.Objects;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
 public class User implements Serializable {
     /**
      *
@@ -12,15 +15,20 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     private int userId;
 
+    @NotEmpty
     private String username;
 
     private String password;
 
+    @NotEmpty
     private String firstName;
 
     private String middleName;
+
     private String lastName;
 
+    @NotEmpty
+    @Email
     private String emailAddress;
 
     private Date dateCreated;

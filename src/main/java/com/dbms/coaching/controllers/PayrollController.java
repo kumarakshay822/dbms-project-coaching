@@ -1,5 +1,6 @@
 package com.dbms.coaching.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -88,6 +89,11 @@ public class PayrollController {
 
     @PostMapping("/admin/payroll/add")
     public String addPayroll(@Valid @ModelAttribute("payroll") Payroll payroll, BindingResult bindingResult, Model model) {
+        LocalDate localDate = LocalDate.now();
+        int year = localDate.getYear();
+        if (payroll.getYear() > year) {
+            bindingResult.rejectValue("year", "Invalid.payroll.year");
+        }
         payrollValidator.validate(payroll, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Payroll Management");
@@ -131,7 +137,11 @@ public class PayrollController {
     @PostMapping("/admin/payroll/{paymentRefNo}/edit")
     public String editPayroll(@PathVariable("paymentRefNo") String paymentRefNo,
     @Valid @ModelAttribute("payroll") Payroll payroll, BindingResult bindingResult, Model model) {
-        payrollValidator.validate(payroll, bindingResult);
+        LocalDate localDate = LocalDate.now();
+        int year = localDate.getYear();
+        if (payroll.getYear() > year) {
+            bindingResult.rejectValue("year", "Invalid.payroll.year");
+        }
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Payroll Management");
             model.addAttribute("message", "Edit Payroll");

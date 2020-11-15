@@ -70,16 +70,6 @@
                 <td style="width: 50%">${student.schoolAttending}</td>
             </tr>
             <tr>
-                <th style="width: 40%; text-align: center;">10th Percentage</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">${student.percentage10th} %</td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;">12th Percentage</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">${student.percentage12th} %</td>
-            </tr>
-            <tr>
                 <th style="width: 40%; text-align: center;">Activated?</th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%">
