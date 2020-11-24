@@ -1,5 +1,6 @@
 package com.dbms.coaching.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -8,11 +9,13 @@ import com.dbms.coaching.dao.BatchDao;
 import com.dbms.coaching.dao.CourseDao;
 import com.dbms.coaching.dao.StaffBatchDao;
 import com.dbms.coaching.dao.StaffDao;
+import com.dbms.coaching.dao.SubjectDao;
 import com.dbms.coaching.dao.TeacherBatchDao;
 import com.dbms.coaching.dao.TeacherDao;
 import com.dbms.coaching.models.Batch;
 import com.dbms.coaching.models.Course;
 import com.dbms.coaching.models.Staff;
+import com.dbms.coaching.models.Subject;
 import com.dbms.coaching.models.Teacher;
 import com.dbms.coaching.services.SecurityService;
 import com.dbms.coaching.validators.BatchValidator;
@@ -56,6 +59,9 @@ public class BatchController {
 
     @Autowired
     private BatchValidator batchValidator;
+
+    @Autowired
+    private SubjectDao subjectDao;
 
     @GetMapping({ "/admin/academics/batches", "/student/academics/batches", "/staff/academics/batches",
             "/teacher/academics/batches" })
@@ -250,7 +256,22 @@ public class BatchController {
         model.addAttribute("buttonmessage", "Finish");
         model.addAttribute("submiturl", "/admin/academics/courses/" + courseId + "/" + batchId + "/add-teacher");
         List<Teacher> teachersPresent = teacherDao.getTeachersInBatch(batchId, courseId);
-        List<Teacher> teachersNotPresent = teacherDao.getTeachersNotInBatch(batchId, courseId);
+        List<Teacher> teachersNotPresentAll = teacherDao.getTeachersNotInBatch(batchId, courseId);
+
+        List<Teacher> teachersNotPresent = new ArrayList<>();
+        List<Subject> subjects = subjectDao.getSubjectsInCourse(courseId);
+        for (Teacher teacher : teachersNotPresentAll) {
+            boolean valid = false;
+            for (Subject subject : subjects) {
+                if (teacher.getSubject().getSubjectId().equals(subject.getSubjectId())) {
+                    valid = true;
+                    break;
+                }
+            }
+            if (valid) {
+                teachersNotPresent.add(teacher);
+            }
+        }
         model.addAttribute("teachersPresent", teachersPresent);
         model.addAttribute("teachersNotPresent", teachersNotPresent);
         return "teacher/addTeacherBatch";
