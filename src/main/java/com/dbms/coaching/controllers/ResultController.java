@@ -102,7 +102,8 @@ public class ResultController {
         model.addAttribute("submessage1", "Add Result");
         model.addAttribute("buttonmessage", "Finish");
         model.addAttribute("submiturl", "/" + role + "/academics/tests/" + testId + "/results/add");
-        List<Student> students = studentDao.getAll();
+        Test test = testDao.get(testId);
+        List<Student> students = studentDao.getAllByCourseId(test.getCourse().getCourseId());
         model.addAttribute("students", students);
         Result result = new Result();
         model.addAttribute("result", result);
@@ -114,7 +115,7 @@ public class ResultController {
     @PostMapping({ "/admin/academics/tests/{testId}/results/add", "/staff/academics/tests/{testId}/results/add" })
     public String addResult(@PathVariable("testId") int testId, @Valid @ModelAttribute("result") Result result,
             BindingResult bindingResult, Model model) {
-        Test test = testDao.get(result.getTestId());
+        Test test = testDao.get(testId);
         if (result.getMarksScored() > test.getMaximumMarks()) {
             bindingResult.rejectValue("marksScored", "Invalid.result.marksScored");
         }
@@ -126,7 +127,7 @@ public class ResultController {
             model.addAttribute("submessage1", "Add Result");
             model.addAttribute("buttonmessage", "Finish");
             model.addAttribute("submiturl", "/" + role + "/academics/tests/" + testId + "/results/add");
-            List<Student> students = studentDao.getAll();
+            List<Student> students = studentDao.getAllByCourseId(test.getCourse().getCourseId());
             model.addAttribute("students", students);
             int maximumMarks = testDao.getMaximumMarks(testId);
             model.addAttribute("maximumMarks", maximumMarks);

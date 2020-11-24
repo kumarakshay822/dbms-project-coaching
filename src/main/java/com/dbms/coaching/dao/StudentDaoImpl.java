@@ -55,6 +55,13 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
+    public List<Student> getAllByCourseId(String courseId) {
+        String sql = "SELECT * FROM Student NATURAL JOIN User NATURAL JOIN Enrollment WHERE courseId = ?";
+        List<Student> students = template.query(sql, new Object[] { courseId },  new StudentRowMapper());
+        return students;
+    }
+
+    @Override
     public Student get(int studentId) {
         try {
             String sql = "SELECT * FROM Student NATURAL JOIN User NATURAL JOIN Guardian WHERE studentId = ?";

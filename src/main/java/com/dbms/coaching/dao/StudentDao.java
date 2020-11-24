@@ -9,6 +9,8 @@ public interface StudentDao {
 
     public List<Student> getAll();
 
+    public List<Student> getAllByCourseId(String courseId);
+
     public Student get(int studentId);
 
     public Student getByUserId(int userId);
