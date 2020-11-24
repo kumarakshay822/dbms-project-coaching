@@ -2,7 +2,6 @@ package com.dbms.coaching.models;
 
 import java.sql.Time;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 
@@ -15,7 +14,7 @@ public class Batch {
     @NotEmpty
     private String batchName;
 
-    @Min(1000)
+    @Min(0)
     private int fee;
 
     @Positive

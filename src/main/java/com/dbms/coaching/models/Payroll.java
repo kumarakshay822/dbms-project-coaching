@@ -15,10 +15,9 @@ public class Payroll {
     @Max(12)
     private int month;
 
-    @Min(2020)
+    @Min(2018)
     private int year;
 
-    @Min(1000)
     private double salaryCredited;
 
     @NotNull

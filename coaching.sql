@@ -11,9 +11,55 @@ CREATE TABLE IF NOT EXISTS User (
   isEmailVerified boolean DEFAULT false NOT NULL,
   lastLoginDate date DEFAULT NULL,
   lastLoginTime time DEFAULT NULL,
-  role varchar(255) NOT NULL,
+  role enum ('ROLE_ADMIN','ROLE_STAFF', 'ROLE_TEACHER', 'ROLE_STUDENT') NOT NULL,
   PRIMARY KEY (userId)
 );
+
+DELIMITER $$
+CREATE TRIGGER check_insert_isEmailVerified_password BEFORE INSERT ON User
+FOR EACH ROW
+BEGIN
+IF NEW.isEmailVerified = 1 AND NEW.password IS NULL THEN
+  SIGNAL SQLSTATE '12345'
+    SET MESSAGE_TEXT = "Email can't be verified for NULL passwords";
+END IF;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE TRIGGER check_update_isEmailVerified_password BEFORE UPDATE ON User
+FOR EACH ROW
+BEGIN
+IF NEW.isEmailVerified = 1 AND NEW.password IS NULL THEN
+  SIGNAL SQLSTATE '12345'
+    SET MESSAGE_TEXT = "Email can't be verified for NULL passwords";
+END IF;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE TRIGGER check_insert_user_emailAddress BEFORE INSERT ON User
+FOR EACH ROW
+BEGIN
+IF (NEW.emailAddress REGEXP '^[A-Z0-9._%-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$') = 0 THEN
+  SIGNAL SQLSTATE '12345'
+    SET MESSAGE_TEXT = 'Invalid email address';
+END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER check_update_user_emailAddress BEFORE UPDATE ON User
+FOR EACH ROW
+BEGIN
+IF (NEW.emailAddress REGEXP "^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$") = 0 THEN
+  SIGNAL SQLSTATE '12345'
+    SET MESSAGE_TEXT = 'Invalid email address';
+END IF;
+END$$
+DELIMITER ;
 
 CREATE TABLE IF NOT EXISTS UserToken (
   userId int NOT NULL,
@@ -29,6 +75,28 @@ CREATE TABLE IF NOT EXISTS UserPhoneNumber (
   PRIMARY KEY (phoneNumber, userId),
   FOREIGN KEY (userId) REFERENCES User(userId) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+DELIMITER $$
+CREATE TRIGGER check_insert_user_phone BEFORE INSERT ON UserPhoneNumber
+FOR EACH ROW
+BEGIN
+IF (NEW.phoneNumber REGEXP '^[1-9][0-9]{9,9}$') = 0 THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = 'Wrong Phone Number Format';
+END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER check_update_user_phone BEFORE UPDATE ON UserPhoneNumber
+FOR EACH ROW
+BEGIN
+IF (NEW.phoneNumber REGEXP '^[1-9][0-9]{9,9}$') = 0 THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = 'Wrong Phone Number Format';
+END IF;
+END$$
+DELIMITER ;
 
 
 CREATE TABLE IF NOT EXISTS Student (
@@ -47,6 +115,29 @@ CREATE TABLE IF NOT EXISTS Student (
 );
 
 ALTER TABLE Student AUTO_INCREMENT = 100001;
+
+DELIMITER $$
+CREATE TRIGGER check_insert_student_pincode BEFORE INSERT ON Student
+FOR EACH ROW
+BEGIN
+IF NEW.pinCode < 100000 OR NEW.pinCode > 999999 THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = 'Wrong pincode Format';
+END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER check_update_student_pincode BEFORE UPDATE ON Student
+FOR EACH ROW
+BEGIN
+IF NEW.pinCode < 100000 OR NEW.pinCode > 999999 THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = 'Wrong pincode Format';
+END IF;
+END$$
+DELIMITER ;
+
 
 CREATE TABLE IF NOT EXISTS Complaint (
   complaintId int NOT NULL AUTO_INCREMENT,
@@ -73,6 +164,28 @@ CREATE TABLE IF NOT EXISTS Guardian (
   FOREIGN KEY (studentId) REFERENCES Student(studentId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+DELIMITER $$
+CREATE TRIGGER check_insert_guardian_email BEFORE INSERT ON Guardian
+FOR EACH ROW
+BEGIN
+IF (NEW.email REGEXP '^[A-Z0-9._%-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$') = 0 THEN
+  SIGNAL SQLSTATE '12345'
+    SET MESSAGE_TEXT = 'Invalid email address';
+END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER check_update_guardian_email BEFORE UPDATE ON Guardian
+FOR EACH ROW
+BEGIN
+IF (NEW.email REGEXP '^[A-Z0-9._%-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$') = 0 THEN
+  SIGNAL SQLSTATE '12345'
+    SET MESSAGE_TEXT = 'Invalid email address';
+END IF;
+END$$
+DELIMITER ;
+
 
 CREATE TABLE IF NOT EXISTS GuardianPhoneNumber (
   phoneNumber varchar(255) NOT NULL,
@@ -81,6 +194,29 @@ CREATE TABLE IF NOT EXISTS GuardianPhoneNumber (
   PRIMARY KEY (phoneNumber, name, studentId),
   FOREIGN KEY (name, studentId) REFERENCES Guardian(name, studentId) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
+DELIMITER $$
+CREATE TRIGGER check_insert_guardian_phone BEFORE INSERT ON GuardianPhoneNumber
+FOR EACH ROW
+BEGIN
+IF (NEW.phoneNumber REGEXP '^[1-9][0-9]{9,9}$') = 0 THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = 'Wrong Phone Number Format';
+END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER check_update_guardian_phone BEFORE UPDATE ON GuardianPhoneNumber
+FOR EACH ROW
+BEGIN
+IF (NEW.phoneNumber REGEXP '^[1-9][0-9]{9,9}$') = 0 THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = 'Wrong Phone Number Format';
+END IF;
+END$$
+DELIMITER ;
 
 
 CREATE TABLE IF NOT EXISTS Employee (
@@ -100,6 +236,79 @@ CREATE TABLE IF NOT EXISTS Employee (
 
 ALTER TABLE Employee AUTO_INCREMENT = 100001;
 
+
+DELIMITER $$
+CREATE TRIGGER check_insert_employee_joinEndDate BEFORE INSERT ON Employee
+FOR EACH ROW
+BEGIN
+IF NEW.endDate < NEW.joinDate THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = "End Date can't be less than join date";
+END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER check_update_employee_joinEndDate BEFORE UPDATE ON Employee
+FOR EACH ROW
+BEGIN
+IF NEW.endDate < NEW.joinDate THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = "End Date can't be less than join date";
+END IF;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE TRIGGER check_insert_employee_panNumber BEFORE INSERT ON Employee
+FOR EACH ROW
+BEGIN
+IF (NEW.panNumber REGEXP '^[A-Z]{5}[0-9]{4}[A-Z]{1}$') = 0 THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = 'Wrong PAN Number Format';
+END IF;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE TRIGGER check_update_employee_panNumber BEFORE UPDATE ON Employee
+FOR EACH ROW
+BEGIN
+IF (NEW.panNumber REGEXP '^[A-Z]{5}[0-9]{4}[A-Z]{1}$') = 0 THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = 'Wrong PAN Number Format';
+END IF;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE TRIGGER check_insert_employee_ifscCode BEFORE INSERT ON Employee
+FOR EACH ROW
+BEGIN
+IF (NEW.ifscCode REGEXP '^[A-Z]{4}0[A-Z0-9]{6}$') = 0 THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = 'Wrong IFSC Code Format';
+END IF;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE TRIGGER check_update_employee_ifscCode BEFORE UPDATE ON Employee
+FOR EACH ROW
+BEGIN
+IF (NEW.ifscCode REGEXP '^[A-Z]{4}0[A-Z0-9]{6}$') = 0 THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = 'Wrong IFSC Code Format';
+END IF;
+END$$
+DELIMITER ;
+
+
+
 CREATE TABLE IF NOT EXISTS Payroll (
   paymentRefNo varchar(255) NOT NULL,
   month varchar(255) NOT NULL,
@@ -110,6 +319,29 @@ CREATE TABLE IF NOT EXISTS Payroll (
   PRIMARY KEY (paymentRefNo),
   FOREIGN KEY (employeeId) REFERENCES Employee(employeeId) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+DELIMITER $$
+CREATE TRIGGER check_insert_payroll_month BEFORE INSERT ON Payroll
+FOR EACH ROW
+BEGIN
+IF NEW.month < 1 OR NEW.month > 12 THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = 'Invalid month';
+END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER check_update_payroll_month BEFORE UPDATE ON Payroll
+FOR EACH ROW
+BEGIN
+IF NEW.month < 1 OR NEW.month > 12 THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = 'Invalid month';
+END IF;
+END$$
+DELIMITER ;
+
 
 
 CREATE TABLE IF NOT EXISTS Attendance (
@@ -136,6 +368,28 @@ CREATE TABLE IF NOT EXISTS Staff (
   FOREIGN KEY (employeeId) REFERENCES Employee(employeeId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+DELIMITER $$
+CREATE TRIGGER check_insert_staff_pincode BEFORE INSERT ON Staff
+FOR EACH ROW
+BEGIN
+IF NEW.pinCode < 100000 OR NEW.pinCode > 999999 THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = 'Wrong pincode Format';
+END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER check_update_staff_pincode BEFORE UPDATE ON Staff
+FOR EACH ROW
+BEGIN
+IF NEW.pinCode < 100000 OR NEW.pinCode > 999999 THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = 'Wrong pincode Format';
+END IF;
+END$$
+DELIMITER ;
+
 
 CREATE TABLE IF NOT EXISTS Course (
   courseId varchar(255) NOT NULL,
@@ -147,7 +401,7 @@ CREATE TABLE IF NOT EXISTS Course (
 
 CREATE TABLE IF NOT EXISTS Subject (
   subjectId varchar(255) NOT NULL,
-  subjectName varchar(255) NOT NULL,
+  subjectName varchar(255) NOT NULL UNIQUE,
   description varchar(255) DEFAULT NULL,
   PRIMARY KEY (subjectId)
 );
@@ -187,6 +441,29 @@ CREATE TABLE IF NOT EXISTS Batch (
 );
 
 
+DELIMITER $$
+CREATE TRIGGER check_insert_batch_startEndTime BEFORE INSERT ON Batch
+FOR EACH ROW
+BEGIN
+IF NEW.endTime < NEW.startTime THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = "End Time can't be less than start time";
+END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER check_update_batch_startEndTime BEFORE UPDATE ON Batch
+FOR EACH ROW
+BEGIN
+IF NEW.endTime < NEW.startTime THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = "End Time can't be less than start time";
+END IF;
+END$$
+DELIMITER ;
+
+
 CREATE TABLE IF NOT EXISTS StaffBatchDetails (
   staffId int NOT NULL,
   batchId varchar(255) NOT NULL,
@@ -215,6 +492,29 @@ CREATE TABLE IF NOT EXISTS Teacher (
   FOREIGN KEY (employeeId) REFERENCES Employee(employeeId) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (subjectId) REFERENCES Subject(subjectId) ON DELETE SET NULL ON UPDATE CASCADE
 );
+
+
+DELIMITER $$
+CREATE TRIGGER check_insert_teacher_pincode BEFORE INSERT ON Teacher
+FOR EACH ROW
+BEGIN
+IF NEW.pinCode < 100000 OR NEW.pinCode > 999999 THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = 'Wrong pincode Format';
+END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER check_update_teacher_pincode BEFORE UPDATE ON Teacher
+FOR EACH ROW
+BEGIN
+IF NEW.pinCode < 100000 OR NEW.pinCode > 999999 THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = 'Wrong pincode Format';
+END IF;
+END$$
+DELIMITER ;
 
 
 CREATE TABLE IF NOT EXISTS Feedback (
@@ -268,6 +568,29 @@ CREATE TABLE IF NOT EXISTS Enrollment (
 );
 
 
+DELIMITER $$
+CREATE TRIGGER check_insert_enrollment_joinEndDate BEFORE INSERT ON Enrollment
+FOR EACH ROW
+BEGIN
+IF NEW.endDate < NEW.joinDate THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = "End Date can't be less than join date";
+END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER check_update_enrollment_joinEndDate BEFORE UPDATE ON Enrollment
+FOR EACH ROW
+BEGIN
+IF NEW.endDate < NEW.joinDate THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = "End Date can't be less than join date";
+END IF;
+END$$
+DELIMITER ;
+
+
 CREATE TABLE IF NOT EXISTS Test (
   testId int NOT NULL AUTO_INCREMENT,
   testName varchar(255) NOT NULL,
@@ -283,6 +606,29 @@ CREATE TABLE IF NOT EXISTS Test (
 );
 
 
+DELIMITER $$
+CREATE TRIGGER check_insert_test_startEndTime BEFORE INSERT ON Test
+FOR EACH ROW
+BEGIN
+IF NEW.endTime < NEW.startTime THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = "End Time can't be less than start time";
+END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER check_update_test_startEndTime BEFORE UPDATE ON Test
+FOR EACH ROW
+BEGIN
+IF NEW.endTime < NEW.startTime THEN
+  SIGNAL SQLSTATE '12345'
+     SET MESSAGE_TEXT = "End Time can't be less than start time";
+END IF;
+END$$
+DELIMITER ;
+
+
 CREATE TABLE IF NOT EXISTS Result (
   studentId int NOT NULL AUTO_INCREMENT,
   testId int NOT NULL,
@@ -294,3 +640,25 @@ CREATE TABLE IF NOT EXISTS Result (
   FOREIGN KEY (studentId) REFERENCES Student(studentId) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (testId) REFERENCES Test(testId) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+DELIMITER $$
+CREATE TRIGGER check_insert_recheck_applied BEFORE INSERT ON Result
+FOR EACH ROW
+BEGIN
+IF NEW.hasAppliedRecheck = 0 AND NEW.isDoneRecheck = 1 IS NULL THEN
+  SIGNAL SQLSTATE '12345'
+    SET MESSAGE_TEXT = "Recheck can't be done if it is not applied for";
+END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER check_update_recheck_applied BEFORE UPDATE ON Result
+FOR EACH ROW
+BEGIN
+IF NEW.hasAppliedRecheck = 0 AND NEW.isDoneRecheck = 1 IS NULL THEN
+  SIGNAL SQLSTATE '12345'
+    SET MESSAGE_TEXT = "Recheck can't be done if it is not applied for";
+END IF;
+END$$
+DELIMITER ;

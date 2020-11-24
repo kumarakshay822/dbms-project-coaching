@@ -5,8 +5,15 @@
 <%@ include file="/WEB-INF/views/template/header.jsp" %>
 
 <div class="container" style="padding-left: 5%; padding-right: 5%;">
-    <div class="row justify-content-center mb-3">
+    <div class="row justify-content-center">
         <h2>${submessage1}</h2>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12 text-right">
+            <h2>
+                <a class="btn btn-outline-success" href="/${role}/academics/batches" role="button">All Batches</a>
+            </h2>
+        </div>
     </div>
     <div class="row shadow bg-white rounded" style="border: 1px solid whitesmoke; padding: 0 40px;">
         <table class="table table-borderless mt-4">

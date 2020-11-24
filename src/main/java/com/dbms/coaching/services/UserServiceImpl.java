@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService {
     public User activateUserAndEmailToken(User user) {
         userDao.activate(user.getUserId());
 
+        userDao.verifyEmail(user.getUserId());
         String email = user.getEmailAddress();
         String subject = "Account Creation Successful | Confirm Registration";
         String message = "";
@@ -121,8 +122,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void confirmRegistration(String token, String password) {
         int userId = validateToken(token);
-        userDao.verifyEmail(userId);
         userDao.changePassword(userId, bCryptPasswordEncoder.encode(password));
+        userDao.verifyEmail(userId);
     }
 
     @Override
