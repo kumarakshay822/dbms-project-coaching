@@ -2,7 +2,6 @@ package com.dbms.coaching.models;
 
 import java.sql.Date;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 

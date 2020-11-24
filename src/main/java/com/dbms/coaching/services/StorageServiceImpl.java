@@ -4,6 +4,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javax.servlet.ServletContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,7 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class StorageServiceImpl implements StorageService {
 
-    private final Path uploadDirectory = Paths.get("src", "main", "resources", "static", "uploads");
+    @Autowired
+    private ServletContext context;
+
+    private final Path uploadDirectory = Paths.get("src", "main", "webapp", "uploads");
 
     @Override
     public void save(String subjectId, MultipartFile file) {
@@ -27,8 +33,14 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public Path getFileLocation(String subjectId, String filename) {
-        Path path = Paths.get("uploads", subjectId, filename);
+    public String getFileLocation(String subjectId, String filename) {
+        String path = context.getRealPath("uploads/") + subjectId + "/" + filename;
+        return path;
+    }
+
+    @Override
+    public Path getFilePath(String subjectId, String filename) {
+        Path path = this.uploadDirectory.resolve(subjectId).resolve(filename);
         return path;
     }
 

@@ -79,7 +79,7 @@
                     <td style="width: 50%">
                         <c:choose>
                             <c:when test="${edit == true}">
-                                <a href="/${url}" target="_blank">${material.filename}</a>
+                                <a href="${url}" target="_blank">${material.filename}</a>
                             </c:when>
                             <c:otherwise>
                                 <input type="file" name="file" class="form-control" required="true"></input>

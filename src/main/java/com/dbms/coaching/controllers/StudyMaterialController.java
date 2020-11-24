@@ -1,9 +1,14 @@
 package com.dbms.coaching.controllers;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.dbms.coaching.dao.StudentDao;
@@ -15,6 +20,7 @@ import com.dbms.coaching.services.SecurityService;
 import com.dbms.coaching.services.StorageService;
 import com.dbms.coaching.validators.StudyMaterialValidator;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -83,13 +89,14 @@ public class StudyMaterialController {
     public String listStudyMaterials(@PathVariable("subjectId") String subjectId, Model model) {
         checkStudentEnrolledSubject(subjectId);
         checkTeacherOfSubject(subjectId);
+        String role = securityService.findLoggedInUserRole();
         model.addAttribute("title", "Academic Portal - Study Materials");
         model.addAttribute("message", "View all the study materials");
         List<StudyMaterial> materials = studyMaterialDao.getAllBySubjectId(subjectId);
         model.addAttribute("materials", materials);
-        List<Path> urls = new ArrayList<>();
+        List<String> urls = new ArrayList<>();
         for (StudyMaterial material : materials) {
-            urls.add(storageService.getFileLocation(subjectId, UriUtils.encodePath(material.getFilename(), "UTF-8")));
+            urls.add("/" + role + "/academics/subjects/" + subjectId + "/materials/" + UriUtils.encodePath(material.getMaterialId(), "UTF-8") + "/view");
         }
         model.addAttribute("urls", urls);
         return "studymaterial/listMaterials";
@@ -142,9 +149,34 @@ public class StudyMaterialController {
         model.addAttribute("submessage1", "Study Material Details");
         StudyMaterial material= studyMaterialDao.get(subjectId, materialId);
         model.addAttribute("material", material);
-        Path url = storageService.getFileLocation(subjectId, UriUtils.encodePath(material.getFilename(), "UTF-8"));
+        String role = securityService.findLoggedInUserRole();
+        String url = "/" + role + "/academics/subjects/" + subjectId + "/materials/" + UriUtils.encodePath(material.getMaterialId(), "UTF-8") + "/view";
         model.addAttribute("url", url);
         return "studymaterial/viewMaterial";
+    }
+
+    @GetMapping({"/admin/academics/subjects/{subjectId}/materials/{materialId}/view",
+            "/teacher/academics/subjects/{subjectId}/materials/{materialId}/view",
+            "/student/academics/subjects/{subjectId}/materials/{materialId}/view"})
+    public void viewStudyMaterialFile(HttpServletResponse response, @PathVariable("subjectId") String subjectId,
+            @PathVariable("materialId") String materialId) {
+        checkStudentEnrolledSubject(subjectId);
+        checkTeacherOfSubject(subjectId);
+        try {
+            StudyMaterial material= studyMaterialDao.get(subjectId, materialId);
+            Path path = storageService.getFilePath(subjectId, material.getFilename());
+            String location = storageService.getFileLocation(subjectId, material.getFilename());
+            System.out.println(location);
+            InputStream is = new FileInputStream(location);
+            String x = Files.probeContentType(path);
+            System.out.println(x);
+            response.setContentType(x);
+            IOUtils.copy(is, response.getOutputStream());
+            response.flushBuffer();
+        } catch (IOException ex) {
+            throw new RuntimeException("IOError writing file to output stream");
+        }
+
     }
 
     @GetMapping({ "/admin/academics/subjects/{subjectId}/materials/{materialId}/edit",
@@ -161,7 +193,8 @@ public class StudyMaterialController {
         model.addAttribute("edit", "true");
         StudyMaterial material = studyMaterialDao.get(subjectId, materialId);
         model.addAttribute("material", material);
-        Path url = storageService.getFileLocation(subjectId, material.getFilename());
+        String url = "/" + role + "/academics/subjects/" + subjectId + "/materials/"
+                + UriUtils.encodePath(material.getMaterialId(), "UTF-8") + "/view";
         model.addAttribute("url", url);
         return "studymaterial/addEditMaterial";
     }
@@ -180,7 +213,8 @@ public class StudyMaterialController {
             model.addAttribute("buttonmessage", "Finish");
             model.addAttribute("submiturl", "/" + role + "/academics/subjects/" + subjectId + "/materials/" + materialId + "/edit");
             model.addAttribute("edit", "true");
-            Path url = storageService.getFileLocation(subjectId, material.getFilename());
+            String url = "/" + role + "/academics/subjects/" + subjectId + "/materials/"
+                    + UriUtils.encodePath(material.getMaterialId(), "UTF-8") + "/view";
             model.addAttribute("url", url);
             return "studymaterial/addEditMaterial";
         }

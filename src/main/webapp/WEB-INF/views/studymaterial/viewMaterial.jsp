@@ -41,7 +41,7 @@
             <tr>
                 <th style="width: 40%; text-align: center;">File</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%"><a href="/${url}" target="_blank">${material.filename}</a></td>
+                <td style="width: 50%"><a href="${url}" target="_blank">${material.filename}</a></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Description</th>

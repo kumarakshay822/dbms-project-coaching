@@ -31,7 +31,7 @@
                     <td>${material.topicName}</td>
                     <td>${material.difficulty}</td>
                     <td>${material.description}</td>
-                    <td><a href="/${urls[loop.count-1]}" target="_blank">${material.filename}</a></td>
+                    <td><a href="${urls[loop.count-1]}" target="_blank">${material.filename}</a></td>
                     <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')">
                     <td>
                         <a class="btn btn-outline-success btn-sm" href="/${role}/academics/subjects/${material.subjectId}/materials/${material.materialId}"
