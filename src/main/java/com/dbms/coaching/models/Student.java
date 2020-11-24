@@ -27,10 +27,6 @@ public class Student {
     @NotBlank
     private String state;
 
-    @Min(100000)
-    @Max(999999)
-    private int pinCode;
-
     @NotBlank
     private String schoolAttending;
 
@@ -45,7 +41,7 @@ public class Student {
         guardian = new Guardian();
     }
 
-    public Student(int studentId, String gender, Date dateOfBirth, String houseNumber, String street, String city, String state, int pinCode, String schoolAttending, User user, Guardian guardian) {
+    public Student(int studentId, String gender, Date dateOfBirth, String houseNumber, String street, String city, String state, String schoolAttending, User user, Guardian guardian) {
         this.studentId = studentId;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
@@ -53,7 +49,6 @@ public class Student {
         this.street = street;
         this.city = city;
         this.state = state;
-        this.pinCode = pinCode;
         this.schoolAttending = schoolAttending;
         this.user = user;
         this.guardian = guardian;
@@ -158,20 +153,6 @@ public class Student {
     }
 
     /**
-     * @return int return the pinCode
-     */
-    public int getPinCode() {
-        return pinCode;
-    }
-
-    /**
-     * @param pinCode the pinCode to set
-     */
-    public void setPinCode(int pinCode) {
-        this.pinCode = pinCode;
-    }
-
-    /**
      * @return String return the schoolAttending
      */
     public String getSchoolAttending() {
@@ -223,7 +204,6 @@ public class Student {
             ", street='" + getStreet() + "'" +
             ", city='" + getCity() + "'" +
             ", state='" + getState() + "'" +
-            ", pinCode='" + getPinCode() + "'" +
             ", schoolAttending='" + getSchoolAttending() + "'" +
             ", user='" + getUser() + "'" +
             ", guardian='" + getGuardian() + "'" +

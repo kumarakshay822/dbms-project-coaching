@@ -92,14 +92,6 @@
                         <form:errors path="city" style="color: red;"></form:errors>
                         <form:input type="text" path="state" class="form-control" required="true" placeholder="State"></form:input>
                         <form:errors path="state" style="color: red;"></form:errors>
-                        <form:input type="number" path="pinCode" class="form-control" required="true" placeholder="Pincode (6 digits)"></form:input>
-                        <form:errors path="pinCode" style="color: red;"></form:errors>
-                        <script>
-                            var pinCode = document.getElementById("pinCode").value;
-                            if (pinCode == 0) {
-                                document.getElementById("pinCode").value = "";
-                            }
-                        </script>
                     </td>
                 </tr>
                 <tr>

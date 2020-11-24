@@ -62,7 +62,7 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Address</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${staff.houseNumber}, ${staff.street}, ${staff.city}, ${staff.state} - ${staff.pinCode}</td>
+                <td style="width: 50%">${staff.houseNumber}, ${staff.street}, ${staff.city}, ${staff.state}</td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Activated?</th>
@@ -122,21 +122,6 @@
                 <th style="width: 40%; text-align: center;">Account Number</th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%">${staff.employee.accountNumber}</td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;">Bank Name</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">${staff.employee.bankName}</td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;">Bank Branch</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">${staff.employee.bankBranch}</td>
-            </tr>
-            <tr>
-                <th style="width: 40%; text-align: center;">IFSC Code</th>
-                <th style="width: 10%;"></th>
-                <td style="width: 50%">${staff.employee.ifscCode}</td>
             </tr>
         </table>
     </div>

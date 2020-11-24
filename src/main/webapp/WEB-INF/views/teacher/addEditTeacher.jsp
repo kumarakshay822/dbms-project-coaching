@@ -106,14 +106,6 @@
                         <form:errors path="city" style="color: red;"></form:errors>
                         <form:input type="text" path="state" class="form-control" required="true" placeholder="State"></form:input>
                         <form:errors path="state" style="color: red;"></form:errors>
-                        <form:input type="number" path="pinCode" class="form-control" required="true" placeholder="Pincode (6 digits)"></form:input>
-                        <form:errors path="pinCode" style="color: red;"></form:errors>
-                        <script>
-                            var pinCode = document.getElementById("pinCode").value;
-                            if (pinCode == 0) {
-                                document.getElementById("pinCode").value = "";
-                            }
-                        </script>
                     </td>
                 </tr>
                 <tr>
@@ -181,35 +173,11 @@
                         <form:input type="number" path="employee.accountNumber" class="form-control" required="true"></form:input>
                         <form:errors path="employee.accountNumber" style="color: red;"></form:errors>
                         <script>
-                            var pinCode = document.getElementById("employee.accountNumber").value;
-                            if (pinCode == 0) {
+                            var accountNumber = document.getElementById("employee.accountNumber").value;
+                            if (accountNumber == 0) {
                                 document.getElementById("employee.accountNumber").value = "";
                             }
                         </script>
-                    </td>
-                </tr>
-                <tr>
-                    <th style="width: 40%; text-align: center;">Bank Name ${mandatory}</th>
-                    <th style="width: 10%;"></th>
-                    <td style="width: 50%">
-                        <form:input type="text" path="employee.bankName" class="form-control" required="true"></form:input>
-                        <form:errors path="employee.bankName" style="color: red;"></form:errors>
-                    </td>
-                </tr>
-                <tr>
-                    <th style="width: 40%; text-align: center;">Bank Branch ${mandatory}</th>
-                    <th style="width: 10%;"></th>
-                    <td style="width: 50%">
-                        <form:input type="text" path="employee.bankBranch" class="form-control" required="true"></form:input>
-                        <form:errors path="employee.bankBranch" style="color: red;"></form:errors>
-                    </td>
-                </tr>
-                <tr>
-                    <th style="width: 40%; text-align: center;">IFSC Code ${mandatory}</th>
-                    <th style="width: 10%;"></th>
-                    <td style="width: 50%">
-                        <form:input type="text" path="employee.ifscCode" class="form-control" required="true" placeholder="Format: XXXX0DDDDDD"></form:input>
-                        <form:errors path="employee.ifscCode" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 <c:if test="${edit == true}">

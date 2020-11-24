@@ -29,16 +29,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public Employee save(Employee employee) {
-        String sql = "INSERT INTO Employee (basicSalary, joinDate, endDate, panNumber, accountNumber, bankName, bankBranch, ifscCode, userId) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Employee (basicSalary, joinDate, endDate, panNumber, accountNumber, userId) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(new PreparedStatementCreator(){
             @Override
             public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
                 PreparedStatement preparedStatement = conn.prepareStatement(sql, new String[] {"employeeId"});
                 preparedStatementUtil.setParameters(preparedStatement, employee.getBasicSalary(), employee.getJoinDate(),
-                        employee.getEndDate(), employee.getPanNumber(), employee.getAccountNumber(), employee.getBankName(),
-                        employee.getBankBranch(), employee.getIfscCode(), employee.getUser().getUserId());
+                        employee.getEndDate(), employee.getPanNumber(), employee.getAccountNumber(), employee.getUser().getUserId());
                 return preparedStatement;
             }
         }, keyHolder);
@@ -103,11 +102,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
      */
     @Override
     public void update(Employee employee) {
-        String sql = "UPDATE Employee SET basicSalary = ?, joinDate = ?, endDate = ?, panNumber = ?, accountNumber = ?, bankName = ?, "
-                + "bankBranch = ?, ifscCode = ? WHERE employeeId = ?";
+        String sql = "UPDATE Employee SET basicSalary = ?, joinDate = ?, endDate = ?, panNumber = ?, accountNumber = ? WHERE employeeId = ?";
         template.update(sql, employee.getBasicSalary(), employee.getJoinDate(), employee.getEndDate(),
-                employee.getPanNumber(), employee.getAccountNumber(), employee.getBankName(), employee.getBankBranch(),
-                employee.getIfscCode(), employee.getEmployeeId());
+                employee.getPanNumber(), employee.getAccountNumber(), employee.getEmployeeId());
     }
 
     /**
@@ -116,9 +113,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
      */
     @Override
     public void updateOwnProfile(Employee employee) {
-        String sql = "UPDATE Employee SET panNumber = ?, accountNumber = ?, bankName = ?, bankBranch = ?, ifscCode = ? WHERE employeeId = ?";
-        template.update(sql, employee.getPanNumber(), employee.getAccountNumber(), employee.getBankName(),
-                employee.getBankBranch(), employee.getIfscCode(), employee.getEmployeeId());
+        String sql = "UPDATE Employee SET panNumber = ?, accountNumber = ? WHERE employeeId = ?";
+        template.update(sql, employee.getPanNumber(), employee.getAccountNumber(), employee.getEmployeeId());
     }
 
     @Override

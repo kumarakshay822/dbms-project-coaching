@@ -62,7 +62,7 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Address</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%">${student.houseNumber}, ${student.street}, ${student.city}, ${student.state} - ${student.pinCode}</td>
+                <td style="width: 50%">${student.houseNumber}, ${student.street}, ${student.city}, ${student.state}</td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">School Attending</th>

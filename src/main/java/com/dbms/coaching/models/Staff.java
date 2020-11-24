@@ -27,10 +27,6 @@ public class Staff {
     @NotBlank
     private String state;
 
-    @Min(100000)
-    @Max(999999)
-    private int pinCode;
-
     @Valid
     private Employee employee;
 
@@ -38,7 +34,7 @@ public class Staff {
         employee = new Employee();
     }
 
-    public Staff(int staffId, String gender, Date dateOfBirth, String houseNumber, String street, String city, String state, int pinCode, Employee employee) {
+    public Staff(int staffId, String gender, Date dateOfBirth, String houseNumber, String street, String city, String state, Employee employee) {
         this.staffId = staffId;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
@@ -46,7 +42,6 @@ public class Staff {
         this.street = street;
         this.city = city;
         this.state = state;
-        this.pinCode = pinCode;
         this.employee = employee;
     }
 
@@ -149,20 +144,6 @@ public class Staff {
     }
 
     /**
-     * @return int return the pinCode
-     */
-    public int getPinCode() {
-        return pinCode;
-    }
-
-    /**
-     * @param pinCode the pinCode to set
-     */
-    public void setPinCode(int pinCode) {
-        this.pinCode = pinCode;
-    }
-
-    /**
      * @return Employee return the employeeId
      */
     public Employee getEmployee() {
@@ -186,7 +167,6 @@ public class Staff {
             ", street='" + getStreet() + "'" +
             ", city='" + getCity() + "'" +
             ", state='" + getState() + "'" +
-            ", pinCode='" + getPinCode() + "'" +
             ", employee='" + getEmployee() + "'" +
             "}";
     }

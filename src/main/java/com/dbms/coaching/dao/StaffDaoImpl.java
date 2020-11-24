@@ -29,8 +29,8 @@ public class StaffDaoImpl implements StaffDao {
 
     @Override
     public Staff save(Staff staff) {
-        String sql = "INSERT INTO Staff (gender, dateOfBirth, houseNumber, street, city, state, pincode, employeeId) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Staff (gender, dateOfBirth, houseNumber, street, city, state, employeeId) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(new PreparedStatementCreator(){
             @Override
@@ -38,7 +38,7 @@ public class StaffDaoImpl implements StaffDao {
                 PreparedStatement preparedStatement = conn.prepareStatement(sql, new String[] {"staffId"});
                 preparedStatementUtil.setParameters(preparedStatement, staff.getGender(), staff.getDateOfBirth(),
                         staff.getHouseNumber(), staff.getStreet(), staff.getCity(), staff.getState(),
-                        staff.getPinCode(), staff.getEmployee().getEmployeeId());
+                        staff.getEmployee().getEmployeeId());
                 return preparedStatement;
             }
         }, keyHolder);
@@ -112,11 +112,10 @@ public class StaffDaoImpl implements StaffDao {
      */
     @Override
     public void update(Staff staff) {
-        String sql = "UPDATE Staff SET gender = ?, dateOfBirth = ?, houseNumber = ?, street = ?, city = ?, state = ?, pinCode = ? "
+        String sql = "UPDATE Staff SET gender = ?, dateOfBirth = ?, houseNumber = ?, street = ?, city = ?, state = ? "
                 + "WHERE staffId = ?";
         template.update(sql, staff.getGender(), staff.getDateOfBirth(), staff.getHouseNumber(),
-                staff.getStreet(), staff.getCity(), staff.getState(), staff.getPinCode(),
-                staff.getStaffId());
+                staff.getStreet(), staff.getCity(), staff.getState(), staff.getStaffId());
     }
 
     @Override

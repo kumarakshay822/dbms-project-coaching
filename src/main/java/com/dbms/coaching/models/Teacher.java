@@ -27,10 +27,6 @@ public class Teacher {
     @NotBlank
     private String state;
 
-    @Min(100000)
-    @Max(999999)
-    private int pinCode;
-
     private String bachelorsDegree;
     private String mastersDegree;
     private String doctoralDegree;
@@ -45,7 +41,7 @@ public class Teacher {
         subject = new Subject();
     }
 
-    public Teacher(int teacherId, String gender, Date dateOfBirth, String houseNumber, String street, String city, String state, int pinCode, String bachelorsDegree, String mastersDegree, String doctoralDegree, Employee employee, Subject subject) {
+    public Teacher(int teacherId, String gender, Date dateOfBirth, String houseNumber, String street, String city, String state, String bachelorsDegree, String mastersDegree, String doctoralDegree, Employee employee, Subject subject) {
         this.teacherId = teacherId;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
@@ -53,7 +49,6 @@ public class Teacher {
         this.street = street;
         this.city = city;
         this.state = state;
-        this.pinCode = pinCode;
         this.bachelorsDegree = bachelorsDegree;
         this.mastersDegree = mastersDegree;
         this.doctoralDegree = doctoralDegree;
@@ -160,20 +155,6 @@ public class Teacher {
     }
 
     /**
-     * @return int return the pinCode
-     */
-    public int getPinCode() {
-        return pinCode;
-    }
-
-    /**
-     * @param pinCode the pinCode to set
-     */
-    public void setPinCode(int pinCode) {
-        this.pinCode = pinCode;
-    }
-
-    /**
      * @return String return the bachelorsDegree
      */
     public String getBachelorsDegree() {
@@ -253,7 +234,6 @@ public class Teacher {
             ", street='" + getStreet() + "'" +
             ", city='" + getCity() + "'" +
             ", state='" + getState() + "'" +
-            ", pinCode='" + getPinCode() + "'" +
             ", bachelorsDegree='" + getBachelorsDegree() + "'" +
             ", mastersDegree='" + getMastersDegree() + "'" +
             ", doctoralDegree='" + getDoctoralDegree() + "'" +

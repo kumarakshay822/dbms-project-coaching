@@ -107,7 +107,6 @@ CREATE TABLE IF NOT EXISTS Student (
   street varchar(255) NOT NULL,
   city varchar(255) NOT NULL,
   state varchar(255) NOT NULL,
-  pinCode int NOT NULL,
   schoolAttending varchar(255) NOT NULL,
   userId int NOT NULL,
   PRIMARY KEY (studentId),
@@ -115,28 +114,6 @@ CREATE TABLE IF NOT EXISTS Student (
 );
 
 ALTER TABLE Student AUTO_INCREMENT = 100001;
-
-DELIMITER $$
-CREATE TRIGGER check_insert_student_pincode BEFORE INSERT ON Student
-FOR EACH ROW
-BEGIN
-IF NEW.pinCode < 100000 OR NEW.pinCode > 999999 THEN
-  SIGNAL SQLSTATE '12345'
-     SET MESSAGE_TEXT = 'Wrong pincode Format';
-END IF;
-END$$
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER check_update_student_pincode BEFORE UPDATE ON Student
-FOR EACH ROW
-BEGIN
-IF NEW.pinCode < 100000 OR NEW.pinCode > 999999 THEN
-  SIGNAL SQLSTATE '12345'
-     SET MESSAGE_TEXT = 'Wrong pincode Format';
-END IF;
-END$$
-DELIMITER ;
 
 
 CREATE TABLE IF NOT EXISTS Complaint (
@@ -226,9 +203,6 @@ CREATE TABLE IF NOT EXISTS Employee (
   endDate date DEFAULT NULL,
   panNumber varchar(255) NOT NULL,
   accountNumber varchar(255) NOT NULL,
-  bankName varchar(255) NOT NULL,
-  bankBranch varchar(255) NOT NULL,
-  ifscCode varchar(255) NOT NULL,
   userId int NOT NULL,
   PRIMARY KEY (employeeId),
   FOREIGN KEY (userId) REFERENCES User(userId) ON DELETE CASCADE ON UPDATE CASCADE
@@ -279,30 +253,6 @@ BEGIN
 IF (NEW.panNumber REGEXP '^[A-Z]{5}[0-9]{4}[A-Z]{1}$') = 0 THEN
   SIGNAL SQLSTATE '12345'
      SET MESSAGE_TEXT = 'Wrong PAN Number Format';
-END IF;
-END$$
-DELIMITER ;
-
-
-DELIMITER $$
-CREATE TRIGGER check_insert_employee_ifscCode BEFORE INSERT ON Employee
-FOR EACH ROW
-BEGIN
-IF (NEW.ifscCode REGEXP '^[A-Z]{4}0[A-Z0-9]{6}$') = 0 THEN
-  SIGNAL SQLSTATE '12345'
-     SET MESSAGE_TEXT = 'Wrong IFSC Code Format';
-END IF;
-END$$
-DELIMITER ;
-
-
-DELIMITER $$
-CREATE TRIGGER check_update_employee_ifscCode BEFORE UPDATE ON Employee
-FOR EACH ROW
-BEGIN
-IF (NEW.ifscCode REGEXP '^[A-Z]{4}0[A-Z0-9]{6}$') = 0 THEN
-  SIGNAL SQLSTATE '12345'
-     SET MESSAGE_TEXT = 'Wrong IFSC Code Format';
 END IF;
 END$$
 DELIMITER ;
@@ -362,33 +312,10 @@ CREATE TABLE IF NOT EXISTS Staff (
   street varchar(255) NOT NULL,
   city varchar(255) NOT NULL,
   state varchar(255) NOT NULL,
-  pinCode int NOT NULL,
   employeeId int NOT NULL,
   PRIMARY KEY (staffId),
   FOREIGN KEY (employeeId) REFERENCES Employee(employeeId) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-DELIMITER $$
-CREATE TRIGGER check_insert_staff_pincode BEFORE INSERT ON Staff
-FOR EACH ROW
-BEGIN
-IF NEW.pinCode < 100000 OR NEW.pinCode > 999999 THEN
-  SIGNAL SQLSTATE '12345'
-     SET MESSAGE_TEXT = 'Wrong pincode Format';
-END IF;
-END$$
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER check_update_staff_pincode BEFORE UPDATE ON Staff
-FOR EACH ROW
-BEGIN
-IF NEW.pinCode < 100000 OR NEW.pinCode > 999999 THEN
-  SIGNAL SQLSTATE '12345'
-     SET MESSAGE_TEXT = 'Wrong pincode Format';
-END IF;
-END$$
-DELIMITER ;
 
 
 CREATE TABLE IF NOT EXISTS Course (
@@ -482,7 +409,6 @@ CREATE TABLE IF NOT EXISTS Teacher (
   street varchar(255) NOT NULL,
   city varchar(255) NOT NULL,
   state varchar(255) NOT NULL,
-  pinCode int NOT NULL,
   bachelorsDegree varchar(255) DEFAULT NULL,
   mastersDegree varchar(255) DEFAULT NULL,
   doctoralDegree varchar(255) DEFAULT NULL,
@@ -493,28 +419,6 @@ CREATE TABLE IF NOT EXISTS Teacher (
   FOREIGN KEY (subjectId) REFERENCES Subject(subjectId) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-
-DELIMITER $$
-CREATE TRIGGER check_insert_teacher_pincode BEFORE INSERT ON Teacher
-FOR EACH ROW
-BEGIN
-IF NEW.pinCode < 100000 OR NEW.pinCode > 999999 THEN
-  SIGNAL SQLSTATE '12345'
-     SET MESSAGE_TEXT = 'Wrong pincode Format';
-END IF;
-END$$
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER check_update_teacher_pincode BEFORE UPDATE ON Teacher
-FOR EACH ROW
-BEGIN
-IF NEW.pinCode < 100000 OR NEW.pinCode > 999999 THEN
-  SIGNAL SQLSTATE '12345'
-     SET MESSAGE_TEXT = 'Wrong pincode Format';
-END IF;
-END$$
-DELIMITER ;
 
 
 CREATE TABLE IF NOT EXISTS Feedback (

@@ -29,8 +29,8 @@ public class TeacherDaoImpl implements TeacherDao {
 
     @Override
     public Teacher save(Teacher teacher) {
-        String sql = "INSERT INTO Teacher (gender, dateOfBirth, houseNumber, street, city, state, pincode, bachelorsDegree, mastersDegree, "
-                + "doctoralDegree, employeeId, subjectId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Teacher (gender, dateOfBirth, houseNumber, street, city, state, bachelorsDegree, mastersDegree, "
+                + "doctoralDegree, employeeId, subjectId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(new PreparedStatementCreator(){
             @Override
@@ -38,7 +38,7 @@ public class TeacherDaoImpl implements TeacherDao {
                 PreparedStatement preparedStatement = conn.prepareStatement(sql, new String[] {"teacherId"});
                 preparedStatementUtil.setParameters(preparedStatement, teacher.getGender(), teacher.getDateOfBirth(),
                         teacher.getHouseNumber(), teacher.getStreet(), teacher.getCity(), teacher.getState(),
-                        teacher.getPinCode(), teacher.getBachelorsDegree(), teacher.getMastersDegree(),
+                        teacher.getBachelorsDegree(), teacher.getMastersDegree(),
                         teacher.getDoctoralDegree(), teacher.getEmployee().getEmployeeId(), teacher.getSubject().getSubjectId());
                 return preparedStatement;
             }
@@ -111,10 +111,10 @@ public class TeacherDaoImpl implements TeacherDao {
      */
     @Override
     public void update(Teacher teacher) {
-        String sql = "UPDATE Teacher SET gender = ?, dateOfBirth = ?, houseNumber = ?, street = ?, city = ?, state = ?, pinCode = ?, "
+        String sql = "UPDATE Teacher SET gender = ?, dateOfBirth = ?, houseNumber = ?, street = ?, city = ?, state = ?, "
                 + "bachelorsDegree = ?, mastersDegree = ?, doctoralDegree = ?, subjectId = ? WHERE teacherId = ?";
         template.update(sql, teacher.getGender(), teacher.getDateOfBirth(), teacher.getHouseNumber(),
-                teacher.getStreet(), teacher.getCity(), teacher.getState(), teacher.getPinCode(),
+                teacher.getStreet(), teacher.getCity(), teacher.getState(),
                 teacher.getBachelorsDegree(), teacher.getMastersDegree(), teacher.getDoctoralDegree(),
                 teacher.getSubject().getSubjectId(), teacher.getTeacherId());
     }
