@@ -23,7 +23,7 @@
     </div>
     </sec:authorize>
     <div class="table-responsive mt-2">
-        <table class="table table-hover mt-4 table-sort">
+        <table class="table table-hover mt-4 table-sort-default">
             <thead>
                 <tr>
                     <th>Student ID</th>

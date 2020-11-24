@@ -24,7 +24,7 @@
                     <th>Subject Name</th>
                     <th>Description</th>
                     <sec:authorize access="!hasRole('ROLE_STAFF')"><th>Study Materials</th></sec:authorize>
-                    <sec:authorize access="hasRole('ROLE_ADMIN')">Action</sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')"><th>Action</th></sec:authorize>
                 </tr>
             </thead>
             <tbody>

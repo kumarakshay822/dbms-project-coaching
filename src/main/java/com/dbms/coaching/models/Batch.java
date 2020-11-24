@@ -2,6 +2,7 @@ package com.dbms.coaching.models;
 
 import java.sql.Time;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 
