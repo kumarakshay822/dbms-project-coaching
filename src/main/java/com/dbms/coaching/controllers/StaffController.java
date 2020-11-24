@@ -1,13 +1,16 @@
 package com.dbms.coaching.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import com.dbms.coaching.dao.BatchDao;
 import com.dbms.coaching.dao.EmployeeDao;
 import com.dbms.coaching.dao.StaffDao;
 import com.dbms.coaching.dao.UserDao;
 import com.dbms.coaching.dao.UserPhoneNumberDao;
+import com.dbms.coaching.models.Batch;
 import com.dbms.coaching.models.Employee;
 import com.dbms.coaching.models.Staff;
 import com.dbms.coaching.models.User;
@@ -45,6 +48,9 @@ public class StaffController {
 
     @Autowired
     private StaffValidator staffValidator;
+
+    @Autowired
+    private BatchDao batchDao;
 
     @GetMapping("/admin/staffs")
     public String staffsPortal(Model model) {
@@ -104,8 +110,25 @@ public class StaffController {
         Staff staff = staffDao.getByEmployeeId(employeeId);
         int userId = staff.getEmployee().getUser().getUserId();
         List<UserPhoneNumber> userPhoneNumbers = userPhoneNumberDao.getByUserId(userId);
+        List<Batch> batchesAssigned = batchDao.getAllByStaffId(staff.getStaffId());
+        List<Batch> batches = batchDao.getAll();
         model.addAttribute("staff", staff);
         model.addAttribute("userPhoneNumbers", userPhoneNumbers);
+        model.addAttribute("batches", batches);
+
+        List<Boolean> isAssigned = new ArrayList<>();
+        for (Batch batch : batches) {
+            boolean assigned = false;
+            for (Batch batchAssigned : batchesAssigned) {
+                if (batchAssigned.equals(batch)) {
+                    assigned = true;
+                    break;
+                }
+            }
+            isAssigned.add(assigned);
+        }
+        model.addAttribute("isAssigned", isAssigned);
+
         return "staff/viewStaff";
     }
 

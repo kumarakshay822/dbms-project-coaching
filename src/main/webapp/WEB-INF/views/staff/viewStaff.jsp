@@ -124,6 +124,46 @@
                 <td style="width: 50%">${staff.employee.accountNumber}</td>
             </tr>
         </table>
+        <sec:authorize access='hasRole("ROLE_ADMIN")'>
+        <div class="col-12" style="text-align: center;">
+            <hr>
+            <h5>Batch Details</h5>
+        </div>
+        <div class="col-12 mt-2 mb-5">
+            <table class="table table-hover mt-4">
+                <thead>
+                    <tr>
+                        <th>Batch ID</th>
+                        <th>Batch Name</th>
+                        <th>Course ID</th>
+                        <th>Course Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${batches}" var="batch" varStatus="loop">
+                        <tr <c:if test="${isAssigned[loop.count-1] == true}">class="table-success"</c:if>>
+                            <td>${batch.batchId}</td>
+                            <td>${batch.batchName}</td>
+                            <td>${batch.course.courseId}</td>
+                            <td>${batch.course.courseName}</td>
+                            <td>
+                                <c:if test="${isAssigned[loop.count-1] == true}">
+                                    <a class="btn btn-outline-danger btn-sm" onclick="postRequest('/${role}/academics/courses/${batch.course.courseId}/${batch.batchId}/delete-staff',
+                                    {'staffId': '${staff.staffId}'})" role="button">Remove</a>
+                                </c:if>
+                                <c:if test="${isAssigned[loop.count-1] == false}">
+                                    <a class="btn btn-outline-success btn-sm" onclick="postRequest('/${role}/academics/courses/${batch.course.courseId}/${batch.batchId}/add-staff',
+                                    {'staffId': '${staff.staffId}'})" role="button" role="button">Assign</a>
+                                </c:if>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <div id="error" style="color: red;"></div>
+        </sec:authorize>
     </div>
 </div>
 

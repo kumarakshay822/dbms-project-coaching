@@ -46,6 +46,13 @@ public class BatchDaoImpl implements BatchDao {
     }
 
     @Override
+    public List<Batch> getAllBySubjectId(String subjectId) {
+        String sql = "SELECT * FROM Batch NATURAL JOIN Course NATURAL JOIN CourseSubjectDetails WHERE subjectId = ?";
+        List<Batch> batches = template.query(sql, new Object[] { subjectId }, new BatchRowMapper());
+        return batches;
+    }
+
+    @Override
     public List<Batch> getAllByStaffId(int staffId) {
         String sql = "SELECT * FROM Batch NATURAL JOIN Course NATURAL JOIN StaffBatchDetails WHERE staffId = ?";
         List<Batch> batches = template.query(sql, new Object[] { staffId }, new BatchRowMapper());

@@ -1,14 +1,17 @@
 package com.dbms.coaching.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import com.dbms.coaching.dao.BatchDao;
 import com.dbms.coaching.dao.EmployeeDao;
 import com.dbms.coaching.dao.SubjectDao;
 import com.dbms.coaching.dao.TeacherDao;
 import com.dbms.coaching.dao.UserDao;
 import com.dbms.coaching.dao.UserPhoneNumberDao;
+import com.dbms.coaching.models.Batch;
 import com.dbms.coaching.models.Employee;
 import com.dbms.coaching.models.Subject;
 import com.dbms.coaching.models.Teacher;
@@ -50,6 +53,9 @@ public class TeacherController {
 
     @Autowired
     private TeacherValidator teacherValidator;
+
+    @Autowired
+    private BatchDao batchDao;
 
     @GetMapping("/admin/teachers")
     public String teachersPortal(Model model) {
@@ -113,8 +119,25 @@ public class TeacherController {
         Teacher teacher = teacherDao.getByEmployeeId(employeeId);
         int userId = teacher.getEmployee().getUser().getUserId();
         List<UserPhoneNumber> userPhoneNumbers = userPhoneNumberDao.getByUserId(userId);
+        List<Batch> batchesAssigned = batchDao.getAllByTeacherId(teacher.getTeacherId());
+        List<Batch> batches = batchDao.getAllBySubjectId(teacher.getSubject().getSubjectId());
         model.addAttribute("teacher", teacher);
         model.addAttribute("userPhoneNumbers", userPhoneNumbers);
+        model.addAttribute("batches", batches);
+
+        List<Boolean> isAssigned = new ArrayList<>();
+        for (Batch batch : batches) {
+            boolean assigned = false;
+            for (Batch batchAssigned : batchesAssigned) {
+                if (batchAssigned.equals(batch)) {
+                    assigned = true;
+                    break;
+                }
+            }
+            isAssigned.add(assigned);
+        }
+        model.addAttribute("isAssigned", isAssigned);
+
         return "teacher/viewTeacher";
     }
 

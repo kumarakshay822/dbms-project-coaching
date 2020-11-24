@@ -1,6 +1,7 @@
 package com.dbms.coaching.models;
 
 import java.sql.Time;
+import java.util.Objects;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -147,6 +148,17 @@ public class Batch {
             ", startTime='" + getStartTime() + "'" +
             ", endTime='" + getEndTime() + "'" +
             "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Batch)) {
+            return false;
+        }
+        Batch batch = (Batch) o;
+        return Objects.equals(batchId, batch.batchId) && Objects.equals(course.getCourseId(), batch.course.getCourseId());
     }
 
 }
