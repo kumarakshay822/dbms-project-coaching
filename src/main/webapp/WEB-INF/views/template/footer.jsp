@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <div style="flex: 1;"></div>
-    <hr class="featurette-divider">
+    <hr class="featurette-divider" style="margin-bottom: 0;">
 
     <!-- FOOTER -->
-    <footer class="container">
-        <p class="float-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2020 Balaji Study Coaching, Inc. &middot; <a href="/privacy-policy">Privacy Policy</a> &middot;
+    <footer style="font-size: 15px; background-color: ${rolecolor};">
+        <p class="float-right" style="color: white;"><a href="#" style="color: lightblue;">Back to top</a></p>
+        <p style="color: white;">&copy; 2020 Balaji Study Coaching, Inc. &middot; Designed by Ashish Kumar. &middot;
+            <a href="/privacy-policy" style="color: lightblue;">Privacy Policy</a> &middot;</p>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>

@@ -8,7 +8,7 @@
         <div class="feature-card p-lg-4 p-4 mx-4" onclick="location.href='/${role}/academics'">
             <span class="fa fa-chalkboard-teacher fa-3x" aria-hidden="true"></span>
             <h3 class="my-3">ACADEMIC PORTAL</h3>
-            <p>View your payroll.</p>
+            <p>Manage all academic stuff.</p>
         </div>
         <div class="feature-card p-lg-4 p-4 mx-4" onclick="location.href='/${role}/complaints'">
             <span class="fa fa-comment-alt fa-3x" aria-hidden="true"></span>
