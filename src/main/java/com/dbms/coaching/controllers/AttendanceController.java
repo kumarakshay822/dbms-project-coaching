@@ -58,10 +58,13 @@ public class AttendanceController {
             model.addAttribute("attendances", attendance);
             return "attendance/listAttendanceDate";
         }
-        List<Map<String, Object>> attendance = attendanceDao.getAllEmployeeWise();
-        model.addAttribute("attendances", attendance);
-        int days = attendanceDao.getTotalDays();
-        model.addAttribute("days", days);
+        List<Employee> employees = employeeDao.getAll();
+        List<Map<String, Object>> daysPresent = attendanceDao.getAllEmployeeWisePresent();
+        List<Map<String, Object>> daysAbsent = attendanceDao.getAllEmployeeWiseAbsent();
+
+        model.addAttribute("employees", employees);
+        model.addAttribute("daysPresent", daysPresent);
+        model.addAttribute("daysAbsent", daysAbsent);
         return "attendance/listAttendanceEmployeeWise";
     }
 

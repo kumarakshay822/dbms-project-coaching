@@ -11,9 +11,9 @@ public interface AttendanceDao {
 
     public Attendance get(Date date, int employeeId);
 
-    public int getTotalDays();
+    public List<Map<String, Object>> getAllEmployeeWisePresent();
 
-    public List<Map<String, Object>> getAllEmployeeWise();
+    public List<Map<String, Object>> getAllEmployeeWiseAbsent();
 
     public List<Attendance> getAllByDate(Date date);
 

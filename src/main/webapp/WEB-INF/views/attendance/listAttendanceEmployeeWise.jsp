@@ -10,7 +10,6 @@
         <button class="btn btn-outline-success btn-sm ml-5" onclick="location.href='/${role}/attendance?date=' + $('#date').val()">Filter</a>
     </div>
     <div class="div text-right mt-2">
-        <span class="mr-4">Total Days: ${days}</span>
         <a class="btn btn-primary" href="/${role}/attendance/add" role="button">Add Attendance</a>
     </div>
     <div class="table-responsive mt-2">
@@ -24,28 +23,28 @@
                 </tr>
             </thead>
             <tbody>
-            <c:forEach items="${attendances}" var="attendance">
+            <c:forEach items="${employees}" var="employee" varStatus="loop">
                 <tr>
                     <td>
-                        <c:if test="${attendance.role == 'ROLE_TEACHER'}">
-                            <a href="/${role}/teachers/ET${attendance.employeeId}">ET${attendance.employeeId} -
-                                ${attendance.name}</a>
+                        <c:if test="${employee.user.role == 'ROLE_TEACHER'}">
+                            <a href="/${role}/teachers/ET${employee.employeeId}">ET${employee.employeeId} -
+                                ${employee.user.name}</a>
                         </c:if>
-                        <c:if test="${attendance.role == 'ROLE_STAFF'}">
-                            <a href="/${role}/staffs/ES${attendance.employeeId}">ES${attendance.employeeId} -
-                                ${attendance.name}</a>
+                        <c:if test="${employee.user.role == 'ROLE_STAFF'}">
+                            <a href="/${role}/staffs/ES${employee.employeeId}">ES${employee.employeeId} -
+                                ${employee.user.name}</a>
                         </c:if>
                     </td>
-                    <td>${attendance.daysPresent}</td>
-                    <td><span style="color: red">${days - attendance.daysPresent}</span></td>
+                    <td>${daysPresent[loop.count-1].count}</td>
+                    <td style="color: red;">${daysAbsent[loop.count-1].count}</td>
                     <td>
-                        <c:if test="${attendance.role == 'ROLE_TEACHER'}">
+                        <c:if test="${employee.user.role == 'ROLE_TEACHER'}">
                             <a class="btn btn-outline-success btn-sm"
-                                href="/${role}/attendance/ET${attendance.employeeId}" role="button">View All</a>
+                                href="/${role}/attendance/ET${employee.employeeId}" role="button">View All</a>
                         </c:if>
-                        <c:if test="${attendance.role == 'ROLE_STAFF'}">
+                        <c:if test="${employee.user.role == 'ROLE_STAFF'}">
                             <a class="btn btn-outline-success btn-sm"
-                                href="/${role}/attendance/ES${attendance.employeeId}" role="button">View All</a>
+                                href="/${role}/attendance/ES${employee.employeeId}" role="button">View All</a>
                         </c:if>
                     </td>
                 </tr>

@@ -38,21 +38,21 @@ public class AttendanceDaoImpl implements AttendanceDao {
     }
 
     @Override
-    public int getTotalDays() {
-        String sql = "SELECT COUNT(DISTINCT date) FROM Attendance";
-        int count = template.queryForObject(sql, Integer.class);
-        return count;
+    public List<Map<String, Object>> getAllEmployeeWisePresent() {
+        String sql = "SELECT employeeId, COUNT(date) AS count FROM Attendance WHERE isPresent = true GROUP BY employeeId ";
+        sql += "UNION SELECT E.employeeId AS employeeId, 0 AS count FROM Employee E WHERE NOT EXISTS (SELECT A.employeeId FROM Attendance A WHERE isPresent = true AND A.employeeId = E.employeeId) ";
+        sql += "ORDER BY employeeId";
+        List<Map<String, Object>> presentCount = template.queryForList(sql);
+        return presentCount;
     }
 
     @Override
-    public List<Map<String, Object>> getAllEmployeeWise() {
-        String sql = "SELECT employeeId, CONCAT(firstName, ' ', middleName, ' ', lastName) AS name, role, COUNT(date) AS daysPresent "
-                + "FROM Attendance NATURAL JOIN Employee NATURAL JOIN User WHERE isPresent = true GROUP BY employeeId, name, role UNION "
-                + "SELECT E.employeeId AS employeeId, CONCAT(firstName, ' ', middleName, ' ', lastName) AS name, role, 0 AS daysPresent "
-                + "FROM Attendance NATURAL JOIN Employee E NATURAL JOIN User WHERE NOT EXISTS (SELECT A.employeeId FROM Attendance A WHERE isPresent = true AND A.employeeId = E.employeeId)";
-
-        List<Map<String, Object>> attendances = template.queryForList(sql);
-        return attendances;
+    public List<Map<String, Object>> getAllEmployeeWiseAbsent() {
+        String sql = "SELECT employeeId, COUNT(date) AS count FROM Attendance WHERE isPresent = false GROUP BY employeeId ";
+        sql += "UNION SELECT E.employeeId AS employeeId, 0 AS count FROM Employee E WHERE NOT EXISTS (SELECT A.employeeId FROM Attendance A WHERE isPresent = false AND A.employeeId = E.employeeId) ";
+        sql += "ORDER BY employeeId";
+        List<Map<String, Object>> absentCount = template.queryForList(sql);
+        return absentCount;
     }
 
     @Override
