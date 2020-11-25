@@ -51,19 +51,15 @@
             <tbody>
             <c:forEach items="${payrolls}" var="payroll">
                 <tr>
-                    <td><a href="/${role}/payroll/${payroll.paymentRefNo}">${payroll.paymentRefNo}</a></td>
+                    <td>${payroll.paymentRefNo}</td>
                     <td>
                         <c:if test="${payroll.employee.user.role == 'ROLE_TEACHER'}">
-                            <a href="/${role}/teachers/ET${payroll.employee.employeeId}">
-                                ET${payroll.employee.employeeId} - ${payroll.employee.user.firstName} ${payroll.employee.user.middleName}
-                                ${payroll.employee.user.lastName}
-                            </a>
+                            ET${payroll.employee.employeeId} - ${payroll.employee.user.firstName} ${payroll.employee.user.middleName}
+                            ${payroll.employee.user.lastName}
                         </c:if>
                         <c:if test="${payroll.employee.user.role == 'ROLE_STAFF'}">
-                            <a href="/${role}/staffs/ES${payroll.employee.employeeId}">
-                                ES${payroll.employee.employeeId} - ${payroll.employee.user.firstName} ${payroll.employee.user.middleName}
-                                ${payroll.employee.user.lastName}
-                            </a>
+                            ES${payroll.employee.employeeId} - ${payroll.employee.user.firstName} ${payroll.employee.user.middleName}
+                            ${payroll.employee.user.lastName}
                         </c:if>
                     </td>
                     <td>${payroll.month}</td>

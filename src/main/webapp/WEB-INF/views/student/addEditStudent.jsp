@@ -149,10 +149,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 40%; text-align: center;">Email Address</th>
+                    <th style="width: 40%; text-align: center;">Email Address ${mandatory}</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
-                        <form:input type="email" path="guardian.email" class="form-control"></form:input>
+                        <form:input type="email" path="guardian.email" class="form-control" required="true"></form:input>
                         <form:errors path="guardian.email" style="color: red;"></form:errors>
                     </td>
                 </tr>

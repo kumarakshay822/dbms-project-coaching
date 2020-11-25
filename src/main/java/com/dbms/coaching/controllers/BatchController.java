@@ -146,7 +146,7 @@ public class BatchController {
             model.addAttribute("message", "Add Batch");
             model.addAttribute("submessage1", "Add Batch");
             model.addAttribute("buttonmessage", "Finish");
-            model.addAttribute("submiturl", "/admin/academics/courses/" + courseId);
+            model.addAttribute("submiturl", "/admin/academics/courses/" + courseId + "/add-batch");
             Course course = courseDao.get(courseId);
             model.addAttribute("course", course);
             return "batch/addEditBatch";

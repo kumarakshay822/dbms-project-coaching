@@ -28,7 +28,6 @@ public class Student {
     @NotBlank
     private String schoolAttending;
 
-    @Valid
     private User user;
 
     @Valid

@@ -20,13 +20,13 @@
                 <th style="width: 40%;"></th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%; text-align: right;">
-                    <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_STAFF')">
+                    <c:if test="${role == 'admin' || role == 'staff'}">
                         <a class="btn btn-primary" href="/${role}/students/ST${student.studentId}/edit-student" role="button">Edit Student</a>
-                    </sec:authorize>
-                    <sec:authorize access="hasRole('ROLE_STUDENT')">
+                    </c:if>
+                    <c:if test="${role == 'student'}">
                         <a class="btn btn-outline-success" href="/profile/change-password" role="button">Change Password</a>
                         <a class="btn btn-primary" href="/profile/student/edit-student" role="button">Edit Student</a>
-                    </sec:authorize>
+                    </c:if>
                 </td>
             </tr>
             <tr>

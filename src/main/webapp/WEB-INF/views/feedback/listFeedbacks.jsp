@@ -28,8 +28,8 @@
             <c:forEach items="${feedbacks}" var="feedback">
                 <tr>
                     <td>${feedback.feedbackId}</td>
-                    <td><a href="/${role}/students/ST${feedback.studentId}">ST${feedback.studentId}</a></td>
-                    <td><a href="/${role}/teachers/ET${feedback.employeeId}">ET${feedback.employeeId}</a></td>
+                    <td>ST${feedback.studentId}</td>
+                    <td>ET${feedback.employeeId}</td>
                     <td>
                         <fmt:formatDate pattern="dd-MM-yyyy" value="${feedback.date}" />
                         <fmt:formatDate pattern="HH:mm:ss" value="${feedback.time}" />

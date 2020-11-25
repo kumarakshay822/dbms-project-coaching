@@ -16,7 +16,7 @@
                 <tr>
                     <th>Complaint ID</th>
                     <th>Date & Time</th>
-                    <th>Student ID</th>
+                    <c:if test="${role == admin}"><th>Student ID</th></c:if>
                     <th>Subject</th>
                     <th>Description</th>
                     <th>Response</th>
@@ -32,7 +32,9 @@
                         <fmt:formatDate pattern="dd-MM-yyyy" value="${complaint.date}" />
                         <fmt:formatDate pattern="HH:mm:ss" value="${complaint.time}" />
                     </td>
+                    <c:if test="${role == admin}">
                     <td><a href="/${role}/students/ST${complaint.studentId}">ST${complaint.studentId}</a></td>
+                    </c:if>
                     <td>${complaint.subject}</td>
                     <td>${complaint.description}</td>
                     <td>

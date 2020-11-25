@@ -13,6 +13,7 @@ public class Guardian {
     @NotEmpty
     private String address;
 
+    @NotEmpty
     private String email;
 
     @NotEmpty

@@ -474,6 +474,7 @@ public class ProfileController {
 
     @PostMapping("/profile/student/add")
     public String addStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult, Model model) {
+        System.out.println(bindingResult);
         int userId = securityService.findLoggedInUserId();
         String role = securityService.findLoggedInUserRole();
         if (!role.equals("student"))

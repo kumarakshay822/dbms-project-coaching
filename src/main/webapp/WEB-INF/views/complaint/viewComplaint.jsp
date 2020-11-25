@@ -33,11 +33,13 @@
                     <fmt:formatDate pattern="HH:mm:ss" value="${complaint.time}" />
                 </td>
             </tr>
+            <c:if test="${role == admin}">
             <tr>
                 <th style="width: 40%; text-align: center;">Student ID</th>
                 <th style="width: 10%;"></th>
                 <td style="width: 50%"><a href="/${role}/students/ST${complaint.studentId}">ST${complaint.studentId}</a></td>
             </tr>
+            </c:if>
             <tr>
                 <th style="width: 40%; text-align: center;">Subject</th>
                 <th style="width: 10%;"></th>
