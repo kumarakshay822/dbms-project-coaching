@@ -7,6 +7,18 @@
     <div class="container">
         <c:if test="${empty pageContext.request.userPrincipal}">
             <div class="row my-lg-5 justify-content-center">
+                <div class="feature-card p-lg-4 p-4 mx-4" onclick="location.href='/subjects'">
+                    <span class="fa fa-book fa-3x" aria-hidden="true"></span>
+                    <h3 class="my-3">SUBJECTS</h3>
+                    <p>View all the subjects we teach</p>
+                </div>
+                <div class="feature-card p-lg-4 p-4 mx-4" onclick="location.href='/courses'">
+                    <span class="fa fa-book-open fa-3x" aria-hidden="true"></span>
+                    <h3 class="my-3">COURSES</h3>
+                    <p>View all the courses.</p>
+                </div>
+            </div>
+            <div class="row my-lg-5 justify-content-center">
                 <div class="feature-card p-lg-4 p-4 mx-4" onclick="location.href='/user/login'">
                     <span class="fa fa-sign-in fa-3x" aria-hidden="true"></span>
                     <h3 class="my-3">LOGIN</h3>

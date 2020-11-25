@@ -17,9 +17,11 @@
                     <th>Course ID</th>
                     <th>Course Name</th>
                     <th>Description</th>
-                    <sec:authorize access='hasRole("ROLE_ADMIN")'><th>Subjects</th></sec:authorize>
-                    <th>Add Subject</th>
+                    <th>Subjects</th>
+                    <sec:authorize access='hasRole("ROLE_ADMIN")'><th>Add Subject</th></sec:authorize>
+                    <c:if test="${not empty pageContext.request.userPrincipal}">
                     <th>Action</th>
+                    </c:if>
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +41,7 @@
                             role="button">Add Subject</a>
                     </td>
                     </sec:authorize>
+                    <c:if test="${not empty pageContext.request.userPrincipal}">
                     <td>
                         <a class="btn btn-outline-success btn-sm" href="/${role}/academics/courses/${course.courseId}" role="button">View</a>
                         <sec:authorize access='hasRole("ROLE_ADMIN")'>
@@ -48,6 +51,7 @@
                             role="button">Delete</a>
                         </sec:authorize>
                     </td>
+                    </c:if>
                 </tr>
             </c:forEach>
             </tbody>

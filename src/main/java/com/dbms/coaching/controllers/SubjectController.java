@@ -41,7 +41,7 @@ public class SubjectController {
     @Autowired
     private StudentDao studentDao;
 
-    @GetMapping({ "/admin/academics/subjects", "/staff/academics/subjects" })
+    @GetMapping({ "/admin/academics/subjects", "/staff/academics/subjects", "/subjects" })
     public String listSubjects(Model model) {
         model.addAttribute("title", "Academic Portal - Subjects");
         model.addAttribute("message", "View all the subjects");

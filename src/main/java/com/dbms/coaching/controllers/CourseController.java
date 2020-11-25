@@ -49,7 +49,7 @@ public class CourseController {
     private CourseValidator courseValidator;
 
     @GetMapping({ "/admin/academics/courses", "/student/academics/courses", "/staff/academics/courses",
-            "/teacher/academics/courses" })
+            "/teacher/academics/courses", "/courses" })
     public String listCourses(Model model) {
         model.addAttribute("title", "Academic Portal - Courses");
         model.addAttribute("message", "View all the courses");

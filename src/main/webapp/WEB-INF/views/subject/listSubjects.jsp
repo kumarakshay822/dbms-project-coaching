@@ -23,7 +23,9 @@
                     <th>Subject ID</th>
                     <th>Subject Name</th>
                     <th>Description</th>
+                    <c:if test="${not empty pageContext.request.userPrincipal}">
                     <sec:authorize access="!hasRole('ROLE_STAFF')"><th>Study Materials</th></sec:authorize>
+                    </c:if>
                     <sec:authorize access="hasRole('ROLE_ADMIN')"><th>Action</th></sec:authorize>
                 </tr>
             </thead>
@@ -33,6 +35,7 @@
                     <td>${subject.subjectId}</td>
                     <td>${subject.subjectName}</td>
                     <td>${subject.description}</td>
+                    <c:if test="${not empty pageContext.request.userPrincipal}">
                     <sec:authorize access="!hasRole('ROLE_STAFF')">
                         <c:if test="${role == 'student'}">
                             <c:set var="contains" value="false" />
@@ -57,6 +60,7 @@
                         </c:choose>
                         </td>
                     </sec:authorize>
+                    </c:if>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <td>
                         <a class="btn btn-outline-success btn-sm" href="/${role}/academics/subjects/${subject.subjectId}"
