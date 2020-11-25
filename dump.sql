@@ -7,7 +7,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `Attendance`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `Attendance` (
   `date` date NOT NULL,
   `employeeId` int NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE `Attendance` (
   PRIMARY KEY (`date`,`employeeId`),
   KEY `employeeId` (`employeeId`),
   CONSTRAINT `Attendance_ibfk_1` FOREIGN KEY (`employeeId`) REFERENCES `Employee` (`employeeId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +49,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Batch`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `Batch` (
   `batchId` varchar(255) NOT NULL,
   `courseId` varchar(255) NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE `Batch` (
   PRIMARY KEY (`batchId`,`courseId`),
   KEY `courseId` (`courseId`),
   CONSTRAINT `Batch_ibfk_1` FOREIGN KEY (`courseId`) REFERENCES `Course` (`courseId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,7 +80,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Complaint`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `Complaint` (
   `complaintId` int NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE `Complaint` (
   PRIMARY KEY (`complaintId`),
   KEY `studentId` (`studentId`),
   CONSTRAINT `Complaint_ibfk_1` FOREIGN KEY (`studentId`) REFERENCES `Student` (`studentId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,13 +112,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Course`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `Course` (
   `courseId` varchar(255) NOT NULL,
   `courseName` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`courseId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,7 +137,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `CourseSubjectDetails`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `CourseSubjectDetails` (
   `courseId` varchar(255) NOT NULL,
   `subjectId` varchar(255) NOT NULL,
@@ -145,7 +145,7 @@ CREATE TABLE `CourseSubjectDetails` (
   KEY `subjectId` (`subjectId`),
   CONSTRAINT `CourseSubjectDetails_ibfk_1` FOREIGN KEY (`courseId`) REFERENCES `Course` (`courseId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `CourseSubjectDetails_ibfk_2` FOREIGN KEY (`subjectId`) REFERENCES `Subject` (`subjectId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,7 +164,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Employee`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `Employee` (
   `employeeId` int NOT NULL AUTO_INCREMENT,
   `basicSalary` int DEFAULT NULL,
@@ -176,7 +176,7 @@ CREATE TABLE `Employee` (
   PRIMARY KEY (`employeeId`),
   KEY `userId` (`userId`),
   CONSTRAINT `Employee_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=100052 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100052 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -195,7 +195,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Enrollment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `Enrollment` (
   `enrollmentId` int NOT NULL AUTO_INCREMENT,
   `studentId` int NOT NULL,
@@ -211,7 +211,7 @@ CREATE TABLE `Enrollment` (
   CONSTRAINT `Enrollment_ibfk_1` FOREIGN KEY (`studentId`) REFERENCES `Student` (`studentId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Enrollment_ibfk_2` FOREIGN KEY (`batchId`, `courseId`) REFERENCES `Batch` (`batchId`, `courseId`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `Enrollment_ibfk_3` FOREIGN KEY (`transactionId`) REFERENCES `Transaction` (`transactionId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -230,7 +230,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Feedback`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `Feedback` (
   `feedbackId` int NOT NULL AUTO_INCREMENT,
   `studentId` int NOT NULL,
@@ -245,7 +245,7 @@ CREATE TABLE `Feedback` (
   KEY `employeeId` (`employeeId`),
   CONSTRAINT `Feedback_ibfk_1` FOREIGN KEY (`studentId`) REFERENCES `Student` (`studentId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Feedback_ibfk_2` FOREIGN KEY (`employeeId`) REFERENCES `Employee` (`employeeId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -264,7 +264,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Guardian`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `Guardian` (
   `name` varchar(255) NOT NULL,
   `studentId` int NOT NULL,
@@ -275,7 +275,7 @@ CREATE TABLE `Guardian` (
   PRIMARY KEY (`name`,`studentId`),
   KEY `studentId` (`studentId`),
   CONSTRAINT `Guardian_ibfk_1` FOREIGN KEY (`studentId`) REFERENCES `Student` (`studentId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -294,7 +294,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `GuardianPhoneNumber`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `GuardianPhoneNumber` (
   `phoneNumber` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -302,7 +302,7 @@ CREATE TABLE `GuardianPhoneNumber` (
   PRIMARY KEY (`phoneNumber`,`name`,`studentId`),
   KEY `name` (`name`,`studentId`),
   CONSTRAINT `GuardianPhoneNumber_ibfk_1` FOREIGN KEY (`name`, `studentId`) REFERENCES `Guardian` (`name`, `studentId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -321,7 +321,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Payroll`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `Payroll` (
   `paymentRefNo` varchar(255) NOT NULL,
   `month` varchar(255) NOT NULL,
@@ -332,7 +332,7 @@ CREATE TABLE `Payroll` (
   PRIMARY KEY (`paymentRefNo`),
   KEY `employeeId` (`employeeId`),
   CONSTRAINT `Payroll_ibfk_1` FOREIGN KEY (`employeeId`) REFERENCES `Employee` (`employeeId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -351,7 +351,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Result`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `Result` (
   `studentId` int NOT NULL AUTO_INCREMENT,
   `testId` int NOT NULL,
@@ -363,7 +363,7 @@ CREATE TABLE `Result` (
   KEY `testId` (`testId`),
   CONSTRAINT `Result_ibfk_1` FOREIGN KEY (`studentId`) REFERENCES `Student` (`studentId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Result_ibfk_2` FOREIGN KEY (`testId`) REFERENCES `Test` (`testId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=100089 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100089 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -382,7 +382,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Staff`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `Staff` (
   `staffId` int NOT NULL AUTO_INCREMENT,
   `gender` enum('Male','Female','Not Specified') NOT NULL DEFAULT 'Not Specified',
@@ -395,7 +395,7 @@ CREATE TABLE `Staff` (
   PRIMARY KEY (`staffId`),
   KEY `employeeId` (`employeeId`),
   CONSTRAINT `Staff_ibfk_1` FOREIGN KEY (`employeeId`) REFERENCES `Employee` (`employeeId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -414,7 +414,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `StaffBatchDetails`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `StaffBatchDetails` (
   `staffId` int NOT NULL,
   `batchId` varchar(255) NOT NULL,
@@ -423,7 +423,7 @@ CREATE TABLE `StaffBatchDetails` (
   KEY `batchId` (`batchId`,`courseId`),
   CONSTRAINT `StaffBatchDetails_ibfk_1` FOREIGN KEY (`staffId`) REFERENCES `Staff` (`staffId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `StaffBatchDetails_ibfk_2` FOREIGN KEY (`batchId`, `courseId`) REFERENCES `Batch` (`batchId`, `courseId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -442,7 +442,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Student`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `Student` (
   `studentId` int NOT NULL AUTO_INCREMENT,
   `gender` enum('Male','Female','Not Specified') NOT NULL DEFAULT 'Not Specified',
@@ -456,7 +456,7 @@ CREATE TABLE `Student` (
   PRIMARY KEY (`studentId`),
   KEY `userId` (`userId`),
   CONSTRAINT `Student_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=100129 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100129 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -475,7 +475,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `StudyMaterial`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `StudyMaterial` (
   `materialId` varchar(255) NOT NULL,
   `subjectId` varchar(255) NOT NULL,
@@ -486,7 +486,7 @@ CREATE TABLE `StudyMaterial` (
   PRIMARY KEY (`materialId`,`subjectId`),
   KEY `subjectId` (`subjectId`),
   CONSTRAINT `StudyMaterial_ibfk_1` FOREIGN KEY (`subjectId`) REFERENCES `Subject` (`subjectId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -505,13 +505,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Subject`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `Subject` (
   `subjectId` varchar(255) NOT NULL,
   `subjectName` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`subjectId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -530,7 +530,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Teacher`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `Teacher` (
   `teacherId` int NOT NULL AUTO_INCREMENT,
   `gender` enum('Male','Female','Not Specified') NOT NULL DEFAULT 'Not Specified',
@@ -549,7 +549,7 @@ CREATE TABLE `Teacher` (
   KEY `subjectId` (`subjectId`),
   CONSTRAINT `Teacher_ibfk_1` FOREIGN KEY (`employeeId`) REFERENCES `Employee` (`employeeId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Teacher_ibfk_2` FOREIGN KEY (`subjectId`) REFERENCES `Subject` (`subjectId`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -568,7 +568,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `TeacherBatchDetails`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `TeacherBatchDetails` (
   `teacherId` int NOT NULL,
   `batchId` varchar(255) NOT NULL,
@@ -577,7 +577,7 @@ CREATE TABLE `TeacherBatchDetails` (
   KEY `batchId` (`batchId`,`courseId`),
   CONSTRAINT `TeacherBatchDetails_ibfk_1` FOREIGN KEY (`teacherId`) REFERENCES `Teacher` (`teacherId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `TeacherBatchDetails_ibfk_2` FOREIGN KEY (`batchId`, `courseId`) REFERENCES `Batch` (`batchId`, `courseId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -596,7 +596,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Test`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `Test` (
   `testId` int NOT NULL AUTO_INCREMENT,
   `testName` varchar(255) NOT NULL,
@@ -610,7 +610,7 @@ CREATE TABLE `Test` (
   PRIMARY KEY (`testId`),
   KEY `courseId` (`courseId`),
   CONSTRAINT `Test_ibfk_1` FOREIGN KEY (`courseId`) REFERENCES `Course` (`courseId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -629,7 +629,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Transaction`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `Transaction` (
   `transactionId` int NOT NULL AUTO_INCREMENT,
   `amount` decimal(10,2) NOT NULL,
@@ -638,7 +638,7 @@ CREATE TABLE `Transaction` (
   `transactionMode` enum('Offline','Online') NOT NULL DEFAULT 'Online',
   `isSuccess` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`transactionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -657,7 +657,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `User`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `User` (
   `userId` int NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
@@ -671,11 +671,11 @@ CREATE TABLE `User` (
   `isEmailVerified` tinyint(1) NOT NULL DEFAULT '0',
   `lastLoginDate` date DEFAULT NULL,
   `lastLoginTime` time DEFAULT NULL,
-  `role` enum('ROLE_ADMIN','ROLE_STAFF','ROLE_TEACHER','ROLE_STUDENT') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `role` enum('ROLE_ADMIN','ROLE_STAFF','ROLE_TEACHER','ROLE_STUDENT') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `emailAddress` (`emailAddress`)
-) ENGINE=InnoDB AUTO_INCREMENT=260 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=260 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -694,14 +694,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `UserPhoneNumber`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `UserPhoneNumber` (
-  `phoneNumber` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `phoneNumber` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `userId` int NOT NULL,
   PRIMARY KEY (`phoneNumber`,`userId`),
   KEY `userId` (`userId`),
   CONSTRAINT `UserPhoneNumber_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -720,14 +720,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `UserToken`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `UserToken` (
   `userId` int NOT NULL,
   `token` varchar(255) NOT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `token` (`token`),
   CONSTRAINT `UserToken_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
