@@ -39,9 +39,9 @@
                                 Recheck Done
                             </c:when>
                             <c:otherwise>
-                                <input type="number" id="newMarks">
+                                <input type="number" id="newMarks${result.student.studentId}">
                                 <a class="btn btn-outline-success btn-sm" onclick="postRequest('/${role}/academics/tests/${result.testId}/results-recheck/${result.student.studentId}',
-                                                    {'newMarks': $('#newMarks').val()})" role="button">Mark Done</a>
+                                                    {'newMarks': $('#newMarks${result.student.studentId}').val()})" role="button">Mark Done</a>
                                 <div id="error" style="color: red;"></div>
                             </c:otherwise>
                         </c:choose>

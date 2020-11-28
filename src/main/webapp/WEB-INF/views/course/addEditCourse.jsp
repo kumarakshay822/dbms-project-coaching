@@ -50,7 +50,7 @@
                     <th style="width: 40%; text-align: center;">Description</th>
                     <th style="width: 10%;"></th>
                     <td style="width: 50%">
-                        <form:input type="text" path="description" class="form-control" required="true"></form:input>
+                        <form:input type="text" path="description" class="form-control"></form:input>
                         <form:errors path="description" style="color: red;"></form:errors>
                     </td>
                 </tr>

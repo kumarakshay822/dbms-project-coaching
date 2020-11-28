@@ -35,7 +35,10 @@
                 <tr>
                     <td>${test.testId}</td>
                     <td>${test.testName}</td>
-                    <td>${test.course.courseName} - ${test.course.courseId}</td>
+                    <c:choose>
+                        <c:when test="${role == 'student'}"><td>${test.courseName} - ${test.courseId}</td></c:when>
+                        <c:otherwise><td>${test.course.courseName} - ${test.course.courseId}</td></c:otherwise>
+                    </c:choose>
                     <td>${test.roomNumber}</td>
                     <td><fmt:formatDate pattern="dd-MM-yyyy" value="${test.testDate}" /></td>
                     <td><fmt:formatDate pattern="HH:mm:ss" value="${test.startTime}" /></td>
