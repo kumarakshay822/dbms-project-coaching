@@ -8,6 +8,14 @@ This repository contains source code for the DBMS Project - Coaching Institute M
 - To run the project:
   - Login to mysql and create the database: `CREATE DATABASE coaching;`
   - Create all tables: `mysql -u root -p coaching < database.sql`
+  - Set the value to the following environment variables:
+    - `SPRING_DATASOURCE_URL`
+    - `SPRING_DATASOURCE_USERNAME`
+    - `SPRING_DATASOURCE_PASSWORD`
+    - `GMAIL_EMAIL`
+    - `GMAIL_PASSWORD`
+    - `INSTAMOJO_CLIENT_ID`
+    - `INSTAMOJO_CLIENT_SECRET`
   - Run the project: `./mvnw spring-boot:run`
   
 
