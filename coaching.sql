@@ -201,8 +201,8 @@ CREATE TABLE IF NOT EXISTS Employee (
   basicSalary int DEFAULT NULL,
   joinDate date DEFAULT NULL,
   endDate date DEFAULT NULL,
-  panNumber varchar(255) NOT NULL,
-  accountNumber varchar(255) NOT NULL,
+  panNumber varchar(255) NOT NULL UNIQUE,
+  accountNumber varchar(255) NOT NULL UNIQUE,
   userId int NOT NULL,
   PRIMARY KEY (employeeId),
   FOREIGN KEY (userId) REFERENCES User(userId) ON DELETE CASCADE ON UPDATE CASCADE
@@ -320,7 +320,7 @@ CREATE TABLE IF NOT EXISTS Staff (
 
 CREATE TABLE IF NOT EXISTS Course (
   courseId varchar(255) NOT NULL,
-  courseName varchar(255) NOT NULL,
+  courseName varchar(255) NOT NULL UNIQUE,
   description varchar(255) DEFAULT NULL,
   PRIMARY KEY (courseId)
 );

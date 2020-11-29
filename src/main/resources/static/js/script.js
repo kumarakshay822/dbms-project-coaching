@@ -116,3 +116,13 @@ for (i = 1; i < pathArray.length; i++) {
 };
 $('.table-sort').DataTable();
 $('.table-sort-default').DataTable({"order": [[ 3, "asc" ]]});
+
+$("#userdropdown").click(function() {
+    var x = document.getElementById("userdropdownmenu");
+    if (!x.classList.contains('show')) {
+        x.classList.add("show");
+    } else {
+        x.classList.remove("show");
+    }
+})
+

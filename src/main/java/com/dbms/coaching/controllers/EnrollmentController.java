@@ -230,8 +230,8 @@ public class EnrollmentController {
     }
 
     @GetMapping("/student/transaction/{courseId}/{batchId}")
-    public String processTransaction(Integer transaction_id, @PathVariable("courseId") String courseId, @PathVariable("batchId") String batchId) {
-        int transactionId = transaction_id;
+    public String processTransaction(String transaction_id, @PathVariable("courseId") String courseId, @PathVariable("batchId") String batchId) {
+        int transactionId = paymentService.getTransactionId(transaction_id);
         String status = paymentService.getTransactionDetails(transactionId);
         if (status.equals("completed")) {
             transactionDao.setSuccess(transactionId);

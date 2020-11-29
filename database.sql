@@ -157,7 +157,8 @@ CREATE TABLE `Course` (
   `courseId` varchar(255) NOT NULL,
   `courseName` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`courseId`)
+  PRIMARY KEY (`courseId`),
+  UNIQUE KEY `courseName` (`courseName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -214,6 +215,8 @@ CREATE TABLE `Employee` (
   `accountNumber` varchar(255) NOT NULL,
   `userId` int NOT NULL,
   PRIMARY KEY (`employeeId`),
+  UNIQUE KEY `panNumber` (`panNumber`),
+  UNIQUE KEY `accountNumber` (`accountNumber`),
   KEY `userId` (`userId`),
   CONSTRAINT `Employee_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=100052 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

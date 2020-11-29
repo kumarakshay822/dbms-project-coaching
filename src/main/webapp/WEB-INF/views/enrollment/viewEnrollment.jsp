@@ -73,7 +73,7 @@
             <tr>
                 <th style="width: 40%; text-align: center;">Time</th>
                 <th style="width: 10%;"></th>
-                <td style="width: 50%"><fmt:formatDate pattern="dd-MM-yyyy" value="${enrollment.transaction.time}" /></td>
+                <td style="width: 50%"><fmt:formatDate pattern="HH:mm:ss" value="${enrollment.transaction.time}" /></td>
             </tr>
             <tr>
                 <th style="width: 40%; text-align: center;">Transaction Mode</th>

@@ -35,6 +35,20 @@ public class PaymentService {
     ApiContext context = ApiContext.create(System.getenv("INSTAMOJO_CLIENT_ID"), System.getenv("INSTAMOJO_CLIENT_SECRET"), ApiContext.Mode.TEST);
     Instamojo api = new InstamojoImpl(context);
 
+    public String getTransactionPrefix() {
+        String transaction_prefix = System.getenv("TRANSACTION_PREFIX");
+        if (transaction_prefix == null) {
+            return "";
+        } else {
+            return transaction_prefix;
+        }
+    }
+
+    public int getTransactionId(String transaction_id) {
+        String prefix = getTransactionPrefix();
+        return Integer.valueOf(transaction_id.substring(prefix.length()));
+    }
+
     public String createPayment(User user, int transactionId, int amount, String courseId, String batchId) {
 
         /*
@@ -49,7 +63,7 @@ public class PaymentService {
         order.setDescription("Payment for enrolling " + user.getName());
         String redirectUrl = serverUtil.getHostAddressAndPort() + "/student/transaction/" + courseId + "/" + batchId;
         order.setRedirectUrl(redirectUrl);
-        order.setTransactionId("" + transactionId);
+        order.setTransactionId(getTransactionPrefix() + transactionId);
 
         List<UserPhoneNumber> phoneNumbers = userPhoneNumberDao.getByUserId(user.getUserId());
         if (phoneNumbers.size() > 0) {
@@ -77,7 +91,7 @@ public class PaymentService {
          * Get details of payment order when transaction id is given
          */
         try {
-            PaymentOrder paymentOrder = api.getPaymentOrderByTransactionId("" + transactionId);
+            PaymentOrder paymentOrder = api.getPaymentOrderByTransactionId(getTransactionPrefix() + transactionId);
             return paymentOrder.getStatus();
 
         } catch (HTTPException e) {

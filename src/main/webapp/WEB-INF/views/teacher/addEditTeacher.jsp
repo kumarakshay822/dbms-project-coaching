@@ -26,7 +26,7 @@
                 <tr>
                     <th style="width: 40%; text-align: center;">Employee ID</th>
                     <th style="width: 10%;"></th>
-                    <td style="width: 50%">ET${teacher.employee.employeeId}</td>
+                    <td style="width: 50%">ET${employeeId}</td>
                 </tr>
                 </c:if>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -70,7 +70,7 @@
                                 <form:option value="${subject.subjectId}">${subject.subjectName} - ${subject.subjectId}</form:option>
                             </c:forEach>
                         </form:select>
-                        <form:errors path="gender" style="color: red;"></form:errors>
+                        <form:errors path="subject.subjectId" style="color: red;"></form:errors>
                     </td>
                 </tr>
                 </c:if>

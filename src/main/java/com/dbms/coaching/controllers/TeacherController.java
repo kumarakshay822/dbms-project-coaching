@@ -169,6 +169,8 @@ public class TeacherController {
             model.addAttribute("buttonmessage", "Proceed to Step 2");
             model.addAttribute("submiturl", "/admin/teachers/ET" + employeeId + "/edit-teacher");
             model.addAttribute("edit", "true");
+            List<Subject> subjects = subjectDao.getAll();
+            model.addAttribute("subjects", subjects);
             return "teacher/addEditTeacher";
         }
         Teacher oldTeacher = teacherDao.getByEmployeeId(employeeId);

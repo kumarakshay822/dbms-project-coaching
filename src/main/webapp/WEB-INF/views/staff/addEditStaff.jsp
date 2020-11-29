@@ -26,7 +26,7 @@
                 <tr>
                     <th style="width: 40%; text-align: center;">Employee ID</th>
                     <th style="width: 10%;"></th>
-                    <td style="width: 50%">ES${staff.employee.employeeId}</td>
+                    <td style="width: 50%">ES${employeeId}</td>
                 </tr>
                 </c:if>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">

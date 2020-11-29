@@ -2,7 +2,7 @@
 
 This repository contains source code for the DBMS Project - Coaching Institute Management System.
 
-- Deployed URL: https://dbms-coaching-ashish.herokuapp.com
+- Deployed URL: https://dbms-coaching-ashish.herokuapp.com (MySQL Database)
 - Tables: Normalized upto BCNF, 24 tables, 143 attributes in total.
 - [Relational Schema](relational-schema.png)
 - To run the project:
@@ -17,7 +17,7 @@ This repository contains source code for the DBMS Project - Coaching Institute M
     - `INSTAMOJO_CLIENT_ID`
     - `INSTAMOJO_CLIENT_SECRET`
   - Run the project: `./mvnw spring-boot:run`
-  
+
 
 ## Roles
 

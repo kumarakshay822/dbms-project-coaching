@@ -87,10 +87,10 @@
                                         <div class="nav-link active">Hi ${pageContext.request.userPrincipal.principal.user.firstName}!</div>
                                     </li>
                                     <li class="nav-item dropdown mr-5">
-                                        <a class="nav-link active dropdown-toggle" href="#" id="userdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <a class="nav-link active dropdown-toggle" href="#" id="userdropdown" aria-haspopup="true" aria-expanded="false">
                                             User: <c:out value="${pageContext.request.userPrincipal.principal.user.username}" />
                                         </a>
-                                        <div class="dropdown-menu" aria-labelledby="userdropdown">
+                                        <div class="dropdown-menu" aria-labelledby="userdropdown" id="userdropdownmenu">
                                             <a class="dropdown-item" href="/profile">View Profile</a>
                                             <a class="dropdown-item" href="/profile/change-password">Change Password</a>
                                             <a class="dropdown-item" href="/user/logout">Logout</a>
